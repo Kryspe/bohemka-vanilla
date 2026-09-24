@@ -1,4 +1,4 @@
-# Klokani — TJ Bohemians Praha (Vanilla verze)
+TJ Bohemians Praha (Gem verze)
 
 Lehká a rychlá webová prezentace pro plavecký oddíl TJ Bohemians Praha ([boh.cz](https://boh.cz)).
 
