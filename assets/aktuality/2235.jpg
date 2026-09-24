@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml" lang="cs" xml:lang="cs" xmlns:fb="https://ogp.me/ns/fb#">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="credits, hubik"/>
+	<meta name="keywords" content="plavání, sportovní škola, přípravka, plavecké závody, reprezentace, děti, volný čas" />
+	<meta name="description" content="Webový portál Plaveckého oddílu TJ Bohemians" />
+	<link href="/favicon.ico" rel="shortcut icon" />
+	<link rel="stylesheet" type="text/css" href="/css/style.css?v=12c" />
+	<meta property="og:image" content="/images_new/bohemka.png"/>
+	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,600italic,700italic&subset=latin-ext' rel='stylesheet' type='text/css'>
+	<script type='text/javascript' src='/highslide/highslide-with-gallery.js'></script>
+	<script type='text/javascript' src='/highslide/highslide.config.js' charset='utf-8'></script>
+	<link rel='stylesheet' type='text/css' href='/highslide/highslide.css' />
+	<title>TJ Bohemians Praha</title>
+		
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZMNZQN7KQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QZMNZQN7KQ');
+</script>
+
+<meta name="google-translate-customization" content="9355ca28f0839ecc-649d75cac71a35fb-g2cdc2413c2d86a1a-a"></meta>
+
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/cs_CZ/sdk.js#xfbml=1&version=v2.6&appId=221828744517009";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+	<div class="wrapper">
+	<div class="header">
+	<div class="logo">
+		<a href="/"><img src="/images_new/logo8.png" /></a>
+	</div>
+	<div class="plavkyne">
+		<img src="/images_new/plavci/16.png?v=2">
+	</div>
+	<div class="menu">
+		<ul>
+			<li><a href="/">Aktuality</a></li>
+			<li><a href="/vzkazy/">Pro rodiče</a></li>
+			<li><a href="/oddil/">Oddíl</a></li>
+			<li><a href="/zavody/">Závody</a></li>
+			<li><a href="/rekordy/">Rekordy</a></li>
+			<li><a href="/index.php?page=stat">Statistika</a></li>
+			<li><a href="/foto/">Foto</a></li>
+			<li><a href="/stahovani/">Ke stažení</a></li>
+			<li><a href="/index.php?page=login">Intranet</a></li>
+		</ul>
+	</div>
+	  <span class="roof"></span>
+	</div>
+		<div class="content">
+		<div class="main"></div>
+			<div class="aside">
+<div class='alertBox1'><span class='title'>Sobotní trénink v Podolí</span><p>v září již NENÍ.</p></div><div class='alertBox'><span class='title'>Nábor do závodní přípravky 6-12 let</span><p>byl UKONČEN pro vyčerpání kapacity. </p></div><div class='alertBox'><span class='title'>V roce 2026 se uskutečnilo setkání při 80. výročí oddílu</span><p>a bylo to velkolepé :-)</p></div>
+<!-- černý čtverec
+<div class='alertBoxBlack'><span class='title'>Připravujeme Prázdninový čtyřboj</span><p>závody se uskuteční ve čtvrtek 25. 6. 2015 od 16:30.</p></div>
+konec černý čtverec -->
+
+<div class="widget">
+<h4>Podporují nás</h4>
+<a href="https://www.praha.eu/" target="_blank"><img src="/images_new/bohcz_praha.png"></a>&nbsp;&nbsp;&nbsp;<a href="https://www.czechswimming.cz/" target="_blank"><img src="/images_new/bohcz_svaz.png"></a></div>
+
+<div class="widget">
+<h4>Translator</h4>
+<div id="google_translate_element"></div><script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'cs', includedLanguages: 'cs,de,en,es,fr,hu,it,pl,pt-PT,ru,uk,nl', gaTrack: true, gaId: 'UA-43078033-1'}, 'google_translate_element');
+}
+</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</div>
+
+<div class="widget_h">
+<h4><a href="/index.php?page=vzkazy">Vzkazy pro rodiče</a></h4>
+<ul>
+<li><span class='title'><a href='/vzkazy#971'>Novou sezónu začínáme závody</span></a> (28.8.2026)<br><li><span class='title'><a href='/vzkazy#972'>Mistrovství ČR DP v Račicích</span></a> (28.8.2026)<br><li><span class='title'><a href='/vzkazy#970'>Prázdninové soustředění Jizerky - 7. den</span></a> (21.8.2026)<br></ul>
+</div>
+
+<div class="widget_h">
+<h4><a href="/stahovani/">Novinky ke stažení</a></h4>
+<ul>
+<li><span class='title'><a href='/download/165_rozdeleni_plavani_2026-27.pdf'>Rozřazení do skupin, rozvrh a platby 2026-27</span></a> (20.8.2026)<br><li><span class='title'><a href='/download/164_pravidla_plavani_vytah_a_vysvetleni_04-26.pdf'>Výklad pravidel plavání (2026)</span></a> (30.4.2026)<br><li><span class='title'><a href='/download/163_26hory-jednotlivci_kilometraz_tymy.pdf'>Lyžařské soustředění 2026 - výsledky jednotlivců, kilometráž a týmy</span></a> (30.1.2026)<br></ul>
+</div>
+
+<div class="widget">
+<h4><a href="/index.php?page=fotky">Poslední fotogalerie</a></h4>
+<table width="100%"><tr style="text-align: center; vertical-align: top;">
+<td width='120px'><a href='/galerie/938/'><img src='/fotky/938/small/86708_small.jpg' class='sidebar_fotka'><br>Oslava 80 let oddílu retro fotky na LED (foto různí autoři)</a></td><td width='120px'><a href='/galerie/939/'><img src='/fotky/939/small/86266_small.jpg' class='sidebar_fotka'><br>Oslava 80 let oddílu (foto Petr Dvořák)</a></td></tr></table>
+</div>
+
+<!--
+<div class="widget">
+<h4>Kam se chystáme</h4>
+</div>
+-->
+
+<div class="widget">
+<h4>Pořádáme</h4>
+<a href="http://www.jarnicenaprahy.cz/" target="_blank"><img src="/images_new/loga/jcp_promo.png"></a>
+</div>
+
+<h4>Najdete nás na Facebooku</h4>
+<div class="fb-page" data-href="https://www.facebook.com/boh.cz/" data-width="300" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="false"></div>
+<div class="fb-page" data-href="https://www.facebook.com/jarnicenaprahy.cz/" data-width="300" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="false"></div>	</div>
+		<div class="patka">
+			Napište nám: <a href="mailto:jan.srb@czechswimming.cz">jan.srb@czechswimming.cz</a> | 
+			&copy; copyright 2007 - 2026 | 
+			design by <a href="mailto:vojtech.baroch@gmail.com">barri</a> | 
+			programming by <a href="mailto:profik123@gmail.com">Cr3d1ts</a> & Hubik | 
+			<a href="https://www.toplist.cz/stat/438887"><script language="JavaScript" type="text/javascript">
+<!--
+document.write('<img src="https://toplist.cz/count.asp?id=438887&logo=s&http='+escape(document.referrer)+'&t='+escape(document.title)+
+'&wi='+escape(window.screen.width)+'&he='+escape(window.screen.height)+'&cd='+escape(window.screen.colorDepth)+'" width="14" height="14" border=0 alt="TOPlist" />'); 
+//--></script><noscript><img src="https://toplist.cz/count.asp?id=438887&logo=s" border="0"
+alt="TOPlist" width="14" height="14" /></noscript></a> 
+		</div>
+		</div>
+</body>
+</html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="cs" class="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#030705">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Klokani — TJ Bohemians Praha | Plavecký oddíl</title>
+  <meta name="description" content="Plavecký oddíl TJ Bohemians Praha (Klokani) — tradice od roku 1946. Závodní plavání, přípravka, kurzy, závody, rekordy a aktuality.">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    try {
+      var t = localStorage.getItem('klokani-theme');
+      var d = t ? t === 'dark' : true;
+      document.documentElement.classList.toggle('dark', d);
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', d ? '#030705' : '#fbfdfc');
+    } catch(e) {}
+  </script>
+</head>
+<body class="bg-background text-foreground font-sans antialiased overflow-x-hidden min-h-[100dvh]">
+
+  <div class="flex min-h-screen flex-col overflow-x-hidden">
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 bg-transparent px-3 pb-2 pt-[calc(0.75rem+env(safe-area-inset-top))] sm:px-4 sm:pt-4">
+      <div class="relative mx-auto flex max-w-7xl items-center justify-between gap-4 overflow-hidden rounded-[1.5rem] border border-border/60 bg-background/90 px-4 py-2.5 shadow-[var(--shadow-elevated)] backdrop-blur-md sm:px-5">
+        <a href="index.html" class="group flex items-center">
+          <img src="assets/logo-klokani.png" alt="TJ Bohemians Praha — oddíl plavání Klokani" width="711" height="200" class="h-8 w-auto max-w-[15rem] object-contain transition-all duration-500 group-hover:scale-[1.04] group-hover:drop-shadow-[var(--glow-aqua)] invert dark:invert-0 sm:h-10 sm:max-w-none">
+        </a>
+
+        <nav class="hidden items-center gap-1.5 lg:flex">
+          <div>
+            <a href="index.html" class="nav-item group relative rounded-full border border-primary/70 text-primary bg-primary/10 shadow-[0_8px_20px_-12px_var(--color-primary)] px-3.5 py-1.5 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5">
+              <span class="relative z-10">Úvod</span>
+            </a>
+          </div>
+          <div>
+            <a href="aktuality.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]">
+              <span class="relative z-10">Aktuality</span>
+            </a>
+          </div>
+          <div>
+            <a href="oddil.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]">
+              <span class="relative z-10">Oddíl</span>
+            </a>
+          </div>
+          <div>
+            <a href="pro-rodice.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]">
+              <span class="relative z-10">Pro rodiče</span>
+            </a>
+          </div>
+          <div>
+            <a href="zavody.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]">
+              <span class="relative z-10">Závody</span>
+            </a>
+          </div>
+          <div>
+            <a href="rekordy.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]">
+              <span class="relative z-10">Rekordy</span>
+            </a>
+          </div>
+          <div>
+            <a href="foto.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]">
+              <span class="relative z-10">Foto</span>
+            </a>
+          </div>
+          <div>
+            <a href="kontakt.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]">
+              <span class="relative z-10">Kontakt</span>
+            </a>
+          </div>
+
+          <a href="intranet.html" class="group relative ml-2 overflow-hidden rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary ring-1 ring-inset ring-primary/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:text-primary-foreground hover:shadow-[var(--glow-aqua)]">
+            <span class="relative z-10">Intranet</span>
+            <span class="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full"></span>
+          </a>
+
+          <div class="ml-1">
+            <button type="button" class="theme-toggle-btn inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/60 text-muted-foreground transition-colors hover:text-foreground" aria-label="Přepnout motiv"></button>
+          </div>
+        </nav>
+
+        <div class="flex items-center gap-1 lg:hidden">
+          <button type="button" class="theme-toggle-btn inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/60 text-muted-foreground transition-colors hover:text-foreground" aria-label="Přepnout motiv"></button>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="w-full min-w-0 flex-1 overflow-x-clip pb-24 lg:pb-0">
+
+      <!-- HERO -->
+      <section class="relative isolate -mt-[calc(4.5rem+env(safe-area-inset-top))] overflow-hidden pt-[calc(4.5rem+env(safe-area-inset-top))] sm:-mt-20 sm:pt-20">
+        <!-- Aquatic backdrop -->
+        <div class="absolute inset-0 -z-10 bg-background"></div>
+        <div class="absolute inset-0 -z-10 bg-[radial-gradient(60%_60%_at_20%_10%,oklch(0.58_0.13_215/0.18),transparent_70%),radial-gradient(50%_50%_at_85%_30%,oklch(0.65_0.18_35/0.12),transparent_70%)]"></div>
+
+        <div class="relative mx-auto flex min-h-[86vh] max-w-7xl items-center px-4 py-16 sm:px-6 sm:py-20">
+          <div class="relative w-full overflow-hidden rounded-[2rem] border border-border/60 bg-card/90 p-8 shadow-[var(--shadow-elevated)] sm:p-12 md:p-16">
+            <p class="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-primary">
+              Plavecký oddíl · od roku 1946 · 80 let Klokanů
+            </p>
+            <h1 class="max-w-4xl font-display text-4xl font-extrabold leading-[1.05] sm:text-5xl md:text-7xl">
+              Už to spolu táhnem 80 let.
+            </h1>
+            <p class="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+              Jsme Klokani — TJ Bohemians Praha — oddíl plavání 1946–2026. Vychováváme plavce od prvních temp po reprezentaci na mistrovstvích republiky a Evropy.
+            </p>
+            <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
+              <a href="pro-rodice.html" class="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-aqua px-7 py-3.5 font-semibold text-primary-foreground shadow-[var(--glow-aqua)] transition-transform hover:scale-[1.03] active:scale-95">
+                Chci se přidat <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+              </a>
+              <a href="zavody.html" class="inline-flex items-center justify-center gap-2 rounded-full border border-border px-7 py-3.5 font-semibold text-foreground transition-colors hover:bg-card">
+                Kalendář závodů
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wave divider -->
+        <div class="pointer-events-none absolute inset-x-0 bottom-0 -z-10 overflow-hidden">
+          <svg viewBox="0 0 1440 140" class="h-24 w-full text-primary/10" preserveAspectRatio="none">
+            <path fill="currentColor" d="M0,64 C240,128 480,0 720,48 C960,96 1200,16 1440,64 L1440,140 L0,140 Z M1440,64 C1680,128 1920,0 2160,48 C2400,96 2640,16 2880,64 L2880,140 L1440,140 Z"></path>
+          </svg>
+        </div>
+      </section>
+
+      <!-- QUICK DASHBOARD CARDS -->
+      <section class="relative z-10 mx-auto -mt-2 max-w-7xl px-4 pb-8 sm:px-6 lg:-mt-8 lg:pb-12">
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <!-- Card 1: Nejbližší závod -->
+          <div>
+            <a href="zavody.html" class="group flex h-full flex-col rounded-2xl border border-border/60 bg-card/90 p-5 shadow-[var(--shadow-elevated)] transition-transform duration-200 hover:-translate-y-1 hover:border-primary/50">
+              <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                Nejbližší závod
+              </div>
+              <p class="mt-3 font-display text-lg font-bold leading-snug group-hover:text-primary" id="home-nearest-name">
+                Velká cena města Plzně
+              </p>
+              <p class="mt-1 text-sm text-muted-foreground" id="home-nearest-date">
+                3. 10. 2026 · Plzeň
+              </p>
+              <div class="mt-auto flex items-center gap-2 pt-4">
+                <span class="font-display text-3xl font-extrabold text-primary" id="home-days-left">10</span>
+                <span class="text-sm text-muted-foreground">dní</span>
+              </div>
+            </a>
+          </div>
+
+          <!-- Card 2: Aktualita -->
+          <div>
+            <a href="aktuality.html?id=oslava-80-let-bohemka" class="group flex h-full flex-col rounded-2xl border border-border/60 bg-card/90 p-5 shadow-[var(--shadow-elevated)] transition-transform duration-200 hover:-translate-y-1 hover:border-primary/50">
+              <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                Aktualita
+              </div>
+              <p class="mt-3 font-display text-lg font-bold leading-snug group-hover:text-primary">
+                Plavecká Bohemka oslavila 80 let ve velkém stylu!
+              </p>
+              <p class="mt-1 line-clamp-2 flex-1 text-sm text-muted-foreground">
+                212 Klokanů dorazilo na Hagibor oslavit 80 let od založení našeho oddílu.
+              </p>
+              <span class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">
+                Číst více <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+              </span>
+            </a>
+          </div>
+
+          <!-- Card 3: Vzkaz pro rodiče -->
+          <div>
+            <a href="pro-rodice.html" class="group flex h-full flex-col rounded-2xl border border-border/60 bg-card/90 p-5 shadow-[var(--shadow-elevated)] transition-transform duration-200 hover:-translate-y-1 hover:border-primary/50">
+              <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                Vzkaz pro rodiče
+              </div>
+              <p class="mt-3 line-clamp-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+                Novou sezónu začínáme závody · Sobotní trénink v Podolí v září již není · Nábor do závodní přípravky byl ukončen.
+              </p>
+              <span class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">
+                Všechny vzkazy <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+              </span>
+            </a>
+          </div>
+
+          <!-- Card 4: Intranet -->
+          <div>
+            <a href="intranet.html" class="group flex h-full flex-col rounded-2xl border border-[var(--intranet-accent)]/30 bg-[var(--intranet-accent)]/[0.06] p-5 shadow-[var(--shadow-elevated)] transition-transform duration-200 hover:-translate-y-1 hover:border-[var(--intranet-accent)]/60">
+              <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--intranet-accent)]">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Intranet
+              </div>
+              <p class="mt-3 font-display text-lg font-bold leading-snug">Přihlášky a výsledky</p>
+              <p class="mt-1 flex-1 text-sm text-muted-foreground">
+                Přihlaš se na závody, rezervuj soustředění nebo zkontroluj své časy.
+              </p>
+              <span class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--intranet-accent)]">
+                Otevřít <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+              </span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- STATS -->
+      <section class="border-y border-border/60 bg-card/40">
+        <div class="mx-auto grid max-w-7xl grid-cols-2 gap-px overflow-hidden px-4 sm:px-6 md:grid-cols-4">
+          <div class="flex flex-col items-center gap-2 px-4 py-10 text-center">
+            <svg class="h-7 w-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+            <span class="font-display text-4xl font-extrabold">80</span>
+            <span class="text-sm text-muted-foreground">let tradice (1946–2026)</span>
+          </div>
+          <div class="flex flex-col items-center gap-2 px-4 py-10 text-center">
+            <svg class="h-7 w-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span class="font-display text-4xl font-extrabold">7</span>
+            <span class="text-sm text-muted-foreground">tréninkových skupin</span>
+          </div>
+          <div class="flex flex-col items-center gap-2 px-4 py-10 text-center">
+            <svg class="h-7 w-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+            <span class="font-display text-4xl font-extrabold">16</span>
+            <span class="text-sm text-muted-foreground">medailí z ME masters 2026</span>
+          </div>
+          <div class="flex flex-col items-center gap-2 px-4 py-10 text-center">
+            <svg class="h-7 w-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>
+            <span class="font-display text-4xl font-extrabold">2</span>
+            <span class="text-sm text-muted-foreground">domácí bazény</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- NEWS -->
+      <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+        <div class="mb-10 flex items-end justify-between">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-primary">Aktuality</p>
+            <h2 class="mt-2 font-display text-3xl font-extrabold md:text-4xl">Co je u Klokanů nového</h2>
+          </div>
+          <a href="aktuality.html" class="hidden items-center gap-1 text-sm font-semibold text-primary hover:underline sm:inline-flex">
+            Všechny aktuality <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+          </a>
+        </div>
+        <div class="grid gap-6 md:grid-cols-3" id="home-news-cards"></div>
+      </section>
+
+      <!-- GROUPS -->
+      <section class="border-y border-border/60 bg-card/30">
+        <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-primary">Tréninkové skupiny</p>
+          <h2 class="mt-2 max-w-2xl font-display text-3xl font-extrabold md:text-4xl">
+            Cesta od kurzů až po reprezentaci
+          </h2>
+          <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" id="home-groups-cards"></div>
+          <a href="oddil.html" class="mt-10 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline">
+            Více o oddílu <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-24 border-t border-border/60 bg-card/40">
+      <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
+        <div class="md:col-span-2">
+          <img src="assets/logo-klokani.png" alt="TJ Bohemians Praha — oddíl plavání Klokani" width="711" height="200" loading="lazy" class="h-14 w-auto object-contain invert dark:invert-0">
+          <p class="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground">
+            Plavecký oddíl s tradicí od roku 1946. Vychováváme špičkové sportovce i začínající plavce — od kurzů přes přípravku až po reprezentaci na mistrovstvích.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">Sekce</h3>
+          <ul class="space-y-2 text-sm text-muted-foreground">
+            <li><a href="aktuality.html" class="hover:text-primary">Aktuality</a></li>
+            <li><a href="oddil.html" class="hover:text-primary">O oddílu</a></li>
+            <li><a href="zavody.html" class="hover:text-primary">Závody</a></li>
+            <li><a href="rekordy.html" class="hover:text-primary">Rekordy</a></li>
+            <li><a href="pro-rodice.html" class="hover:text-primary">Pro rodiče</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">Kontakt</h3>
+          <ul class="space-y-3 text-sm text-muted-foreground">
+            <li>
+              <a href="mailto:jan.srb@czechswimming.cz" class="inline-flex items-center gap-2 hover:text-primary">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                jan.srb@czechswimming.cz
+              </a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/bohemka_plavani" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 hover:text-primary">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                Instagram
+              </a>
+            </li>
+            <li class="pt-2 text-xs">Bazény: Podolí &amp; Vinohrady, Praha</li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-border/60 py-6 text-center text-xs text-muted-foreground">
+        © 1946–2026 TJ Bohemians Praha — oddíl plavání.
+      </div>
+    </footer>
+
+    <!-- MOBILE BOTTOM NAV -->
+    <nav class="fixed inset-x-0 bottom-0 z-40 border-t border-border/60 bg-background/80 pb-[calc(0.5rem+env(safe-area-inset-bottom))] pt-2 backdrop-blur-md lg:hidden" id="bottom-nav">
+      <div class="mx-auto flex max-w-md items-center justify-around px-2">
+        <a href="index.html" class="flex flex-col items-center gap-1 text-[0.65rem] font-medium text-primary">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Domů</span>
+        </a>
+        <a href="zavody.html" class="flex flex-col items-center gap-1 text-[0.65rem] font-medium text-muted-foreground transition-colors hover:text-primary">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+          <span>Závody</span>
+        </a>
+        <a href="pro-rodice.html" class="flex flex-col items-center gap-1 text-[0.65rem] font-medium text-muted-foreground transition-colors hover:text-primary">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>Pro rodiče</span>
+        </a>
+        <a href="intranet.html" class="flex flex-col items-center gap-1 text-[0.65rem] font-semibold text-[var(--intranet-accent)] transition-colors hover:opacity-80">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>Intranet</span>
+        </a>
+        <button type="button" id="bottom-nav-more" class="flex flex-col items-center gap-1 text-[0.65rem] font-medium text-muted-foreground transition-colors hover:text-primary">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+          <span>Více</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- MOBILE DRAWER -->
+    <div id="drawer-overlay" class="fixed inset-0 z-40 bg-background/70 backdrop-blur-sm lg:hidden hidden"></div>
+    <div id="drawer-content" class="fixed inset-x-0 bottom-0 z-50 rounded-t-[1.75rem] border border-border/60 bg-card pb-[calc(5.5rem+env(safe-area-inset-bottom))] shadow-[var(--shadow-elevated)] lg:hidden translate-y-full transition-transform duration-300">
+      <div class="mx-auto mt-3 h-1.5 w-12 rounded-full bg-border"></div>
+      <div class="grid grid-cols-2 gap-2 p-4">
+        <a href="aktuality.html" class="block rounded-2xl border border-border/60 bg-background/60 px-4 py-4 text-center text-sm font-semibold text-foreground transition-all active:scale-95">Aktuality</a>
+        <a href="oddil.html" class="block rounded-2xl border border-border/60 bg-background/60 px-4 py-4 text-center text-sm font-semibold text-foreground transition-all active:scale-95">Oddíl</a>
+        <a href="rekordy.html" class="block rounded-2xl border border-border/60 bg-background/60 px-4 py-4 text-center text-sm font-semibold text-foreground transition-all active:scale-95">Rekordy</a>
+        <a href="foto.html" class="block rounded-2xl border border-border/60 bg-background/60 px-4 py-4 text-center text-sm font-semibold text-foreground transition-all active:scale-95">Foto</a>
+        <a href="kontakt.html" class="block rounded-2xl border border-border/60 bg-background/60 px-4 py-4 text-center text-sm font-semibold text-foreground transition-all active:scale-95">Kontakt</a>
+        <a href="admin.html" class="block rounded-2xl border border-border/60 bg-background/60 px-4 py-4 text-center text-sm font-semibold text-coral transition-all active:scale-95">Administrace</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // News cards
+    const newsCards = document.getElementById("home-news-cards");
+    if (newsCards) {
+      newsCards.innerHTML = window.KlokaniData.news.slice(0, 3).map(n => `
+        <a href="aktuality.html?id=${n.id}" class="group flex h-full flex-col overflow-hidden rounded-2xl border border-border/60 bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[var(--shadow-elevated)]">
+          ${n.image ? `
+            <div class="mb-4 -mx-6 -mt-6 h-44 overflow-hidden border-b border-border/40 bg-background/80">
+              <img src="${n.image}" alt="${n.title}" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+            </div>
+          ` : ''}
+          <time class="text-xs font-semibold uppercase tracking-wider text-primary">
+            ${new Date(n.date).toLocaleDateString("cs-CZ")}
+          </time>
+          <h3 class="mt-2.5 font-display text-xl font-bold leading-snug transition-colors group-hover:text-primary">${n.title}</h3>
+          <p class="mt-2.5 flex-1 line-clamp-3 text-sm leading-relaxed text-muted-foreground">${n.excerpt}</p>
+          <span class="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">
+            Číst více <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+          </span>
+        </a>
+      `).join("");
+    }
+
+    // Groups cards
+    const groupsCards = document.getElementById("home-groups-cards");
+    if (groupsCards) {
+      groupsCards.innerHTML = window.KlokaniData.groups.slice(0, 6).map(g => `
+        <div class="rounded-2xl border border-border/60 bg-background p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50">
+          <span class="inline-block rounded-full bg-primary/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
+            ${g.code}
+          </span>
+          <h3 class="mt-4 font-display text-lg font-bold">${g.name}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-muted-foreground">${g.description}</p>
+        </div>
+      `).join("");
+    }
+
+    if (window.initScrollReveal) setTimeout(window.initScrollReveal, 40);
+  </script>
+</body>
+</html>

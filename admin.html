@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="cs" class="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#030705">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Administrace — Klokani | TJ Bohemians Praha</title>
+  <meta name="description" content="Administrace oddílu Klokani — schvalování importovaných dat ze subdomén, správa závodů, výsledků, fotek, plavců a aktualit.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    try {
+      var t = localStorage.getItem('klokani-theme');
+      var d = t ? t === 'dark' : true;
+      document.documentElement.classList.toggle('dark', d);
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', d ? '#030705' : '#fbfdfc');
+    } catch(e) {}
+  </script>
+</head>
+<body class="bg-background text-foreground font-sans antialiased overflow-x-hidden min-h-[100dvh]">
+
+  <div class="flex min-h-screen flex-col overflow-x-hidden">
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 bg-transparent px-3 pb-2 pt-[calc(0.75rem+env(safe-area-inset-top))] sm:px-4 sm:pt-4">
+      <div class="relative mx-auto flex max-w-7xl items-center justify-between gap-4 overflow-hidden rounded-[1.5rem] border border-border/60 bg-background/90 px-4 py-2.5 shadow-[var(--shadow-elevated)] backdrop-blur-md sm:px-5">
+        <a href="index.html" class="group flex items-center">
+          <img src="assets/logo-klokani.png" alt="TJ Bohemians Praha — oddíl plavání Klokani" width="711" height="200" class="h-8 w-auto max-w-[15rem] object-contain transition-all duration-500 group-hover:scale-[1.04] group-hover:drop-shadow-[var(--glow-aqua)] invert dark:invert-0 sm:h-10 sm:max-w-none">
+        </a>
+
+        <nav class="hidden items-center gap-1.5 lg:flex">
+          <div><a href="index.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Úvod</span></a></div>
+          <div><a href="aktuality.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Aktuality</span></a></div>
+          <div><a href="oddil.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Oddíl</span></a></div>
+          <div><a href="pro-rodice.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Pro rodiče</span></a></div>
+          <div><a href="zavody.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Závody</span></a></div>
+          <div><a href="rekordy.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Rekordy</span></a></div>
+          <div><a href="foto.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Foto</span></a></div>
+          <div><a href="kontakt.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Kontakt</span></a></div>
+
+          <a href="intranet.html" class="group relative ml-2 overflow-hidden rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary ring-1 ring-inset ring-primary/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:text-primary-foreground hover:shadow-[var(--glow-aqua)]">
+            <span class="relative z-10">Intranet</span>
+            <span class="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full"></span>
+          </a>
+
+          <div class="ml-1">
+            <button type="button" class="theme-toggle-btn inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/60 text-muted-foreground transition-colors hover:text-foreground" aria-label="Přepnout motiv"></button>
+          </div>
+        </nav>
+
+        <div class="flex items-center gap-1 lg:hidden">
+          <button type="button" class="theme-toggle-btn inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/60 text-muted-foreground transition-colors hover:text-foreground" aria-label="Přepnout motiv"></button>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="w-full min-w-0 flex-1 overflow-x-clip pb-24 lg:pb-0" id="admin-main">
+      <!-- Populated dynamically via JS (AdminLogin or AdminShell) -->
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-24 border-t border-border/60 bg-card/40">
+      <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
+        <div class="md:col-span-2">
+          <img src="assets/logo-klokani.png" alt="TJ Bohemians Praha — oddíl plavání Klokani" width="711" height="200" loading="lazy" class="h-14 w-auto object-contain invert dark:invert-0">
+          <p class="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground">
+            Plavecký oddíl s tradicí od roku 1946. Vychováváme špičkové sportovce i začínající plavce — od kurzů přes přípravku až po reprezentaci na mistrovstvích.
+          </p>
+        </div>
+        <div>
+          <h3 class="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">Sekce</h3>
+          <ul class="space-y-2 text-sm text-muted-foreground">
+            <li><a href="aktuality.html" class="hover:text-primary">Aktuality</a></li>
+            <li><a href="oddil.html" class="hover:text-primary">O oddílu</a></li>
+            <li><a href="zavody.html" class="hover:text-primary">Závody</a></li>
+            <li><a href="rekordy.html" class="hover:text-primary">Rekordy</a></li>
+            <li><a href="pro-rodice.html" class="hover:text-primary">Pro rodiče</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">Kontakt</h3>
+          <ul class="space-y-3 text-sm text-muted-foreground">
+            <li>
+              <a href="mailto:jan.srb@czechswimming.cz" class="inline-flex items-center gap-2 hover:text-primary">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                jan.srb@czechswimming.cz
+              </a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/bohemka_plavani" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 hover:text-primary">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                Instagram
+              </a>
+            </li>
+            <li class="pt-2 text-xs">Bazény: Podolí &amp; Vinohrady, Praha</li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-border/60 py-6 text-center text-xs text-muted-foreground">
+        © 1946–2026 TJ Bohemians Praha — oddíl plavání.
+      </div>
+    </footer>
+
+    <!-- MOBILE BOTTOM NAV -->
+    <nav class="fixed inset-x-0 bottom-0 z-40 border-t border-border/60 bg-background/80 pb-[calc(0.5rem+env(safe-area-inset-bottom))] pt-2 backdrop-blur-md lg:hidden" id="bottom-nav">
+      <div class="mx-auto flex max-w-md items-center justify-around px-2">
+        <a href="index.html" class="flex flex-col items-center gap-1 text-[0.65rem] font-medium text-muted-foreground transition-colors hover:text-primary">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Domů</span>
+        </a>
+        <a href="zavody.html" class="flex flex-col items-center gap-1 text-[0.65rem] font-medium text-muted-foreground transition-colors hover:text-primary">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+          <span>Závody</span>
+        </a>
+        <a href="pro-rodice.html" class="flex flex-col items-center gap-1 text-[0.65rem] font-medium text-muted-foreground transition-colors hover:text-primary">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>Pro rodiče</span>
+        </a>
+        <a href="intranet.html" class="flex flex-col items-center gap-1 text-[0.65rem] font-semibold text-[var(--intranet-accent)] transition-colors hover:opacity-80">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>Intranet</span>
+        </a>
+        <button type="button" id="bottom-nav-more" class="flex flex-col items-center gap-1 text-[0.65rem] font-medium text-muted-foreground transition-colors hover:text-primary">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+          <span>Více</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- MOBILE DRAWER -->
+    <div id="drawer-overlay" class="fixed inset-0 z-40 bg-background/70 backdrop-blur-sm lg:hidden hidden"></div>
+    <div id="drawer-content" class="fixed inset-x-0 bottom-0 z-50 rounded-t-[1.75rem] border border-border/60 bg-card pb-[calc(5.5rem+env(safe-area-inset-bottom))] shadow-[var(--shadow-elevated)] lg:hidden translate-y-full transition-transform duration-300">
+      <div class="mx-auto mt-3 h-1.5 w-12 rounded-full bg-border"></div>
+      <div class="grid grid-cols-2 gap-2 p-4">
+        <a href="aktuality.html" class="block rounded-2xl border border-border/60 bg-background/60 px-4 py-4 text-center text-sm font-semibold text-foreground transition-all active:scale-95">Aktuality</a>
+        <a href="oddil.html" class="block rounded-2xl border border-border/60 bg-background/60 px-4 py-4 text-center text-sm font-semibold text-foreground transition-all active:scale-95">Oddíl</a>
+        <a href="rekordy.html" class="block rounded-2xl border border-border/60 bg-background/60 px-4 py-4 text-center text-sm font-semibold text-foreground transition-all active:scale-95">Rekordy</a>
+        <a href="foto.html" class="block rounded-2xl border border-border/60 bg-background/60 px-4 py-4 text-center text-sm font-semibold text-foreground transition-all active:scale-95">Foto</a>
+        <a href="kontakt.html" class="block rounded-2xl border border-border/60 bg-background/60 px-4 py-4 text-center text-sm font-semibold text-foreground transition-all active:scale-95">Kontakt</a>
+        <a href="admin.html" class="block rounded-2xl border border-border/60 bg-background/60 px-4 py-4 text-center text-sm font-semibold text-coral transition-all active:scale-95">Administrace</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let adminTab = "schvaleni";
+    const ADMIN_AUTH_KEY = "klokani-admin-authed";
+
+    function isAdminAuthed() {
+      return localStorage.getItem(ADMIN_AUTH_KEY) === "1";
+    }
+
+    function renderAdmin() {
+      const container = document.getElementById("admin-main");
+      if (!container) return;
+
+      if (!isAdminAuthed()) {
+        renderAdminLogin(container);
+      } else {
+        renderAdminShell(container);
+      }
+    }
+
+    function renderAdminLogin(container) {
+      container.innerHTML = `
+        <section class="mx-auto flex min-h-[80vh] max-w-md items-center px-4 py-16 sm:px-6">
+          <div class="w-full rounded-[2rem] border border-border/60 bg-card/70 p-8 shadow-[var(--shadow-elevated)] backdrop-blur-xl">
+            <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[var(--intranet-accent)]/15">
+              <svg class="h-7 w-7 text-[var(--intranet-accent)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <h1 class="mt-6 text-center font-display text-2xl font-extrabold">Administrace</h1>
+            <p class="mt-2 text-center text-sm text-muted-foreground">Správa obsahu a schvalování importů.</p>
+
+            <form id="admin-login-form" class="mt-8 space-y-4">
+              <div>
+                <label class="mb-1.5 block text-xs font-medium uppercase tracking-wide text-muted-foreground">Uživatelské jméno</label>
+                <input id="adm-user" required autocomplete="username" class="w-full rounded-xl border border-input bg-background/60 px-4 py-2.5 text-sm outline-none transition focus:border-[var(--intranet-accent)] focus:ring-2 focus:ring-[var(--intranet-accent)]/30 text-foreground" placeholder="admin" value="admin">
+              </div>
+              <div>
+                <label class="mb-1.5 block text-xs font-medium uppercase tracking-wide text-muted-foreground">Heslo</label>
+                <input id="adm-pass" type="password" required autocomplete="current-password" class="w-full rounded-xl border border-input bg-background/60 px-4 py-2.5 text-sm outline-none transition focus:border-[var(--intranet-accent)] focus:ring-2 focus:ring-[var(--intranet-accent)]/30 text-foreground" placeholder="••••••••" value="bohemka">
+              </div>
+
+              <div id="adm-error" class="hidden text-sm text-destructive flex items-center gap-2">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span>Nesprávné jméno nebo heslo.</span>
+              </div>
+
+              <button type="submit" class="w-full rounded-xl bg-[var(--intranet-accent)] px-4 py-3 font-semibold text-[var(--intranet-accent-foreground)] shadow-lg transition-all hover:scale-[1.02]">
+                Přihlásit se
+              </button>
+            </form>
+
+            <div class="mt-6 rounded-xl border border-dashed border-border/70 bg-background/40 p-3 text-center text-xs text-muted-foreground">
+              Pro ukázku: jméno <b>admin</b>, heslo <b>bohemka</b>
+            </div>
+          </div>
+        </section>
+      `;
+
+      document.getElementById("admin-login-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const u = document.getElementById("adm-user").value.trim().toLowerCase();
+        const p = document.getElementById("adm-pass").value;
+        const err = document.getElementById("adm-error");
+
+        if (u === "admin" && p === "bohemka") {
+          localStorage.setItem(ADMIN_AUTH_KEY, "1");
+          renderAdmin();
+        } else {
+          err.classList.remove("hidden");
+        }
+      });
+    }
+
+    function renderAdminShell(container) {
+      const allItems = window.KlokaniStore.getAdminItems();
+      const pendingItems = allItems.filter(i => i.status === "pending");
+
+      const tabs = [
+        { id: "schvaleni", label: "Ke schválení", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>` },
+        { id: "aktuality", label: "Aktuality", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>` },
+        { id: "zavody", label: "Závody", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>` },
+        { id: "vysledky", label: "Výsledky", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>` },
+        { id: "foto", label: "Fotogalerie", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>` },
+        { id: "informace", label: "Pro rodiče", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>` },
+        { id: "oddil", label: "Oddíl a historie", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>` },
+        { id: "kontakty", label: "Trenéři a kontakty", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M16 2v20"/><path d="M8 7h3"/><path d="M8 11h3"/><path d="M8 15h3"/></svg>` },
+        { id: "rekordy", label: "Rekordy", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>` }
+      ];
+
+      container.innerHTML = `
+        <section class="relative overflow-hidden border-b border-border/60 bg-card/30">
+          <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[var(--intranet-accent)]/15 blur-3xl"></div>
+          <div class="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+            <div class="flex items-center gap-4">
+              <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[var(--intranet-accent)]/15 text-[var(--intranet-accent)]">
+                <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              </div>
+              <div>
+                <p class="mb-1 text-xs font-semibold uppercase tracking-[0.3em] text-[var(--intranet-accent)]">Administrace</p>
+                <h1 class="font-display text-2xl font-extrabold sm:text-3xl">Správa obsahu</h1>
+                <p class="mt-1 text-sm text-muted-foreground" id="pending-counter">
+                  ${pendingItems.length} položek čeká na schválení
+                </p>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <button id="adm-logout-btn" class="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-semibold transition hover:border-[var(--intranet-accent)] hover:text-[var(--intranet-accent)]">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                Odhlásit
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <div class="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[240px_1fr] lg:py-12">
+          <!-- Aside Tabs -->
+          <aside class="-mx-4 overflow-x-auto px-4 pb-2 sm:-mx-6 sm:px-6 lg:mx-0 lg:overflow-visible lg:p-0">
+            <div class="flex gap-2 lg:flex-col" id="adm-tabs">
+              ${tabs.map(t => `
+                <button data-tab="${t.id}" class="flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:py-3 ${adminTab === t.id ? 'border-[var(--intranet-accent)]/50 bg-[var(--intranet-accent)]/10 text-[var(--intranet-accent)]' : 'border-border/60 text-muted-foreground hover:bg-card/60 hover:text-foreground'}">
+                  ${t.icon}
+                  <span class="whitespace-nowrap">${t.label}</span>
+                  ${t.id === 'schvaleni' && pendingItems.length > 0 ? `<span class="ml-auto rounded-full bg-[var(--intranet-accent)] px-2 py-0.5 text-xs font-bold text-[var(--intranet-accent-foreground)]">${pendingItems.length}</span>` : ''}
+                </button>
+              `).join("")}
+            </div>
+          </aside>
+
+          <!-- Main Tab Content Area -->
+          <div class="min-w-0" id="adm-content">
+            <!-- Dynamic Content -->
+          </div>
+        </div>
+      `;
+
+      document.getElementById("adm-logout-btn").addEventListener("click", () => {
+        localStorage.removeItem(ADMIN_AUTH_KEY);
+        renderAdmin();
+      });
+
+      document.querySelectorAll("#adm-tabs button").forEach(btn => {
+        btn.addEventListener("click", () => {
+          adminTab = btn.getAttribute("data-tab");
+          document.querySelectorAll("#adm-tabs button").forEach(b => {
+            const isTarget = b === btn;
+            const tId = b.getAttribute("data-tab");
+            b.className = isTarget
+              ? "flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:py-3 border-[var(--intranet-accent)]/50 bg-[var(--intranet-accent)]/10 text-[var(--intranet-accent)]"
+              : "flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:py-3 border-border/60 text-muted-foreground hover:bg-card/60 hover:text-foreground";
+          });
+          renderAdminTabContent();
+        });
+      });
+
+      renderAdminTabContent();
+    }
+
+    function renderAdminTabContent() {
+      const container = document.getElementById("adm-content");
+      if (!container) return;
+
+      const items = window.KlokaniStore.getAdminItems();
+
+      if (adminTab === "schvaleni") {
+        renderApprovalTab(container, items);
+      } else {
+        renderGenericAdminTab(container, adminTab, items);
+      }
+    }
+
+    function renderApprovalTab(container, items) {
+      const pending = items.filter(i => i.status === "pending");
+
+      container.innerHTML = `
+        <div class="rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
+          <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+            <h2 class="font-display text-xl font-bold">Importy ze subdomén ke kontrole</h2>
+            ${pending.length > 0 ? `
+              <button id="approve-all-btn" class="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition active:scale-95">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Schválit vše
+              </button>
+            ` : ''}
+          </div>
+
+          ${pending.length === 0 ? `
+            <p class="py-12 text-center text-sm text-muted-foreground">Žádné importy nečekají na schválení. Vše je aktuální!</p>
+          ` : `
+            <div class="space-y-3">
+              ${pending.map(i => renderAdminItemRow(i)).join("")}
+            </div>
+          `}
+        </div>
+      `;
+
+      const appAll = document.getElementById("approve-all-btn");
+      if (appAll) {
+        appAll.addEventListener("click", () => {
+          pending.forEach(p => window.KlokaniStore.setAdminItemStatus(p.id, "approved"));
+          showToast("Všechny položky byly schváleny!");
+          renderAdmin();
+        });
+      }
+
+      bindAdminItemActions(container);
+    }
+
+    function renderGenericAdminTab(container, kind, items) {
+      const filtered = items.filter(i => i.kind === kind);
+      const labels = {
+        aktuality: "Aktuality",
+        zavody: "Závody",
+        vysledky: "Výsledky",
+        foto: "Fotogalerie",
+        informace: "Pro rodiče",
+        oddil: "Oddíl a historie",
+        kontakty: "Trenéři a kontakty",
+        rekordy: "Rekordy"
+      };
+
+      container.innerHTML = `
+        <div class="space-y-6">
+          <div class="rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
+            <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+              <h2 class="font-display text-xl font-bold">${labels[kind] || kind}</h2>
+              <button id="add-new-item-btn" class="inline-flex items-center gap-1.5 rounded-full bg-[var(--intranet-accent)] px-4 py-2 text-sm font-semibold text-[var(--intranet-accent-foreground)] transition hover:scale-[1.02]">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Přidat záznam
+              </button>
+            </div>
+
+            <!-- New Item Inline Form (hidden by default) -->
+            <div id="new-item-form-box" class="hidden mb-6 rounded-xl border border-[var(--intranet-accent)]/50 bg-background/60 p-4">
+              <h3 class="mb-3 font-semibold text-sm">Nový záznam</h3>
+              <div class="space-y-3">
+                <div>
+                  <label class="mb-1 block text-xs font-medium text-muted-foreground uppercase">Název / Titulek</label>
+                  <input id="new-item-title" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground" placeholder="Zadejte název...">
+                </div>
+                <div>
+                  <label class="mb-1 block text-xs font-medium text-muted-foreground uppercase">Popis / Text</label>
+                  <textarea id="new-item-desc" rows="3" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground" placeholder="Text položky..."></textarea>
+                </div>
+                <div class="flex justify-end gap-2 pt-2">
+                  <button type="button" id="cancel-new-btn" class="rounded-full border border-border px-4 py-1.5 text-xs font-semibold">Zrušit</button>
+                  <button type="button" id="save-new-btn" class="rounded-full bg-[var(--intranet-accent)] px-4 py-1.5 text-xs font-semibold text-[var(--intranet-accent-foreground)]">Vytvořit</button>
+                </div>
+              </div>
+            </div>
+
+            ${filtered.length === 0 ? `
+              <p class="py-8 text-center text-sm text-muted-foreground">V této sekci zatím nejsou žádné položky.</p>
+            ` : `
+              <div class="space-y-3">
+                ${filtered.map(i => renderAdminItemRow(i)).join("")}
+              </div>
+            `}
+          </div>
+        </div>
+      `;
+
+      const addBtn = document.getElementById("add-new-item-btn");
+      const formBox = document.getElementById("new-item-form-box");
+      const cancelBtn = document.getElementById("cancel-new-btn");
+      const saveBtn = document.getElementById("save-new-btn");
+
+      if (addBtn && formBox) {
+        addBtn.addEventListener("click", () => formBox.classList.toggle("hidden"));
+      }
+      if (cancelBtn && formBox) {
+        cancelBtn.addEventListener("click", () => formBox.classList.add("hidden"));
+      }
+      if (saveBtn) {
+        saveBtn.addEventListener("click", () => {
+          const t = document.getElementById("new-item-title").value.trim();
+          const d = document.getElementById("new-item-desc").value.trim();
+          if (!t) return;
+
+          window.KlokaniStore.saveAdminItem({
+            kind: kind,
+            status: "approved",
+            source: "manuální zadání",
+            title: t,
+            fields: { text: d }
+          });
+          showToast("Záznam byl úspěšně přidán!");
+          renderAdminTabContent();
+        });
+      }
+
+      bindAdminItemActions(container);
+    }
+
+    function renderAdminItemRow(item) {
+      const statusMap = {
+        pending: { label: "Čeká na schválení", cls: "bg-chart-4/20 text-foreground" },
+        approved: { label: "Schváleno", cls: "bg-primary/20 text-primary" },
+        rejected: { label: "Zamítnuto", cls: "bg-destructive/15 text-destructive" }
+      };
+      const st = statusMap[item.status] || statusMap.pending;
+
+      const fieldsText = Object.entries(item.fields || {})
+        .map(([k, v]) => `${k}: ${v}`)
+        .join(" · ");
+
+      return `
+        <div class="flex flex-col gap-3 rounded-xl border border-border/50 bg-background/40 p-4 sm:flex-row sm:items-center sm:justify-between" data-item-id="${item.id}">
+          <div class="min-w-0">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="rounded-full bg-[var(--intranet-accent)]/15 px-2.5 py-0.5 text-xs font-semibold text-[var(--intranet-accent)]">
+                ${item.kind}
+              </span>
+              <span class="rounded-full px-2.5 py-0.5 text-xs font-semibold ${st.cls}">
+                ${st.label}
+              </span>
+              <span class="text-xs text-muted-foreground">zdroj: ${item.source || 'interní'}</span>
+            </div>
+            <p class="mt-2 font-semibold text-foreground">${item.title}</p>
+            <p class="mt-1 truncate text-sm text-muted-foreground">${fieldsText}</p>
+          </div>
+          <div class="flex shrink-0 items-center gap-2">
+            ${item.status !== 'approved' ? `
+              <button data-action="approve" data-id="${item.id}" class="inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-2 text-sm font-semibold text-primary-foreground transition active:scale-95">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Schválit
+              </button>
+            ` : ''}
+            ${item.status !== 'rejected' ? `
+              <button data-action="reject" data-id="${item.id}" class="inline-flex items-center gap-1.5 rounded-full border border-border px-3.5 py-2 text-sm font-semibold transition hover:border-destructive hover:text-destructive active:scale-95">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Zamítnout
+              </button>
+            ` : ''}
+            <button data-action="delete" data-id="${item.id}" aria-label="Smazat" class="rounded-full border border-border p-2 text-muted-foreground transition hover:border-destructive hover:text-destructive">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function bindAdminItemActions(container) {
+      container.querySelectorAll("button[data-action='approve']").forEach(b => {
+        b.addEventListener("click", () => {
+          const id = b.getAttribute("data-id");
+          window.KlokaniStore.setAdminItemStatus(id, "approved");
+          showToast("Položka byla schválena!");
+          renderAdmin();
+        });
+      });
+
+      container.querySelectorAll("button[data-action='reject']").forEach(b => {
+        b.addEventListener("click", () => {
+          const id = b.getAttribute("data-id");
+          window.KlokaniStore.setAdminItemStatus(id, "rejected");
+          showToast("Položka byla zamítnuta.", "info");
+          renderAdmin();
+        });
+      });
+
+      container.querySelectorAll("button[data-action='delete']").forEach(b => {
+        b.addEventListener("click", () => {
+          const id = b.getAttribute("data-id");
+          if (confirm("Opravdu si přejete tuto položku smazat?")) {
+            window.KlokaniStore.removeAdminItem(id);
+            showToast("Položka byla smazána.");
+            renderAdmin();
+          }
+        });
+      });
+    }
+
+    renderAdmin();
+  </script>
+</body>
+</html>
