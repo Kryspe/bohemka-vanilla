@@ -103,29 +103,24 @@ function highlightActiveNav() {
 
 // 3. Mobile Navigation Drawer
 function initMobileNav() {
+  const drawerOverlay = document.getElementById("drawer-overlay");
+  const drawerContent = document.getElementById("drawer-content");
+  const moreBtn = document.getElementById("bottom-nav-more");
   const bottomNav = document.getElementById("bottom-nav");
 
-  // Only bind basic drawer toggle if animations.js is not loaded
-  const hasAnimationsDrawer = typeof window.initMobileNavDrawer !== "undefined" || !!document.querySelector('script[src*="animations.js"]');
-  if (!hasAnimationsDrawer) {
-    const drawerOverlay = document.getElementById("drawer-overlay");
-    const drawerContent = document.getElementById("drawer-content");
-    const moreBtn = document.getElementById("bottom-nav-more");
+  if (moreBtn && drawerOverlay && drawerContent) {
+    moreBtn.addEventListener("click", () => {
+      drawerOverlay.classList.remove("hidden");
+      drawerContent.classList.remove("translate-y-full");
+    });
 
-    if (moreBtn && drawerOverlay && drawerContent) {
-      moreBtn.addEventListener("click", () => {
-        drawerOverlay.classList.remove("hidden");
-        drawerContent.classList.remove("translate-y-full");
-      });
+    const closeDrawer = () => {
+      drawerOverlay.classList.add("hidden");
+      drawerContent.classList.add("translate-y-full");
+    };
 
-      const closeDrawer = () => {
-        drawerOverlay.classList.add("hidden");
-        drawerContent.classList.add("translate-y-full");
-      };
-
-      drawerOverlay.addEventListener("click", closeDrawer);
-      drawerContent.querySelectorAll("a").forEach(a => a.addEventListener("click", closeDrawer));
-    }
+    drawerOverlay.addEventListener("click", closeDrawer);
+    drawerContent.querySelectorAll("a").forEach(a => a.addEventListener("click", closeDrawer));
   }
 
   // Auto-hide bottom nav on scroll down
