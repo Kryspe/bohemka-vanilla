@@ -90,3 +90,185 @@ a, button {
     transform: scale(1) translateY(0);
   }
 }
+
+/* ==========================================================================
+   TJ BOHEMIANS PRAHA — AUTHENTIC ATHLETIC PALETTE & SPOTLIGHT EFFECTS
+   ========================================================================== */
+
+:root {
+  --background: #f8faf8;
+  --foreground: #091a10;
+  --card: #ffffff;
+  --card-foreground: #091a10;
+  --popover: #ffffff;
+  --popover-foreground: #091a10;
+  --primary: #006338;
+  --primary-foreground: #ffffff;
+  --secondary: #eef4f0;
+  --secondary-foreground: #091a10;
+  --muted: #f0f5f1;
+  --muted-foreground: #475a4e;
+  --accent: #16a34a;
+  --accent-foreground: #ffffff;
+  --border: #dbe4dd;
+  --input: #dbe4dd;
+  --ring: #006338;
+  --intranet-accent: #006338;
+  --intranet-accent-foreground: #ffffff;
+  --glow-aqua: 0 0 35px -8px rgba(0, 99, 56, 0.35);
+  --shadow-elevated: 0 16px 40px -15px rgba(0, 50, 25, 0.12);
+  --gradient-aqua: linear-gradient(135deg, #16a34a, #006338);
+}
+
+.dark {
+  --background: #04140a;
+  --foreground: #f2f7f4;
+  --card: #082012;
+  --card-foreground: #f2f7f4;
+  --popover: #061a0e;
+  --popover-foreground: #f2f7f4;
+  --primary: #22c55e;
+  --primary-foreground: #020c06;
+  --secondary: #0d2a18;
+  --secondary-foreground: #f2f7f4;
+  --muted: #0b2415;
+  --muted-foreground: #94a89b;
+  --accent: #4ade80;
+  --accent-foreground: #020c06;
+  --border: #143820;
+  --input: #143820;
+  --ring: #22c55e;
+  --intranet-accent: #22c55e;
+  --intranet-accent-foreground: #020c06;
+  --glow-aqua: 0 0 35px -8px rgba(34, 197, 94, 0.45);
+  --shadow-elevated: 0 20px 50px -20px rgba(0, 0, 0, 0.8);
+  --gradient-aqua: linear-gradient(135deg, #22c55e, #15803d);
+}
+
+/* Subdomains Ribbon */
+.subdomains-bar {
+  background-color: #004d2c;
+  color: #f0f7f3;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+.dark .subdomains-bar {
+  background-color: #031208;
+  border-bottom: 1px solid #143820;
+}
+
+/* React Bits Spotlight Card (Animated with Anime.js / CSS vars) */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(450px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(34, 197, 94, 0.12), transparent 70%);
+  border-radius: inherit;
+  z-index: 1;
+  transition: opacity 0.25s ease;
+}
+
+/* React Bits Shiny Badge */
+.shiny-badge {
+  position: relative;
+  overflow: hidden;
+}
+.shiny-badge::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  animation: shinySlide 3.5s infinite;
+}
+@keyframes shinySlide {
+  0% { transform: translateX(-100%); }
+  25%, 100% { transform: translateX(100%); }
+}
+
+/* Magnet button */
+.magnet-btn {
+  will-change: transform;
+}
+.magnet-btn.is-hovered {
+  transition: none !important;
+}
+
+/* Modal and Drawer overlays */
+#infolistek-modal, .modal-overlay-bg {
+  background-color: rgba(0, 0, 0, 0.72) !important;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+#drawer-overlay {
+  background-color: rgba(0, 0, 0, 0.65) !important;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+#drawer-content {
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+/* Missing utilities from static Tailwind build */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+.translate-y-4 { transform: translateY(1rem); }
+.translate-y-0 { transform: translateY(0); }
+.split-word { display: inline-block; will-change: transform, opacity; }
+
+@media (prefers-reduced-motion: reduce) {
+  .split-word {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+.bg-black\/60 { background-color: rgba(0, 0, 0, 0.6); }
+.bg-black\/65 { background-color: rgba(0, 0, 0, 0.65); }
+.bg-black\/75 { background-color: rgba(0, 0, 0, 0.75); }
+.bg-black\/80 { background-color: rgba(0, 0, 0, 0.8); }
+.max-h-\[90vh\] { max-height: 90vh; }
+.max-h-\[480px\] { max-height: 480px; }
+
+.gap-5 { gap: 1.25rem; }
+.gap-8 { gap: 2rem; }
+.gap-14 { gap: 3.5rem; }
+
+.py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+.py-14 { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+.py-16 { padding-top: 4rem; padding-bottom: 4rem; }
+.py-20 { padding-top: 5rem; padding-bottom: 5rem; }
+
+.h-40 { height: 10rem; }
+.h-44 { height: 11rem; }
+.w-56 { width: 14rem; }
+
+.bg-emerald-400 { background-color: #34d399; }
+.bg-emerald-500\/10 { background-color: rgba(16, 185, 129, 0.1); }
+.bg-emerald-500\/\[0\.04\] { background-color: rgba(16, 185, 129, 0.04); }
+.border-emerald-600\/30 { border-color: rgba(5, 150, 105, 0.3); }
+
+.border-border\/70 { border-color: color-mix(in srgb, var(--border) 70%, transparent); }
+.border-border\/80 { border-color: color-mix(in srgb, var(--border) 80%, transparent); }
+.border-primary\/20 { border-color: color-mix(in srgb, var(--primary) 20%, transparent); }
+.border-primary\/40 { border-color: color-mix(in srgb, var(--primary) 40%, transparent); }
+.border-primary\/60 { border-color: color-mix(in srgb, var(--primary) 60%, transparent); }
+
+.bg-card\/40 { background-color: color-mix(in srgb, var(--card) 40%, transparent); }
+.bg-card\/50 { background-color: color-mix(in srgb, var(--card) 50%, transparent); }
+.bg-card\/60 { background-color: color-mix(in srgb, var(--card) 60%, transparent); }
+.bg-card\/80 { background-color: color-mix(in srgb, var(--card) 80%, transparent); }
+
+.bg-background\/60 { background-color: color-mix(in srgb, var(--background) 60%, transparent); }
+.bg-background\/80 { background-color: color-mix(in srgb, var(--background) 80%, transparent); }
+.bg-background\/90 { background-color: color-mix(in srgb, var(--background) 90%, transparent); }
+
