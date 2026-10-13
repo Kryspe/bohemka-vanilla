@@ -1,0 +1,492 @@
+/**
+ * TJ Bohemians Praha — Hardened Zero-Dependency Production Web Server
+ * Built-in Node.js v22+ engine with node:sqlite, OWASP security headers,
+ * access control guards, and secure API routers.
+ */
+
+const http = require("node:http");
+const fs = require("node:fs");
+const path = require("node:path");
+let sqliteDb = null;
+
+try {
+  const { DatabaseSync } = require("node:sqlite");
+  const dbPath = path.join(__dirname, "data", "boh.sqlite");
+  if (fs.existsSync(dbPath)) {
+    sqliteDb = new DatabaseSync(dbPath);
+  }
+} catch (err) {
+  sqliteDb = null;
+}
+
+const PORT = process.env.PORT || 8080;
+const PUBLIC_DIR = __dirname;
+
+const MIME_TYPES = {
+  ".html": "text/html; charset=utf-8",
+  ".css": "text/css; charset=utf-8",
+  ".js": "application/javascript; charset=utf-8",
+  ".json": "application/json; charset=utf-8",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".gif": "image/gif",
+  ".svg": "image/svg+xml",
+  ".ico": "image/x-icon",
+  ".webp": "image/webp",
+  ".pdf": "application/pdf",
+  ".txt": "text/plain; charset=utf-8",
+  ".xml": "application/xml; charset=utf-8",
+  ".webmanifest": "application/manifest+json; charset=utf-8"
+};
+
+const SECURITY_HEADERS = {
+  "X-Content-Type-Options": "nosniff",
+  "X-Frame-Options": "SAMEORIGIN",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "Permissions-Policy": "geolocation=(), microphone=(), camera=()",
+  "X-XSS-Protection": "1; mode=block",
+  "Content-Security-Policy": "default-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' data: https: blob:; font-src 'self' https://fonts.gstatic.com data:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self';"
+};
+
+function stripDiacritics(str) {
+  if (!str) return "";
+  return String(str)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+}
+
+function escapeHtml(str) {
+  if (str == null) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;")
+    .replace(/`/g, "&#96;");
+}
+
+function sanitizeUrl(rawUrl, defaultFallback = "index.html") {
+  if (!rawUrl || typeof rawUrl !== "string") return defaultFallback;
+  const cleaned = rawUrl.replace(/[\x00-\x1F\x7F]/g, "").trim();
+  if (!cleaned) return defaultFallback;
+  if (/^(javascript|data|vbscript|file):/i.test(cleaned)) return defaultFallback;
+  if (cleaned.startsWith("//")) return defaultFallback;
+  if (/^[a-zA-Z0-9_\-\.\/]+(#.*)?$/.test(cleaned)) return cleaned;
+  return defaultFallback;
+}
+
+function parseJsonBody(req, maxBytes = 102400) {
+  return new Promise((resolve, reject) => {
+    let body = "";
+    let bytes = 0;
+    req.on("data", chunk => {
+      bytes += chunk.length;
+      if (bytes > maxBytes) {
+        req.destroy();
+        reject(new Error("Payload Too Large"));
+        return;
+      }
+      body += chunk;
+    });
+    req.on("end", () => {
+      if (!body.trim()) return resolve({});
+      try {
+        resolve(JSON.parse(body));
+      } catch (e) {
+        reject(new Error("Invalid JSON"));
+      }
+    });
+    req.on("error", reject);
+  });
+}
+
+function sendJson(res, statusCode, data) {
+  const payload = JSON.stringify(data);
+  res.writeHead(statusCode, {
+    ...SECURITY_HEADERS,
+    "Content-Type": "application/json; charset=utf-8",
+    "Content-Length": Buffer.byteLength(payload)
+  });
+  res.end(payload);
+}
+
+// API Router
+async function handleApi(req, res, parsedUrl) {
+  const pathname = parsedUrl.pathname.replace(/^\/api\//, "");
+  const method = req.method;
+
+  // 1. events.php
+  if (pathname === "events.php") {
+    if (parsedUrl.searchParams.get("ping")) {
+      return sendJson(res, 200, { status: "ok" });
+    }
+    if (sqliteDb) {
+      try {
+        const rows = sqliteDb.prepare("SELECT * FROM admin_items WHERE kind = 'zavod' AND status = 'approved'").all();
+        const events = rows.map(r => {
+          let fields = {};
+          try { fields = JSON.parse(r.fields_json || "{}"); } catch {}
+          return {
+            id: r.id,
+            name: r.title,
+            place: fields.misto || "",
+            date: fields.datum || "",
+            deadline: fields.deadline || "",
+            type: fields.typ || "Oddílový",
+            kind: fields.druh === "soustredeni" ? "soustredeni" : "zavod",
+            note: fields.poznamka || ""
+          };
+        });
+        return sendJson(res, 200, events);
+      } catch (e) {}
+    }
+    return sendJson(res, 200, []);
+  }
+
+  // 2. search.php
+  if (pathname === "search.php") {
+    const q = (parsedUrl.searchParams.get("q") || "").trim().slice(0, 100);
+    if (q.length < 2) {
+      return sendJson(res, 200, { query: q, count: 0, results: [] });
+    }
+    const results = [];
+    if (sqliteDb) {
+      const qLower = q.toLowerCase();
+      const qNorm = stripDiacritics(q);
+      const matches = (str) => {
+        if (!str) return false;
+        const s = String(str);
+        return s.toLowerCase().includes(qLower) || stripDiacritics(s).includes(qNorm);
+      };
+
+      try {
+        const evs = sqliteDb.prepare("SELECT id, name AS title, place, date, type, kind FROM events").all();
+        evs.filter(r => matches(r.title) || matches(r.place) || matches(r.type)).slice(0, 8).forEach(r => {
+          results.push({
+            id: r.id,
+            title: r.title,
+            subtitle: `${r.place || ""} • ${r.date || ""} (${r.type || "Závod"})`,
+            category: "Závod",
+            url: `zavody.html#${r.id}`
+          });
+        });
+      } catch (e) {}
+
+      try {
+        const news = sqliteDb.prepare("SELECT id, title, excerpt, date FROM news").all();
+        news.filter(r => matches(r.title) || matches(r.excerpt)).slice(0, 8).forEach(r => {
+          results.push({
+            id: r.id,
+            title: r.title,
+            subtitle: `${r.excerpt ? r.excerpt.slice(0, 100) + '…' : ''} (${r.date || ''})`,
+            category: "Aktualita",
+            url: `aktuality.html#${r.id}`
+          });
+        });
+      } catch (e) {}
+
+      try {
+        const sws = sqliteDb.prepare("SELECT id, name AS title, birth_year, category, role, bio FROM swimmers").all();
+        sws.filter(r => matches(r.title) || matches(r.category) || matches(r.bio) || matches(r.role)).slice(0, 8).forEach(r => {
+          results.push({
+            id: r.id,
+            title: r.title,
+            subtitle: `Ročník ${r.birth_year || ""} • ${r.category || ""} • ${r.role || "Plavec"}`,
+            category: "Plavec",
+            url: "statistika.html"
+          });
+        });
+      } catch (e) {}
+
+      try {
+        const recs = sqliteDb.prepare("SELECT id, event, time, swimmer, year, category, pool FROM records").all();
+        recs.filter(r => matches(r.swimmer) || matches(r.event) || matches(r.category)).slice(0, 8).forEach(r => {
+          results.push({
+            id: `rec-${r.id}`,
+            title: `${r.event} — ${r.time} (${r.swimmer})`,
+            subtitle: `Rekord Bohemians • ${r.category} • Bazén ${r.pool} • Rok ${r.year}`,
+            category: "Rekord",
+            url: "rekordy.html"
+          });
+        });
+      } catch (e) {}
+
+      try {
+        const dls = sqliteDb.prepare("SELECT id, title, description, category, file_name, file_size FROM downloads").all();
+        dls.filter(r => matches(r.title) || matches(r.description) || matches(r.file_name)).slice(0, 8).forEach(r => {
+          results.push({
+            id: r.id,
+            title: r.title,
+            subtitle: `${r.description || ""} • ${r.file_name || ""} (${r.file_size || ""})`,
+            category: "Ke stažení",
+            url: "ke-stazeni.html"
+          });
+        });
+      } catch (e) {}
+    }
+
+    return sendJson(res, 200, { query: q, count: results.length, results });
+  }
+
+  // 3. notifications.php
+  if (pathname === "notifications.php") {
+    if (method === "POST") {
+      try {
+        const body = await parseJsonBody(req);
+        const title = escapeHtml(String(body.title || "").trim()).slice(0, 120);
+        const subtitle = escapeHtml(String(body.subtitle || body.message || "").trim()).slice(0, 300);
+        const allowedTypes = ["notice", "event", "payment", "training", "warning"];
+        const type = allowedTypes.includes(body.type) ? body.type : "notice";
+        const url = sanitizeUrl(body.url, "index.html");
+        const priority = ["normal", "high", "urgent"].includes(body.priority) ? body.priority : "normal";
+        const id = `notif_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+        const now = new Date().toISOString();
+
+        if (!title) {
+          return sendJson(res, 400, { error: "Název oznámení je povinný" });
+        }
+
+        if (sqliteDb) {
+          try {
+            sqliteDb.prepare("INSERT INTO notifications (id, title, subtitle, type, url, created_at, priority) VALUES (?, ?, ?, ?, ?, ?, ?)").run(
+              id, title, subtitle, type, url, now, priority
+            );
+          } catch (e) {}
+        }
+
+        return sendJson(res, 200, { success: true, id, title, subtitle, type, url, created_at: now });
+      } catch (err) {
+        return sendJson(res, 400, { error: err.message });
+      }
+    }
+
+    // GET notifications
+    if (sqliteDb) {
+      try {
+        const rows = sqliteDb.prepare("SELECT * FROM notifications ORDER BY created_at DESC LIMIT 30").all();
+        return sendJson(res, 200, { count: rows.length, notifications: rows });
+      } catch (e) {}
+    }
+    return sendJson(res, 200, { count: 0, notifications: [] });
+  }
+
+  // 4. signups.php
+  if (pathname === "signups.php") {
+    if (method === "GET") {
+      if (sqliteDb) {
+        try {
+          const rows = sqliteDb.prepare("SELECT * FROM signups").all();
+          const out = {};
+          rows.forEach(r => {
+            let disc = [];
+            try { disc = JSON.parse(r.disciplines || "[]"); } catch {}
+            out[r.event_id] = { eventId: r.event_id, disciplines: disc, note: r.note, at: r.created_at };
+          });
+          return sendJson(res, 200, out);
+        } catch (e) {}
+      }
+      return sendJson(res, 200, {});
+    }
+
+    if (method === "POST") {
+      try {
+        const body = await parseJsonBody(req);
+        const eventId = String(body.eventId || "").replace(/[^a-zA-Z0-9_\-]/g, "").slice(0, 50);
+        if (!eventId) return sendJson(res, 400, { error: "Invalid eventId" });
+
+        const disciplinesArr = Array.isArray(body.disciplines)
+          ? body.disciplines.map(d => escapeHtml(String(d || "").trim()).slice(0, 50)).filter(Boolean)
+          : [];
+        const disciplines = JSON.stringify(disciplinesArr);
+        const note = escapeHtml(String(body.note || "").trim()).slice(0, 200);
+        const now = new Date().toISOString();
+
+        if (sqliteDb) {
+          sqliteDb.prepare("INSERT OR REPLACE INTO signups (event_id, disciplines, note, created_at) VALUES (?, ?, ?, ?)").run(
+            eventId, disciplines, note, now
+          );
+        }
+        return sendJson(res, 200, { success: true });
+      } catch (err) {
+        return sendJson(res, 400, { error: err.message });
+      }
+    }
+
+    if (method === "DELETE") {
+      const eventId = String(parsedUrl.searchParams.get("id") || "").replace(/[^a-zA-Z0-9_\-]/g, "").slice(0, 50);
+      if (eventId && sqliteDb) {
+        sqliteDb.prepare("DELETE FROM signups WHERE event_id = ?").run(eventId);
+      }
+      return sendJson(res, 200, { success: true });
+    }
+  }
+
+  // 5. admin.php
+  if (pathname === "admin.php") {
+    if (method === "GET") {
+      if (sqliteDb) {
+        try {
+          const rows = sqliteDb.prepare("SELECT * FROM admin_items ORDER BY created_at DESC").all();
+          const items = rows.map(r => {
+            let fields = {};
+            try { fields = JSON.parse(r.fields_json || "{}"); } catch {}
+            return {
+              id: r.id,
+              kind: r.kind,
+              status: r.status,
+              source: r.source,
+              title: r.title,
+              fields,
+              createdAt: r.created_at
+            };
+          });
+          return sendJson(res, 200, items);
+        } catch (e) {}
+      }
+      return sendJson(res, 200, []);
+    }
+
+    if (method === "POST") {
+      try {
+        const body = await parseJsonBody(req);
+        const id = String(body.id || `item-${Date.now()}`).replace(/[^a-zA-Z0-9_\-]/g, "").slice(0, 50);
+        const allowedKinds = ["aktualita", "zavod", "vysledek", "soubor", "oznameni", "dokument", "foto", "plavec"];
+        const kind = allowedKinds.includes(body.kind) ? body.kind : "aktualita";
+        const allowedStatuses = ["pending", "approved", "rejected"];
+        const status = allowedStatuses.includes(body.status) ? body.status : "pending";
+        const source = escapeHtml(String(body.source || "ruční vložení").trim()).slice(0, 100);
+        const title = escapeHtml(String(body.title || "Bez názvu").trim()).slice(0, 200);
+
+        const cleanFields = {};
+        if (body.fields && typeof body.fields === "object" && !Array.isArray(body.fields)) {
+          for (const [k, v] of Object.entries(body.fields)) {
+            const safeKey = String(k).replace(/[^a-zA-Z0-9_\-]/g, "").slice(0, 40);
+            if (safeKey && safeKey !== "__proto__" && safeKey !== "constructor" && safeKey !== "prototype") {
+              cleanFields[safeKey] = escapeHtml(String(v || "").trim()).slice(0, 1000);
+            }
+          }
+        }
+        const fieldsJson = JSON.stringify(cleanFields);
+        const now = body.createdAt || new Date().toISOString();
+
+        if (sqliteDb) {
+          sqliteDb.prepare("INSERT OR REPLACE INTO admin_items (id, kind, status, source, title, fields_json, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)").run(
+            id, kind, status, source, title, fieldsJson, now
+          );
+        }
+
+        return sendJson(res, 200, { success: true, id });
+      } catch (err) {
+        return sendJson(res, 400, { error: err.message });
+      }
+    }
+  }
+
+  return sendJson(res, 404, { error: "API route not found" });
+}
+
+// Master HTTP Server
+const server = http.createServer(async (req, res) => {
+  try {
+    const parsedUrl = new URL(req.url, `http://${req.headers.host || "localhost"}`);
+    let pathname = decodeURIComponent(parsedUrl.pathname);
+
+    // SECURITY GUARD 1: Block Directory Traversal Attacks
+    if (pathname.includes("..") || pathname.includes("\0") || pathname.includes("//")) {
+      res.writeHead(403, { ...SECURITY_HEADERS, "Content-Type": "text/plain; charset=utf-8" });
+      res.end("403 Forbidden: Path traversal prohibited.");
+      return;
+    }
+
+    // SECURITY GUARD 2: Handle API requests securely
+    if (pathname.startsWith("/api/")) {
+      await handleApi(req, res, parsedUrl);
+      return;
+    }
+
+    // SECURITY GUARD 3: Block Access to Sensitive Files and Directories
+    // Prohibit direct download of SQLite database, .htaccess, .env, hidden files, or server code
+    const lowerPath = pathname.toLowerCase();
+    if (
+      lowerPath.startsWith("/data/") ||
+      lowerPath.includes("/.") ||
+      lowerPath.endsWith(".sqlite") ||
+      lowerPath.endsWith(".db") ||
+      lowerPath.endsWith(".env") ||
+      lowerPath.endsWith(".htaccess") ||
+      lowerPath.endsWith("server.js") ||
+      lowerPath.endsWith("server.cjs") ||
+      lowerPath.endsWith(".php")
+    ) {
+      res.writeHead(403, { ...SECURITY_HEADERS, "Content-Type": "text/plain; charset=utf-8" });
+      res.end("403 Forbidden: Access to protected resources is denied.");
+      return;
+    }
+
+    // Resolve static file path
+    if (pathname === "/" || pathname === "") {
+      pathname = "/index.html";
+    }
+
+    const filePath = path.join(PUBLIC_DIR, pathname);
+
+    // Ensure resolved path stays strictly within PUBLIC_DIR
+    if (!filePath.startsWith(PUBLIC_DIR)) {
+      res.writeHead(403, { ...SECURITY_HEADERS, "Content-Type": "text/plain; charset=utf-8" });
+      res.end("403 Forbidden");
+      return;
+    }
+
+    // Check file existence
+    if (!fs.existsSync(filePath)) {
+      // Return 404 page if exists
+      const notFoundPath = path.join(PUBLIC_DIR, "404.html");
+      if (fs.existsSync(notFoundPath)) {
+        const content = fs.readFileSync(notFoundPath);
+        res.writeHead(404, { ...SECURITY_HEADERS, "Content-Type": "text/html; charset=utf-8" });
+        res.end(content);
+        return;
+      }
+      res.writeHead(404, { ...SECURITY_HEADERS, "Content-Type": "text/plain; charset=utf-8" });
+      res.end("404 Not Found");
+      return;
+    }
+
+    const stat = fs.statSync(filePath);
+    if (stat.isDirectory()) {
+      const indexFile = path.join(filePath, "index.html");
+      if (fs.existsSync(indexFile)) {
+        const content = fs.readFileSync(indexFile);
+        res.writeHead(200, { ...SECURITY_HEADERS, "Content-Type": "text/html; charset=utf-8" });
+        res.end(content);
+        return;
+      }
+      res.writeHead(403, { ...SECURITY_HEADERS, "Content-Type": "text/plain; charset=utf-8" });
+      res.end("403 Directory Listing Denied");
+      return;
+    }
+
+    const ext = path.extname(filePath).toLowerCase();
+    const contentType = MIME_TYPES[ext] || "application/octet-stream";
+
+    res.writeHead(200, {
+      ...SECURITY_HEADERS,
+      "Content-Type": contentType,
+      "Content-Length": stat.size
+    });
+
+    const stream = fs.createReadStream(filePath);
+    stream.pipe(res);
+  } catch (err) {
+    res.writeHead(500, { ...SECURITY_HEADERS, "Content-Type": "text/plain; charset=utf-8" });
+    res.end("500 Internal Server Error");
+  }
+});
+
+server.listen(PORT, "0.0.0.0", () => {
+  console.log(`[BOH SECURE SERVER] Listening on http://0.0.0.0:${PORT}`);
+  console.log(`[BOH SECURE SERVER] Data protection, OWASP headers, and API routers active.`);
+});

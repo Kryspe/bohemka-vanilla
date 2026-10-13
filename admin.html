@@ -1,221 +1,263 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="cs" class="bohemka">
 <head>
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#030705">
+  <meta name="theme-color" content="#007a3d">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Administrace — Klokani | TJ Bohemians Praha</title>
-  <meta name="description" content="Administrace oddílu Klokani — schvalování importovaných dat ze subdomén, správa závodů, výsledků, fotek, plavců a aktualit.">
+  <title>Administrace | TJ Bohemians Praha</title>
+  <meta name="description" content="Administrace oddílu TJ Bohemians Praha — schvalování importovaných dat ze subdomén, správa závodů, výsledků, fotek, plavců a aktualit.">
+  <link rel="preload" href="assets/logo-80-let.png" as="image">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="TJ Bohemians Praha — oddíl plavání">
+  <meta property="og:title" content="Administrace | TJ Bohemians Praha">
+  <meta property="og:description" content="Administrace oddílu TJ Bohemians Praha — schvalování importovaných dat ze subdomén, správa závodů, výsledků, fotek, plavců a aktualit.">
+  <meta property="og:image" content="assets/logo-80-let.png">
   <meta name="robots" content="noindex">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="manifest" href="assets/manifest.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="css/style.css">
   <script>
     try {
-      var t = localStorage.getItem('klokani-theme');
-      var d = t === 'dark';
-      document.documentElement.classList.toggle('dark', d);
+      var t = localStorage.getItem('boh-theme') || 'dark';
+      document.documentElement.classList.remove('dark', 'bohemka');
+      if (t === 'dark') document.documentElement.classList.add('dark');
+      else if (t === 'bohemka') document.documentElement.classList.add('bohemka');
       var m = document.querySelector('meta[name="theme-color"]');
-      if (m) m.setAttribute('content', d ? '#0b1310' : '#ffffff');
+      if (m) m.setAttribute('content', t === 'dark' ? '#080d12' : (t === 'bohemka' ? '#007a3d' : '#fafcfd'));
     } catch(e) {}
   </script>
 </head>
 <body class="bg-background text-foreground font-sans antialiased overflow-x-hidden min-h-[100dvh]">
 
-  <div class="flex min-h-screen flex-col overflow-x-hidden">
+  <div class="flex min-h-screen flex-col">
 
-        <!-- SITE HEADER -->
-    <header class="sticky top-0 z-50 w-full site-header transition-colors">
-      <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-        <a href="index.html" class="flex items-center gap-3">
-          <img src="assets/bohemka_badge.png" alt="TJ Bohemians Praha — oddíl plavání" class="h-10 w-10 object-contain rounded-full shadow-xs">
-          <img src="assets/logo-klokani.png" alt="TJ Bohemians Praha — oddíl plavání Klokani" class="site-logo-adaptive h-8 w-auto object-contain hidden sm:block">
-          <div class="flex flex-col sm:hidden">
-            <span class="font-display text-base font-extrabold tracking-tight text-foreground sm:text-lg leading-tight">
-              TJ Bohemians Praha
-            </span>
-            <span class="text-xs font-semibold text-primary tracking-wide">
-              Oddíl plavání Klokani · od 1946
-            </span>
-          </div>
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 bg-transparent px-3 pb-2 pt-[calc(0.75rem+env(safe-area-inset-top))] sm:px-4 sm:pt-4">
+      <div class="relative mx-auto flex max-w-7xl items-center justify-between gap-4 overflow-hidden rounded-[1.5rem] border border-border/60 bg-background/90 px-4 py-2.5 shadow-[var(--shadow-elevated)] backdrop-blur-md sm:px-5">
+        <a href="index.html" class="group flex items-center shrink-0">
+          <img src="assets/logo-80-let.png" alt="TJ Bohemians Praha — oddíl plavání 80 let" width="711" height="200" class="header-logo-img h-8 w-auto object-contain transition-all duration-500 group-hover:scale-[1.04] group-hover:drop-shadow-[var(--glow-aqua)] invert dark:invert-0 sm:h-10">
         </a>
 
-        <!-- Desktop Navigation Links -->
-        <nav class="hidden items-center gap-1 xl:gap-1.5 lg:flex">
-          <a href="index.html" class="nav-item">Úvod</a>
-          <a href="aktuality.html" class="nav-item">Aktuality</a>
-          <a href="pro-rodice.html" class="nav-item">Pro rodiče</a>
-          <a href="oddil.html" class="nav-item">Oddíl</a>
-          <a href="zavody.html" class="nav-item">Závody</a>
-          <a href="rekordy.html" class="nav-item">Rekordy</a>
-          <a href="statistika.html" class="nav-item">Statistika</a>
-          <a href="foto.html" class="nav-item">Foto</a>
-          <a href="ke-stazeni.html" class="nav-item">Ke stažení</a>
-          <a href="kontakt.html" class="nav-item">Kontakt</a>
+        <nav class="hidden items-center gap-1.5 lg:flex">
+          <div><a href="index.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Úvod</span></a></div>
+          <div><a href="aktuality.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Aktuality</span></a></div>
+          <div><a href="oddil.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Oddíl</span></a></div>
+          <div><a href="pro-rodice.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Pro rodiče</span></a></div>
+          <div><a href="zavody.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Závody</span></a></div>
+          <div><a href="rekordy.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Rekordy</span></a></div>
+          <div><a href="foto.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Foto</span></a></div>
+          <div><a href="kontakt.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Kontakt</span></a></div>
 
-          <div class="ml-2 flex items-center gap-2 border-l border-border pl-3">
-            <a href="intranet.html" class="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3.5 py-1.5 text-xs font-semibold text-primary-foreground shadow-xs hover:opacity-90 transition-opacity">
-              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              <span>Intranet</span>
-            </a>
-            <button type="button" class="theme-toggle-btn inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:text-foreground hover:bg-muted" aria-label="Přepnout motiv"></button>
+          <a href="intranet.html" class="group relative ml-2 overflow-hidden rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary ring-1 ring-inset ring-primary/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:text-primary-foreground hover:shadow-[var(--glow-aqua)]">
+            <span class="relative z-10">Intranet</span>
+            <span class="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full"></span>
+          </a>
+
+          <div class="ml-1 flex items-center gap-0.5 border-l border-border/40 pl-2">
+            <button type="button" class="site-search-btn relative inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/60 px-3 py-1.5 text-xs font-medium text-muted-foreground transition-all duration-200 hover:border-primary/60 hover:text-foreground hover:bg-card hover:shadow-sm" aria-label="Interní vyhledávání" title="Interní vyhledávání na webu (⌘K / Ctrl+K)">
+              <svg class="h-3.5 w-3.5 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <span class="hidden xl:inline">Vyhledávání…</span>
+              <kbd class="hidden sm:inline-flex items-center rounded border border-border/70 bg-background/80 px-1.5 py-0.5 text-[10px] font-mono font-semibold text-muted-foreground/80">⌘K</kbd>
+            </button>
+            <div class="relative">
+              <button type="button" class="notification-bell-btn relative inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:scale-110 hover:bg-primary/10 hover:text-foreground" aria-label="Oznámení" title="Oznámení">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                <span class="notification-unread-dot absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-coral shadow-[0_0_0_2px_var(--color-background)] hidden"></span>
+              </button>
+            </div>
+            <button type="button" class="theme-toggle-btn relative inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:scale-110 hover:bg-primary/10 hover:text-foreground" aria-label="Přepnout motiv" title="Přepnout motiv"></button>
           </div>
         </nav>
 
-        <!-- Mobile Header Actions -->
-        <div class="flex items-center gap-2 lg:hidden">
-          <a href="intranet.html" class="inline-flex items-center gap-1 rounded-lg bg-primary/10 px-2.5 py-1.5 text-xs font-semibold text-primary">
-            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            <span>Intranet</span>
-          </a>
-          <button type="button" class="theme-toggle-btn inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:text-foreground" aria-label="Přepnout motiv"></button>
+        <div class="flex items-center gap-0.5 lg:hidden">
+          <button type="button" class="site-search-btn relative inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:scale-110 hover:bg-primary/10 hover:text-foreground" aria-label="Interní vyhledávání" title="Interní vyhledávání">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+          <div class="relative">
+            <button type="button" class="notification-bell-btn relative inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:scale-110 hover:bg-primary/10 hover:text-foreground" aria-label="Oznámení" title="Oznámení">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+              <span class="notification-unread-dot absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-coral shadow-[0_0_0_2px_var(--color-background)] hidden"></span>
+            </button>
+          </div>
+          <button type="button" class="theme-toggle-btn relative inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:scale-110 hover:bg-primary/10 hover:text-foreground" aria-label="Přepnout motiv" title="Přepnout motiv"></button>
         </div>
       </div>
     </header>
 
     <!-- MAIN CONTENT -->
-    <main class="w-full min-w-0 flex-1 overflow-x-clip pb-24 lg:pb-0" id="admin-main">
+    <main class="w-full min-w-0 flex-1 pb-32 sm:pb-36 lg:pb-0" id="admin-main">
       <!-- Populated dynamically via JS (AdminLogin or AdminShell) -->
     </main>
 
-        <!-- FOOTER -->
-    <footer class="border-t border-border bg-card mt-20">
-      <div class="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-4">
+    <!-- FOOTER -->
+    <footer class="mt-24 border-t border-border/60 bg-card/40">
+      <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
         <div class="md:col-span-2">
-          <div class="flex items-center gap-3">
-            <img src="assets/bohemka_badge.png" alt="TJ Bohemians Praha" class="h-10 w-10 object-contain rounded-full">
-            <div>
-              <span class="font-display text-base font-bold text-foreground">TJ Bohemians Praha — oddíl plavání</span>
-              <p class="text-xs text-primary font-semibold">Tradice od roku 1946 · Zelenobílá rodina Klokanů</p>
-            </div>
-          </div>
-          <p class="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
-            Vychováváme špičkové sportovce i začínající malé plavce — od kurzů přes přípravku až po reprezentaci na mistrovstvích ČR a Evropy.
+          <img src="assets/logo-80-let.png" alt="TJ Bohemians Praha — oddíl plavání 80 let" width="711" height="200" loading="lazy" class="h-14 w-auto object-contain invert dark:invert-0">
+          <p class="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground">
+            Plavecký oddíl s tradicí od roku 1946. Vychováváme špičkové sportovce i začínající plavce — od kurzů přes přípravku až po reprezentaci na mistrovstvích.
           </p>
         </div>
-
         <div>
-          <h3 class="mb-3 text-xs font-bold uppercase tracking-wider text-foreground">Sekce webu</h3>
-          <ul class="space-y-1.5 text-sm text-muted-foreground">
+          <h3 class="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">Sekce</h3>
+          <ul class="space-y-2 text-sm text-muted-foreground">
             <li><a href="aktuality.html" class="hover:text-primary">Aktuality</a></li>
-            <li><a href="pro-rodice.html" class="hover:text-primary">Pro rodiče</a></li>
-            <li><a href="oddil.html" class="hover:text-primary">O oddílu & bazény</a></li>
-            <li><a href="zavody.html" class="hover:text-primary">Závody & výsledky</a></li>
-            <li><a href="rekordy.html" class="hover:text-primary">Oddílové rekordy</a></li>
-            <li><a href="statistika.html" class="hover:text-primary">Statistika & Štafety</a></li>
-            <li><a href="foto.html" class="hover:text-primary">Fotogalerie</a></li>
+            <li><a href="oddil.html" class="hover:text-primary">O oddílu</a></li>
+            <li><a href="zavody.html" class="hover:text-primary">Závody</a></li>
+            <li><a href="rekordy.html" class="hover:text-primary">Rekordy</a></li>
+            <li><a href="statistika.html" class="hover:text-primary">Statistika</a></li>
             <li><a href="ke-stazeni.html" class="hover:text-primary">Ke stažení</a></li>
-            <li><a href="kontakt.html" class="hover:text-primary">Kontakty</a></li>
+            <li><a href="pro-rodice.html" class="hover:text-primary">Pro rodiče</a></li>
           </ul>
         </div>
-
         <div>
-          <h3 class="mb-3 text-xs font-bold uppercase tracking-wider text-foreground">Kontakt & Adresy</h3>
-          <ul class="space-y-2 text-sm text-muted-foreground">
+          <h3 class="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">Kontakt</h3>
+          <ul class="space-y-3 text-sm text-muted-foreground">
             <li>
               <a href="mailto:jan.srb@czechswimming.cz" class="inline-flex items-center gap-2 hover:text-primary">
-                <svg class="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                 jan.srb@czechswimming.cz
               </a>
             </li>
             <li>
-              <a href="https://kurzy.boh.cz" target="_blank" rel="noreferrer" class="hover:text-primary">
-                Výuka dětí: <strong>kurzy.boh.cz</strong>
+              <a href="https://www.instagram.com/bohemka_plavani" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 hover:text-primary">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                Instagram
               </a>
             </li>
-            <li class="pt-1 text-xs">
-              <strong>Stadion Podolí:</strong> Podolská 74, Praha 4<br>
-              <strong>Bazén Vinohrady:</strong> Slovenská 2, Praha 2
-            </li>
+            <li class="pt-2 text-xs">Bazény: Podolí &amp; Vinohrady, Praha</li>
+            <li class="text-xs">IČO: 00539121 · ČSOB: 123456789/0300</li>
           </ul>
         </div>
       </div>
-      <div class="border-t border-border py-4 text-center text-xs text-muted-foreground">
-        © 1946–2026 TJ Bohemians Praha — oddíl plavání Klokani. Všechna práva vyhrazena.
+      <div class="border-t border-border/60 py-6 text-center text-xs text-muted-foreground">
+        © 1946–2026 TJ Bohemians Praha — oddíl plavání. 80 let zelenobílé tradice.
       </div>
     </footer>
-
-        <!-- MOBILE BOTTOM NAV -->
-    <nav class="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 pb-[calc(0.5rem+env(safe-area-inset-bottom))] pt-2 backdrop-blur-md lg:hidden" id="bottom-nav">
-      <div class="mx-auto flex max-w-md items-center justify-around px-2">
-        <a href="index.html" class="flex flex-col items-center gap-1 text-[0.65rem] font-medium text-muted-foreground hover:text-foreground">
-          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          <span>Domů</span>
-        </a>
-        <a href="pro-rodice.html" class="flex flex-col items-center gap-1 text-[0.65rem] font-medium text-muted-foreground hover:text-foreground">
-          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          <span>Pro rodiče</span>
-        </a>
-        <a href="zavody.html" class="flex flex-col items-center gap-1 text-[0.65rem] font-medium text-muted-foreground hover:text-foreground">
-          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x1="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-          <span>Závody</span>
-        </a>
-        <a href="ke-stazeni.html" class="flex flex-col items-center gap-1 text-[0.65rem] font-medium text-muted-foreground hover:text-foreground">
-          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x1="12" y1="15" y2="3"/></svg>
-          <span>Ke stažení</span>
-        </a>
-        <button type="button" id="bottom-nav-more" class="flex flex-col items-center gap-1 text-[0.65rem] font-medium text-muted-foreground hover:text-foreground">
-          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
-          <span>Více</span>
-        </button>
-      </div>
+    <!-- MOBILE BOTTOM NAVIGATION (Anchored Edge-to-Edge Tab Bar) -->
+    <nav class="mobile-bottom-nav lg:hidden" id="bottom-nav" aria-label="Mobilní navigace">
+      <a href="index.html" class="mobile-tab-item" data-path="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Domů</span>
+      </a>
+      <a href="aktuality.html" class="mobile-tab-item" data-path="aktuality.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
+        <span>Aktuality</span>
+      </a>
+      <a href="zavody.html" class="mobile-tab-item" data-path="zavody.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+        <span>Závody</span>
+      </a>
+      <a href="intranet.html" class="mobile-tab-item" data-path="intranet.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>Intranet</span>
+      </a>
+      <button type="button" id="bottom-nav-more" class="mobile-tab-item" aria-label="Otevřít další sekce oddílu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/><circle cx="5" cy="12" r="1.5"/></svg>
+        <span>Více</span>
+      </button>
     </nav>
 
-    <!-- MOBILE DRAWER -->
-    <div id="drawer-overlay" class="fixed inset-0 z-40 bg-black/50 backdrop-blur-xs lg:hidden hidden"></div>
-    <div id="drawer-content" class="fixed inset-x-0 bottom-0 z-50 rounded-t-2xl border-t border-border bg-card pb-[calc(5.5rem+env(safe-area-inset-bottom))] shadow-xl lg:hidden translate-y-full transition-transform duration-300">
-      <div class="mx-auto mt-3 h-1.5 w-12 rounded-full bg-border"></div>
-      <div class="p-4">
-        <p class="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3 px-1">Menu stránek oddílu</p>
-        <div class="grid grid-cols-2 gap-2">
-          <a href="aktuality.html" class="rounded-xl border border-border bg-background p-3.5 text-center text-sm font-semibold text-foreground hover:bg-muted">Aktuality</a>
-          <a href="pro-rodice.html" class="rounded-xl border border-border bg-background p-3.5 text-center text-sm font-semibold text-foreground hover:bg-muted">Pro rodiče</a>
-          <a href="oddil.html" class="rounded-xl border border-border bg-background p-3.5 text-center text-sm font-semibold text-foreground hover:bg-muted">Oddíl & Bazény</a>
-          <a href="zavody.html" class="rounded-xl border border-border bg-background p-3.5 text-center text-sm font-semibold text-foreground hover:bg-muted">Závody</a>
-          <a href="rekordy.html" class="rounded-xl border border-border bg-background p-3.5 text-center text-sm font-semibold text-foreground hover:bg-muted">Rekordy</a>
-          <a href="statistika.html" class="rounded-xl border border-border bg-background p-3.5 text-center text-sm font-semibold text-foreground hover:bg-muted">Statistika & Štafety</a>
-          <a href="foto.html" class="rounded-xl border border-border bg-background p-3.5 text-center text-sm font-semibold text-foreground hover:bg-muted">Fotogalerie</a>
-          <a href="ke-stazeni.html" class="rounded-xl border border-border bg-background p-3.5 text-center text-sm font-semibold text-foreground hover:bg-muted">Ke stažení</a>
-          <a href="kontakt.html" class="rounded-xl border border-border bg-background p-3.5 text-center text-sm font-semibold text-foreground hover:bg-muted">Kontakty</a>
-          <a href="intranet.html" class="rounded-xl bg-primary p-3.5 text-center text-sm font-bold text-primary-foreground">Intranet Klokanů</a>
+    <!-- MOBILE DRAWER (BOTTOM SHEET) -->
+    <div id="drawer-overlay" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-md lg:hidden hidden transition-opacity"></div>
+    <div id="drawer-content" class="mobile-drawer-sheet fixed inset-x-0 bottom-0 z-50 rounded-t-2xl pb-[calc(2.5rem+env(safe-area-inset-bottom))] lg:hidden translate-y-full transition-transform duration-300 max-h-[85vh] overflow-y-auto">
+      <div class="sticky top-0 z-10 bg-inherit pt-3 pb-2.5 px-6 flex items-center justify-between border-b border-border/40">
+        <div class="flex items-center gap-2.5">
+          <div class="h-1.5 w-10 rounded-full bg-border/80"></div>
+          <span class="text-xs font-bold uppercase tracking-wider text-primary">Všechny sekce</span>
+        </div>
+        <button type="button" id="drawer-close-btn" class="h-8 w-8 rounded-full bg-background/60 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors" aria-label="Zavřít menu">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="grid grid-cols-2 gap-2.5 p-4 sm:p-6">
+        <a href="pro-rodice.html" class="flex flex-col gap-1 rounded-2xl border border-border/60 bg-background/70 p-3.5 transition-all hover:border-primary/50 active:scale-95">
+          <span class="text-sm font-bold text-foreground">Pro rodiče</span>
+          <span class="text-xs text-muted-foreground">Lékařské prohlídky a vzkazy</span>
+        </a>
+        <a href="oddil.html" class="flex flex-col gap-1 rounded-2xl border border-border/60 bg-background/70 p-3.5 transition-all hover:border-primary/50 active:scale-95">
+          <span class="text-sm font-bold text-foreground">O oddílu</span>
+          <span class="text-xs text-muted-foreground">Historie 80 let a skupiny</span>
+        </a>
+        <a href="ke-stazeni.html" class="flex flex-col gap-1 rounded-2xl border border-border/60 bg-background/70 p-3.5 transition-all hover:border-primary/50 active:scale-95">
+          <span class="text-sm font-bold text-foreground">Ke stažení</span>
+          <span class="text-xs text-muted-foreground">Rozpis drah a směrnice PDF</span>
+        </a>
+        <a href="statistika.html" class="flex flex-col gap-1 rounded-2xl border border-border/60 bg-background/70 p-3.5 transition-all hover:border-primary/50 active:scale-95">
+          <span class="text-sm font-bold text-foreground">Statistika</span>
+          <span class="text-xs text-muted-foreground">Top výkony a FINA body</span>
+        </a>
+        <a href="rekordy.html" class="flex flex-col gap-1 rounded-2xl border border-border/60 bg-background/70 p-3.5 transition-all hover:border-primary/50 active:scale-95">
+          <span class="text-sm font-bold text-foreground">Rekordy</span>
+          <span class="text-xs text-muted-foreground">Oddílové rekordy 25m &amp; 50m</span>
+        </a>
+        <a href="foto.html" class="flex flex-col gap-1 rounded-2xl border border-border/60 bg-background/70 p-3.5 transition-all hover:border-primary/50 active:scale-95">
+          <span class="text-sm font-bold text-foreground">Fotogalerie</span>
+          <span class="text-xs text-muted-foreground">Oslava 80 let a závody</span>
+        </a>
+        <a href="kontakt.html" class="flex flex-col gap-1 rounded-2xl border border-border/60 bg-background/70 p-3.5 transition-all hover:border-primary/50 active:scale-95">
+          <span class="text-sm font-bold text-foreground">Kontakt</span>
+          <span class="text-xs text-muted-foreground">Trenéři, Podolí &amp; Vinohrady</span>
+        </a>
+      </div>
+      <div class="border-t border-border/40 px-4 py-3 mx-4">
+        <p class="text-[0.7rem] uppercase tracking-wider font-semibold text-muted-foreground mb-2">Weby a subdomény oddílu</p>
+        <div class="flex flex-wrap gap-2 text-xs">
+          <a href="https://kurzy.boh.cz" target="_blank" rel="noopener" class="text-primary hover:underline">kurzy.boh.cz (děti)</a>
+          <span class="text-border">·</span>
+          <a href="http://www.jarnicenaprahy.cz" target="_blank" rel="noopener" class="text-primary hover:underline">jcp.boh.cz (Jarní cena)</a>
+          <span class="text-border">·</span>
+          <a href="foto.html" class="text-primary hover:underline">80let.boh.cz (archiv)</a>
+          <span class="text-border">·</span>
+          <a href="oddil.html" class="text-primary hover:underline">70let.boh.cz</a>
+          <span class="text-border">·</span>
+          <a href="http://videa.boh.cz" target="_blank" rel="noopener" class="text-primary hover:underline">videa.boh.cz</a>
+          <span class="text-border">·</span>
+          <a href="oddil.html" class="text-primary hover:underline">masters.boh.cz</a>
+          <span class="text-border">·</span>
+          <a href="aktuality.html" class="text-primary hover:underline">dp.boh.cz (dálkové)</a>
+          <span class="text-border">·</span>
+          <a href="oddil.html" class="text-primary hover:underline">historie.boh.cz</a>
+          <span class="text-border">·</span>
+          <a href="oddil.html" class="text-primary hover:underline">synchro.boh.cz</a>
         </div>
       </div>
     </div>
 
   </div>
 
-
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/data.js"></script>
   <script src="js/store.js"></script>
-  <script src="js/supabase.js"></script>
+  <script src="js/animations.js"></script>
   <script src="js/app.js"></script>
   <script>
-    const escapeHtml = window.escapeHtml || function (str) {
-      if (str === null || str === undefined) return "";
-      return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-    };
-
     let adminTab = "schvaleni";
-    const ADMIN_AUTH_KEY = "klokani-admin-authed";
+    const ADMIN_AUTH_KEY = "boh-admin-authed";
+    const ADMIN_USER_KEY = "boh-admin-user";
+    const ADMIN_ROLE_KEY = "boh-admin-role";
 
     function isAdminAuthed() {
-      if (window.KlokaniStore && window.KlokaniStore.isAuthed()) {
-        return window.KlokaniStore.getUser().trim().toLowerCase() === "admin";
-      }
-      return false;
+      return localStorage.getItem(ADMIN_AUTH_KEY) === "1";
+    }
+
+    function getAdminUser() {
+      return localStorage.getItem(ADMIN_USER_KEY) || "Jan Srb (předseda)";
+    }
+
+    function getAdminRole() {
+      return localStorage.getItem(ADMIN_ROLE_KEY) || "superuser";
+    }
+
+    function isSuperUser() {
+      const r = getAdminRole().toLowerCase();
+      const u = getAdminUser().toLowerCase();
+      return r === "superuser" || u.includes("srb") || u.includes("super") || u.includes("admin");
     }
 
     function renderAdmin() {
@@ -231,13 +273,13 @@
 
     function renderAdminLogin(container) {
       container.innerHTML = `
-        <section class="mx-auto flex min-h-[80vh] max-w-md items-center px-4 py-16 sm:px-6">
-          <div class="w-full rounded-[2rem] border border-border bg-card p-8 shadow-[var(--shadow-elevated)]">
+        <section class="mx-auto flex min-h-[80vh] max-w-md items-center px-4 py-8 sm:py-16 sm:px-6">
+          <div class="w-full rounded-3xl sm:rounded-[2rem] border border-border/60 bg-card/70 p-6 sm:p-8 shadow-[var(--shadow-elevated)] backdrop-blur-xl">
             <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[var(--intranet-accent)]/15">
               <svg class="h-7 w-7 text-[var(--intranet-accent)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             </div>
             <h1 class="mt-6 text-center font-display text-2xl font-extrabold">Administrace</h1>
-            <p class="mt-2 text-center text-sm text-muted-foreground">Správa obsahu a schvalování importů.</p>
+            <p class="mt-2 text-center text-sm text-muted-foreground">Správa obsahu, schvalování importů a export přihlášek.</p>
 
             <form id="admin-login-form" class="mt-8 space-y-4">
               <div>
@@ -254,37 +296,35 @@
                 <span>Nesprávné jméno nebo heslo.</span>
               </div>
 
-              <button type="submit" class="w-full rounded-xl bg-[var(--intranet-accent)] px-4 py-3 font-semibold text-[var(--intranet-accent-foreground)] shadow-sm transition-colors hover:brightness-105">
+              <button type="submit" class="w-full rounded-xl bg-[var(--intranet-accent)] px-4 py-3 font-semibold text-[var(--intranet-accent-foreground)] shadow-lg transition-all hover:scale-[1.02]">
                 Přihlásit se
               </button>
             </form>
 
-            <div class="mt-6 rounded-xl border border-dashed border-border/70 bg-background/40 p-3 text-center text-xs text-muted-foreground">
-              Pro ukázku: jméno <b>admin</b>, heslo <b>bohemka</b>
+            <div class="mt-6 rounded-xl border border-dashed border-border/70 bg-background/40 p-3 text-center text-xs text-muted-foreground leading-relaxed">
+              Účty pro ukázku (heslo <b>bohemka</b>):<br>
+              • <b>admin</b> nebo <b>srb</b> — Super User (předseda, plná práva vč. exportu)<br>
+              • <b>trener</b> — Editor obsahu (bez oprávnění k exportu přihlášek)
             </div>
           </div>
         </section>
       `;
 
-      document.getElementById("admin-login-form").addEventListener("submit", async (e) => {
+      document.getElementById("admin-login-form").addEventListener("submit", (e) => {
         e.preventDefault();
         const u = document.getElementById("adm-user").value.trim().toLowerCase();
         const p = document.getElementById("adm-pass").value;
         const err = document.getElementById("adm-error");
 
-        if (window.KlokaniSupabase && typeof window.KlokaniSupabase.loginUser === "function") {
-          const auth = await window.KlokaniSupabase.loginUser(u, p);
-          if (auth && (auth.role === "admin" || auth.role === "trainer")) {
-            err.classList.add("hidden");
-            localStorage.setItem(ADMIN_AUTH_KEY, "1");
-            renderAdmin();
-            return;
-          }
-        }
-
-        if ((u === "admin" || u === "trener") && (p === "bohemka" || p === "")) {
-          err.classList.add("hidden");
+        if ((u === "admin" || u === "superuser" || u === "srb") && p === "bohemka") {
           localStorage.setItem(ADMIN_AUTH_KEY, "1");
+          localStorage.setItem(ADMIN_USER_KEY, u === "srb" ? "Jan Srb (předseda)" : "Super User (Admin)");
+          localStorage.setItem(ADMIN_ROLE_KEY, "superuser");
+          renderAdmin();
+        } else if ((u === "trener" || u === "editor") && p === "bohemka") {
+          localStorage.setItem(ADMIN_AUTH_KEY, "1");
+          localStorage.setItem(ADMIN_USER_KEY, "Trenér / Editor");
+          localStorage.setItem(ADMIN_ROLE_KEY, "editor");
           renderAdmin();
         } else {
           err.classList.remove("hidden");
@@ -293,20 +333,25 @@
     }
 
     function renderAdminShell(container) {
-      const allItems = window.KlokaniStore.getAdminItems();
+      const allItems = window.BohStore.getAdminItems();
       const pendingItems = allItems.filter(i => i.status === "pending");
+      const superUser = isSuperUser();
 
       const tabs = [
         { id: "schvaleni", label: "Ke schválení", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>` },
+        { id: "export", label: "Export přihlášek", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>` },
+        { id: "notifikace", label: "Oznámení & Notifikace", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>` },
         { id: "aktuality", label: "Aktuality", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>` },
         { id: "zavody", label: "Závody", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>` },
         { id: "vysledky", label: "Výsledky", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>` },
         { id: "foto", label: "Fotogalerie", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>` },
+        { id: "dokumenty", label: "Ke stažení", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/></svg>` },
+        { id: "plavci", label: "Plavci", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>` },
+        { id: "uzivatele", label: "Uživatelé", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>` },
         { id: "informace", label: "Pro rodiče", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>` },
         { id: "oddil", label: "Oddíl a historie", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>` },
         { id: "kontakty", label: "Trenéři a kontakty", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M16 2v20"/><path d="M8 7h3"/><path d="M8 11h3"/><path d="M8 15h3"/></svg>` },
-        { id: "rekordy", label: "Rekordy", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>` },
-        { id: "supabase", label: "Supabase DB", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>` }
+        { id: "rekordy", label: "Rekordy", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>` }
       ];
 
       container.innerHTML = `
@@ -318,18 +363,19 @@
                 <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
               </div>
               <div>
-                <p class="mb-1 text-xs font-semibold uppercase tracking-[0.3em] text-[var(--intranet-accent)]">Administrace</p>
-                <h1 class="font-display text-2xl font-extrabold sm:text-3xl">Správa obsahu</h1>
+                <div class="flex items-center gap-2 mb-1">
+                  <p class="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--intranet-accent)]">Administrace</p>
+                  <span class="inline-flex items-center gap-1 rounded-full ${superUser ? 'bg-[var(--intranet-accent)]/15 border border-[var(--intranet-accent)]/40 text-[var(--intranet-accent)]' : 'bg-muted border border-border text-muted-foreground'} px-2.5 py-0.5 text-[0.68rem] font-bold">
+                    ${superUser ? 'Super User' : 'Editor'}
+                  </span>
+                </div>
+                <h1 class="font-display text-2xl font-extrabold sm:text-3xl">Správa obsahu &amp; Přihlášky</h1>
                 <p class="mt-1 text-sm text-muted-foreground" id="pending-counter">
-                  ${pendingItems.length} položek čeká na schválení
+                  ${pendingItems.length} položek čeká na schválení · Přihlášen: <b class="text-foreground">${getAdminUser()}</b>
                 </p>
               </div>
             </div>
             <div class="flex flex-wrap gap-2">
-              <a href="intranet.html" class="inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-2 text-sm font-semibold transition hover:border-[var(--intranet-accent)] hover:text-[var(--intranet-accent)]">
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-                Zpět do Intranetu
-              </a>
               <button id="adm-logout-btn" class="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-semibold transition hover:border-[var(--intranet-accent)] hover:text-[var(--intranet-accent)]">
                 <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
                 Odhlásit
@@ -347,6 +393,7 @@
                   ${t.icon}
                   <span class="whitespace-nowrap">${t.label}</span>
                   ${t.id === 'schvaleni' && pendingItems.length > 0 ? `<span class="ml-auto rounded-full bg-[var(--intranet-accent)] px-2 py-0.5 text-xs font-bold text-[var(--intranet-accent-foreground)]">${pendingItems.length}</span>` : ''}
+                  ${t.id === 'export' ? `<span class="ml-auto rounded bg-primary/20 px-1.5 py-0.5 text-[0.62rem] font-bold text-primary">Super</span>` : ''}
                 </button>
               `).join("")}
             </div>
@@ -369,7 +416,6 @@
           adminTab = btn.getAttribute("data-tab");
           document.querySelectorAll("#adm-tabs button").forEach(b => {
             const isTarget = b === btn;
-            const tId = b.getAttribute("data-tab");
             b.className = isTarget
               ? "flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:py-3 border-[var(--intranet-accent)]/50 bg-[var(--intranet-accent)]/10 text-[var(--intranet-accent)]"
               : "flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:py-3 border-border/60 text-muted-foreground hover:bg-card/60 hover:text-foreground";
@@ -385,15 +431,565 @@
       const container = document.getElementById("adm-content");
       if (!container) return;
 
-      const items = window.KlokaniStore.getAdminItems();
+      const items = window.BohStore.getAdminItems();
 
       if (adminTab === "schvaleni") {
         renderApprovalTab(container, items);
-      } else if (adminTab === "supabase") {
-        renderSupabaseSettingsTab(container);
+      } else if (adminTab === "export") {
+        renderExportTab(container);
+      } else if (adminTab === "notifikace") {
+        renderNotificationsTab(container);
       } else {
         renderGenericAdminTab(container, adminTab, items);
       }
+    }
+
+    function renderExportTab(container) {
+      const isSuper = isSuperUser();
+      const currentUser = getAdminUser();
+      const currentRole = getAdminRole();
+
+      if (!isSuper) {
+        container.innerHTML = `
+          <div class="rounded-2xl border border-destructive/40 bg-destructive/10 p-8 text-center backdrop-blur-sm shadow-[var(--shadow-elevated)]">
+            <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-destructive/20 text-destructive mb-4">
+              <svg class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <h2 class="font-display text-xl font-bold text-foreground">Přístup vyhrazen pro Super Usera</h2>
+            <p class="mt-2 text-sm text-muted-foreground max-w-lg mx-auto">
+              Export oficiálních oddílových přihlášek na závody ČSPS a generování souborů Lenex (.lxf / CSV) může podle pravidel oddílu TJ Bohemians Praha provádět výhradně <b>Super User</b> (předseda oddílu Jan Srb).
+            </p>
+            <div class="mt-4 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-4 py-1.5 text-xs text-muted-foreground">
+              <span>Aktuálně přihlášen:</span>
+              <span class="font-semibold text-foreground">${currentUser}</span>
+              <span class="rounded bg-secondary px-2 py-0.5 text-[0.65rem] uppercase font-bold">${currentRole}</span>
+            </div>
+            <div class="mt-6">
+              <button onclick="document.querySelector('#adm-tabs button[data-tab=schvaleni]').click()" class="inline-flex items-center gap-2 rounded-xl bg-card border border-border px-4 py-2 text-sm font-semibold hover:border-primary transition">
+                Zpět do schvalování
+              </button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      // Super User Authorized View
+      const allEvents = (window.BohStore ? window.BohStore.getEvents() : (window.BohData.events || [])).filter(e => e.kind !== "soustredeni");
+      const signups = window.BohStore.getSignups();
+      const demoRoster = (window.BohData && window.BohData.demoRoster) || {};
+
+      let selectedEventId = allEvents.length > 0 ? allEvents[0].id : "";
+
+      function getEntriesForEvent(evId) {
+        const ev = allEvents.find(e => e.id === evId) || allEvents[0] || { id: "ev-1", name: "Závody Bohemians", date: "2026-10-15", place: "Praha" };
+        const demo = demoRoster[evId] || [
+          { swimmer: "Kryštof Spejchal", group: "ST", year: 2010, gender: "M", disciplines: ["100 VZ (01:02,09)", "100 P (01:15,88)", "200 PZ (02:31,91)"], note: "osobní rekordy" },
+          { swimmer: "Hana Jurčáková", group: "ODA", year: 2008, gender: "Ž", disciplines: ["400 VZ (04:32,15)", "800 VZ (09:18,40)"], note: "nominace DP" },
+          { swimmer: "Michal Judickij", group: "ODA", year: 2007, gender: "M", disciplines: ["100 Z (00:57,39)", "200 Z (02:08,12)"], note: "limit MČR" },
+          { swimmer: "Patrik Boháč", group: "ST", year: 2009, gender: "M", disciplines: ["100 VZ (00:58,40)", "50 M (00:27,50)"], note: "" },
+          { swimmer: "Natálie Zápotocká", group: "ODA", year: 2007, gender: "Ž", disciplines: ["200 PZ (02:21,65)", "100 P (01:14,20)"], note: "" }
+        ];
+
+        const mySignup = signups[evId];
+        let entries = [...demo];
+        if (mySignup) {
+          const me = window.BohStore.getUser() || "Kryštof Spejchal";
+          if (!entries.some(e => e.swimmer.toLowerCase() === me.toLowerCase())) {
+            entries.push({
+              swimmer: me,
+              group: "ST",
+              year: 2010,
+              gender: "M",
+              disciplines: mySignup.disciplines || [],
+              note: mySignup.note || ""
+            });
+          }
+        }
+        return { event: ev, entries };
+      }
+
+      function renderExportContent() {
+        const { event, entries } = getEntriesForEvent(selectedEventId);
+
+        container.innerHTML = `
+          <div class="space-y-6">
+            <div class="rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
+              <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-border/60 pb-5">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="rounded-full bg-[var(--intranet-accent)]/15 border border-[var(--intranet-accent)]/30 px-2.5 py-0.5 text-xs font-bold text-[var(--intranet-accent)]">Super User Oprávnění</span>
+                    <span class="text-xs text-muted-foreground">ČSPS IS Integrace</span>
+                  </div>
+                  <h2 class="mt-1 font-display text-xl font-bold">Oficiální export přihlášek</h2>
+                  <p class="text-xs text-muted-foreground">Generování přihláškových souborů pro ČSPS IS a software Meet Manager / Splash.</p>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-medium text-muted-foreground">Závod:</span>
+                  <select id="export-event-select" class="rounded-xl border border-input bg-background px-3 py-2 text-sm font-semibold outline-none focus:border-[var(--intranet-accent)] text-foreground max-w-xs">
+                    ${allEvents.map(e => `
+                      <option value="${e.id}" ${e.id === selectedEventId ? 'selected' : ''}>${e.name} (${e.date})</option>
+                    `).join("")}
+                  </select>
+                </div>
+              </div>
+
+              <!-- Action Bar -->
+              <div class="my-5 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border/60 bg-background/50 p-4">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-medium text-muted-foreground">Přihlášeno plavců:</span>
+                  <span class="font-bold text-foreground">${entries.length}</span>
+                  <span class="mx-1 text-muted-foreground">·</span>
+                  <span class="text-xs text-muted-foreground">Oddíl:</span>
+                  <span class="font-semibold text-primary">TJ Bohemians Praha (Boh)</span>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <button id="btn-export-csps-csv" class="inline-flex items-center gap-1.5 rounded-xl bg-primary px-3.5 py-2 text-xs font-bold text-primary-foreground shadow-sm transition hover:scale-[1.02] active:scale-95">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Exportovat ČSPS CSV
+                  </button>
+                  <button id="btn-export-lenex" class="inline-flex items-center gap-1.5 rounded-xl bg-[var(--intranet-accent)] px-3.5 py-2 text-xs font-bold text-[var(--intranet-accent-foreground)] shadow-sm transition hover:scale-[1.02] active:scale-95">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    Exportovat Lenex (.lxf / XML)
+                  </button>
+                  <button id="btn-export-print" class="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-3.5 py-2 text-xs font-semibold text-foreground transition hover:border-primary active:scale-95">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+                    Tisková soupiska
+                  </button>
+                </div>
+              </div>
+
+              <!-- Entries Roster Table -->
+              <div class="overflow-x-auto rounded-xl border border-border/60">
+                <table class="w-full min-w-[620px] text-left text-xs">
+                  <thead class="bg-card text-muted-foreground uppercase tracking-wider font-semibold border-b border-border/60">
+                    <tr>
+                      <th class="px-4 py-3">Plavec</th>
+                      <th class="px-4 py-3">Ročník / Kat.</th>
+                      <th class="px-4 py-3">Skupina</th>
+                      <th class="px-4 py-3">Přihlášené disciplíny &amp; časy</th>
+                      <th class="px-4 py-3">Poznámka</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-border/40">
+                    ${entries.map(ent => `
+                      <tr class="hover:bg-primary/[0.04] transition-colors">
+                        <td class="px-4 py-3 font-bold text-foreground">${escapeHtml(ent.swimmer)}</td>
+                        <td class="px-4 py-3 font-mono text-muted-foreground">${escapeHtml(ent.year || '2010')} (${escapeHtml(ent.gender || 'M')})</td>
+                        <td class="px-4 py-3"><span class="rounded bg-secondary px-2 py-0.5 font-semibold text-foreground">${escapeHtml(ent.group || 'ST')}</span></td>
+                        <td class="px-4 py-3">
+                          <div class="flex flex-wrap gap-1.5">
+                            ${(Array.isArray(ent.disciplines) ? ent.disciplines : [ent.disciplines]).map(d => `
+                              <span class="rounded bg-primary/10 border border-primary/20 px-2 py-0.5 text-primary font-mono font-medium">${escapeHtml(d)}</span>
+                            `).join("")}
+                          </div>
+                        </td>
+                        <td class="px-4 py-3 text-muted-foreground">${escapeHtml(ent.note || '—')}</td>
+                      </tr>
+                    `).join("")}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        `;
+
+        document.getElementById("export-event-select").addEventListener("change", (e) => {
+          selectedEventId = e.target.value;
+          renderExportContent();
+        });
+
+        document.getElementById("btn-export-csps-csv").addEventListener("click", () => {
+          downloadCspsCsv(event, entries);
+        });
+
+        document.getElementById("btn-export-lenex").addEventListener("click", () => {
+          downloadLenex(event, entries);
+        });
+
+        document.getElementById("btn-export-print").addEventListener("click", () => {
+          printRoster(event, entries);
+        });
+      }
+
+      renderExportContent();
+    }
+
+    function downloadCspsCsv(event, entries) {
+      const rows = [["Příjmení", "Jméno", "Ročník", "Pohlaví", "Disciplína", "Přihlášený čas", "Oddíl", "Poznámka"]];
+      entries.forEach(e => {
+        const parts = String(e.swimmer || "").trim().split(/\s+/);
+        const firstName = parts[0] || "";
+        const lastName = parts.slice(1).join(" ") || parts[0];
+        const disciplines = Array.isArray(e.disciplines) ? e.disciplines : [e.disciplines];
+        disciplines.forEach(d => {
+          let discName = String(d || "");
+          let seedTime = "";
+          const match = discName.match(/^(.*?)\s*\((.*?)\)$/);
+          if (match) {
+            discName = match[1].trim();
+            seedTime = match[2].trim();
+          }
+          rows.push([
+            sanitizeCsv(lastName),
+            sanitizeCsv(firstName),
+            sanitizeCsv(String(e.year || 2010)),
+            sanitizeCsv(e.gender || "M"),
+            sanitizeCsv(discName),
+            sanitizeCsv(seedTime),
+            "Boh",
+            sanitizeCsv(e.note || "")
+          ]);
+        });
+      });
+
+      const csv = "\uFEFF" + rows.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(";")).join("\r\n");
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `prihlasky-csps-${(event.name || "zavody").toLowerCase().replace(/[^a-z0-9]+/g, "-")}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("ČSPS CSV přihláška byla vygenerována!");
+    }
+
+    function downloadLenex(event, entries) {
+      const eventName = escapeXml(event.name || "Závody Bohemians");
+      const eventPlace = escapeXml(event.place || "Praha");
+      
+      let xml = `<?xml version="1.0" encoding="utf-8"?>\n`;
+      xml += `<LENEX version="3.0">\n`;
+      xml += `  <CONSTRUCTOR name="TJ Bohemians Praha — oddílový systém" version="2.0">\n`;
+      xml += `    <CONTACT name="Mgr. Jan Srb" email="jan.srb@czechswimming.cz"/>\n`;
+      xml += `  </CONSTRUCTOR>\n`;
+      xml += `  <MEETS>\n`;
+      xml += `    <MEET name="${eventName}" city="${eventPlace}" nation="CZE">\n`;
+      xml += `      <CLUBS>\n`;
+      xml += `        <CLUB name="TJ Bohemians Praha" code="Boh" number="214" nation="CZE">\n`;
+      xml += `          <ATHLETES>\n`;
+      
+      let athleteId = 1;
+      entries.forEach(e => {
+        const parts = String(e.swimmer || "").trim().split(/\s+/);
+        const firstName = escapeXml(parts[0] || "");
+        const lastName = escapeXml(parts.slice(1).join(" ") || parts[0]);
+        const disciplines = Array.isArray(e.disciplines) ? e.disciplines : [e.disciplines];
+        const gender = e.gender === 'Ž' ? 'F' : 'M';
+        const birthYear = escapeXml(String(e.year || 2010));
+        
+        xml += `            <ATHLETE athleteid="${athleteId++}" lastname="${lastName}" firstname="${firstName}" gender="${gender}" birthdate="${birthYear}-01-01">\n`;
+        xml += `              <ENTRIES>\n`;
+        disciplines.forEach(d => {
+          let discName = String(d || "");
+          let seedTime = "00:00.00";
+          const match = discName.match(/^(.*?)\s*\((.*?)\)$/);
+          if (match) {
+            discName = match[1].trim();
+            seedTime = match[2].trim().replace(",", ".");
+            if (seedTime.length === 5) seedTime = "00:" + seedTime;
+          }
+          xml += `                <ENTRY entrytime="${escapeXml(seedTime)}">\n`;
+          xml += `                  <MEETINFO discipline="${escapeXml(discName)}"/>\n`;
+          xml += `                </ENTRY>\n`;
+        });
+        xml += `              </ENTRIES>\n`;
+        xml += `            </ATHLETE>\n`;
+      });
+      
+      xml += `          </ATHLETES>\n`;
+      xml += `        </CLUB>\n`;
+      xml += `      </CLUBS>\n`;
+      xml += `    </MEET>\n`;
+      xml += `  </MEETS>\n`;
+      xml += `</LENEX>\n`;
+
+      const blob = new Blob([xml], { type: "application/xml;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `prihlasky-lenex-${(event.name || "zavody").toLowerCase().replace(/[^a-z0-9]+/g, "-")}.lxf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Lenex přihláška (.lxf) byla vygenerována!");
+    }
+
+    function printRoster(event, entries) {
+      const win = window.open("", "_blank");
+      if (!win) return;
+      win.document.write(`
+        <!DOCTYPE html>
+        <html lang="cs">
+        <head>
+          <meta charset="utf-8">
+          <title>Přihláška — ${escapeHtml(event.name || "Závody")}</title>
+          <style>
+            body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 2rem; color: #111; }
+            h1 { margin: 0 0 0.5rem; font-size: 1.5rem; }
+            .meta { color: #555; font-size: 0.9rem; margin-bottom: 1.5rem; border-bottom: 2px solid #00bb7f; padding-bottom: 0.75rem; }
+            table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+            th, td { border: 1px solid #ddd; padding: 8px 10px; text-align: left; }
+            th { background: #f4f4f4; font-weight: 600; text-transform: uppercase; font-size: 0.75rem; }
+            .footer { margin-top: 2rem; font-size: 0.8rem; color: #777; display: flex; justify-content: space-between; }
+          </style>
+        </head>
+        <body>
+          <h1>TJ Bohemians Praha — Oddílová přihláška na závody</h1>
+          <div class="meta">
+            <b>Závod:</b> ${escapeHtml(event.name || "")} · <b>Termín:</b> ${escapeHtml(event.date || "")} · <b>Místo:</b> ${escapeHtml(event.place || "")} · <b>Počet přihlášených:</b> ${entries.length} plavců
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Příjmení a jméno</th>
+                <th>Ročník</th>
+                <th>Skupina</th>
+                <th>Disciplíny a nahlášené časy</th>
+                <th>Poznámka</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${entries.map((e, idx) => `
+                <tr>
+                  <td>${idx + 1}</td>
+                  <td><b>${escapeHtml(e.swimmer)}</b></td>
+                  <td>${escapeHtml(e.year || '2010')}</td>
+                  <td>${escapeHtml(e.group || 'ST')}</td>
+                  <td>${(Array.isArray(e.disciplines) ? e.disciplines : [e.disciplines]).map(escapeHtml).join(", ")}</td>
+                  <td>${escapeHtml(e.note || '')}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+          <div class="footer">
+            <div>Vystavil: ${escapeHtml(getAdminUser())} (TJ Bohemians Praha)</div>
+            <div>Vytištěno: ${new Date().toLocaleDateString('cs-CZ')}</div>
+          </div>
+          <script>window.print();<\/script>
+        </body>
+        </html>
+      `);
+      win.document.close();
+    }
+
+    function renderNotificationsTab(container) {
+      const notifs = window.BohStore.getRecentNotifications();
+
+      container.innerHTML = `
+        <div class="space-y-6">
+          <!-- Broadcast Card -->
+          <div class="rounded-3xl border border-border/60 bg-card/60 p-6 sm:p-8 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
+            <div class="flex items-start justify-between gap-4 mb-6">
+              <div>
+                <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 px-3 py-1 text-xs font-bold text-emerald-400 mb-2">
+                  <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                  Živé vysílání notifikací
+                </span>
+                <h2 class="font-display text-2xl font-bold">Odeslat oznámení členům a rodičům</h2>
+                <p class="mt-1 text-sm text-muted-foreground">
+                  Zpráva se okamžitě zobrazí jako Apple-style vyskakovací banner na všech stránkách a uloží se do notifikačního centra uživatelů.
+                </p>
+              </div>
+            </div>
+
+            <!-- Quick Template Presets for Instant Demo -->
+            <div class="mb-6 rounded-2xl border border-border/50 bg-background/50 p-4">
+              <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground block mb-2.5">
+                ⚡ Rychlé šablony (vyplnit jedním kliknutím):
+              </span>
+              <div class="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  id="tpl-payment"
+                  class="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-semibold text-emerald-400 hover:bg-emerald-500/20 transition-all cursor-pointer"
+                >
+                  💳 Platba příspěvků (do 15. 10.)
+                </button>
+                <button
+                  type="button"
+                  id="tpl-deadline"
+                  class="inline-flex items-center gap-1.5 rounded-full border border-coral/40 bg-coral/10 px-3.5 py-1.5 text-xs font-semibold text-coral hover:bg-coral/20 transition-all cursor-pointer"
+                >
+                  ⏱️ Uzávěrka přihlášek na závody
+                </button>
+                <button
+                  type="button"
+                  id="tpl-coach"
+                  class="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-3.5 py-1.5 text-xs font-semibold text-primary hover:bg-primary/20 transition-all cursor-pointer"
+                >
+                  📢 Změna ranního tréninku
+                </button>
+              </div>
+            </div>
+
+            <!-- Form -->
+            <form id="notif-broadcast-form" class="space-y-4">
+              <div class="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+                    Typ oznámení
+                  </label>
+                  <select
+                    id="notif-type-input"
+                    class="w-full rounded-xl border border-border bg-background/80 px-4 py-2.5 text-sm font-medium text-foreground outline-none focus:border-primary"
+                  >
+                    <option value="payment">💳 Platba / Příspěvky (oddílové finance)</option>
+                    <option value="deadline">⏱️ Závody / Uzávěrka přihlášek</option>
+                    <option value="coach">📢 Pokyn trenéra (tréninky, bazén)</option>
+                    <option value="news">📰 Důležitá zpráva oddílu</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+                    Cílová stránka (odkaz po kliknutí)
+                  </label>
+                  <select
+                    id="notif-url-input"
+                    class="w-full rounded-xl border border-border bg-background/80 px-4 py-2.5 text-sm font-medium text-foreground outline-none focus:border-primary"
+                  >
+                    <option value="pro-rodice.html">Pro rodiče (příspěvky, formuláře)</option>
+                    <option value="zavody.html">Závody a přihlášky</option>
+                    <option value="ke-stazeni.html">Ke stažení (rozpis drah)</option>
+                    <option value="aktuality.html">Aktuality</option>
+                    <option value="intranet.html">Intranet plavce</option>
+                    <option value="index.html">Hlavní stránka</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+                  Nadpis oznámení
+                </label>
+                <input
+                  type="text"
+                  id="notif-title-input"
+                  required
+                  placeholder="Např. Platba oddílových příspěvků na 1. pololetí…"
+                  class="w-full rounded-xl border border-border bg-background/80 px-4 py-2.5 text-sm font-semibold text-foreground outline-none focus:border-primary"
+                />
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+                  Podrobná zpráva pro plavce a rodiče
+                </label>
+                <textarea
+                  id="notif-subtitle-input"
+                  required
+                  rows="3"
+                  placeholder="Např. Prosíme všechny členy o úhradu příspěvků do 15. 10. na účet 123456789/0300 (ČSOB). Do zprávy pro příjemce uveďte jméno a ročník."
+                  class="w-full rounded-xl border border-border bg-background/80 px-4 py-2.5 text-sm leading-relaxed text-foreground outline-none focus:border-primary resize-none"
+                ></textarea>
+              </div>
+
+              <div class="flex items-center justify-between pt-2">
+                <span class="text-xs text-muted-foreground">
+                  Odesílatel: <b class="text-foreground">${getAdminUser()}</b>
+                </span>
+                <button
+                  type="submit"
+                  class="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-bold text-primary-foreground shadow-md transition-all hover:scale-105 active:scale-95 cursor-pointer"
+                >
+                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+                  Odeslat oznámení hned
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Existing Notifications History -->
+          <div class="rounded-3xl border border-border/60 bg-card/50 p-6 sm:p-8 backdrop-blur-sm">
+            <h3 class="font-display text-xl font-bold mb-4">Aktivní oznámení v notifikačním centru</h3>
+            <div class="divide-y divide-border/40" id="admin-notif-history">
+              ${notifs.length === 0 ? `
+                <p class="py-8 text-center text-sm text-muted-foreground">Žádná aktivní oznámení.</p>
+              ` : notifs.map(n => `
+                <div class="py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                  <div class="min-w-0 flex-1">
+                    <div class="flex items-center gap-2">
+                      <span class="rounded-full bg-card px-2 py-0.5 text-[0.65rem] font-bold uppercase tracking-wider text-muted-foreground border border-border/50">${n.type}</span>
+                      <h4 class="font-bold text-sm text-foreground">${escapeHtml(n.title)}</h4>
+                    </div>
+                    <p class="mt-1 text-xs text-muted-foreground leading-relaxed">${escapeHtml(n.subtitle)}</p>
+                    <span class="mt-1 block text-[11px] text-muted-foreground/70">${n.createdAt ? new Date(n.createdAt).toLocaleString("cs-CZ") : ""} · Cíl: ${n.url}</span>
+                  </div>
+                  <button
+                    type="button"
+                    data-dismiss-id="${n.id}"
+                    class="shrink-0 rounded-full border border-border px-3 py-1 text-xs font-medium text-muted-foreground hover:border-destructive hover:text-destructive transition-colors cursor-pointer"
+                  >
+                    Odstranit
+                  </button>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Preset click bindings
+      container.querySelector("#tpl-payment")?.addEventListener("click", () => {
+        document.getElementById("notif-type-input").value = "payment";
+        document.getElementById("notif-url-input").value = "pro-rodice.html";
+        document.getElementById("notif-title-input").value = "Platba oddílových příspěvků na 1. pololetí";
+        document.getElementById("notif-subtitle-input").value = "Prosíme všechny členy a rodiče o úhradu oddílových příspěvků do 15. 10. na účet 123456789/0300 (ČSOB). VS: rodné číslo plavce.";
+      });
+
+      container.querySelector("#tpl-deadline")?.addEventListener("click", () => {
+        document.getElementById("notif-type-input").value = "deadline";
+        document.getElementById("notif-url-input").value = "zavody.html";
+        document.getElementById("notif-title-input").value = "Uzávěrka přihlášek: Velká cena Plzně";
+        document.getElementById("notif-subtitle-input").value = "Uzávěrka přihlášek na VC Plzně končí zítra ve 20:00! Zkontrolujte své přihlášené disciplíny v sekci Závody.";
+      });
+
+      container.querySelector("#tpl-coach")?.addEventListener("click", () => {
+        document.getElementById("notif-type-input").value = "coach";
+        document.getElementById("notif-url-input").value = "ke-stazeni.html";
+        document.getElementById("notif-title-input").value = "Zpráva trenéra: Změna ranního tréninku na Podolí";
+        document.getElementById("notif-subtitle-input").value = "Zítřejší ranní trénink pro skupiny ST a ODA v Podolí začíná výjimečně v 6:00 v 50m krytém bazénu.";
+      });
+
+      // Submit form
+      container.querySelector("#notif-broadcast-form")?.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const type = document.getElementById("notif-type-input").value;
+        const url = document.getElementById("notif-url-input").value;
+        const title = document.getElementById("notif-title-input").value.trim();
+        const subtitle = document.getElementById("notif-subtitle-input").value.trim();
+
+        if (!title) return;
+
+        window.BohStore.addNotification({
+          title,
+          subtitle,
+          type,
+          url,
+          priority: type === "payment" ? "high" : "normal"
+        });
+
+        if (typeof showToast === "function") {
+          showToast("Oznámení bylo odesláno a banner byl spuštěn!");
+        }
+        renderNotificationsTab(container);
+      });
+
+      // Dismiss buttons
+      container.querySelectorAll("button[data-dismiss-id]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-dismiss-id");
+          window.BohStore.dismissNotification(id);
+          if (typeof showToast === "function") {
+            showToast("Oznámení bylo odstraněno.");
+          }
+          renderNotificationsTab(container);
+        });
+      });
     }
 
     function renderApprovalTab(container, items) {
@@ -424,7 +1020,7 @@
       const appAll = document.getElementById("approve-all-btn");
       if (appAll) {
         appAll.addEventListener("click", () => {
-          pending.forEach(p => window.KlokaniStore.setAdminItemStatus(p.id, "approved"));
+          pending.forEach(p => window.BohStore.setAdminItemStatus(p.id, "approved"));
           showToast("Všechny položky byly schváleny!");
           renderAdmin();
         });
@@ -434,12 +1030,16 @@
     }
 
     function renderGenericAdminTab(container, kind, items) {
-      const filtered = items.filter(i => i.kind === kind);
+      const normalizedKind = kind === "dokumenty" ? "dokument" : (kind === "aktuality" ? "aktualita" : (kind === "zavody" ? "zavod" : kind));
+      const filtered = items.filter(i => i.kind === kind || i.kind === normalizedKind);
       const labels = {
         aktuality: "Aktuality",
         zavody: "Závody",
         vysledky: "Výsledky",
         foto: "Fotogalerie",
+        dokumenty: "Ke stažení (Dokumenty)",
+        plavci: "Plavci",
+        uzivatele: "Uživatelé intranetu",
         informace: "Pro rodiče",
         oddil: "Oddíl a historie",
         kontakty: "Trenéři a kontakty",
@@ -451,33 +1051,151 @@
           <div class="rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
             <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
               <h2 class="font-display text-xl font-bold">${labels[kind] || kind}</h2>
-              <button id="add-new-item-btn" class="inline-flex items-center gap-1.5 rounded-full bg-[var(--intranet-accent)] px-4 py-2 text-sm font-semibold text-[var(--intranet-accent-foreground)] transition-colors hover:brightness-105">
+              <button id="add-new-item-btn" class="inline-flex items-center gap-1.5 rounded-full bg-[var(--intranet-accent)] px-4 py-2 text-sm font-semibold text-[var(--intranet-accent-foreground)] transition hover:scale-[1.02]">
                 <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 Přidat záznam
               </button>
             </div>
 
-            <!-- New Item Inline Form (hidden by default) -->
-            <div id="new-item-form-box" class="hidden mb-6 rounded-xl border border-[var(--intranet-accent)]/50 bg-background/60 p-4">
-              <h3 class="mb-3 font-semibold text-sm">Nový záznam</h3>
+            <!-- New Item Inline Form -->
+            <div id="new-item-form-box" class="hidden mb-6 rounded-2xl border border-[var(--intranet-accent)]/50 bg-background/60 p-5">
+              <h3 class="mb-3 font-semibold text-sm">Nový záznam — ${labels[kind] || kind}</h3>
               <div class="space-y-3">
                 <div>
-                  <label class="mb-1 block text-xs font-medium text-muted-foreground uppercase">Název / Titulek</label>
+                  <label class="mb-1 block text-xs font-medium text-muted-foreground uppercase">Název / Titulek / Jméno</label>
                   <input id="new-item-title" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground" placeholder="Zadejte název...">
                 </div>
+
+                ${kind === "aktuality" ? `
+                  <div class="grid gap-3 sm:grid-cols-2">
+                    <div>
+                      <label class="mb-1 block text-xs font-medium text-muted-foreground uppercase">Datum zveřejnění</label>
+                      <input id="new-item-date" type="date" value="${new Date().toISOString().slice(0, 10)}" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground">
+                    </div>
+                    <div>
+                      <label class="mb-1 block text-xs font-medium text-muted-foreground uppercase">Autor</label>
+                      <input id="new-item-author" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground" value="Jan Srb (hlavní trenér)" placeholder="Jan Srb (hlavní trenér)">
+                    </div>
+                  </div>
+                  <div>
+                    <label class="mb-1 block text-xs font-medium text-muted-foreground uppercase">URL obrázku aktuality</label>
+                    <input id="new-item-img" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground" value="assets/aktuality/2241.jpg" placeholder="assets/aktuality/2241.jpg">
+                    <div class="mt-1 flex flex-wrap gap-2 text-xs">
+                      <span class="text-muted-foreground">Rychlý výběr:</span>
+                      <button type="button" class="underline text-primary cursor-pointer hover:text-primary/80" onclick="document.getElementById('new-item-img').value='assets/aktuality/2241.jpg'">Razanac</button>
+                      <button type="button" class="underline text-primary cursor-pointer hover:text-primary/80" onclick="document.getElementById('new-item-img').value='assets/aktuality/2240.jpg'">MČR juniorů</button>
+                      <button type="button" class="underline text-primary cursor-pointer hover:text-primary/80" onclick="document.getElementById('new-item-img').value='assets/aktuality/2234.jpg'">Soustředění</button>
+                      <button type="button" class="underline text-primary cursor-pointer hover:text-primary/80" onclick="document.getElementById('new-item-img').value='assets/foto/86071.jpg'">80 let Klokani</button>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="mb-1 block text-xs font-medium text-muted-foreground uppercase">Perex / Úvodní shrnutí (zobrazí se na homepage a v kartách)</label>
+                    <textarea id="new-item-perex" rows="2" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground" placeholder="Stručný perex do 2–3 vět..."></textarea>
+                  </div>
+                ` : ''}
+
+                ${kind === "foto" ? `
+                  <div class="grid gap-3 sm:grid-cols-2">
+                    <div>
+                      <label class="mb-1 block text-xs font-medium text-muted-foreground uppercase">Název alba / Galerie</label>
+                      <input id="new-item-album" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground" value="Oslava 80 let oddílu" placeholder="např. Oslava 80 let oddílu">
+                    </div>
+                    <div>
+                      <label class="mb-1 block text-xs font-medium text-muted-foreground uppercase">Datum pořízení</label>
+                      <input id="new-item-date" type="date" value="${new Date().toISOString().slice(0, 10)}" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground">
+                    </div>
+                  </div>
+                  <div>
+                    <label class="mb-1 block text-xs font-medium text-muted-foreground uppercase">Cesta k fotografii / URL</label>
+                    <input id="new-item-photo-url" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground" value="assets/foto/86071.jpg" placeholder="assets/foto/86071.jpg">
+                    <div class="mt-1 flex flex-wrap gap-2 text-xs">
+                      <span class="text-muted-foreground">Rychlý výběr:</span>
+                      <button type="button" class="underline text-primary cursor-pointer hover:text-primary/80" onclick="document.getElementById('new-item-photo-url').value='assets/foto/86049.jpg'">Hagibor</button>
+                      <button type="button" class="underline text-primary cursor-pointer hover:text-primary/80" onclick="document.getElementById('new-item-photo-url').value='assets/foto/86054.jpg'">Generace</button>
+                      <button type="button" class="underline text-primary cursor-pointer hover:text-primary/80" onclick="document.getElementById('new-item-photo-url').value='assets/foto/86071.jpg'">Společná fotka</button>
+                      <button type="button" class="underline text-primary cursor-pointer hover:text-primary/80" onclick="document.getElementById('new-item-photo-url').value='assets/foto/86088.jpg'">Raut a večer</button>
+                    </div>
+                  </div>
+                ` : ''}
+
+                ${kind === "dokumenty" ? `
+                  <div class="grid gap-3 sm:grid-cols-2">
+                    <div>
+                      <label class="mb-1 block text-xs font-medium text-muted-foreground uppercase">Kategorie</label>
+                      <select id="new-item-cat" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground">
+                        <option value="Rozvrhy a dráhy">Rozvrhy a dráhy</option>
+                        <option value="Příspěvky a řády">Příspěvky a řády</option>
+                        <option value="Zdraví a formuláře">Zdraví a formuláře</option>
+                        <option value="Závody a pravidla">Závody a pravidla</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="mb-1 block text-xs font-medium text-muted-foreground uppercase">Název PDF souboru</label>
+                      <input id="new-item-file" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground" placeholder="např. Rozpis_treninku.pdf">
+                    </div>
+                  </div>
+                ` : ''}
+
+                ${kind === "zavody" ? `
+                  <div class="grid gap-3 sm:grid-cols-3">
+                    <div>
+                      <label class="mb-1 block text-xs font-medium text-muted-foreground uppercase">Místo</label>
+                      <input id="new-item-place" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground" placeholder="např. Podolí, Praha">
+                    </div>
+                    <div>
+                      <label class="mb-1 block text-xs font-medium text-muted-foreground uppercase">Datum konání</label>
+                      <input id="new-item-date" type="date" value="${new Date().toISOString().slice(0, 10)}" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground">
+                    </div>
+                    <div>
+                      <label class="mb-1 block text-xs font-medium text-muted-foreground uppercase">Uzávěrka přihlášek</label>
+                      <input id="new-item-deadline" type="date" value="${new Date().toISOString().slice(0, 10)}" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground">
+                    </div>
+                  </div>
+                ` : ''}
+
+                ${kind === "plavci" ? `
+                  <div class="grid gap-3 sm:grid-cols-2">
+                    <div>
+                      <label class="mb-1 block text-xs font-medium text-muted-foreground uppercase">Skupina</label>
+                      <input id="new-item-group" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground" placeholder="ST / ODA / Přípravka">
+                    </div>
+                    <div>
+                      <label class="mb-1 block text-xs font-medium text-muted-foreground uppercase">Ročník narození</label>
+                      <input id="new-item-birth" type="number" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground" placeholder="2010">
+                    </div>
+                  </div>
+                ` : ''}
+
+                ${kind === "uzivatele" ? `
+                  <div class="grid gap-3 sm:grid-cols-2">
+                    <div>
+                      <label class="mb-1 block text-xs font-medium text-muted-foreground uppercase">E-mail</label>
+                      <input id="new-item-email" type="email" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground" placeholder="plavec@example.com">
+                    </div>
+                    <div>
+                      <label class="mb-1 block text-xs font-medium text-muted-foreground uppercase">Role</label>
+                      <select id="new-item-role" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground">
+                        <option value="plavec">Plavec / Rodič</option>
+                        <option value="trener">Trenér</option>
+                        <option value="admin">Administrátor</option>
+                      </select>
+                    </div>
+                  </div>
+                ` : ''}
+
                 <div>
-                  <label class="mb-1 block text-xs font-medium text-muted-foreground uppercase">Popis / Text</label>
-                  <textarea id="new-item-desc" rows="3" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground" placeholder="Text položky..."></textarea>
+                  <label class="mb-1 block text-xs font-medium text-muted-foreground uppercase">Popis / Podrobnosti / Text článku</label>
+                  <textarea id="new-item-desc" rows="4" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground" placeholder="Text záznamu..."></textarea>
                 </div>
                 <div class="flex justify-end gap-2 pt-2">
-                  <button type="button" id="cancel-new-btn" class="rounded-full border border-border px-4 py-1.5 text-xs font-semibold">Zrušit</button>
-                  <button type="button" id="save-new-btn" class="rounded-full bg-[var(--intranet-accent)] px-4 py-1.5 text-xs font-semibold text-[var(--intranet-accent-foreground)]">Vytvořit</button>
+                  <button type="button" id="cancel-new-btn" class="rounded-full border border-border px-4 py-1.5 text-xs font-semibold cursor-pointer hover:bg-card">Zrušit</button>
+                  <button type="button" id="save-new-btn" class="rounded-full bg-[var(--intranet-accent)] px-4 py-1.5 text-xs font-semibold text-[var(--intranet-accent-foreground)] cursor-pointer hover:scale-[1.02] transition">Vytvořit a publikovat</button>
                 </div>
               </div>
             </div>
 
             ${filtered.length === 0 ? `
-              <p class="py-8 text-center text-sm text-muted-foreground">V této sekci zatím nejsou žádné položky.</p>
+              <p class="py-8 text-center text-sm text-muted-foreground">V této sekci zatím nejsou žádné položky vytvořené v administraci.</p>
             ` : `
               <div class="space-y-3">
                 ${filtered.map(i => renderAdminItemRow(i)).join("")}
@@ -502,125 +1220,65 @@
         saveBtn.addEventListener("click", () => {
           const t = document.getElementById("new-item-title").value.trim();
           const d = document.getElementById("new-item-desc").value.trim();
-          if (!t) return;
+          if (!t) {
+            alert("Zadejte prosím název.");
+            return;
+          }
 
-          window.KlokaniStore.saveAdminItem({
-            kind: kind,
+          const fields = { text: d };
+          if (kind === "aktuality") {
+            const dateInput = document.getElementById("new-item-date");
+            const authorInput = document.getElementById("new-item-author");
+            const imgInput = document.getElementById("new-item-img");
+            const perexInput = document.getElementById("new-item-perex");
+            fields.datum = dateInput ? dateInput.value : new Date().toISOString().slice(0, 10);
+            fields.autor = authorInput ? authorInput.value.trim() : "TJ Bohemians Praha";
+            fields.image = imgInput ? imgInput.value.trim() : "assets/aktuality/2241.jpg";
+            fields.url = fields.image;
+            fields.perex = perexInput ? perexInput.value.trim() : d.slice(0, 160);
+            fields.text = d;
+          } else if (kind === "foto") {
+            const albumInput = document.getElementById("new-item-album");
+            const photoInput = document.getElementById("new-item-photo-url");
+            const dateInput = document.getElementById("new-item-date");
+            fields.album = albumInput ? albumInput.value.trim() : "Fotogalerie";
+            fields.url = photoInput ? photoInput.value.trim() : "assets/foto/86071.jpg";
+            fields.image = fields.url;
+            fields.datum = dateInput ? dateInput.value : new Date().toISOString().slice(0, 10);
+            fields.caption = d || t;
+            fields.text = d;
+          } else if (kind === "dokumenty") {
+            fields.kategorie = document.getElementById("new-item-cat").value;
+            fields.soubor = document.getElementById("new-item-file").value || `${t.replace(/\s+/g, "_")}.pdf`;
+            fields.velikost = "310 KB";
+            fields.datum = new Date().toISOString().slice(0, 10);
+            fields.popis = d;
+          } else if (kind === "zavody") {
+            fields.misto = document.getElementById("new-item-place").value;
+            fields.datum = document.getElementById("new-item-date").value || new Date().toISOString().slice(0, 10);
+            fields.deadline = document.getElementById("new-item-deadline").value || new Date().toISOString().slice(0, 10);
+          } else if (kind === "plavci") {
+            fields.skupina = document.getElementById("new-item-group").value;
+            fields.rocnik = document.getElementById("new-item-birth").value;
+          } else if (kind === "uzivatele") {
+            fields.email = document.getElementById("new-item-email").value;
+            fields.role = document.getElementById("new-item-role").value;
+          }
+
+          const saveKind = kind === "dokumenty" ? "dokument" : (kind === "aktuality" ? "aktualita" : (kind === "zavody" ? "zavod" : kind));
+          window.BohStore.saveAdminItem({
+            kind: saveKind,
             status: "approved",
-            source: "manuální zadání",
+            source: isSuperUser() ? "Super User" : "Editor",
             title: t,
-            fields: { text: d }
+            fields: fields
           });
-          showToast("Záznam byl úspěšně přidán!");
+          showToast("Záznam byl úspěšně přidán a okamžitě publikován na webu!");
           renderAdminTabContent();
         });
       }
 
       bindAdminItemActions(container);
-    }
-
-    function renderSupabaseSettingsTab(container) {
-      const creds = window.KlokaniSupabase ? window.KlokaniSupabase.getStoredCredentials() : { url: "", key: "" };
-      const isConnected = window.KlokaniSupabase ? window.KlokaniSupabase.isConfigured() : false;
-
-      container.innerHTML = `
-        <div class="rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[var(--shadow-elevated)] backdrop-blur-sm space-y-6">
-          <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between border-b border-border/60 pb-4">
-            <div>
-              <h2 class="font-display text-xl font-bold flex items-center gap-2">
-                <span>Napojení na databázi Supabase</span>
-                <span class="rounded-full px-2.5 py-0.5 text-xs font-bold ${isConnected ? 'bg-primary/20 text-primary' : 'bg-chart-4/20 text-foreground'}">
-                  ${isConnected ? '🟢 Připojeno k Supabase' : '🟡 Režim LocalStorage'}
-                </span>
-              </h2>
-              <p class="text-xs text-muted-foreground mt-1">Bezplatná cloudová databáze PostgreSQL s REST API pro provoz na Vercelu.</p>
-            </div>
-            <a href="SUPABASE_SETUP.md" target="_blank" rel="noreferrer" class="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline">
-              <span>Návod krok za krokem</span> &rarr;
-            </a>
-          </div>
-
-          <div class="space-y-4">
-            <div>
-              <label class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-muted-foreground">Project URL</label>
-              <input id="sb-input-url" class="w-full rounded-xl border border-input bg-background/80 px-4 py-2.5 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground font-mono" placeholder="https://xjvpyznywisuuykwsedd.supabase.co" value="${creds.url || 'https://xjvpyznywisuuykwsedd.supabase.co'}">
-            </div>
-
-            <div>
-              <label class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-muted-foreground">Project API Key (anon / public)</label>
-              <input id="sb-input-key" type="password" class="w-full rounded-xl border border-input bg-background/80 px-4 py-2.5 text-sm outline-none focus:border-[var(--intranet-accent)] text-foreground font-mono" placeholder="eyJhbGciOi..." value="${creds.key || ''}">
-              <p class="mt-1 text-[11px] text-muted-foreground">Veřejný anon klíč ze Supabase Project Settings &rarr; API. Bezpečný pro klientský JavaScript s aktivním RLS.</p>
-            </div>
-
-            <div id="sb-status-box" class="hidden rounded-xl p-3 text-xs"></div>
-
-            <div class="flex flex-wrap items-center gap-3 pt-2">
-              <button id="sb-save-btn" class="inline-flex items-center gap-2 rounded-full bg-[var(--intranet-accent)] px-5 py-2.5 text-sm font-semibold text-[var(--intranet-accent-foreground)] hover:brightness-105 transition">
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                Uložit a otestovat spojení
-              </button>
-              <button id="sb-reset-btn" class="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2.5 text-sm font-semibold text-muted-foreground hover:text-foreground hover:border-destructive transition">
-                Odpojit (používat LocalStorage)
-              </button>
-            </div>
-          </div>
-
-          <div class="mt-8 rounded-xl border border-border/70 bg-background/40 p-4 text-xs text-muted-foreground space-y-2">
-            <p class="font-semibold text-foreground">💡 Rychlé nastavení:</p>
-            <ol class="list-decimal pl-4 space-y-1">
-              <li>Založte si zdarma projekt na <a href="https://supabase.com" target="_blank" rel="noreferrer" class="text-primary underline">supabase.com</a></li>
-              <li>V SQL Editoru spusťte kód ze souboru <code class="font-mono text-primary">supabase_schema.sql</code></li>
-              <li>Zkopírujte Project URL a anon public key do polí výše a klikněte na Uložit</li>
-            </ol>
-          </div>
-        </div>
-      `;
-
-      const saveBtn = document.getElementById("sb-save-btn");
-      const resetBtn = document.getElementById("sb-reset-btn");
-      const statusBox = document.getElementById("sb-status-box");
-
-      if (saveBtn) {
-        saveBtn.addEventListener("click", async () => {
-          const url = document.getElementById("sb-input-url").value.trim();
-          const key = document.getElementById("sb-input-key").value.trim();
-
-          if (!url || !key) {
-            statusBox.className = "rounded-xl p-3 text-xs bg-destructive/15 text-destructive block";
-            statusBox.textContent = "Vyplňte prosím obě pole (Project URL i anon API key).";
-            return;
-          }
-
-          saveBtn.disabled = true;
-          saveBtn.innerHTML = "Ověřuji spojení…";
-
-          window.KlokaniSupabase.setCredentials(url, key);
-          const res = await window.KlokaniSupabase.testConnection();
-
-          saveBtn.disabled = false;
-          saveBtn.innerHTML = `<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Uložit a otestovat spojení`;
-
-          if (res.success) {
-            statusBox.className = "rounded-xl p-3 text-xs bg-emerald-500/15 text-primary font-semibold block";
-            statusBox.textContent = "✅ " + res.message;
-            showToast("Připojení k Supabase úspěšné!");
-            setTimeout(renderAdmin, 1000);
-          } else {
-            statusBox.className = "rounded-xl p-3 text-xs bg-destructive/15 text-destructive block";
-            statusBox.textContent = "⚠️ " + res.message;
-          }
-        });
-      }
-
-      if (resetBtn) {
-        resetBtn.addEventListener("click", () => {
-          if (confirm("Opravdu si přejete odpojit Supabase a přepnout web do režimu LocalStorage?")) {
-            window.KlokaniSupabase.setCredentials("", "");
-            showToast("Supabase byla odpojena. Web běží v režimu LocalStorage.", "info");
-            renderAdmin();
-          }
-        });
-      }
     }
 
     function renderAdminItemRow(item) {
@@ -643,7 +1301,7 @@
                 ${escapeHtml(item.kind)}
               </span>
               <span class="rounded-full px-2.5 py-0.5 text-xs font-semibold ${st.cls}">
-                ${st.label}
+                ${escapeHtml(st.label)}
               </span>
               <span class="text-xs text-muted-foreground">zdroj: ${escapeHtml(item.source || 'interní')}</span>
             </div>
@@ -673,8 +1331,8 @@
       container.querySelectorAll("button[data-action='approve']").forEach(b => {
         b.addEventListener("click", () => {
           const id = b.getAttribute("data-id");
-          window.KlokaniStore.setAdminItemStatus(id, "approved");
-          showToast("Položka byla schválena!");
+          window.BohStore.setAdminItemStatus(id, "approved");
+          showToast("Položka byla schválena a publikována!");
           renderAdmin();
         });
       });
@@ -682,7 +1340,7 @@
       container.querySelectorAll("button[data-action='reject']").forEach(b => {
         b.addEventListener("click", () => {
           const id = b.getAttribute("data-id");
-          window.KlokaniStore.setAdminItemStatus(id, "rejected");
+          window.BohStore.setAdminItemStatus(id, "rejected");
           showToast("Položka byla zamítnuta.", "info");
           renderAdmin();
         });
@@ -692,7 +1350,7 @@
         b.addEventListener("click", () => {
           const id = b.getAttribute("data-id");
           if (confirm("Opravdu si přejete tuto položku smazat?")) {
-            window.KlokaniStore.removeAdminItem(id);
+            window.BohStore.removeAdminItem(id);
             showToast("Položka byla smazána.");
             renderAdmin();
           }

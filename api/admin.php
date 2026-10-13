@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/db.php';
 
-$method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+$method = $_SERVER['REQUEST_METHOD'];
 $pdo = getDb();
 
 if ($method === 'GET') {
@@ -34,12 +34,34 @@ if ($method === 'POST') {
         exit;
     }
 
-    $id = $input['id'] ?? ('item-' . time());
-    $kind = $input['kind'] ?? 'aktualita';
-    $status = $input['status'] ?? 'pending';
-    $source = $input['source'] ?? 'ruční vložení';
-    $title = $input['title'] ?? 'Bez názvu';
-    $fields = json_encode($input['fields'] ?? []);
+    $rawId = (string)($input['id'] ?? ('item-' . time()));
+    $id = preg_replace('/[^a-zA-Z0-9_\-]/', '', $rawId);
+    if (empty($id)) $id = 'item-' . time();
+    $allowedKinds = ['aktualita', 'zavod', 'vysledek', 'soubor', 'oznameni'];
+    $kind = in_array($input['kind'] ?? '', $allowedKinds) ? $input['kind'] : 'aktualita';
+    $allowedStatuses = ['pending', 'approved', 'rejected'];
+    $status = in_array($input['status'] ?? '', $allowedStatuses) ? $input['status'] : 'pending';
+    $source = htmlspecialchars(strip_tags(trim((string)($input['source'] ?? 'ruční vložení'))), ENT_QUOTES, 'UTF-8');
+    $title = htmlspecialchars(strip_tags(trim((string)($input['title'] ?? 'Bez názvu'))), ENT_QUOTES, 'UTF-8');
+    $title = mb_substr($title, 0, 200, 'UTF-8');
+
+    $cleanFields = [];
+    if (is_array($input['fields'] ?? null)) {
+        foreach ($input['fields'] as $k => $v) {
+            $safeKey = preg_replace('/[^a-zA-Z0-9_\-]/', '', (string)$k);
+            if ($safeKey === '' || $safeKey === '__proto__' || $safeKey === 'constructor' || $safeKey === 'prototype') continue;
+            if (is_string($v)) {
+                $cleanFields[$safeKey] = htmlspecialchars(strip_tags(trim($v)), ENT_QUOTES, 'UTF-8');
+            } elseif (is_numeric($v) || is_bool($v)) {
+                $cleanFields[$safeKey] = $v;
+            } elseif (is_array($v)) {
+                $cleanFields[$safeKey] = array_map(function($item) {
+                    return is_string($item) ? htmlspecialchars(strip_tags(trim($item)), ENT_QUOTES, 'UTF-8') : $item;
+                }, $v);
+            }
+        }
+    }
+    $fields = json_encode($cleanFields, JSON_UNESCAPED_UNICODE);
     $createdAt = $input['createdAt'] ?? date('c');
 
     if ($pdo) {
@@ -49,7 +71,7 @@ if ($method === 'POST') {
         $items = readJsonFile('admin_items.json', []);
         $items[] = [
             'id' => $id, 'kind' => $kind, 'status' => $status,
-            'source' => $source, 'title' => $title, 'fields' => $input['fields'] ?? [], 'createdAt' => $createdAt
+            'source' => $source, 'title' => $title, 'fields' => $cleanFields, 'createdAt' => $createdAt
         ];
         writeJsonFile('admin_items.json', $items);
     }

@@ -4,14 +4,14 @@
  * Aktualizováno podle oficiálního webu https://www.boh.cz k 80. výročí oddílu (1946–2026)
  */
 
-window.KlokaniData = {
+window.BohData = {
   club: {
-    name: "Klokani",
+    name: "TJ Bohemians Praha",
     fullName: "TJ Bohemians Praha — oddíl plavání",
     founded: 1946,
     anniversary: 80,
     tagline: "UŽ TO SPOLU TÁHNEM 80 LET • 1946–2026",
-    subtagline: "Jeden tým. Jedna voda. Jedno vítězství.",
+    subtagline: "Plavecký oddíl TJ Bohemians Praha — od roku 1946",
     email: "jan.srb@czechswimming.cz",
     officialWeb: "https://www.boh.cz",
     coursesWeb: "https://kurzy.boh.cz",
@@ -20,420 +20,9 @@ window.KlokaniData = {
     ico: "00539121"
   },
 
-  subdomains: [
-    {
-      id: "kurzy",
-      name: "Kurzy plavání pro děti",
-      domain: "kurzy.boh.cz",
-      url: "https://kurzy.boh.cz",
-      badge: "Výuka dětí",
-      tag: "kurzy",
-      lead: "Výuka základního a zdokonalovacího plavání pro děti na Vinohradech a v Podolí.",
-      description: "Základní plavání pro děti od 4 let, školička, přípravné kurzy a kroužky. Výuka probíhá pod vedením trenéra Petra Dvořáka a zkušených cvičitelů oddílu Bohemians.",
-      contacts: "Petr Dvořák • bohemians.plavani@gmail.com",
-      status: "Aktivní kurzy"
-    },
-    {
-      id: "jcp",
-      name: "Jarní cena Prahy",
-      domain: "jcp.boh.cz",
-      url: "http://www.jarnicenaprahy.cz/",
-      badge: "Mezinárodní mítink",
-      tag: "zavody",
-      lead: "Tradiční mezinárodní plavecké závody pořádané naším oddílem v Podolí.",
-      description: "Jarní cena Prahy patří mezi nejstarší a nejvýznamnější plavecké mítinky v ČR na 50m bazénu v Podolí za účasti špičkových českých i zahraničních reprezentantů.",
-      contacts: "Vedení závodů TJ Bohemians • jan.srb@czechswimming.cz",
-      status: "Tradiční mítink"
-    },
-    {
-      id: "80let",
-      name: "80 let Bohemky (1946–2026)",
-      domain: "80let.boh.cz",
-      url: "foto.html",
-      badge: "Jubileum 80 let",
-      tag: "historie",
-      lead: "Oslava 80. výročí založení plaveckého oddílu Klokanů.",
-      description: "Více než 200 Klokanů se sešlo k oslavě osmi dekád zelenobílé rodiny. Retro archiv, historické trofeje a vzpomínky olympioniků.",
-      contacts: "Kronika oddílu • Mgr. Jan Srb",
-      status: "1946–2026"
-    },
-    {
-      id: "videa",
-      name: "Videotéka závodů a techniky",
-      domain: "videa.boh.cz",
-      url: "http://videa.boh.cz",
-      badge: "Video archiv",
-      tag: "media",
-      lead: "Záznamy závodních rozplaveb, technická analýza záběrů a videa ze soustředění.",
-      description: "Archiv oddílových videozáznamů ze závodů Českého poháru, MČR i tréninkových kempů pro trenéry a plavce.",
-      contacts: "Trenérský tým TJ Bohemians",
-      status: "Archiv"
-    }
-  ],
-
-  sponsors: [
-    {
-      name: "Hlavní město Praha",
-      logo: "assets/sponsors/praha.png",
-      url: "https://praha.eu",
-      role: "Podpora sportovní činnosti dětí a mládeže z grantů hl. m. Prahy"
-    },
-    {
-      name: "Český svaz plaveckých sportů & NSA",
-      logo: "assets/sponsors/svaz.png",
-      url: "https://czechswimming.cz",
-      role: "Státní podpora sportovních středisek mládeže a reprezentace ČR"
-    },
-    {
-      name: "Jarní cena Prahy",
-      logo: "assets/sponsors/jcp_promo.png",
-      url: "http://www.jarnicenaprahy.cz",
-      role: "Tradiční mezinárodní plavecký mítink pořádaný TJ Bohemians Praha"
-    }
-  ],
-
-  downloads: [
-    {
-      id: "dl-165",
-      title: "Rozřazení do skupin, rozvrh a platby 2026-27",
-      category: "Organizace & Rozvrhy",
-      filename: "165_rozdeleni_plavani_2026-27.pdf",
-      size: "518 kB",
-      date: "20. 8. 2026",
-      officialUrl: "https://www.boh.cz/download/165_rozdeleni_plavani_2026-27.pdf",
-      description: "Kompletní rozdělení plavců do tréninkových skupin (ST, ODA, ODB, Výběr, Přípravka), časy tréninků v Podolí a na Vinohradech a výše členských příspěvků pro sezónu 2026/27."
-    },
-    {
-      id: "dl-164",
-      title: "Výklad pravidel plavání (2026)",
-      category: "Pravidla & Metodika",
-      filename: "164_pravidla_plavani_vytah_a_vysvetleni_04-26.pdf",
-      size: "356 kB",
-      date: "30. 4. 2026",
-      officialUrl: "https://www.boh.cz/download/164_pravidla_plavani_vytah_a_vysvetleni_04-26.pdf",
-      description: "Přehledný výtah a oficiální vysvětlení pravidel plavání ČSPS a World Aquatics pro plavce, trenéry a rozhodčí — starty, obrátky a dohmaty."
-    },
-    {
-      id: "dl-163",
-      title: "Lyžařské soustředění 2026 — kilometráž a týmy",
-      category: "Soustředění",
-      filename: "163_26hory-jednotlivci_kilometraz_tymy.pdf",
-      size: "727 kB",
-      date: "30. 1. 2026",
-      officialUrl: "https://www.boh.cz/download/163_26hory-jednotlivci_kilometraz_tymy.pdf",
-      description: "Kompletní výsledky jednotlivců, ujetá kilometráž na běžkách a bodování týmů ze zimního kondičního soustředění Klokanů."
-    },
-    {
-      id: "dl-162",
-      title: "Oddílové tabulky, rekordy a TOP 10 výkonů celé historie oddílu k 31. 12. 2025",
-      category: "Statistika & Historie",
-      filename: "162_25statistika.pdf",
-      size: "1 684 kB",
-      date: "2. 1. 2026",
-      officialUrl: "https://www.boh.cz/download/162_25statistika.pdf",
-      description: "Historická ročenka výkonů: oddílové rekordy v 25m i 50m bazénech ve všech věkových kategoriích a historických TOP 10 časů Klokanů."
-    },
-    {
-      id: "dl-161",
-      title: "Rozřazení do skupin, rozvrh a platby 2025-26",
-      category: "Organizace & Rozvrhy",
-      filename: "161_rozdeleni_plavani_2025-26.pdf",
-      size: "492 kB",
-      date: "25. 8. 2025",
-      officialUrl: "https://www.boh.cz/download/161_rozdeleni_plavani_2025-26.pdf",
-      description: "Archivní rozdělení do tréninkových skupin a výše plateb pro sezónu 2025/2026."
-    },
-    {
-      id: "dl-160",
-      title: "Lyžařské soustředění 2025 — kilometráž a týmy",
-      category: "Soustředění",
-      filename: "160_25hory-jednotlivci_kilometraz_tymy.pdf",
-      size: "680 kB",
-      date: "31. 1. 2025",
-      officialUrl: "https://www.boh.cz/download/160_25hory-jednotlivci_kilometraz_tymy.pdf",
-      description: "Výsledky jednotlivců a bodování týmů ze zimního lyžařského soustředění 2025 na Mísečkách."
-    },
-    {
-      id: "dl-159",
-      title: "Oddílové tabulky, rekordy a TOP 10 výkonů celé historie oddílu k 31. 12. 2024",
-      category: "Statistika & Historie",
-      filename: "159_24statistika.pdf",
-      size: "1 520 kB",
-      date: "3. 1. 2025",
-      officialUrl: "https://www.boh.cz/download/159_24statistika.pdf",
-      description: "Statistická ročenka za rok 2024 s historickými tabulkami a rekordy oddílu."
-    },
-    {
-      id: "dl-158",
-      title: "Rozřazení do skupin, rozvrh a platby 2024-25",
-      category: "Organizace & Rozvrhy",
-      filename: "158_rozdelen_plavani_2024-25.pdf",
-      size: "475 kB",
-      date: "26. 8. 2024",
-      officialUrl: "https://www.boh.cz/download/158_rozdelen_plavani_2024-25.pdf",
-      description: "Archivní rozdělení plavců do skupin a rozvrhy tréninků pro sezónu 2024/25."
-    },
-    {
-      id: "dl-157",
-      title: "Návrh na rozdělení plavců přípravky 2024-25",
-      category: "Organizace & Rozvrhy",
-      filename: "157_navrh_deleni_pripravky_2024-2025.pdf",
-      size: "310 kB",
-      date: "20. 8. 2024",
-      officialUrl: "https://www.boh.cz/download/157_navrh_deleni_pripravky_2024-2025.pdf",
-      description: "Rozřazení dětí v plavecké přípravce podle věkových kategorií a bazénů."
-    },
-    {
-      id: "dl-lekarska",
-      title: "Formulář zdravotní způsobilosti k plavání",
-      category: "Formuláře & Členství",
-      filename: "formular_zdravotni_prohlidka.pdf",
-      size: "148 kB",
-      date: "1. 9. 2026",
-      officialUrl: "https://www.boh.cz/download/formular_zdravotni_prohlidka.pdf",
-      description: "Formulář tělovýchovné lékařské prohlídky vyžadovaný pro závodní činnost a starty na soutěžích ČSPS."
-    },
-    {
-      id: "dl-gdpr",
-      title: "Informace a souhlas se zpracováním osobních údajů (GDPR)",
-      category: "Formuláře & Členství",
-      filename: "93_souhlas_gdpr_v180525.pdf",
-      size: "112 kB",
-      date: "25. 5. 2018",
-      officialUrl: "https://www.boh.cz/download/93_souhlas_gdpr_v180525.pdf",
-      description: "Oficiální dokument o zpracování a ochraně osobních údajů plavců TJ Bohemians dle GDPR."
-    },
-    {
-      id: "dl-kodex",
-      title: "Etický kodex plavců Bohemians",
-      category: "Pravidla & Metodika",
-      filename: "122_eticky_kodex_plavcu_Boh_v2019.pdf",
-      size: "195 kB",
-      date: "1. 9. 2019",
-      officialUrl: "https://www.boh.cz/download/122_eticky_kodex_plavcu_Boh_v2019.pdf",
-      description: "Zásady sportovního chování, reprezentace zelenobílých barev, fair play a týmového ducha Klokanů."
-    },
-    {
-      id: "dl-dochazka-1920",
-      title: "Docházka září 2019 – únor 2020 (ST, ODA, Přípravka)",
-      category: "Organizace & Rozvrhy",
-      filename: "132_dochazka_2019-20.pdf",
-      size: "340 kB",
-      date: "28. 2. 2020",
-      officialUrl: "https://www.boh.cz/download/132_dochazka_2019-20.pdf",
-      description: "Oddílová evidence docházky tréninkových skupin ST, ODA, gymnázia a starší přípravky."
-    },
-    {
-      id: "dl-dochazka-1819",
-      title: "Docházka září 2018 – červen 2019",
-      category: "Organizace & Rozvrhy",
-      filename: "120_dochazka_2018-9.pdf",
-      size: "385 kB",
-      date: "30. 6. 2019",
-      officialUrl: "https://www.boh.cz/download/120_dochazka_2018-9.pdf",
-      description: "Kompletní celoroční statistika tréninkové docházky závodních plavců oddílu."
-    },
-    {
-      id: "dl-146",
-      title: "Tréninkové ukazatele plavců Bohemians",
-      category: "Pravidla & Metodika",
-      filename: "146_treninkova_ukazatele_8-2021-7-2022.pdf",
-      size: "412 kB",
-      date: "15. 8. 2022",
-      officialUrl: "https://www.boh.cz/download/146_treninkova_ukazatele_8-2021-7-2022.pdf",
-      description: "Metodický přehled odtrénovaných objemů a intenzit jednotlivých tréninkových skupin."
-    },
-    {
-      id: "dl-141",
-      title: "Krmítko na DP — 3D model pro dálkové plavání",
-      category: "Dálkové plavání",
-      filename: "141_krmitko_dp-vaclaveybl-logo_bohemians.stl",
-      size: "1 954 kB",
-      date: "17. 4. 2021",
-      officialUrl: "https://www.boh.cz/download/141_krmitko_dp-vaclaveybl-logo_bohemians.stl",
-      description: "3D model krmítka s logem Bohemians (od Václava Eybla) na tyč pro občerstvování plavců při maratonských tratích Českého poháru DP."
-    },
-    {
-      id: "dl-vyziva",
-      title: "Výživa mladého plavce (Interní metodický materiál)",
-      category: "Pravidla & Metodika",
-      filename: "105_imm1-vyziva%E2%80%91kr_skuhrova.pdf",
-      size: "820 kB",
-      date: "10. 10. 2018",
-      officialUrl: "https://www.boh.cz/download/105_imm1-vyziva%E2%80%91kr_skuhrova.pdf",
-      description: "Odborný metodický materiál o stravování a regeneraci plavců od Kristýny Skuhrové."
-    },
-    {
-      id: "dl-70let",
-      title: "Pamětní brožura k výročí 70 let oddílu",
-      category: "Statistika & Historie",
-      filename: "galavecer_70let_oddilu-pametni_brozura.pdf",
-      size: "3 450 kB",
-      date: "25. 11. 2016",
-      officialUrl: "https://www.boh.cz/download/galavecer_70let_oddilu-pametni_brozura.pdf",
-      description: "Historická pamětní brožura vydaná u příležitosti Galavečera k 70. výročí založení TJ Bohemians Praha."
-    }
-  ],
-
-  merch: [
-    {
-      id: "souprava",
-      title: "Reprezentační oddílová souprava Klokani",
-      category: "Oblečení",
-      badge: "Oficiální dres",
-      price: "1 450 Kč",
-      description: "Zeleno-bílá oddílová mikina na zip s kapucí a znakem Klokana + černé tepláky s nápisem TJ Bohemians. Povinná pro závodníky na mistrovských soutěžích.",
-      availability: "Objednávka u trenérů (hromadná várka před sezónou)"
-    },
-    {
-      id: "cepicka-silikon",
-      title: "Závodní silikonová čepička Bohemians",
-      category: "Vybavení",
-      badge: "Skladem",
-      price: "250 Kč",
-      description: "Kvalitní závodní silikonová čepička se zelenobílým klokanem. Dostupné barvy: zelená, bílá a černá.",
-      availability: "K zakoupení přímo u trenéra Jana Srba na bazénu"
-    },
-    {
-      id: "triko-bavlna",
-      title: "Oddílové triko Klokani (bavlna / funkční)",
-      category: "Oblečení",
-      badge: "Oblíbené",
-      price: "350 Kč",
-      description: "Kvalitní bavlněné i lehké funkční triko s nápisem KLOKANI BOHEMIANS PRAHA. Dámské, pánské i dětské velikosti.",
-      availability: "Skladem na Vinohradech i v Podolí"
-    },
-    {
-      id: "batoh",
-      title: "Závodní plavecký batoh 45 l",
-      category: "Vybavení",
-      badge: "Limitovaná edice",
-      price: "1 200 Kč",
-      description: "Velký voděodolný batoh s oddělenou kapsou na mokré plavky a boty, polstrovanými zády a výšivkou znaku Bohemians.",
-      availability: "Na objednávku"
-    },
-    {
-      id: "plavky",
-      title: "Oddílové plavky Bohemians (klasik / boxerky / dámské)",
-      category: "Oblečení",
-      badge: "Závodní",
-      price: "od 490 Kč",
-      description: "Chloruvzdorné závodní plavky v klubových barvách Bohemky s logem oddílu.",
-      availability: "Objednávka přes oddílový formulář"
-    },
-    {
-      id: "bazar",
-      title: "Oddílový bazar & Ztráty a nálezy",
-      category: "Bazar",
-      badge: "Komunita",
-      price: "Dle dohody",
-      description: "Možnost předat menší oddílové soupravy, ploutve, packy a desky mladším plavcům. Ztracené věci z Podolí a Vinohrad jsou uloženy v trenérské šatně.",
-      availability: "Kontaktujte koordinátorku výbavy nebo trenéra své skupiny"
-    }
-  ],
-
-  relays: [
-    { pool: "25m", gender: "Muži", event: "4×50 m volný způsob", time: "01:34,80", year: "2023", team: "Klokani A (Spejchal, Srb, Novák, Judickij)", note: "Oddílový rekord" },
-    { pool: "25m", gender: "Muži", event: "4×50 m polohový závod", time: "01:44,52", year: "2024", team: "Klokani A (Srb, Spejchal, Judickij, Novák)", note: "Oddílový rekord" },
-    { pool: "25m", gender: "Muži", event: "4×100 m volný způsob", time: "03:28,45", year: "2022", team: "Bohemians (Havlík, Judickij, Srb, Novák)", note: "Český pohár" },
-    { pool: "25m", gender: "Muži", event: "4×100 m polohový závod", time: "03:52,30", year: "2023", team: "Bohemians (Srb, Spejchal, Havlík, Judickij)", note: "MČR družstev" },
-    { pool: "25m", gender: "Muži", event: "4×200 m volný způsob", time: "07:44,20", year: "2021", team: "Bohemians (Judickij, Havlík, Eybl, Srb)", note: "MČR" },
-
-    { pool: "25m", gender: "Ženy", event: "4×50 m volný způsob", time: "01:48,90", year: "2023", team: "Bohemians A (Pistulková, Jurčáková, Srbová, Šťastná)", note: "Oddílový rekord" },
-    { pool: "25m", gender: "Ženy", event: "4×50 m polohový závod", time: "02:00,10", year: "2024", team: "Bohemians A (Srbová, Pistulková, Jurčáková, Šťastná)", note: "Oddílový rekord" },
-    { pool: "25m", gender: "Ženy", event: "4×100 m volný způsob", time: "03:56,30", year: "2022", team: "Bohemians (Jurčáková, Srbová, Pistulková, Šťastná)", note: "MČR družstev" },
-    { pool: "25m", gender: "Ženy", event: "4×100 m polohový závod", time: "04:22,80", year: "2023", team: "Bohemians (Srbová, Pistulková, Jurčáková, Šťastná)", note: "MČR" },
-
-    { pool: "25m", gender: "Mix", event: "4×50 m volný způsob mix", time: "01:41,20", year: "2024", team: "Bohemians (Spejchal, Srb, Jurčáková, Pistulková)", note: "MČR Praha" },
-    { pool: "25m", gender: "Mix", event: "4×50 m polohový závod mix", time: "01:51,60", year: "2024", team: "Bohemians (Srbová, Spejchal, Judickij, Jurčáková)", note: "MČR Praha" },
-
-    { pool: "50m", gender: "Muži", event: "4×100 m volný způsob", time: "03:32,10", year: "2023", team: "Bohemians (Judickij, Spejchal, Havlík, Srb)", note: "Letní MČR Podolí" },
-    { pool: "50m", gender: "Muži", event: "4×100 m polohový závod", time: "03:57,80", year: "2024", team: "Bohemians (Srb, Spejchal, Judickij, Havlík)", note: "Letní MČR Podolí" },
-    { pool: "50m", gender: "Muži", event: "4×200 m volný způsob", time: "07:51,50", year: "2022", team: "Bohemians (Judickij, Havlík, Eybl, Srb)", note: "Podolí 50m" },
-
-    { pool: "50m", gender: "Ženy", event: "4×100 m volný způsob", time: "04:01,40", year: "2023", team: "Bohemians (Jurčáková, Srbová, Pistulková, Šťastná)", note: "Letní MČR Podolí" },
-    { pool: "50m", gender: "Ženy", event: "4×100 m polohový závod", time: "04:28,90", year: "2024", team: "Bohemians (Srbová, Pistulková, Jurčáková, Šťastná)", note: "Letní MČR Podolí" },
-    { pool: "50m", gender: "Mix", event: "4×100 m polohový závod mix", time: "04:08,70", year: "2024", team: "Bohemians (Srbová, Spejchal, Judickij, Jurčáková)", note: "Letní MČR" }
-  ],
-
-  yearbooks: [
-    { year: 2025, title: "Oddílové rekordy k 31. 12. 2025", size: "820 kB", url: "https://www.boh.cz/statistika/oddilove_rekordy_boh_251231.pdf" },
-    { year: 2025, title: "TOP 10 výkonů oddílu k 31. 12. 2025", size: "780 kB", url: "https://www.boh.cz/statistika/top10_boh_251231.pdf" },
-    { year: 2025, title: "Oddílové tabulky a statistika 2025", size: "1,7 MB", url: "https://www.boh.cz/download/162_25statistika.pdf" },
-    { year: 2024, title: "Oddílové tabulky a statistika 2024", size: "1,6 MB", url: "https://www.boh.cz/download/159_24statistika.pdf" },
-    { year: 2023, title: "Oddílové tabulky a statistika 2023", size: "1,5 MB", url: "https://www.boh.cz/download/155_23statistika_boh.pdf" },
-    { year: 2022, title: "Oddílové tabulky a statistika 2022", size: "1,4 MB", url: "https://www.boh.cz/download/149_22statistika.pdf" },
-    { year: 2021, title: "Oddílové tabulky a statistika 2021", size: "1,3 MB", url: "https://www.boh.cz/download/144_21statistika.pdf" },
-    { year: 2020, title: "Oddílové tabulky a statistika 2020", size: "1,2 MB", url: "https://www.boh.cz/download/139_20statistika.pdf" },
-    { year: 2019, title: "Oddílové tabulky a statistika 2019", size: "1,1 MB", url: "https://www.boh.cz/download/129_19statistika.pdf" },
-    { year: 2018, title: "Statistika a ročenka 2018", size: "750 kB", url: "https://www.boh.cz/statistika/2018.pdf" },
-    { year: 2017, title: "Statistika a ročenka 2017", size: "750 kB", url: "https://www.boh.cz/statistika/2017.pdf" },
-    { year: 2016, title: "Statistika a ročenka 2016", size: "750 kB", url: "https://www.boh.cz/statistika/2016.pdf" },
-    { year: 2015, title: "Statistika a ročenka 2015", size: "750 kB", url: "https://www.boh.cz/statistika/2015.pdf" },
-    { year: 2014, title: "Statistika a ročenka 2014", size: "750 kB", url: "https://www.boh.cz/statistika/2014.pdf" },
-    { year: 2013, title: "Statistika a ročenka 2013", size: "750 kB", url: "https://www.boh.cz/statistika/2013.pdf" },
-    { year: 2012, title: "Statistika a ročenka 2012", size: "750 kB", url: "https://www.boh.cz/statistika/2012.pdf" },
-    { year: 2011, title: "Statistika a ročenka 2011", size: "750 kB", url: "https://www.boh.cz/statistika/2011.pdf" },
-    { year: 2010, title: "Statistika a ročenka 2010", size: "750 kB", url: "https://www.boh.cz/statistika/2010.pdf" },
-    { year: 2009, title: "Statistika a ročenka 2009", size: "750 kB", url: "https://www.boh.cz/statistika/2009.pdf" },
-    { year: 2008, title: "Statistika a ročenka 2008", size: "750 kB", url: "https://www.boh.cz/statistika/2008.pdf" },
-    { year: 2007, title: "Statistika a ročenka 2007", size: "750 kB", url: "https://www.boh.cz/statistika/2007.pdf" },
-    { year: 2006, title: "Statistika a ročenka 2006", size: "750 kB", url: "https://www.boh.cz/statistika/2006.pdf" },
-    { year: 2005, title: "Statistika a ročenka 2005", size: "750 kB", url: "https://www.boh.cz/statistika/2005.pdf" },
-    { year: 2004, title: "Statistika a ročenka 2004", size: "750 kB", url: "https://www.boh.cz/statistika/2004.pdf" },
-    { year: 2003, title: "Statistika a ročenka 2003", size: "750 kB", url: "https://www.boh.cz/statistika/2003.pdf" },
-    { year: 2002, title: "Statistika a ročenka 2002", size: "750 kB", url: "https://www.boh.cz/statistika/2002.pdf" },
-    { year: 2001, title: "Statistika a ročenka 2001", size: "750 kB", url: "https://www.boh.cz/statistika/2001.pdf" },
-    { year: 2000, title: "Statistika a ročenka 2000", size: "750 kB", url: "https://www.boh.cz/statistika/2000.pdf" },
-    { year: 1999, title: "Statistika a ročenka 1999", size: "750 kB", url: "https://www.boh.cz/statistika/1999.pdf" },
-    { year: 1998, title: "Statistika a ročenka 1998", size: "750 kB", url: "https://www.boh.cz/statistika/1998.pdf" },
-    { year: 1997, title: "Statistika a ročenka 1997", size: "750 kB", url: "https://www.boh.cz/statistika/1997.pdf" },
-    { year: 1996, title: "Statistika a ročenka 1996", size: "750 kB", url: "https://www.boh.cz/statistika/1996.pdf" },
-    { year: 1995, title: "Statistika a ročenka 1995", size: "750 kB", url: "https://www.boh.cz/statistika/1995.pdf" },
-    { year: 1994, title: "Statistika a ročenka 1994", size: "750 kB", url: "https://www.boh.cz/statistika/1994.pdf" },
-    { year: 1993, title: "Statistika a ročenka 1993", size: "750 kB", url: "https://www.boh.cz/statistika/1993.pdf" },
-    { year: 1992, title: "Statistika a ročenka 1992", size: "750 kB", url: "https://www.boh.cz/statistika/1992.pdf" },
-    { year: 1991, title: "Statistika a ročenka 1991", size: "750 kB", url: "https://www.boh.cz/statistika/1991.pdf" },
-    { year: 1990, title: "Statistika a ročenka 1990", size: "750 kB", url: "https://www.boh.cz/statistika/1990.pdf" },
-    { year: 1989, title: "Statistika a ročenka 1989", size: "750 kB", url: "https://www.boh.cz/statistika/1989.pdf" },
-    { year: 1988, title: "Statistika a ročenka 1988", size: "750 kB", url: "https://www.boh.cz/statistika/1988.pdf" },
-    { year: 1987, title: "Statistika a ročenka 1987", size: "750 kB", url: "https://www.boh.cz/statistika/1987.pdf" },
-    { year: 1986, title: "Statistika a ročenka 1986", size: "750 kB", url: "https://www.boh.cz/statistika/1986.pdf" },
-    { year: 1985, title: "Statistika a ročenka 1985", size: "750 kB", url: "https://www.boh.cz/statistika/1985.pdf" },
-    { year: 1984, title: "Statistika a ročenka 1984", size: "750 kB", url: "https://www.boh.cz/statistika/1984.pdf" },
-    { year: 1983, title: "Statistika a ročenka 1983", size: "750 kB", url: "https://www.boh.cz/statistika/1983.pdf" },
-    { year: 1982, title: "Statistika a ročenka 1982", size: "750 kB", url: "https://www.boh.cz/statistika/1982.pdf" },
-    { year: 1981, title: "Statistika a ročenka 1981", size: "750 kB", url: "https://www.boh.cz/statistika/1981.pdf" },
-    { year: 1980, title: "Statistika a ročenka 1980", size: "750 kB", url: "https://www.boh.cz/statistika/1980.pdf" },
-    { year: 1979, title: "Statistika a ročenka 1979", size: "750 kB", url: "https://www.boh.cz/statistika/1979.pdf" },
-    { year: 1978, title: "Statistika a ročenka 1978", size: "750 kB", url: "https://www.boh.cz/statistika/1978.pdf" },
-    { year: 1977, title: "Statistika a ročenka 1977", size: "750 kB", url: "https://www.boh.cz/statistika/1977.pdf" },
-    { year: 1976, title: "Statistika a ročenka 1976", size: "750 kB", url: "https://www.boh.cz/statistika/1976.pdf" },
-    { year: 1975, title: "Statistika a ročenka 1975", size: "750 kB", url: "https://www.boh.cz/statistika/1975.pdf" },
-    { year: 1974, title: "Statistika a ročenka 1974", size: "750 kB", url: "https://www.boh.cz/statistika/1974.pdf" },
-    { year: 1973, title: "Statistika a ročenka 1973", size: "750 kB", url: "https://www.boh.cz/statistika/1973.pdf" },
-    { year: 1972, title: "Statistika a ročenka 1972", size: "750 kB", url: "https://www.boh.cz/statistika/1972.pdf" },
-    { year: 1971, title: "Statistika a ročenka 1971", size: "750 kB", url: "https://www.boh.cz/statistika/1971.pdf" },
-    { year: 1970, title: "Statistika a ročenka 1970", size: "750 kB", url: "https://www.boh.cz/statistika/1970.pdf" },
-    { year: 1969, title: "Statistika a ročenka 1969", size: "750 kB", url: "https://www.boh.cz/statistika/1969.pdf" },
-    { year: 1968, title: "Statistika a ročenka 1968", size: "750 kB", url: "https://www.boh.cz/statistika/1968.pdf" },
-    { year: 1967, title: "Statistika a ročenka 1967", size: "750 kB", url: "https://www.boh.cz/statistika/1967.pdf" },
-    { year: 1966, title: "Statistika a ročenka 1966", size: "750 kB", url: "https://www.boh.cz/statistika/1966.pdf" },
-    { year: 1965, title: "Statistika a ročenka 1965", size: "750 kB", url: "https://www.boh.cz/statistika/1965.pdf" },
-    { year: 1964, title: "Statistika a ročenka 1964", size: "750 kB", url: "https://www.boh.cz/statistika/1964.pdf" },
-    { year: 1963, title: "Statistika a ročenka 1963", size: "750 kB", url: "https://www.boh.cz/statistika/1963.pdf" },
-    { year: 1962, title: "Statistika a ročenka 1962", size: "750 kB", url: "https://www.boh.cz/statistika/1962.pdf" },
-    { year: 1961, title: "Statistika a ročenka 1961", size: "750 kB", url: "https://www.boh.cz/statistika/1961.pdf" },
-    { year: 1960, title: "Statistika a ročenka 1960", size: "750 kB", url: "https://www.boh.cz/statistika/1960.pdf" },
-    { year: 1959, title: "Statistika a ročenka 1959", size: "750 kB", url: "https://www.boh.cz/statistika/1959.pdf" },
-    { year: 1958, title: "Statistika a ročenka 1958", size: "750 kB", url: "https://www.boh.cz/statistika/1958.pdf" },
-    { year: 1957, title: "Statistika a ročenka 1957", size: "750 kB", url: "https://www.boh.cz/statistika/1957.pdf" },
-    { year: 1956, title: "Statistika a ročenka 1956", size: "750 kB", url: "https://www.boh.cz/statistika/1956.pdf" },
-  ],
-
   disciplines: [
-    { code: "50 VZ", label: "50 m volný způsob", stroke: "Volný způsob", note: "nejkratší sprint" },
-    { code: "100 VZ", label: "100 m volný způsob", stroke: "Volný způsob", note: "královská disciplína" },
+    { code: "50 VZ", label: "50 m volný způsob", stroke: "Volný způsob", note: "sprint" },
+    { code: "100 VZ", label: "100 m volný způsob", stroke: "Volný způsob", note: "olympijská trať" },
     { code: "200 VZ", label: "200 m volný způsob", stroke: "Volný způsob", note: "střední trať" },
     { code: "400 VZ", label: "400 m volný způsob", stroke: "Volný způsob", note: "střední trať" },
     { code: "800 VZ", label: "800 m volný způsob", stroke: "Volný způsob", note: "vytrvalostní trať" },
@@ -543,6 +132,62 @@ window.KlokaniData = {
 
   news: [
     {
+          "id": "velka-cena-prahy-hodnoceni-2026",
+          "title": "Velká cena Prahy - hodnocení",
+          "date": "2026-10-12",
+          "author": "Martin Břenda",
+          "image": "",
+          "excerpt": "Jestliže patřil v sobotu radlický bazén mladším plavcům, tak v neděli se do soutěžení v Radlicích zapojili starší plavci. Ve finále hlavního závodu na 400K obsadila Terka Čermáková 6. místo.",
+          "body": [
+                "Jestliže patřil v sobotu radlický bazén mladším plavcům, tak v neděli se do soutěžení v Radlicích zapojili starší plavci. Účast bohemáků byla slušná, závodní nasazení bylo, z mého pohledu, dobré. Někdo dokázal zaplavat i osobní rekord a někteří vybojovali i umístění na bedně.",
+                "Ve finále hlavního závodu na 400K jsme měli pouze jednu plavkyni a to Terku Čermákovou, která obsadila 6. místo.",
+                "Kompletní výsledky najdete v menu Závody. Bohemka, do toho!"
+          ]
+    },
+    {
+          "id": "podzimni-cena-motorletu-hodnoceni-2026",
+          "title": "Podzimní cena Motorletu - hodnocení",
+          "date": "2026-10-12",
+          "author": "Soňa Nováková",
+          "image": "",
+          "excerpt": "V sobotu 10.10. se konala tradiční Podzimní cena Motorletu v Radlicích. Míša Němec vybojoval 2. místo na 100 a 200 motýlek, Matěj Vrchlabský 2. místo na 100 motýlek.",
+          "body": [
+                "V sobotu 10.10. se konala tradiční Podzimní cena Motorletu v Radlicích. Letos byla opravdu silná konkurence, ale i tak se pár našich plavců kvalifikovalo a předvedlo skvělé výkony!",
+                "Nejlépe si vedl Míša Němec, který vybojoval 2. místo na 100 a 200 motýlek a účast ve finále na 200 kraul, kde si dohmátl pro 5. místo. Další medailista byl Matěj Vrchlabský, který si vyplaval 2. místo na 100 motýlek a také účast ve finále, kam postoupil z druhého místa, ale nakonec dohmátnul na páté pozici.",
+                "Ostatní si vyplavali moc hezké osobáčky! Celkově se závody nesly v dobré atmosféře a doufáme, že to tak bude pokračovat! Výsledky jsou v menu Závody. M číslo 79."
+          ]
+    },
+    {
+          "id": "velka-cena-mesta-plzne-hodnoceni-2026",
+          "title": "Velká cena města Plzně - hodnocení",
+          "date": "2026-10-04",
+          "author": "Jan Srb",
+          "image": "",
+          "excerpt": "Velká cena města Plzně tradičně otevírá podzimní sezónu na 1500m. Mezi ženami doplavala na 2. místě Mia Srbová, mezi žáky zvítězil Ondra Benš.",
+          "body": [
+                "Velká cena města Plzně je tradičně prvním závodem sezóny, na který se vydáváme. Pro naše plavce má především jednu důležitou úlohu – otestovat, jak se v probíhající přípravě daří budovat vytrvalost.",
+                "Hlavním testem je samozřejmě 1500 metrů volným způsobem. K tomu si každý podle chuti může přidat některou ze stovek, které nabízí program závodu. A že se Klokanům dařilo, ukázaly výsledky hned na úvod sezóny.",
+                "Na hlavní patnáctistovce jsme měli dva plavce na stupních vítězů. Mezi ženami i v absolutním pořadí doplavala na výborném 2. místě Mia Srbová, mezi žáky pak zvítězil Ondra Benš.",
+                "A dařilo se i v dalších disciplínách: Pepča Pistulková – starší žačky - 1. 100 P, 2. 100 Z, 3. 100 K, Madla Šťastná – mladší žačky - 3. 100 K, Fanda Tichý – mladší žáci - 1. 100 M, Vojta Vrchlabský – mladší žáci - 2. 100 K, 3. 100 P, 3. 100 Z.",
+                "Všem plavcům gratulujeme k předvedeným výkonům a děkujeme za první závodní ochutnávku nové sezóny! Výsledky najdete v menu Závody, fotografie pak ve Fotoalbech. Bohemka, do toho!"
+          ]
+    },
+    {
+      "id": "evropsky-pohar-dp-razanac-2026",
+      "title": "Evropský pohár v dálkovém plavání v chorvatském Razanacu",
+      "date": "2026-09-28",
+      "author": "Jan Srb",
+      "image": "assets/aktuality/2241.jpg",
+      "excerpt": "Na další zastávce Evropského poháru v dálkovém plavání, tentokrát v přímořském chorvatském Razanacu, reprezentovala Bohemku i Českou republiku Háňa Jurčáková.",
+      "body": [
+        "Na další zastávce Evropského poháru v dálkovém plavání, tentokrát v přímořském chorvatském Razanacu, reprezentovala Bohemku i Českou republiku Háňa Jurčáková.",
+        "Hanka vystartovala do rychlého závodu s chutí zopakovat svou povedenou mezinárodní premiéru z mistrovství Evropy juniorů. Tentokrát se musela odvážně poprat nejen se soupeřkami, ale také s vlnami Jadranu.",
+        "Krásné prostředí malého přístavního městečka se již tradičně v září stává centrem dalšího kola Evropského poháru a ani letos nechyběla pořádná dálkoplavská atmosféra.",
+        "Po statečném výkonu bojovala Hanka až do samotného závěru a v těsném finiši nakonec doplavala na 12. místě. Moc gratulujeme k předvedenému výkonu!",
+        "Tímto závodem pro Klokany definitivně končí letošní úspěšná sezóna dálkového plavání. A Hance teď začíná zasloužený odpočinek. Klokani, do toho!"
+      ]
+    },
+    {
         "id": "oslava-80-let-bohemka",
         "title": "Plavecká Bohemka oslavila 80 let ve velkém stylu!",
         "date": "2026-09-14",
@@ -566,7 +211,7 @@ window.KlokaniData = {
         "title": "Klokani vezou z Českého poháru v dálkovém plavání týmový bronz!",
         "date": "2026-09-07",
         "author": "Jan Srb",
-        "image": "assets/aktuality/2239.jpg",
+        "image": "assets/aktuality/2238.jpg",
         "excerpt": "Po víkendu v Mělicích skončil Český pohár v dálkovém plavání 2026. A Klokani si z něj odvážejí parádní bronz v soutěži týmů!",
         "body": [
             "Po víkendu v Mělicích, který se skládal ze dvou jednodenních závodů, skončil Český pohár v dálkovém plavání 2026. A Klokani si z něj odvážejí parádní bronz v soutěži týmů!",
@@ -958,7 +603,8 @@ window.KlokaniData = {
         "holder": "Petr Novák",
         "year": "2018",
         "date": "25. 05. 2018",
-        "place": "Pardubice"
+        "place": "Pardubice",
+        "category": "Open"
     },
     {
         "event": "100 M",
@@ -968,7 +614,8 @@ window.KlokaniData = {
         "holder": "Petr Novák",
         "year": "2018",
         "date": "27. 05. 2018",
-        "place": "Pardubice"
+        "place": "Pardubice",
+        "category": "Open"
     },
     {
         "event": "200 M",
@@ -978,7 +625,8 @@ window.KlokaniData = {
         "holder": "Tomáš Havránek",
         "year": "2016",
         "date": "28. 05. 2016",
-        "place": "Bergen (NOR)"
+        "place": "Bergen (NOR)",
+        "category": "Open"
     },
     {
         "event": "50 Z",
@@ -988,7 +636,8 @@ window.KlokaniData = {
         "holder": "Ivan Boryslavskyi",
         "year": "2022",
         "date": "03. 07. 2022",
-        "place": "Praha - Podolí"
+        "place": "Praha - Podolí",
+        "category": "Open"
     },
     {
         "event": "100 Z",
@@ -998,7 +647,8 @@ window.KlokaniData = {
         "holder": "Michal Judickij",
         "year": "2025",
         "date": "25. 04. 2025",
-        "place": "Pardubice"
+        "place": "Pardubice",
+        "category": "Open"
     },
     {
         "event": "200 Z",
@@ -1008,7 +658,8 @@ window.KlokaniData = {
         "holder": "Michal Judickij",
         "year": "2026",
         "date": "11. 08. 2026",
-        "place": "Paříž (FRA)"
+        "place": "Paříž (FRA)",
+        "category": "Open"
     },
     {
         "event": "50 P",
@@ -1018,7 +669,8 @@ window.KlokaniData = {
         "holder": "Marián Dragúň",
         "year": "2014",
         "date": "11. 07. 2014",
-        "place": "Praha - Podolí"
+        "place": "Praha - Podolí",
+        "category": "Open"
     },
     {
         "event": "100 P",
@@ -1028,7 +680,8 @@ window.KlokaniData = {
         "holder": "Michal Judickij",
         "year": "2026",
         "date": "27. 06. 2026",
-        "place": "Praha - Podolí"
+        "place": "Praha - Podolí",
+        "category": "Open"
     },
     {
         "event": "200 P",
@@ -1038,7 +691,8 @@ window.KlokaniData = {
         "holder": "Michal Judickij",
         "year": "2022",
         "date": "24. 04. 2022",
-        "place": "Zlín"
+        "place": "Zlín",
+        "category": "Open"
     },
     {
         "event": "50 VZ",
@@ -1048,7 +702,8 @@ window.KlokaniData = {
         "holder": "Michal Ledl",
         "year": "2008",
         "date": "30. 07. 2008",
-        "place": "Belgrade (SRB)"
+        "place": "Belgrade (SRB)",
+        "category": "Open"
     },
     {
         "event": "100 VZ",
@@ -1058,7 +713,8 @@ window.KlokaniData = {
         "holder": "Petr Novák",
         "year": "2017",
         "date": "08. 07. 2017",
-        "place": "Praha - Podolí"
+        "place": "Praha - Podolí",
+        "category": "Open"
     },
     {
         "event": "200 VZ",
@@ -1068,7 +724,8 @@ window.KlokaniData = {
         "holder": "Petr Novák",
         "year": "2018",
         "date": "26. 05. 2018",
-        "place": "Pardubice"
+        "place": "Pardubice",
+        "category": "Open"
     },
     {
         "event": "400 VZ",
@@ -1078,7 +735,8 @@ window.KlokaniData = {
         "holder": "Petr Novák",
         "year": "2017",
         "date": "06. 07. 2017",
-        "place": "Praha - Podolí"
+        "place": "Praha - Podolí",
+        "category": "Open"
     },
     {
         "event": "800 VZ",
@@ -1088,7 +746,8 @@ window.KlokaniData = {
         "holder": "Michal Judickij",
         "year": "2023",
         "date": "13. 08. 2023",
-        "place": "Dublin (IRL)"
+        "place": "Dublin (IRL)",
+        "category": "Open"
     },
     {
         "event": "1500 VZ",
@@ -1098,7 +757,8 @@ window.KlokaniData = {
         "holder": "Michal Judickij",
         "year": "2025",
         "date": "17. 05. 2025",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "200 PZ",
@@ -1108,7 +768,8 @@ window.KlokaniData = {
         "holder": "Jakub Lahoda",
         "year": "2019",
         "date": "14. 04. 2019",
-        "place": "Eindhoven (NED)"
+        "place": "Eindhoven (NED)",
+        "category": "Open"
     },
     {
         "event": "400 PZ",
@@ -1118,7 +779,8 @@ window.KlokaniData = {
         "holder": "Michal Judickij",
         "year": "2025",
         "date": "26. 04. 2025",
-        "place": "Pardubice"
+        "place": "Pardubice",
+        "category": "Open"
     },
     {
         "event": "3 km",
@@ -1128,7 +790,8 @@ window.KlokaniData = {
         "holder": "Martin Straka",
         "year": "2022",
         "date": "04. 05. 2022",
-        "place": "Praha - Podolí"
+        "place": "Praha - Podolí",
+        "category": "Open"
     },
     {
         "event": "5 km",
@@ -1138,7 +801,8 @@ window.KlokaniData = {
         "holder": "Matěj Kozubek",
         "year": "2015",
         "date": "03. 06. 2015",
-        "place": "Strakonice"
+        "place": "Strakonice",
+        "category": "Open"
     },
     {
         "event": "10 km",
@@ -1148,7 +812,8 @@ window.KlokaniData = {
         "holder": "Matěj Kozubek",
         "year": "2014",
         "date": "13. 09. 2014",
-        "place": "Jaroměř"
+        "place": "Jaroměř",
+        "category": "Open"
     },
     {
         "event": "15 km",
@@ -1158,7 +823,8 @@ window.KlokaniData = {
         "holder": "Matěj Kozubek",
         "year": "2014",
         "date": "13. 09. 2014",
-        "place": "Jaroměř"
+        "place": "Jaroměř",
+        "category": "Open"
     },
     {
         "event": "20 km",
@@ -1168,7 +834,8 @@ window.KlokaniData = {
         "holder": "Pavel Srb",
         "year": "2001",
         "date": "2001",
-        "place": "-"
+        "place": "-",
+        "category": "Open"
     },
     {
         "event": "25 km",
@@ -1178,7 +845,8 @@ window.KlokaniData = {
         "holder": "Matěj Kozubek",
         "year": "2018",
         "date": "01. 04. 2018",
-        "place": "Zlín"
+        "place": "Zlín",
+        "category": "Open"
     },
     {
         "event": "50 M",
@@ -1188,7 +856,8 @@ window.KlokaniData = {
         "holder": "Anna Kolářová",
         "year": "2017",
         "date": "09. 07. 2017",
-        "place": "Praha - Podolí"
+        "place": "Praha - Podolí",
+        "category": "Open"
     },
     {
         "event": "100 M",
@@ -1198,17 +867,8 @@ window.KlokaniData = {
         "holder": "Anna Kolářová",
         "year": "2021",
         "date": "09. 04. 2021",
-        "place": "Stockholm (SWE)"
-    },
-    {
-        "event": "200 M",
-        "gender": "Ženy",
-        "pool": "50m",
-        "time": "02:19,47",
-        "holder": "Lenka Jarošová",
-        "year": "2011",
-        "date": "09. 07. 2011",
-        "place": "Praha -\n Podolí"
+        "place": "Stockholm (SWE)",
+        "category": "Open"
     },
     {
         "event": "50 Z",
@@ -1218,7 +878,8 @@ window.KlokaniData = {
         "holder": "Ilona Kudrnáčová",
         "year": "2005",
         "date": "18. 01. 2005",
-        "place": "Stockholm (SWE)"
+        "place": "Stockholm (SWE)",
+        "category": "Open"
     },
     {
         "event": "100 Z",
@@ -1228,7 +889,8 @@ window.KlokaniData = {
         "holder": "Mia Srbová",
         "year": "2026",
         "date": "30. 05. 2026",
-        "place": "Ústí nad Labem"
+        "place": "Ústí nad Labem",
+        "category": "Open"
     },
     {
         "event": "200 Z",
@@ -1238,7 +900,8 @@ window.KlokaniData = {
         "holder": "Lenka Jarošová",
         "year": "2009",
         "date": "03. 05. 2009",
-        "place": "České Budějovice"
+        "place": "České Budějovice",
+        "category": "Open"
     },
     {
         "event": "50 P",
@@ -1248,7 +911,8 @@ window.KlokaniData = {
         "holder": "Martina Pechová",
         "year": "2014",
         "date": "23. 08. 2014",
-        "place": "Berlín (GER)"
+        "place": "Berlín (GER)",
+        "category": "Open"
     },
     {
         "event": "100 P",
@@ -1258,7 +922,8 @@ window.KlokaniData = {
         "holder": "Martina Pechová",
         "year": "2017",
         "date": "24. 07. 2017",
-        "place": "Budapešť (HUN)"
+        "place": "Budapešť (HUN)",
+        "category": "Open"
     },
     {
         "event": "200 P",
@@ -1268,7 +933,8 @@ window.KlokaniData = {
         "holder": "Martina Pechová",
         "year": "2017",
         "date": "27. 07. 2017",
-        "place": "Budapešť (HUN)"
+        "place": "Budapešť (HUN)",
+        "category": "Open"
     },
     {
         "event": "50 VZ",
@@ -1278,7 +944,8 @@ window.KlokaniData = {
         "holder": "Anna Kolářová",
         "year": "2015",
         "date": "06. 11. 2015",
-        "place": "Dubai (UAE)"
+        "place": "Dubai (UAE)",
+        "category": "Open"
     },
     {
         "event": "100 VZ",
@@ -1288,7 +955,8 @@ window.KlokaniData = {
         "holder": "Anna Kolářová",
         "year": "2015",
         "date": "06. 08. 2015",
-        "place": "Kazaň (RUS)"
+        "place": "Kazaň (RUS)",
+        "category": "Open"
     },
     {
         "event": "200 VZ",
@@ -1298,7 +966,8 @@ window.KlokaniData = {
         "holder": "Margarita Paroubková",
         "year": "2026",
         "date": "26. 06. 2026",
-        "place": "Praha - Podolí"
+        "place": "Praha - Podolí",
+        "category": "Open"
     },
     {
         "event": "400 VZ",
@@ -1308,7 +977,8 @@ window.KlokaniData = {
         "holder": "Kristýna Horská",
         "year": "2019",
         "date": "05. 05. 2019",
-        "place": "Ostrava"
+        "place": "Ostrava",
+        "category": "Open"
     },
     {
         "event": "800 VZ",
@@ -1318,7 +988,8 @@ window.KlokaniData = {
         "holder": "Julie Pleskotová",
         "year": "2019",
         "date": "28. 04. 2019",
-        "place": "Bratislava (SVK)"
+        "place": "Bratislava (SVK)",
+        "category": "Open"
     },
     {
         "event": "1500 VZ",
@@ -1328,7 +999,8 @@ window.KlokaniData = {
         "holder": "Julie Pleskotová",
         "year": "2019",
         "date": "21. 06. 2019",
-        "place": "České Budějovice"
+        "place": "České Budějovice",
+        "category": "Open"
     },
     {
         "event": "200 PZ",
@@ -1338,7 +1010,8 @@ window.KlokaniData = {
         "holder": "Kristýna Horská",
         "year": "2016",
         "date": "29. 05. 2016",
-        "place": "Bergen (NOR)"
+        "place": "Bergen (NOR)",
+        "category": "Open"
     },
     {
         "event": "400 PZ",
@@ -1348,7 +1021,8 @@ window.KlokaniData = {
         "holder": "Kristýna Horská",
         "year": "2019",
         "date": "12. 10. 2019",
-        "place": "Berlín (GER)"
+        "place": "Berlín (GER)",
+        "category": "Open"
     },
     {
         "event": "3 km",
@@ -1358,7 +1032,8 @@ window.KlokaniData = {
         "holder": "Lenka Pavlacká",
         "year": "2022",
         "date": "27. 03. 2022",
-        "place": "Praha - Podolí"
+        "place": "Praha - Podolí",
+        "category": "Open"
     },
     {
         "event": "5 km",
@@ -1368,7 +1043,8 @@ window.KlokaniData = {
         "holder": "Lenka Pavlacká",
         "year": "2022",
         "date": "27. 03. 2022",
-        "place": "Praha - Podolí"
+        "place": "Praha - Podolí",
+        "category": "Open"
     },
     {
         "event": "10 km",
@@ -1378,7 +1054,8 @@ window.KlokaniData = {
         "holder": "Šárka Landsmannová",
         "year": "2014",
         "date": "11. 05. 2014",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "15 km",
@@ -1388,7 +1065,8 @@ window.KlokaniData = {
         "holder": "Simona Švandelíková",
         "year": "2011",
         "date": "17. 09. 2011",
-        "place": "Jaroměř"
+        "place": "Jaroměř",
+        "category": "Open"
     },
     {
         "event": "20 km",
@@ -1398,7 +1076,8 @@ window.KlokaniData = {
         "holder": "Simona Švandelíková",
         "year": "2011",
         "date": "17. 09. 2011",
-        "place": "Jaroměř"
+        "place": "Jaroměř",
+        "category": "Open"
     },
     {
         "event": "25 km",
@@ -1408,7 +1087,8 @@ window.KlokaniData = {
         "holder": "Simona Švandelíková",
         "year": "2011",
         "date": "17. 09. 2011",
-        "place": "Jaroměř"
+        "place": "Jaroměř",
+        "category": "Open"
     },
     {
         "event": "50 M",
@@ -1418,7 +1098,8 @@ window.KlokaniData = {
         "holder": "Michal Ledl",
         "year": "2009",
         "date": "18. 12. 2009",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "100 M",
@@ -1428,7 +1109,8 @@ window.KlokaniData = {
         "holder": "Michal Ledl",
         "year": "2009",
         "date": "19. 12. 2009",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "200 M",
@@ -1438,7 +1120,8 @@ window.KlokaniData = {
         "holder": "Tomáš Havránek",
         "year": "2016",
         "date": "19. 11. 2016",
-        "place": "Graz (AUT)"
+        "place": "Graz (AUT)",
+        "category": "Open"
     },
     {
         "event": "50 Z",
@@ -1448,7 +1131,8 @@ window.KlokaniData = {
         "holder": "Petr Novák",
         "year": "2017",
         "date": "16. 12. 2017",
-        "place": "Zlín"
+        "place": "Zlín",
+        "category": "Open"
     },
     {
         "event": "100 Z",
@@ -1458,7 +1142,8 @@ window.KlokaniData = {
         "holder": "Michal Judickij",
         "year": "2025",
         "date": "18. 12. 2025",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "200 Z",
@@ -1468,7 +1153,8 @@ window.KlokaniData = {
         "holder": "Michal Judickij",
         "year": "2025",
         "date": "20. 12. 2025",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "50 P",
@@ -1478,7 +1164,8 @@ window.KlokaniData = {
         "holder": "Martin Bejček",
         "year": "2016",
         "date": "15. 12. 2016",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "100 P",
@@ -1488,7 +1175,8 @@ window.KlokaniData = {
         "holder": "Martin Bejček",
         "year": "2015",
         "date": "12. 12. 2015",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "200 P",
@@ -1498,7 +1186,8 @@ window.KlokaniData = {
         "holder": "Martin Bejček",
         "year": "2016",
         "date": "14. 10. 2016",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "50 VZ",
@@ -1508,7 +1197,8 @@ window.KlokaniData = {
         "holder": "Michal Ledl",
         "year": "2009",
         "date": "18. 12. 2009",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "100 VZ",
@@ -1518,7 +1208,8 @@ window.KlokaniData = {
         "holder": "Michal Ledl",
         "year": "2009",
         "date": "20. 12. 2009",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "200 VZ",
@@ -1528,7 +1219,8 @@ window.KlokaniData = {
         "holder": "Tomáš Havránek",
         "year": "2018",
         "date": "16. 12. 2018",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "400 VZ",
@@ -1538,7 +1230,8 @@ window.KlokaniData = {
         "holder": "David Noll",
         "year": "2017",
         "date": "23. 11. 2017",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "800 VZ",
@@ -1548,7 +1241,8 @@ window.KlokaniData = {
         "holder": "Michal Judickij",
         "year": "2024",
         "date": "26. 10. 2024",
-        "place": "Šamorín (SVK)"
+        "place": "Šamorín (SVK)",
+        "category": "Open"
     },
     {
         "event": "1500 VZ",
@@ -1558,7 +1252,8 @@ window.KlokaniData = {
         "holder": "Michal Judickij",
         "year": "2024",
         "date": "11. 11. 2024",
-        "place": "Gent (BEL)"
+        "place": "Gent (BEL)",
+        "category": "Open"
     },
     {
         "event": "100 PZ",
@@ -1568,7 +1263,8 @@ window.KlokaniData = {
         "holder": "Tomáš Havránek",
         "year": "2017",
         "date": "25. 11. 2017",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "200 PZ",
@@ -1578,7 +1274,8 @@ window.KlokaniData = {
         "holder": "Tomáš Havránek",
         "year": "2017",
         "date": "23. 11. 2017",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "400 PZ",
@@ -1588,7 +1285,8 @@ window.KlokaniData = {
         "holder": "Michal Judickij",
         "year": "2025",
         "date": "17. 10. 2025",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "3 km",
@@ -1598,7 +1296,8 @@ window.KlokaniData = {
         "holder": "Matěj Kozubek",
         "year": "2017",
         "date": "07. 10. 2017",
-        "place": "Levice (SVK)"
+        "place": "Levice (SVK)",
+        "category": "Open"
     },
     {
         "event": "5 km",
@@ -1608,7 +1307,8 @@ window.KlokaniData = {
         "holder": "Matěj Kozubek",
         "year": "2017",
         "date": "07. 10. 2017",
-        "place": "Levice (SVK)"
+        "place": "Levice (SVK)",
+        "category": "Open"
     },
     {
         "event": "4 boj",
@@ -1618,7 +1318,8 @@ window.KlokaniData = {
         "holder": "Tomáš Havránek",
         "year": "2024",
         "date": "17. 12. 2024",
-        "place": "Praha - Vinohrady"
+        "place": "Praha - Vinohrady",
+        "category": "Open"
     },
     {
         "event": "50 M",
@@ -1628,7 +1329,8 @@ window.KlokaniData = {
         "holder": "Anna Kolářová",
         "year": "2019",
         "date": "19. 10. 2019",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "100 M",
@@ -1638,7 +1340,8 @@ window.KlokaniData = {
         "holder": "Lenka Jarošová",
         "year": "2009",
         "date": "12. 12. 2009",
-        "place": "Istambul (TUR)"
+        "place": "Istambul (TUR)",
+        "category": "Open"
     },
     {
         "event": "200 M",
@@ -1648,7 +1351,8 @@ window.KlokaniData = {
         "holder": "Kristýna Horská",
         "year": "2019",
         "date": "14. 12. 2019",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "50 Z",
@@ -1658,7 +1362,8 @@ window.KlokaniData = {
         "holder": "Ilona Kudrnáčová",
         "year": "2001",
         "date": "13. 12. 2001",
-        "place": "Antverpy (BEL)"
+        "place": "Antverpy (BEL)",
+        "category": "Open"
     },
     {
         "event": "100 Z",
@@ -1668,7 +1373,8 @@ window.KlokaniData = {
         "holder": "Ilona Kudrnáčová",
         "year": "2001",
         "date": "13. 12. 2001",
-        "place": "-"
+        "place": "-",
+        "category": "Open"
     },
     {
         "event": "200 Z",
@@ -1678,7 +1384,8 @@ window.KlokaniData = {
         "holder": "Lenka Jarošová",
         "year": "2009",
         "date": "13. 12. 2009",
-        "place": "Istambul (TUR)"
+        "place": "Istambul (TUR)",
+        "category": "Open"
     },
     {
         "event": "50 P",
@@ -1688,7 +1395,8 @@ window.KlokaniData = {
         "holder": "Martina Pechová",
         "year": "2016",
         "date": "06. 12. 2016",
-        "place": "Windsor (CAN)"
+        "place": "Windsor (CAN)",
+        "category": "Open"
     },
     {
         "event": "100 P",
@@ -1698,7 +1406,8 @@ window.KlokaniData = {
         "holder": "Martina Pechová",
         "year": "2016",
         "date": "09. 12. 2016",
-        "place": "Windsor (CAN)"
+        "place": "Windsor (CAN)",
+        "category": "Open"
     },
     {
         "event": "200 P",
@@ -1708,7 +1417,8 @@ window.KlokaniData = {
         "holder": "Martina Pechová",
         "year": "2015",
         "date": "06. 12. 2015",
-        "place": "Netanya (ISR)"
+        "place": "Netanya (ISR)",
+        "category": "Open"
     },
     {
         "event": "50 VZ",
@@ -1718,7 +1428,8 @@ window.KlokaniData = {
         "holder": "Anna Kolářová",
         "year": "2014",
         "date": "15. 11. 2014",
-        "place": "Brno - Lesná"
+        "place": "Brno - Lesná",
+        "category": "Open"
     },
     {
         "event": "100 VZ",
@@ -1728,7 +1439,8 @@ window.KlokaniData = {
         "holder": "Anna Kolářová",
         "year": "2014",
         "date": "21. 12. 2014",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "200 VZ",
@@ -1738,7 +1450,8 @@ window.KlokaniData = {
         "holder": "Anna Kolářová",
         "year": "2015",
         "date": "16. 10. 2015",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "400 VZ",
@@ -1748,7 +1461,8 @@ window.KlokaniData = {
         "holder": "Kristýna Horská",
         "year": "2019",
         "date": "13. 12. 2019",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "800 VZ",
@@ -1758,7 +1472,8 @@ window.KlokaniData = {
         "holder": "Julie Pleskotová",
         "year": "2021",
         "date": "18. 12. 2021",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "1500 VZ",
@@ -1768,7 +1483,8 @@ window.KlokaniData = {
         "holder": "Julie Pleskotová",
         "year": "2018",
         "date": "14. 12. 2018",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "100 PZ",
@@ -1778,7 +1494,8 @@ window.KlokaniData = {
         "holder": "Kristýna Horská",
         "year": "2019",
         "date": "15. 12. 2019",
-        "place": "Plzeň - Slovany"
+        "place": "Plzeň - Slovany",
+        "category": "Open"
     },
     {
         "event": "200 PZ",
@@ -1788,7 +1505,8 @@ window.KlokaniData = {
         "holder": "Kristýna Horská",
         "year": "2017",
         "date": "16. 12. 2017",
-        "place": "Kodaň (DEN)"
+        "place": "Kodaň (DEN)",
+        "category": "Open"
     },
     {
         "event": "400 PZ",
@@ -1798,7 +1516,8 @@ window.KlokaniData = {
         "holder": "Kristýna Horská",
         "year": "2019",
         "date": "04. 12. 2019",
-        "place": "Glasgow (GBR)"
+        "place": "Glasgow (GBR)",
+        "category": "Open"
     },
     {
         "event": "3 km",
@@ -1808,7 +1527,8 @@ window.KlokaniData = {
         "holder": "Lenka Pavlacká",
         "year": "2020",
         "date": "04. 06. 2020",
-        "place": "Praha - Vinohrady"
+        "place": "Praha - Vinohrady",
+        "category": "Open"
     },
     {
         "event": "5 km",
@@ -1818,7 +1538,8 @@ window.KlokaniData = {
         "holder": "Julie Pleskotová",
         "year": "2021",
         "date": "06. 11. 2021",
-        "place": "Krnov"
+        "place": "Krnov",
+        "category": "Open"
     },
     {
         "event": "4 boj",
@@ -1828,11 +1549,3414 @@ window.KlokaniData = {
         "holder": "Anna Kolářová",
         "year": "2015",
         "date": "17. 12. 2015",
-        "place": "Praha - Vinohrady"
+        "place": "Praha - Vinohrady",
+        "category": "Open"
+    },
+    {
+        "event": "50 M",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "00:24,87",
+        "holder": "Michal Ledl",
+        "year": "2009",
+        "date": "28. 06. 2009",
+        "place": "Praha - Podolí",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "100 M",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "00:54,88",
+        "holder": "David Noll",
+        "year": "2016",
+        "date": "09. 07. 2016",
+        "place": "Hódmezővásárhely (HUN)",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "200 M",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "02:02,11",
+        "holder": "Petr Novák",
+        "year": "2014",
+        "date": "10. 07. 2014",
+        "place": "Dordrecht (NED)",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "50 Z",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "00:27,04",
+        "holder": "Ivan Boryslavskyi",
+        "year": "2022",
+        "date": "03. 07. 2022",
+        "place": "Praha - Podolí",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "100 Z",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "00:57,58",
+        "holder": "Pavel Vokoun",
+        "year": "1988",
+        "date": "1988",
+        "place": "-",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "200 Z",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "02:04,63",
+        "holder": "Pavel Vokoun",
+        "year": "1988",
+        "date": "24. 07. 1988",
+        "place": "-",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "50 P",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "00:29,81",
+        "holder": "Michal Judickij",
+        "year": "2022",
+        "date": "05. 07. 2022",
+        "place": "Otopeni (ROU)",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "100 P",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "01:05,33",
+        "holder": "Michal Judickij",
+        "year": "2022",
+        "date": "23. 04. 2022",
+        "place": "Zlín",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "200 P",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "02:17,13",
+        "holder": "Michal Judickij",
+        "year": "2022",
+        "date": "24. 04. 2022",
+        "place": "Zlín",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "50 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "00:23,77",
+        "holder": "Michal Ledl",
+        "year": "2008",
+        "date": "30. 07. 2008",
+        "place": "Belgrade (SRB)",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "100 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "00:52,13",
+        "holder": "Tomáš Havránek",
+        "year": "2012",
+        "date": "01. 04. 2012",
+        "place": "Coimbra (POR)",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "200 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "01:51,80",
+        "holder": "Petr Novák",
+        "year": "2014",
+        "date": "12. 07. 2014",
+        "place": "Dordrecht (NED)",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "400 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "03:57,95",
+        "holder": "Petr Novák",
+        "year": "2014",
+        "date": "09. 07. 2014",
+        "place": "Dordrecht (NED)",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "800 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "08:22,93",
+        "holder": "Michal Judickij",
+        "year": "2022",
+        "date": "24. 04. 2022",
+        "place": "Zlín",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "1500 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "16:04,42",
+        "holder": "Michal Judickij",
+        "year": "2022",
+        "date": "10. 04. 2022",
+        "place": "Kranj (SLO)",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "200 PZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "02:02,88",
+        "holder": "Jakub Lahoda",
+        "year": "2018",
+        "date": "05. 07. 2018",
+        "place": "Helsinki (FIN)",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "400 PZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "04:22,51",
+        "holder": "Michal Judickij",
+        "year": "2022",
+        "date": "08. 07. 2022",
+        "place": "Otopeni (ROU)",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "3 km",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "33:46,10",
+        "holder": "Matěj Kozubek",
+        "year": "2014",
+        "date": "11. 05. 2014",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "5 km",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "56:42,60",
+        "holder": "Matěj Kozubek",
+        "year": "2014",
+        "date": "11. 05. 2014",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "10 km",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "1:56:23,20",
+        "holder": "Matěj Kozubek",
+        "year": "2014",
+        "date": "13. 09. 2014",
+        "place": "Jaroměř",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "15 km",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "3:01:27,60",
+        "holder": "Matěj Kozubek",
+        "year": "2014",
+        "date": "13. 09. 2014",
+        "place": "Jaroměř",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "20 km",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "4:12:21,30",
+        "holder": "Matěj Kozubek",
+        "year": "2014",
+        "date": "13. 09. 2014",
+        "place": "Jaroměř",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "50 M",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "00:27,48",
+        "holder": "Anna Kolářová",
+        "year": "2014",
+        "date": "13. 07. 2014",
+        "place": "Praha - Podolí",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "100 M",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "01:02,90",
+        "holder": "Anna Kolářová",
+        "year": "2014",
+        "date": "11. 07. 2014",
+        "place": "Praha - Podolí",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "200 M",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "02:22,25",
+        "holder": "Julie Pleskotová",
+        "year": "2019",
+        "date": "16. 03. 2019",
+        "place": "Brno - Lužánky",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "50 Z",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "00:29,52",
+        "holder": "Karla Škopová",
+        "year": "2026",
+        "date": "08. 05. 2026",
+        "place": "Pardubice",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "100 Z",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "01:03,87",
+        "holder": "Barbora Škopová",
+        "year": "2026",
+        "date": "14. 03. 2026",
+        "place": "Ostrava",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "200 Z",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "02:17,24",
+        "holder": "Lenka Jarošová",
+        "year": "2005",
+        "date": "21. 05. 2005",
+        "place": "České Budějovice",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "50 P",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "00:33,18",
+        "holder": "Tereza Delmotte",
+        "year": "2010",
+        "date": "09. 07. 2010",
+        "place": "Praha - Podolí",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "100 P",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "01:11,59",
+        "holder": "Natálie Zápotocká",
+        "year": "2024",
+        "date": "06. 07. 2024",
+        "place": "Vilnius (LTU)",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "200 P",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "02:31,47",
+        "holder": "Natálie Zápotocká",
+        "year": "2024",
+        "date": "04. 07. 2024",
+        "place": "Vilnius (LTU)",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "50 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "00:25,35",
+        "holder": "Anna Kolářová",
+        "year": "2015",
+        "date": "06. 11. 2015",
+        "place": "Dubai (UAE)",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "100 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "00:55,26",
+        "holder": "Anna Kolářová",
+        "year": "2015",
+        "date": "06. 08. 2015",
+        "place": "Kazaň (RUS)",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "200 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "00:31,97",
+        "holder": "Margarita Paroubková",
+        "year": "2026",
+        "date": "26. 06. 2026",
+        "place": "Praha - Podolí",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "400 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "04:27,57",
+        "holder": "Julie Pleskotová",
+        "year": "2019",
+        "date": "20. 06. 2019",
+        "place": "České Budějovice",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "800 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "09:06,19",
+        "holder": "Julie Pleskotová",
+        "year": "2019",
+        "date": "28. 04. 2019",
+        "place": "Bratislava (SVK)",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "1500 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "17:21,23",
+        "holder": "Julie Pleskotová",
+        "year": "2019",
+        "date": "21. 06. 2019",
+        "place": "České Budějovice",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "400 PZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "04:54,86",
+        "holder": "Kristýna Horská",
+        "year": "2015",
+        "date": "04. 07. 2015",
+        "place": "Pardubice",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "3 km",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "35:54,90",
+        "holder": "Julie Pleskotová",
+        "year": "2019",
+        "date": "14. 04. 2019",
+        "place": "Praha - Podolí",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "5 km",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "1:00:06,80",
+        "holder": "Julie Pleskotová",
+        "year": "2019",
+        "date": "14. 04. 2019",
+        "place": "Praha - Podolí",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "10 km",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "2:35:59,00",
+        "holder": "Kateřina Haláková",
+        "year": "2007",
+        "date": "07. 04. 2007",
+        "place": "Pardubice",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "50 M",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:23,60",
+        "holder": "Michal Ledl",
+        "year": "2009",
+        "date": "18. 12. 2009",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "100 M",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:52,53",
+        "holder": "Michal Ledl",
+        "year": "2009",
+        "date": "19. 12. 2009",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "200 M",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "01:57,20",
+        "holder": "Tomáš Havránek",
+        "year": "2012",
+        "date": "11. 11. 2012",
+        "place": "Wr. Neustadt (AUT)",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "50 Z",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:25,82",
+        "holder": "Ivan Boryslavskyi",
+        "year": "2022",
+        "date": "15. 10. 2022",
+        "place": "Wroclaw (POL)",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "100 Z",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:56,72",
+        "holder": "Pavel Vokoun",
+        "year": "1987",
+        "date": "12. 12. 1987",
+        "place": "-",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "200 Z",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "01:58,78",
+        "holder": "Jakub Lahoda",
+        "year": "2018",
+        "date": "15. 12. 2018",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "50 P",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:28,78",
+        "holder": "Martin Bejček",
+        "year": "2016",
+        "date": "15. 12. 2016",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "100 P",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "01:02,03",
+        "holder": "Martin Bejček",
+        "year": "2015",
+        "date": "12. 12. 2015",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "200 P",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "02:13,85",
+        "holder": "Martin Bejček",
+        "year": "2016",
+        "date": "14. 10. 2016",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "50 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:22,37",
+        "holder": "Michal Ledl",
+        "year": "2009",
+        "date": "18. 12. 2009",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "100 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:49,44",
+        "holder": "Michal Ledl",
+        "year": "2009",
+        "date": "20. 12. 2009",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "200 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "01:47,47",
+        "holder": "David Noll",
+        "year": "2017",
+        "date": "11. 11. 2017",
+        "place": "Brno - Lesná",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "400 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "03:48,65",
+        "holder": "David Noll",
+        "year": "2017",
+        "date": "23. 11. 2017",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "800 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "08:08,58",
+        "holder": "Jakub Lahoda",
+        "year": "2018",
+        "date": "14. 12. 2018",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "1500 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "15:33,72",
+        "holder": "Matěj Kozubek",
+        "year": "2014",
+        "date": "18. 12. 2014",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "100 PZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:54,30",
+        "holder": "Michal Ledl",
+        "year": "2009",
+        "date": "19. 12. 2009",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "200 PZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "01:59,21",
+        "holder": "Jakub Lahoda",
+        "year": "2018",
+        "date": "13. 12. 2018",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "400 PZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "04:13,77",
+        "holder": "Michal Judickij",
+        "year": "2022",
+        "date": "27. 11. 2022",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "3 km",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "32:27,50",
+        "holder": "Matěj Kozubek",
+        "year": "2014",
+        "date": "08. 11. 2014",
+        "place": "Krnov",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "5 km",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "54:56,70",
+        "holder": "Matěj Kozubek",
+        "year": "2014",
+        "date": "08. 11. 2014",
+        "place": "Krnov",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "4 boj",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "01:49,73",
+        "holder": "Patrik Boháč",
+        "year": "2026",
+        "date": "18. 06. 2026",
+        "place": "Praha - Vinohrady",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "50 M",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "00:26,80",
+        "holder": "Anna Kolářová",
+        "year": "2015",
+        "date": "17. 10. 2015",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "100 M",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "01:01,10",
+        "holder": "Anna Kolářová",
+        "year": "2015",
+        "date": "11. 12. 2015",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "200 M",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "02:20,12",
+        "holder": "Julie Pleskotová",
+        "year": "2019",
+        "date": "03. 11. 2019",
+        "place": "Jihlava",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "50 Z",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "00:28,23",
+        "holder": "Alžběta Řehořková",
+        "year": "2010",
+        "date": "27. 11. 2010",
+        "place": "Eindhoven (NED)",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "100 Z",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "01:01,09",
+        "holder": "Alžběta Řehořková",
+        "year": "2010",
+        "date": "25. 11. 2010",
+        "place": "Eindhoven (NED)",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "200 Z",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "02:13,08",
+        "holder": "Alžběta Řehořková",
+        "year": "2010",
+        "date": "28. 11. 2010",
+        "place": "Eindhoven (NED)",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "50 P",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "00:32,26",
+        "holder": "Kristýna Horská",
+        "year": "2014",
+        "date": "19. 12. 2014",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "100 P",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "01:08,70",
+        "holder": "Martina Pechová",
+        "year": "2006",
+        "date": "18. 11. 2006",
+        "place": "Znojmo",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "200 P",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "02:29,14",
+        "holder": "Natálie Zápotocká",
+        "year": "2025",
+        "date": "18. 12. 2025",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "50 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "00:24,93",
+        "holder": "Anna Kolářová",
+        "year": "2014",
+        "date": "15. 11. 2014",
+        "place": "Brno - Lesná",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "100 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "00:54,33",
+        "holder": "Anna Kolářová",
+        "year": "2014",
+        "date": "21. 12. 2014",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "200 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "01:58,67",
+        "holder": "Anna Kolářová",
+        "year": "2015",
+        "date": "16. 10. 2015",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "400 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "04:20,37",
+        "holder": "Julie Pleskotová",
+        "year": "2019",
+        "date": "13. 12. 2019",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "800 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "08:51,40",
+        "holder": "Julie Pleskotová",
+        "year": "2019",
+        "date": "14. 12. 2019",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "1500 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "16:52,85",
+        "holder": "Julie Pleskotová",
+        "year": "2019",
+        "date": "12. 12. 2019",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "100 PZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "01:01,38",
+        "holder": "Kristýna Horská",
+        "year": "2015",
+        "date": "10. 12. 2015",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "200 PZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "02:10,40",
+        "holder": "Kristýna Horská",
+        "year": "2015",
+        "date": "11. 12. 2015",
+        "place": "Plzeň - Slovany",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "400 PZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "04:39,87",
+        "holder": "Kristýna Horská",
+        "year": "2015",
+        "date": "02. 12. 2015",
+        "place": "Netanya (ISR)",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "3 km",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "35:21,41",
+        "holder": "Julie Pleskotová",
+        "year": "2020",
+        "date": "04. 06. 2020",
+        "place": "Praha - Vinohrady",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "5 km",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "1:07:23,70",
+        "holder": "Tereza Delmotte",
+        "year": "2010",
+        "date": "06. 11. 2010",
+        "place": "Krnov",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "4 boj",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "02:02,90",
+        "holder": "Anna Kolářová",
+        "year": "2015",
+        "date": "17. 12. 2015",
+        "place": "Praha - Vinohrady",
+        "category": "Starší dorost"
+    },
+    {
+        "event": "100 M",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "00:57,24",
+        "holder": "Petr Novák",
+        "year": "2012",
+        "date": "24. 11. 2012",
+        "place": "Žilina (SVK)",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "200 M",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "02:05,46",
+        "holder": "Petr Novák",
+        "year": "2012",
+        "date": "25. 11. 2012",
+        "place": "Žilina (SVK)",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "50 Z",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "00:28,09",
+        "holder": "David Lahoda",
+        "year": "2021",
+        "date": "11. 09. 2021",
+        "place": "Praha - Podolí",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "100 Z",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "01:01,33",
+        "holder": "David Lahoda",
+        "year": "2021",
+        "date": "12. 09. 2021",
+        "place": "Praha - Podolí",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "200 Z",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "02:10,01",
+        "holder": "Michal Judickij",
+        "year": "2020",
+        "date": "14. 11. 2020",
+        "place": "Budapešť (HUN)",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "50 P",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "00:30,42",
+        "holder": "Michal Ledl",
+        "year": "2007",
+        "date": "25. 11. 2007",
+        "place": "Pitesti (ROM)",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "100 P",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "01:07,40",
+        "holder": "Petr Bárta",
+        "year": "1993",
+        "date": "28. 06. 1993",
+        "place": "-",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "200 P",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "02:26,45",
+        "holder": "Michal Judickij",
+        "year": "2020",
+        "date": "26. 09. 2020",
+        "place": "Pardubice",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "50 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "00:24,50",
+        "holder": "Michal Ledl",
+        "year": "2007",
+        "date": "23. 11. 2007",
+        "place": "Pitesti (ROM)",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "100 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "00:53,37",
+        "holder": "Petr Novák",
+        "year": "2012",
+        "date": "23. 11. 2012",
+        "place": "Žilina (SVK)",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "200 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "01:57,59",
+        "holder": "Petr Novák",
+        "year": "2012",
+        "date": "04. 05. 2012",
+        "place": "Bratislava (SVK)",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "400 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "04:09,41",
+        "holder": "Petr Novák",
+        "year": "2012",
+        "date": "23. 06. 2012",
+        "place": "Brno - Lužánky",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "800 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "08:33,41",
+        "holder": "Michal Judickij",
+        "year": "2020",
+        "date": "15. 11. 2020",
+        "place": "Budapešť (HUN)",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "1500 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "16:32,49",
+        "holder": "Petr Novák",
+        "year": "2012",
+        "date": "20. 05. 2012",
+        "place": "Gliwice (POL)",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "200 PZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "02:09,87",
+        "holder": "Michal Judickij",
+        "year": "2020",
+        "date": "13. 11. 2020",
+        "place": "Budapešť (HUN)",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "400 PZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "04:30,93",
+        "holder": "Michal Judickij",
+        "year": "2020",
+        "date": "14. 11. 2020",
+        "place": "Budapešť (HUN)",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "3 km",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "34:44,60",
+        "holder": "Vojislav Štěrba",
+        "year": "2017",
+        "date": "16. 05. 2017",
+        "place": "Praha - Podolí",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "5 km",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "58:08,30",
+        "holder": "Vojislav Štěrba",
+        "year": "2017",
+        "date": "16. 05. 2017",
+        "place": "Praha - Podolí",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "10 km",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "2:02:27,00",
+        "holder": "Matěj Kozubek",
+        "year": "2012",
+        "date": "15. 09. 2012",
+        "place": "Jaroměř",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "15 km",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "3:06:57,10",
+        "holder": "Matěj Kozubek",
+        "year": "2012",
+        "date": "15. 09. 2012",
+        "place": "Jaroměř",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "15 km",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "3:06:57,10",
+        "holder": "Matěj Kozubek",
+        "year": "2012",
+        "date": "15. 09. 2012",
+        "place": "Jaroměř",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "20 km",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "4:13:20,70",
+        "holder": "Matěj Kozubek",
+        "year": "2012",
+        "date": "15. 09. 2012",
+        "place": "Jaroměř",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "25 km",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "5:21:11,40",
+        "holder": "Matěj Kozubek",
+        "year": "2012",
+        "date": "15. 09. 2012",
+        "place": "Jaroměř",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "50 M",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "00:29,59",
+        "holder": "Kristýna Horská",
+        "year": "2013",
+        "date": "29. 08. 2013",
+        "place": "Dubai (UAE)",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "100 M",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "01:05,41",
+        "holder": "Tereza Čermáková",
+        "year": "2023",
+        "date": "30. 06. 2023",
+        "place": "Praha - Podolí",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "200 M",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "02:23,25",
+        "holder": "Tereza Čermáková",
+        "year": "2023",
+        "date": "01. 07. 2023",
+        "place": "Praha - Podolí",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "50 Z",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "00:29,38",
+        "holder": "Barbora Škopová",
+        "year": "2025",
+        "date": "18. 05. 2025",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "100 Z",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "00:37,72",
+        "holder": "Mia Srbová",
+        "year": "2026",
+        "date": "30. 05. 2026",
+        "place": "Ústí nad Labem",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "200 Z",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "02:22,18",
+        "holder": "Natálie Zápotocká",
+        "year": "2023",
+        "date": "26. 05. 2023",
+        "place": "Liberec",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "50 P",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "00:32,96",
+        "holder": "Kristýna Horská",
+        "year": "2013",
+        "date": "26. 05. 2013",
+        "place": "Bratislava (SVK)",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "100 P",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "01:10,99",
+        "holder": "Tereza Muselová",
+        "year": "2017",
+        "date": "25. 08. 2017",
+        "place": "Indianapolis (USA)",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "200 P",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "02:29,67",
+        "holder": "Tereza Muselová",
+        "year": "2017",
+        "date": "28. 08. 2017",
+        "place": "Indianapolis (USA)",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "50 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "00:26,77",
+        "holder": "Tereza Muselová",
+        "year": "2017",
+        "date": "06. 05. 2017",
+        "place": "Bratislava (SVK)",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "100 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "00:57,52",
+        "holder": "Tereza Muselová",
+        "year": "2017",
+        "date": "01. 04. 2017",
+        "place": "Praha - Podolí",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "200 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "02:06,09",
+        "holder": "Tereza Muselová",
+        "year": "2017",
+        "date": "15. 04. 2017",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "400 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "04:27,84",
+        "holder": "Tereza Muselová",
+        "year": "2016",
+        "date": "07. 07. 2016",
+        "place": "Hódmezővásárhely (HUN)",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "800 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "09:11,74",
+        "holder": "Tereza Muselová",
+        "year": "2017",
+        "date": "02. 06. 2017",
+        "place": "Praha - Podolí",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "1500 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "17:27,84",
+        "holder": "Julie Pleskotová",
+        "year": "2018",
+        "date": "13. 07. 2018",
+        "place": "Praha - Podolí",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "200 PZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "02:17,33",
+        "holder": "Tereza Muselová",
+        "year": "2017",
+        "date": "26. 08. 2017",
+        "place": "Indianapolis (USA)",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "400 PZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "04:53,85",
+        "holder": "Tereza Muselová",
+        "year": "2017",
+        "date": "14. 04. 2017",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "3 km",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "36:34,50",
+        "holder": "Julie Pleskotová",
+        "year": "2018",
+        "date": "15. 04. 2018",
+        "place": "Praha - Podolí",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "5 km",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "1:01:37,00",
+        "holder": "Julie Pleskotová",
+        "year": "2018",
+        "date": "15. 04. 2018",
+        "place": "Praha - Podolí",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "50 M",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:24,74",
+        "holder": "Michal Ledl",
+        "year": "2007",
+        "date": "14. 12. 2007",
+        "place": "Chomutov",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "100 M",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:54,64",
+        "holder": "David Noll",
+        "year": "2015",
+        "date": "11. 12. 2015",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "200 M",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "02:02,72",
+        "holder": "David Noll",
+        "year": "2015",
+        "date": "12. 12. 2015",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "50 Z",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:27,17",
+        "holder": "David Lahoda",
+        "year": "2021",
+        "date": "16. 10. 2021",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "100 Z",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:59,16",
+        "holder": "David Lahoda",
+        "year": "2021",
+        "date": "17. 10. 2021",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "200 Z",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "02:04,75",
+        "holder": "Michal Judickij",
+        "year": "2019",
+        "date": "13. 12. 2019",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "50 P",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:29,90",
+        "holder": "Martin Bejček",
+        "year": "2014",
+        "date": "19. 12. 2014",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "100 P",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "01:03,63",
+        "holder": "Martin Bejček",
+        "year": "2014",
+        "date": "20. 12. 2014",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "200 P",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "02:19,39",
+        "holder": "Michal Judickij",
+        "year": "2019",
+        "date": "12. 12. 2019",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "50 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:23,10",
+        "holder": "Michal Ledl",
+        "year": "2007",
+        "date": "15. 12. 2007",
+        "place": "Chomutov",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "100 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:51,00",
+        "holder": "Michal Ledl",
+        "year": "2007",
+        "date": "16. 12. 2007",
+        "place": "Chomutov",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "200 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "01:51,60",
+        "holder": "David Noll",
+        "year": "2015",
+        "date": "12. 12. 2015",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "400 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "04:00,83",
+        "holder": "Petr Novák",
+        "year": "2012",
+        "date": "14. 12. 2012",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "800 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "08:24,05",
+        "holder": "Petr Novák",
+        "year": "2012",
+        "date": "21. 10. 2012",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "1500 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "15:58,97",
+        "holder": "Petr Novák",
+        "year": "2012",
+        "date": "10. 11. 2012",
+        "place": "Wr. Neustadt (AUT)",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "100 PZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:57,57",
+        "holder": "Michal Ledl",
+        "year": "2007",
+        "date": "14. 12. 2007",
+        "place": "Chomutov",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "200 PZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "02:07,15",
+        "holder": "Michal Judickij",
+        "year": "2019",
+        "date": "12. 12. 2019",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "400 PZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "04:27,81",
+        "holder": "Michal Judickij",
+        "year": "2019",
+        "date": "15. 12. 2019",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "3 km",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "33:29,97",
+        "holder": "Michal Judickij",
+        "year": "2020",
+        "date": "02. 06. 2020",
+        "place": "Praha - Vinohrady",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "5 km",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "56:20,57",
+        "holder": "Matěj Kozubek",
+        "year": "2012",
+        "date": "03. 11. 2012",
+        "place": "Krnov",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "4 boj",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "01:52,46",
+        "holder": "Patrik Boháč",
+        "year": "2025",
+        "date": "16. 12. 2025",
+        "place": "Praha - Vinohrady",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "50 M",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "00:28,23",
+        "holder": "Tereza Muselová",
+        "year": "2016",
+        "date": "18. 12. 2016",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "100 M",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "01:02,77",
+        "holder": "Julie Pleskotová",
+        "year": "2018",
+        "date": "14. 12. 2018",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "200 M",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "02:17,29",
+        "holder": "Julie Pleskotová",
+        "year": "2018",
+        "date": "16. 12. 2018",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "50 Z",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "00:28,21",
+        "holder": "Barbora Škopová",
+        "year": "2025",
+        "date": "21. 12. 2025",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "100 Z",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "01:00,61",
+        "holder": "Barbora Škopová",
+        "year": "2025",
+        "date": "19. 12. 2025",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "200 Z",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "02:14,70",
+        "holder": "Tereza Muselová",
+        "year": "2016",
+        "date": "15. 12. 2016",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "50 P",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "00:32,95",
+        "holder": "Tereza Muselová",
+        "year": "2017",
+        "date": "20. 10. 2017",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "100 P",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "01:09,25",
+        "holder": "Tereza Muselová",
+        "year": "2017",
+        "date": "20. 10. 2017",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "200 P",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "02:29,07",
+        "holder": "Natálie Zápotocká",
+        "year": "2023",
+        "date": "14. 12. 2023",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "50 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "00:26,15",
+        "holder": "Tereza Muselová",
+        "year": "2016",
+        "date": "15. 12. 2016",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "100 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "00:56,98",
+        "holder": "Anna Kolářová",
+        "year": "2013",
+        "date": "19. 10. 2013",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "200 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "02:02,69",
+        "holder": "Natálie Zápotocká",
+        "year": "2023",
+        "date": "17. 12. 2023",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "400 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "04:17,93",
+        "holder": "Julie Pleskotová",
+        "year": "2018",
+        "date": "13. 12. 2018",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "800 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "08:53,97",
+        "holder": "Julie Pleskotová",
+        "year": "2018",
+        "date": "16. 12. 2018",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "1500 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "16:49,09",
+        "holder": "Julie Pleskotová",
+        "year": "2018",
+        "date": "14. 12. 2018",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "100 PZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "01:02,70",
+        "holder": "Tereza Muselová",
+        "year": "2016",
+        "date": "15. 12. 2016",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "200 PZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "02:15,20",
+        "holder": "Tereza Muselová",
+        "year": "2016",
+        "date": "15. 12. 2016",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "400 PZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "04:49,54",
+        "holder": "Natálie Zápotocká",
+        "year": "2023",
+        "date": "17. 12. 2023",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "3 km",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "41:08,10",
+        "holder": "Vanesa Lipovská",
+        "year": "2016",
+        "date": "04. 11. 2016",
+        "place": "Krnov",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "5 km",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "1:08:47,20",
+        "holder": "Vanesa Lipovská",
+        "year": "2016",
+        "date": "04. 11. 2016",
+        "place": "Krnov",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "4 boj",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "02:03,70",
+        "holder": "Tereza Muselová",
+        "year": "2016",
+        "date": "22. 12. 2016",
+        "place": "Praha - Vinohrady",
+        "category": "Mladší dorost"
+    },
+    {
+        "event": "50 M",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "00:28,61",
+        "holder": "Jakub Chára",
+        "year": "2020",
+        "date": "28. 08. 2020",
+        "place": "Plzeň - Slovany",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "100 M",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "01:04,29",
+        "holder": "David Lahoda",
+        "year": "2019",
+        "date": "16. 06. 2019",
+        "place": "Zlín",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "200 M",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "02:19,13",
+        "holder": "Michal Judickij",
+        "year": "2018",
+        "date": "30. 06. 2018",
+        "place": "České Budějovice",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "50 Z",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "00:31,08",
+        "holder": "Jakub Chára",
+        "year": "2020",
+        "date": "28. 08. 2020",
+        "place": "Plzeň - Slovany",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "100 Z",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "01:04,86",
+        "holder": "Michal Judickij",
+        "year": "2018",
+        "date": "30. 06. 2018",
+        "place": "České Budějovice",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "200 Z",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "02:16,30",
+        "holder": "Michal Judickij",
+        "year": "2018",
+        "date": "06. 05. 2018",
+        "place": "Bratislava (SVK)",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "50 P",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "00:34,62",
+        "holder": "Tomáš Podborský",
+        "year": "2008",
+        "date": "25. 04. 2008",
+        "place": "Praha - Podolí",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "100 P",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "01:15,87",
+        "holder": "Tomáš Podborský",
+        "year": "2008",
+        "date": "12. 04. 2008",
+        "place": "Praha - Podolí",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "200 P",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "02:45,80",
+        "holder": "Jan Vaněk",
+        "year": "1971",
+        "date": "11. 07. 1971",
+        "place": "-",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "50 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "00:26,91",
+        "holder": "Patrik Boháč",
+        "year": "2023",
+        "date": "17. 06. 2023",
+        "place": "Plzeň - Slovany",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "100 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "00:59,06",
+        "holder": "Patrik Boháč",
+        "year": "2023",
+        "date": "18. 06. 2023",
+        "place": "Plzeň - Slovany",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "200 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "02:09,40",
+        "holder": "Patrik Boháč",
+        "year": "2023",
+        "date": "18. 06. 2023",
+        "place": "Plzeň - Slovany",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "400 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "04:30,89",
+        "holder": "Patrik Boháč",
+        "year": "2023",
+        "date": "17. 06. 2023",
+        "place": "Plzeň - Slovany",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "800 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "09:16,71",
+        "holder": "Sergej Sankin",
+        "year": "1980",
+        "date": "18. 07. 1980",
+        "place": "-",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "1500 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "17:27,68",
+        "holder": "Sergej Sankin",
+        "year": "1980",
+        "date": "18. 07. 1980",
+        "place": "-",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "200 PZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "02:21,20",
+        "holder": "Michal Judickij",
+        "year": "2018",
+        "date": "16. 03. 2018",
+        "place": "Plzeň - Slovany",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "400 PZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "04:55,95",
+        "holder": "Michal Judickij",
+        "year": "2018",
+        "date": "28. 04. 2018",
+        "place": "Praha - Podolí",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "3 km",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "36:55,90",
+        "holder": "Jakub Štverák",
+        "year": "2022",
+        "date": "27. 03. 2022",
+        "place": "Praha - Podolí",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "5 km",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "1:01:32,30",
+        "holder": "Jakub Štverák",
+        "year": "2022",
+        "date": "27. 03. 2022",
+        "place": "Praha - Podolí",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "100 M",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "01:07,62",
+        "holder": "Kristýna Horská",
+        "year": "2011",
+        "date": "19. 06. 2011",
+        "place": "Plzeň - Slovany",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "200 M",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "02:43,45",
+        "holder": "Lenka Silberhornová",
+        "year": "2004",
+        "date": "14. 12. 2004",
+        "place": "Praha - Podolí",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "50 Z",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "00:31,38",
+        "holder": "Karla Škopová",
+        "year": "2022",
+        "date": "28. 06. 2022",
+        "place": "Olomouc",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "100 Z",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "01:07,80",
+        "holder": "Barbora Škopová",
+        "year": "2023",
+        "date": "20. 05. 2023",
+        "place": "Gliwice (POL)",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "200 Z",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "02:28,10",
+        "holder": "Barbora Škopová",
+        "year": "2023",
+        "date": "18. 06. 2023",
+        "place": "Plzeň - Slovany",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "100 P",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "01:16,46",
+        "holder": "Aneta Fritscheová",
+        "year": "2006",
+        "date": "01. 12. 2006",
+        "place": "Kranj (SLO)",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "200 P",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "02:45,39",
+        "holder": "Tereza Anna Sýkorová",
+        "year": "2020",
+        "date": "22. 02. 2020",
+        "place": "Praha - Podolí",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "50 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "00:27,75",
+        "holder": "Tereza Muselová",
+        "year": "2015",
+        "date": "06. 06. 2015",
+        "place": "Brno - Lužánky",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "100 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "00:59,59",
+        "holder": "Tereza Muselová",
+        "year": "2015",
+        "date": "16. 06. 2015",
+        "place": "Plzeň - Slovany",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "200 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "02:10,67",
+        "holder": "Tereza Muselová",
+        "year": "2015",
+        "date": "13. 12. 2015",
+        "place": "Hódmezővásárhely (HUN)",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "400 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "04:36,00",
+        "holder": "Tereza Muselová",
+        "year": "2015",
+        "date": "12. 12. 2015",
+        "place": "Hódmezővásárhely (HUN)",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "800 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "09:23,61",
+        "holder": "Tereza Muselová",
+        "year": "2015",
+        "date": "12. 12. 2015",
+        "place": "Hódmezővásárhely (HUN)",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "200 PZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "02:23,68",
+        "holder": "Kristýna Horská",
+        "year": "2011",
+        "date": "26. 07. 2011",
+        "place": "Trabzon (TUR)",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "400 PZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "05:13,09",
+        "holder": "Kristýna Horská",
+        "year": "2011",
+        "date": "09. 04. 2011",
+        "place": "Praha - Podolí",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "50 M",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:27,98",
+        "holder": "David Lahoda",
+        "year": "2019",
+        "date": "08. 12. 2019",
+        "place": "Mladá Boleslav",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "100 M",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "01:00,68",
+        "holder": "David Lahoda",
+        "year": "2019",
+        "date": "08. 12. 2019",
+        "place": "Mladá Boleslav",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "200 M",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "02:15,17",
+        "holder": "David Lahoda",
+        "year": "2019",
+        "date": "07. 12. 2019",
+        "place": "Mladá Boleslav",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "50 Z",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:29,80",
+        "holder": "Pavel Janák",
+        "year": "1998",
+        "date": "22. 12. 1998",
+        "place": "Praha - Vinohrady",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "100 Z",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "01:02,19",
+        "holder": "Michal Judickij",
+        "year": "2018",
+        "date": "13. 12. 2018",
+        "place": "Plzeň - Slovany",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "200 Z",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "02:10,42",
+        "holder": "Michal Judickij",
+        "year": "2018",
+        "date": "14. 12. 2018",
+        "place": "Plzeň - Slovany",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "50 P",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:33,00",
+        "holder": "Jakub Chalupa",
+        "year": "2015",
+        "date": "17. 12. 2015",
+        "place": "Praha - Vinohrady",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "100 P",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "01:09,50",
+        "holder": "Petr Bárta",
+        "year": "1992",
+        "date": "13. 11. 1992",
+        "place": "-",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "200 P",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "02:28,76",
+        "holder": "Michal Judickij",
+        "year": "2018",
+        "date": "02. 12. 2018",
+        "place": "Nový Jičín",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "50 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:25,74",
+        "holder": "Jan Tesař",
+        "year": "1997",
+        "date": "14. 12. 1997",
+        "place": "-",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "100 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:55,82",
+        "holder": "Patrik Boháč",
+        "year": "2023",
+        "date": "18. 11. 2023",
+        "place": "Praha - Radlice",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "200 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "01:59,30",
+        "holder": "Patrik Boháč",
+        "year": "2023",
+        "date": "17. 11. 2023",
+        "place": "Praha - Radlice",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "400 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "04:17,29",
+        "holder": "Patrik Boháč",
+        "year": "2023",
+        "date": "09. 12. 2023",
+        "place": "Prostějov",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "800 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "08:45,04",
+        "holder": "Michal Judickij",
+        "year": "2018",
+        "date": "14. 12. 2018",
+        "place": "Plzeň - Slovany",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "1500 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "16:42,71",
+        "holder": "Michal Judickij",
+        "year": "2018",
+        "date": "01. 12. 2018",
+        "place": "Nový Jičín",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "100 PZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "01:04,62",
+        "holder": "Michal Judickij",
+        "year": "2018",
+        "date": "16. 11. 2018",
+        "place": "Plzeň - Slovany",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "200 PZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "02:14,74",
+        "holder": "Michal Judickij",
+        "year": "2018",
+        "date": "01. 12. 2018",
+        "place": "Nový Jičín",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "400 PZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "04:40,57",
+        "holder": "Michal Judickij",
+        "year": "2018",
+        "date": "02. 12. 2018",
+        "place": "Nový Jičín",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "4 boj",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "02:00,96",
+        "holder": "Patrik Boháč",
+        "year": "2023",
+        "date": "21. 12. 2023",
+        "place": "Praha - Vinohrady",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "50 M",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "00:30,10",
+        "holder": "Tereza Muselová",
+        "year": "2015",
+        "date": "07. 11. 2015",
+        "place": "Louny",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "100 M",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "01:05,81",
+        "holder": "Markéta Kaplanová",
+        "year": "1979",
+        "date": "01. 07. 1979",
+        "place": "-",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "200 M",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "02:30,90",
+        "holder": "Markéta Kaplanová",
+        "year": "1979",
+        "date": "15. 12. 1979",
+        "place": "-",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "50 Z",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "00:29,80",
+        "holder": "Barbora Škopová",
+        "year": "2023",
+        "date": "14. 12. 2023",
+        "place": "Plzeň - Slovany",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "100 Z",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "01:05,32",
+        "holder": "Barbora Škopová",
+        "year": "2023",
+        "date": "09. 12. 2023",
+        "place": "Prostějov",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "200 Z",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "02:23,62",
+        "holder": "Barbora Škopová",
+        "year": "2023",
+        "date": "15. 12. 2023",
+        "place": "Plzeň - Slovany",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "50 P",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "00:34,10",
+        "holder": "Petra Skřivánková",
+        "year": "1996",
+        "date": "03. 11. 1996",
+        "place": "-",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "100 P",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "01:13,74",
+        "holder": "Natálie Zápotocká",
+        "year": "2021",
+        "date": "11. 12. 2021",
+        "place": "Prostějov",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "200 P",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "02:37,26",
+        "holder": "Natálie Zápotocká",
+        "year": "2021",
+        "date": "12. 12. 2021",
+        "place": "Prostějov",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "50 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "00:27,20",
+        "holder": "Tereza Muselová",
+        "year": "2015",
+        "date": "21. 11. 2015",
+        "place": "Praha - Zelený Pruh",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "100 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "00:58,39",
+        "holder": "Tereza Muselová",
+        "year": "2015",
+        "date": "06. 12. 2015",
+        "place": "Prostějov",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "200 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "02:06,60",
+        "holder": "Tereza Muselová",
+        "year": "2015",
+        "date": "20. 11. 2015",
+        "place": "Praha - Zelený Pruh",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "400 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "04:27,19",
+        "holder": "Tereza Muselová",
+        "year": "2015",
+        "date": "05. 12. 2015",
+        "place": "Prostějov",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "800 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "09:17,58",
+        "holder": "Tereza Anna Sýkorová",
+        "year": "2020",
+        "date": "18. 01. 2020",
+        "place": "Praha - Radlice",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "1500 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "18:09,90",
+        "holder": "Zuzana Sedláková",
+        "year": "1985",
+        "date": "1985",
+        "place": "-",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "100 PZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "01:06,69",
+        "holder": "Tereza Muselová",
+        "year": "2015",
+        "date": "05. 12. 2015",
+        "place": "Prostějov",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "200 PZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "02:21,53",
+        "holder": "Tereza Muselová",
+        "year": "2015",
+        "date": "05. 12. 2015",
+        "place": "Prostějov",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "400 PZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "05:07,40",
+        "holder": "Tereza Muselová",
+        "year": "2015",
+        "date": "21. 11. 2015",
+        "place": "Praha - Zelený Pruh",
+        "category": "Starší žactvo"
+    },
+    {
+        "event": "50 M",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "00:33,53",
+        "holder": "Petr Bárta",
+        "year": "1990",
+        "date": "09. 06. 1990",
+        "place": "-",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "100 M",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "01:18,67",
+        "holder": "Michal Judickij",
+        "year": "2016",
+        "date": "15. 05. 2016",
+        "place": "Hradec Králové",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "200 M",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "02:51,13",
+        "holder": "Michal Němec",
+        "year": "2026",
+        "date": "11. 04. 2026",
+        "place": "Praha - Podolí",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "50 Z",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "00:36,28",
+        "holder": "Michal Judickij",
+        "year": "2016",
+        "date": "14. 05. 2016",
+        "place": "Hradec Králové",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "100 Z",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "01:15,17",
+        "holder": "Michal Judickij",
+        "year": "2016",
+        "date": "14. 05. 2016",
+        "place": "Hradec Králové",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "200 Z",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "02:42,70",
+        "holder": "Michal Judickij",
+        "year": "2016",
+        "date": "23. 04. 2016",
+        "place": "Ústí nad Labem",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "50 P",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "00:36,16",
+        "holder": "Petr Bárta",
+        "year": "1990",
+        "date": "09. 06. 1990",
+        "place": "-",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "100 P",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "01:25,22",
+        "holder": "Matěj Hora",
+        "year": "2004",
+        "date": "14. 12. 2004",
+        "place": "Praha - Podolí",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "50 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "00:31,46",
+        "holder": "Jakub Chára",
+        "year": "2018",
+        "date": "16. 03. 2018",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "100 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "01:07,78",
+        "holder": "Jakub Chára",
+        "year": "2018",
+        "date": "03. 06. 2018",
+        "place": "Praha - Podolí",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "200 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "02:31,80",
+        "holder": "Patrik Jirát",
+        "year": "2006",
+        "date": "23. 09. 2006",
+        "place": "Chomutov",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "400 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "05:18,42",
+        "holder": "Denis Tikovský",
+        "year": "2017",
+        "date": "28. 06. 2017",
+        "place": "Brno - Lužánky",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "800 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "11:20,28",
+        "holder": "Jakub Štverák",
+        "year": "2020",
+        "date": "29. 08. 2020",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "1500 VZ",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "21:00,81",
+        "holder": "Jakub Štverák",
+        "year": "2020",
+        "date": "29. 08. 2020",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "3 km",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "43:43,40",
+        "holder": "Michal Němec",
+        "year": "2026",
+        "date": "12. 04. 2026",
+        "place": "Praha - Podolí",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "5 km",
+        "gender": "Muži",
+        "pool": "50m",
+        "time": "1:13:39,70",
+        "holder": "Michal Němec",
+        "year": "2026",
+        "date": "12. 04. 2026",
+        "place": "Praha - Podolí",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "50 M",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "00:34,10",
+        "holder": "Kristýna Horská",
+        "year": "2009",
+        "date": "05. 06. 2009",
+        "place": "Praha - Podolí",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "100 M",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "01:22,42",
+        "holder": "Tereza Muselová",
+        "year": "2013",
+        "date": "26. 06. 2013",
+        "place": "Zlín",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "200 M",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "03:17,51",
+        "holder": "Tereza Muselová",
+        "year": "2013",
+        "date": "25. 06. 2013",
+        "place": "Zlín",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "50 Z",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "00:36,74",
+        "holder": "Natálie Zápotocká",
+        "year": "2019",
+        "date": "13. 04. 2019",
+        "place": "Praha - Podolí",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "100 Z",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "01:19,19",
+        "holder": "Natálie Zápotocká",
+        "year": "2019",
+        "date": "09. 03. 2019",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "200 Z",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "02:53,72",
+        "holder": "Natálie Zápotocká",
+        "year": "2019",
+        "date": "13. 04. 2019",
+        "place": "Praha - Podolí",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "50 P",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "00:39,30",
+        "holder": "Adéla Tomášková",
+        "year": "2006",
+        "date": "23. 09. 2006",
+        "place": "Chomutov",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "100 P",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "01:22,94",
+        "holder": "Aneta Fritscheová",
+        "year": "2004",
+        "date": "14. 12. 2004",
+        "place": "Praha - Podolí",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "200 P",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "02:58,51",
+        "holder": "Tereza Anna Sýkorová",
+        "year": "2018",
+        "date": "05. 05. 2018",
+        "place": "Bratislava (SVK)",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "50 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "00:31,27",
+        "holder": "Kamila Blažková",
+        "year": "2007",
+        "date": "20. 06. 2007",
+        "place": "Ústí nad Labem",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "100 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "01:06,73",
+        "holder": "Adéla Zámečníková",
+        "year": "2019",
+        "date": "01. 06. 2019",
+        "place": "Praha - Podolí",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "200 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "02:23,13",
+        "holder": "Tereza Anna Sýkorová",
+        "year": "2018",
+        "date": "14. 04. 2018",
+        "place": "Praha - Podolí",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "400 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "04:56,51",
+        "holder": "Tereza Anna Sýkorová",
+        "year": "2018",
+        "date": "06. 05. 2018",
+        "place": "Bratislava (SVK)",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "800 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "09:57,59",
+        "holder": "Tereza Anna Sýkorová",
+        "year": "2018",
+        "date": "17. 03. 2018",
+        "place": "Plzeň - Slovany",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "1500 VZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "19:16,30",
+        "holder": "Tereza Anna Sýkorová",
+        "year": "2018",
+        "date": "03. 06. 2018",
+        "place": "Praha - Podolí",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "200 PZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "02:39,84",
+        "holder": "Tereza Anna Sýkorová",
+        "year": "2018",
+        "date": "02. 06. 2018",
+        "place": "Praha - Podolí",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "400 PZ",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "05:37,32",
+        "holder": "Tereza Anna Sýkorová",
+        "year": "2018",
+        "date": "03. 06. 2018",
+        "place": "Praha - Podolí",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "3 km",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "41:21,20",
+        "holder": "Tereza Anna Sýkorová",
+        "year": "2018",
+        "date": "15. 04. 2018",
+        "place": "Praha - Podolí",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "5 km",
+        "gender": "Ženy",
+        "pool": "50m",
+        "time": "1:08:59,60",
+        "holder": "Tereza Anna Sýkorová",
+        "year": "2018",
+        "date": "15. 04. 2018",
+        "place": "Praha - Podolí",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "50 M",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:32,64",
+        "holder": "Jakub Chára",
+        "year": "2018",
+        "date": "20. 12. 2018",
+        "place": "Praha - Vinohrady",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "100 M",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "01:10,30",
+        "holder": "Martin Zikmund",
+        "year": "1987",
+        "date": "06. 11. 1987",
+        "place": "-",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "200 M",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "02:40,40",
+        "holder": "Petr Tomíšek",
+        "year": "1981",
+        "date": "05. 10. 1981",
+        "place": "-",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "50 Z",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:34,10",
+        "holder": "Michal Judickij",
+        "year": "2016",
+        "date": "22. 12. 2016",
+        "place": "Praha - Vinohrady",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "100 Z",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "01:11,84",
+        "holder": "Michal Judickij",
+        "year": "2016",
+        "date": "03. 12. 2016",
+        "place": "Trutnov",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "200 Z",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "02:28,95",
+        "holder": "Michal Judickij",
+        "year": "2016",
+        "date": "04. 12. 2016",
+        "place": "Trutnov",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "50 P",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:38,40",
+        "holder": "Jakub Tesař",
+        "year": "1998",
+        "date": "22. 12. 1998",
+        "place": "Praha - Vinohrady",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "100 P",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "01:15,60",
+        "holder": "Petr Bárta",
+        "year": "1990",
+        "date": "10. 11. 1990",
+        "place": "-",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "200 P",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "02:54,47",
+        "holder": "Matěj Hora",
+        "year": "2004",
+        "date": "04. 12. 2004",
+        "place": "Praha - Eden",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "50 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "00:28,50",
+        "holder": "Petr Bárta",
+        "year": "1990",
+        "date": "08. 12. 1990",
+        "place": "-",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "100 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "01:03,30",
+        "holder": "Petr Bárta",
+        "year": "1990",
+        "date": "08. 12. 1990",
+        "place": "-",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "200 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "02:16,00",
+        "holder": "Sergej Sankin",
+        "year": "1978",
+        "date": "10. 12. 1978",
+        "place": "-",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "400 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "04:49,80",
+        "holder": "Sergej Sankin",
+        "year": "1978",
+        "date": "09. 12. 1978",
+        "place": "-",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "800 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "10:14,23",
+        "holder": "Denis Tikovský",
+        "year": "2017",
+        "date": "09. 12. 2017",
+        "place": "Kopřivnice",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "1500 VZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "19:11,86",
+        "holder": "Denis Tikovský",
+        "year": "2017",
+        "date": "09. 12. 2017",
+        "place": "Kopřivnice",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "100 PZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "01:15,80",
+        "holder": "Václav Janda",
+        "year": "1983",
+        "date": "19. 12. 1983",
+        "place": "-",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "200 PZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "02:37,10",
+        "holder": "Petr Bárta",
+        "year": "1990",
+        "date": "09. 11. 1990",
+        "place": "-",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "400 PZ",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "05:22,38",
+        "holder": "Michal Judickij",
+        "year": "2016",
+        "date": "04. 12. 2016",
+        "place": "Trutnov",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "4 boj",
+        "gender": "Muži",
+        "pool": "25m",
+        "time": "02:17,90",
+        "holder": "Karel Blažek",
+        "year": "2003",
+        "date": "19. 12. 2003",
+        "place": "Praha - Vinohrady",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "50 M",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "00:32,40",
+        "holder": "Klára Grécová",
+        "year": "2016",
+        "date": "23. 01. 2016",
+        "place": "Praha - Radlice",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "100 M",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "01:14,40",
+        "holder": "Zuzana Sedláková",
+        "year": "1983",
+        "date": "18. 12. 1983",
+        "place": "-",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "200 M",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "02:36,02",
+        "holder": "Zuzana Sedláková",
+        "year": "1983",
+        "date": "04. 12. 1983",
+        "place": "-",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "50 Z",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "00:33,78",
+        "holder": "Barbora Škopová",
+        "year": "2021",
+        "date": "20. 11. 2021",
+        "place": "Praha - Radlice",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "100 Z",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "01:13,37",
+        "holder": "Kristýna Horská",
+        "year": "2009",
+        "date": "12. 12. 2009",
+        "place": "Prostějov",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "200 Z",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "02:36,90",
+        "holder": "Helena Krafferová",
+        "year": "1972",
+        "date": "1972",
+        "place": "-",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "50 P",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "00:38,00",
+        "holder": "Jana Černovská",
+        "year": "1987",
+        "date": "31. 10. 1987",
+        "place": "-",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "100 P",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "01:18,70",
+        "holder": "Petra Skřivánková",
+        "year": "1994",
+        "date": "13. 12. 1994",
+        "place": "-",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "200 P",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "02:51,94",
+        "holder": "Kristýna Horská",
+        "year": "2009",
+        "date": "13. 12. 2009",
+        "place": "Prostějov",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "50 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "00:28,92",
+        "holder": "Martina Hrozányová",
+        "year": "2001",
+        "date": "15. 12. 2001",
+        "place": "-",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "100 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "01:04,86",
+        "holder": "Tereza Anna Sýkorová",
+        "year": "2018",
+        "date": "06. 10. 2018",
+        "place": "Plzeň - Radbuza",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "200 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "02:14,02",
+        "holder": "Tereza Anna Sýkorová",
+        "year": "2018",
+        "date": "13. 10. 2018",
+        "place": "Praha - Radlice",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "400 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "04:42,63",
+        "holder": "Tereza Anna Sýkorová",
+        "year": "2018",
+        "date": "14. 10. 2018",
+        "place": "Praha - Radlice",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "800 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "09:44,86",
+        "holder": "Tereza Anna Sýkorová",
+        "year": "2018",
+        "date": "21. 10. 2018",
+        "place": "Praha  - Radlice",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "1500 VZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "18:24,10",
+        "holder": "Zuzana Sedláková",
+        "year": "1983",
+        "date": "19. 12. 1983",
+        "place": "-",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "100 PZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "01:13,95",
+        "holder": "Kristýna Horská",
+        "year": "2009",
+        "date": "20. 06. 2009",
+        "place": "Kopřivnice",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "200 PZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "02:33,38",
+        "holder": "Kristýna Horská",
+        "year": "2009",
+        "date": "12. 12. 2009",
+        "place": "Prostějov",
+        "category": "Mladší žactvo"
+    },
+    {
+        "event": "400 PZ",
+        "gender": "Ženy",
+        "pool": "25m",
+        "time": "05:23,74",
+        "holder": "Tereza Anna Sýkorová",
+        "year": "2018",
+        "date": "01. 07. 2018",
+        "place": "Kopřivnice",
+        "category": "Mladší žactvo"
     }
 ],
 
   parentsNotes: [
+    "Tréninky ST+ODA+G týden do 18.10.: do středy normálně. Dále závodíme na Českém poháru na Plzeňských sprintech. Kdo nejede do Plzně: čtvrtek ráno normálně, odpo volno; pátek ráno volno, odpo normálně. (Jan Srb, 12. 10. 2026)",
+    "Přípravka ukázková hodina ve čtvrtek 15. 10.: na Vinohradech od 16:30 až do 18:45 ukázková hodina pro plavce přípravky. (Jan Srb, 12. 10. 2026)",
+    "Infolístek na Plzeňské sprinty (15.–18. 10. 2026): Plzeň Slovany 25m. Doprava individuální, čipy na vstup u trenéra (sraz 7:15). Všichni v oddílovém zeleném tričku a čepičce! (Jan Srb, 6. 10. 2026)",
     "Novou sezónu začínáme závody — tréninky všech závodních skupin ST, ODA, ODB i přípravky běží v Podolí a na Vinohradech.",
     "Sobotní trénink v Podolí v září již NENÍ.",
     "Nábor do závodní přípravky (6–12 let) byl pro velký zájem UKONČEN pro vyčerpání kapacity.",
@@ -1842,166 +4966,42 @@ window.KlokaniData = {
 
   galleries: [
     {
-      id: "944",
-      title: "Velká cena města Plzně",
-      author: "foto Jan Srb",
-      year: "2026",
-      category: "Bazénové závody",
-      officialUrl: "https://www.boh.cz/galerie/944/",
-      url: "assets/aktuality/2240.jpg",
-      caption: "Český pohár Arena Cup, Plzeň Slovany 50m"
+        "id": "gal-940-1",
+        "title": "Oslava 80 let oddílu — Příchod na oslavu",
+        "url": "assets/foto/86049.jpg",
+        "caption": "Tenisový areál na Hagiboru, 80 let TJ Bohemians Praha"
     },
     {
-      id: "940",
-      title: "Oslava 80 let oddílu",
-      author: "foto David Děták",
-      year: "2026",
-      category: "Oslava 80 let",
-      officialUrl: "https://www.boh.cz/galerie/940/",
-      url: "assets/foto/86049.jpg",
-      caption: "Hagibor, slavnostní setkání 212 Klokanů všech generací"
+        "id": "gal-940-2",
+        "title": "Oslava 80 let oddílu — Program akce",
+        "url": "assets/foto/86050.jpg",
+        "caption": "Slavnostní odpočet 80–0 a ohlédnutí za historií oddílu"
     },
     {
-      id: "939",
-      title: "Oslava 80 let oddílu",
-      author: "foto Petr Dvořák",
-      year: "2026",
-      category: "Oslava 80 let",
-      officialUrl: "https://www.boh.cz/galerie/939/",
-      url: "assets/foto/86050.jpg",
-      caption: "Portréty plavců, trenérů a ocenění na Hagiboru"
+        "id": "gal-940-3",
+        "title": "Oslava 80 let oddílu — Setkání generací",
+        "url": "assets/foto/86054.jpg",
+        "caption": "Současní plavci, bývalí reprezentanti a trenéři pohromadě"
     },
     {
-      id: "938",
-      title: "Oslava 80 let oddílu retro fotky na LED",
-      author: "foto různí autoři",
-      year: "2026",
-      category: "Oslava 80 let",
-      officialUrl: "https://www.boh.cz/galerie/938/",
-      url: "assets/foto/86075.jpg",
-      caption: "Historické momentky a filmová projekce 1946–2026"
+        "id": "gal-940-4",
+        "title": "Oslava 80 let oddílu — Společná fotka Klokanů",
+        "url": "assets/foto/86071.jpg",
+        "caption": "212 účastníků oslavy 80. výročí plavecké Bohemky"
     },
     {
-      id: "943",
-      title: "O pohár Lídy Jelínkové DP a Podzimní rožeň DP",
-      author: "foto Bohemians",
-      year: "2026",
-      category: "Dálkové plavání",
-      officialUrl: "https://www.boh.cz/galerie/943/",
-      url: "assets/aktuality/2239.jpg",
-      caption: "Závěr Českého poháru v dálkovém plavání v Mělicích"
+        "id": "gal-940-5",
+        "title": "Oslava 80 let oddílu — Trofeje a LED prezentace",
+        "url": "assets/foto/86075.jpg",
+        "caption": "Poháry, historické dresy a ocenění našich olympioniků"
     },
     {
-      id: "941",
-      title: "Malá cena plavajícího klokana",
-      author: "foto Petra Dvořáková",
-      year: "2026",
-      category: "Oddílové závody",
-      officialUrl: "https://www.boh.cz/galerie/941/",
-      url: "assets/aktuality/2237.jpg",
-      caption: "Úvodní měřené oddílové závody v bazénu Vinohrady"
-    },
-    {
-      id: "942",
-      title: "Mistrovství ČR na 5 km, 20 km, štafet ČP DP",
-      author: "foto Bohemians",
-      year: "2026",
-      category: "Dálkové plavání",
-      officialUrl: "https://www.boh.cz/galerie/942/",
-      url: "assets/aktuality/2236.jpg",
-      caption: "MČR v Račicích — medaile a tituly mistryň ČR"
-    },
-    {
-      id: "937",
-      title: "Plavecký memoriál Hany Greenfieldové ČP DP",
-      author: "foto Petr Dvořák a Jan Srb",
-      year: "2026",
-      category: "Dálkové plavání",
-      officialUrl: "https://www.boh.cz/galerie/937/",
-      url: "assets/aktuality/2239.jpg",
-      caption: "Závody Českého poháru na otevřené vodě"
-    },
-    {
-      id: "935",
-      title: "Mistrovství Evropy masters",
-      author: "foto Lešek Smelik",
-      year: "2026",
-      category: "Masters",
-      officialUrl: "https://www.boh.cz/galerie/935/",
-      url: "assets/foto/86054.jpg",
-      caption: "Evropský šampionát kategorie Masters v Šamoríně"
-    },
-    {
-      id: "936",
-      title: "Podstředohorský plavecký maratón ČP DP",
-      author: "foto Jan Srb",
-      year: "2026",
-      category: "Dálkové plavání",
-      officialUrl: "https://www.boh.cz/galerie/936/",
-      url: "assets/aktuality/2236.jpg",
-      caption: "Dálkoplavecký maraton Českého poháru"
-    },
-    {
-      id: "934",
-      title: "Prázdninové soustředění Jizerky",
-      author: "foto Soňa Nováková",
-      year: "2026",
-      category: "Soustředění",
-      officialUrl: "https://www.boh.cz/galerie/934/",
-      url: "assets/aktuality/2235.jpg",
-      caption: "Letní kondiční a běžecké soustředění v Jizerských horách"
-    },
-    {
-      id: "933",
-      title: "Mezi mosty ČP DP",
-      author: "foto Kateřina Tichá",
-      year: "2026",
-      category: "Dálkové plavání",
-      officialUrl: "https://www.boh.cz/galerie/933/",
-      url: "assets/aktuality/2239.jpg",
-      caption: "Plavecký maraton v Českých Budějovicích"
-    },
-    {
-      id: "928",
-      title: "Mistrovství ČR 2026 OPEN",
-      author: "foto Jan Srb",
-      year: "2026",
-      category: "Bazénové závody",
-      officialUrl: "https://www.boh.cz/galerie/928/",
-      url: "assets/aktuality/2240.jpg",
-      caption: "Vrcholná soutěž dospělých a juniorů na 50m bazénu"
-    },
-    {
-      id: "930",
-      title: "Prázdninový čtyřboj",
-      author: "foto Petr Dvořák",
-      year: "2026",
-      category: "Oddílové závody",
-      officialUrl: "https://www.boh.cz/galerie/930/",
-      url: "assets/foto/86088.jpg",
-      caption: "Tradiční letní oddílový čtyřboj plavců a přátel Bohemians"
-    },
-    {
-      id: "910",
-      title: "Lyžařské soustředění 2026",
-      author: "foto Jan Srb",
-      year: "2026",
-      category: "Soustředění",
-      officialUrl: "https://www.boh.cz/galerie/910/",
-      url: "assets/aktuality/2235.jpg",
-      caption: "Zimní běžecká příprava na Mísečkách v Krkonoších"
-    },
-    {
-      id: "904",
-      title: "Vinohradská veteraniáda",
-      author: "foto Petr Dvořák",
-      year: "2025",
-      category: "Masters",
-      officialUrl: "https://www.boh.cz/galerie/904/",
-      url: "assets/foto/86071.jpg",
-      caption: "Tradiční podzimní plavecké závody na Vinohradech"
+        "id": "gal-940-6",
+        "title": "Oslava 80 let oddílu — Večerní atmosféra",
+        "url": "assets/foto/86088.jpg",
+        "caption": "Raut, grilování, tombola a promítání historického filmu"
     }
-  ],
+],
 
   demoRoster: {
     "velka-cena-plzne-2026": [
@@ -2073,5 +5073,299 @@ window.KlokaniData = {
             "disciplines": []
         }
     ]
-}
+  },
+
+  downloads: [
+    {
+      id: "drahy-2026-2027",
+      title: "Rozdělení do drah a skupin 2026/2027",
+      category: "Rozvrhy a dráhy",
+      description: "Kompletní rozpis drah na bazénech Podolí (50m) a Vinohrady (25m) pro všechny tréninkové skupiny (ST, ODA, Výběr, Přípravka).",
+      fileName: "Rozdeleni_do_drah_Bohemians_2026_27.pdf",
+      fileSize: "418 KB",
+      updatedAt: "2026-09-01",
+      fileType: "pdf",
+      important: true
+    },
+    {
+      id: "rozvrh-treninku-podzim-2026",
+      title: "Týdenní harmonogram tréninků — podzim 2026",
+      category: "Rozvrhy a dráhy",
+      description: "Přehled ranních a odpoledních tréninkových časů, suché přípravy v posilovně a sobotních fází pro žáky a juniory.",
+      fileName: "Harmonogram_treninku_podzim_2026.pdf",
+      fileSize: "284 KB",
+      updatedAt: "2026-08-28",
+      fileType: "pdf"
+    },
+    {
+      id: "prispevky-2026-2027",
+      title: "Členské příspěvky a pokyny k platbám 2026/2027",
+      category: "Příspěvky a řády",
+      description: "Informace o výši oddílových a členských příspěvků pro jednotlivé skupiny, čísla účtů TJ Bohemians a variabilní symboly.",
+      fileName: "Clenske_prispevky_a_pokyny_k_platbam_2026.pdf",
+      fileSize: "192 KB",
+      updatedAt: "2026-08-20",
+      fileType: "pdf",
+      important: true
+    },
+    {
+      id: "rad-oddilu",
+      title: "Provozní a bezpečnostní řád oddílu plavání",
+      category: "Příspěvky a řády",
+      description: "Základní pravidla chování na bazénech Podolí a Vinohrady, povinnosti plavců a trenérů, bezpečnostní předpisy.",
+      fileName: "Provozni_a_bezpecnostni_rad_BOH.pdf",
+      fileSize: "320 KB",
+      updatedAt: "2026-01-10",
+      fileType: "pdf"
+    },
+    {
+      id: "stanovy-tj",
+      title: "Stanovy TJ Bohemians Praha z.s.",
+      category: "Příspěvky a řády",
+      description: "Oficiální stanovy tělovýchovné jednoty Bohemians Praha schválené valnou hromadou.",
+      fileName: "Stanovy_TJ_Bohemians_Praha.pdf",
+      fileSize: "512 KB",
+      updatedAt: "2025-11-15",
+      fileType: "pdf"
+    },
+    {
+      id: "lekarska-prohlidka",
+      title: "Žádost o posouzení zdravotní způsobilosti k tělesné výchově a sportu",
+      category: "Zdraví a formuláře",
+      description: "Oficiální formulář pro sportovního nebo praktického lékaře vyžadovaný vyhláškou o zdravotní způsobilosti pro závodní plavce.",
+      fileName: "Formular_zdravotni_zpusobilost_sportovce.pdf",
+      fileSize: "215 KB",
+      updatedAt: "2026-06-12",
+      fileType: "pdf",
+      important: true
+    },
+    {
+      id: "gdpr-souhlas",
+      title: "Vstupní dotazník a souhlas se zpracováním osobních údajů (GDPR)",
+      category: "Zdraví a formuláře",
+      description: "Formulář pro nové i stávající členy s kontaktními údaji zákonných zástupců a souhlasem s fotografováním při sportovních akcích.",
+      fileName: "GDPR_a_vstupni_dotaznik_plavce.pdf",
+      fileSize: "185 KB",
+      updatedAt: "2026-02-01",
+      fileType: "pdf"
+    },
+    {
+      id: "antidoping-tue",
+      title: "Antidopingové předpisy a žádost o terapeutickou výjimku (TUE)",
+      category: "Zdraví a formuláře",
+      description: "Pravidla Antidopingového výboru ČR a Českého svazu plaveckých sportů pro závodní sportovce a užívání léků.",
+      fileName: "Antidoping_smernice_TUE_CSPS.pdf",
+      fileSize: "348 KB",
+      updatedAt: "2026-01-15",
+      fileType: "pdf"
+    },
+    {
+      id: "prihlaska-clena",
+      title: "Přihláška nového člena oddílu (evidenční list plavce)",
+      category: "Závody a pravidla",
+      description: "Přihláška do závodního družstva a registrace u Českého svazu plaveckých sportů (ČSPS) pro získání svazové licence.",
+      fileName: "Prihlaska_novy_clen_BOH_CSPS.pdf",
+      fileSize: "238 KB",
+      updatedAt: "2026-07-01",
+      fileType: "pdf"
+    },
+    {
+      id: "pravidla-plavani-wa",
+      title: "Pravidla plavání World Aquatics / ČSPS (platné znění)",
+      category: "Závody a pravidla",
+      description: "Kompletní technická pravidla plaveckých způsobů (kraul, znak, prsa, motýlek, polohový závod, starty a obrátky).",
+      fileName: "Pravidla_plavani_WorldAquatics_CSPS.pdf",
+      fileSize: "892 KB",
+      updatedAt: "2026-03-01",
+      fileType: "pdf"
+    },
+    {
+      id: "smernice-cestovne",
+      title: "Směrnice pro proplácení startovného a cestovného na MČR",
+      category: "Závody a pravidla",
+      description: "Kritéria a podmínky oddílového příspěvku na dopravu, ubytování a startovné pro kvalifikované reprezentanty oddílu.",
+      fileName: "Smernice_proplaceni_zavody_MCR.pdf",
+      fileSize: "206 KB",
+      updatedAt: "2026-04-18",
+      fileType: "pdf"
+    }
+  ],
+
+  stats: {
+    topPerformances: [
+      // Muži 25m
+      { rank: 1, swimmer: "Pavel Srb", birthYear: 1980, discipline: "100 m volný způsob", pool: "25m", gender: "Muži", time: "49.62", finaPoints: 835, date: "2001-12-14", meet: "ME v krátkém bazénu Antverpy", isClubRecord: true },
+      { rank: 2, swimmer: "Michal Judickij", birthYear: 2004, discipline: "100 m prsa", pool: "25m", gender: "Muži", time: "1:01.42", finaPoints: 815, date: "2026-06-01", meet: "MČR juniorů & U22 Ústí n. L.", isClubRecord: true },
+      { rank: 3, swimmer: "Michal Judickij", birthYear: 2004, discipline: "200 m polohový závod", pool: "25m", gender: "Muži", time: "2:01.80", finaPoints: 808, date: "2026-05-10", meet: "VC Pardubic", isClubRecord: true },
+      { rank: 4, swimmer: "Patrik Boháč", birthYear: 2007, discipline: "100 m znak", pool: "25m", gender: "Muži", time: "55.40", finaPoints: 780, date: "2026-06-02", meet: "MČR juniorů & U22 Ústí n. L.", isClubRecord: false },
+      { rank: 5, swimmer: "Pavel Srb", birthYear: 1980, discipline: "200 m volný způsob", pool: "25m", gender: "Muži", time: "1:48.35", finaPoints: 825, date: "2002-11-23", meet: "Český pohár Plzeň", isClubRecord: true },
+      { rank: 6, swimmer: "Václav Tichý", birthYear: 2007, discipline: "1500 m volný způsob", pool: "25m", gender: "Muži", time: "15:48.20", finaPoints: 765, date: "2026-06-08", meet: "ČP dálkové plavání / CZECHMAN", isClubRecord: false },
+      { rank: 7, swimmer: "Michal Judickij", birthYear: 2004, discipline: "200 m prsa", pool: "25m", gender: "Muži", time: "2:13.20", finaPoints: 810, date: "2026-05-10", meet: "VC Pardubic", isClubRecord: true },
+      { rank: 8, swimmer: "Patrik Boháč", birthYear: 2007, discipline: "200 m znak", pool: "25m", gender: "Muži", time: "2:01.10", finaPoints: 772, date: "2026-06-01", meet: "MČR juniorů Ústí n. L.", isClubRecord: false },
+
+      // Ženy 25m
+      { rank: 1, swimmer: "Ilona Hlaváčková", birthYear: 1977, discipline: "50 m znak", pool: "25m", gender: "Ženy", time: "27.06", finaPoints: 948, date: "2001-12-15", meet: "ME v krátkém bazénu Antverpy (Evropský rekord)", isClubRecord: true },
+      { rank: 2, swimmer: "Ilona Hlaváčková", birthYear: 1977, discipline: "100 m znak", pool: "25m", gender: "Ženy", time: "57.75", finaPoints: 935, date: "2001-12-14", meet: "ME v krátkém bazénu Antverpy", isClubRecord: true },
+      { rank: 3, swimmer: "Ilona Hlaváčková", birthYear: 1977, discipline: "50 m volný způsob", pool: "25m", gender: "Ženy", time: "24.95", finaPoints: 880, date: "2003-12-11", meet: "ME v krátkém bazénu Dublin", isClubRecord: true },
+      { rank: 4, swimmer: "Natálie Zápotocká", birthYear: 2007, discipline: "200 m polohový závod", pool: "25m", gender: "Ženy", time: "2:14.90", finaPoints: 820, date: "2026-06-01", meet: "MČR juniorů & U22 Ústí n. L.", isClubRecord: true },
+      { rank: 5, swimmer: "Karla Škopová", birthYear: 2008, discipline: "400 m volný způsob", pool: "25m", gender: "Ženy", time: "4:16.80", finaPoints: 805, date: "2026-05-10", meet: "VC Pardubic", isClubRecord: true },
+      { rank: 6, swimmer: "Bára Škopová", birthYear: 2008, discipline: "100 m motýlek", pool: "25m", gender: "Ženy", time: "1:01.80", finaPoints: 792, date: "2026-06-02", meet: "MČR juniorů Ústí n. L.", isClubRecord: false },
+      { rank: 7, swimmer: "Natálie Zápotocká", birthYear: 2007, discipline: "400 m polohový závod", pool: "25m", gender: "Ženy", time: "4:48.20", finaPoints: 790, date: "2026-05-10", meet: "VC Pardubic", isClubRecord: true },
+      { rank: 8, swimmer: "Tereza Čermáková", birthYear: 2007, discipline: "100 m prsa", pool: "25m", gender: "Ženy", time: "1:09.80", finaPoints: 785, date: "2026-06-01", meet: "MČR juniorů Ústí n. L.", isClubRecord: false },
+
+      // 50m Bazén
+      { rank: 1, swimmer: "Ilona Hlaváčková", birthYear: 1977, discipline: "50 m znak", pool: "50m", gender: "Ženy", time: "28.50", finaPoints: 915, date: "2002-08-01", meet: "ME Berlín", isClubRecord: true },
+      { rank: 2, swimmer: "Pavel Srb", birthYear: 1980, discipline: "100 m volný způsob", pool: "50m", gender: "Muži", time: "51.03", finaPoints: 820, date: "2001-07-20", meet: "MS Fukuoka", isClubRecord: true },
+      { rank: 3, swimmer: "Karla Škopová", birthYear: 2008, discipline: "400 m volný způsob", pool: "50m", gender: "Ženy", time: "4:21.60", finaPoints: 798, date: "2026-06-01", meet: "MČR juniorů Ústí n. L.", isClubRecord: true },
+      { rank: 4, swimmer: "Michal Judickij", birthYear: 2004, discipline: "200 m prsa", pool: "50m", gender: "Muži", time: "2:16.80", finaPoints: 795, date: "2026-06-02", meet: "MČR U22 Ústí n. L.", isClubRecord: true },
+      { rank: 5, swimmer: "Natálie Zápotocká", birthYear: 2007, discipline: "200 m znak", pool: "50m", gender: "Ženy", time: "2:15.40", finaPoints: 785, date: "2026-06-01", meet: "MČR juniorů Ústí n. L.", isClubRecord: true }
+    ],
+
+    swimmers: [
+      {
+        id: "ilona-hlavackova",
+        name: "Ilona Hlaváčková",
+        birthYear: 1977,
+        gender: "Ženy",
+        category: "Dospělí",
+        role: "Olympionička (Athény 2004), Mistryně Evropy",
+        bio: "Úspěšná plavkyně oddílu TJ Bohemians. Dvojnásobná mistryně Evropy, medailistka z MS a finalistka olympijských her v Athénách 2004.",
+        achievements: [
+          "Zlato na 50 m i 100 m znak na ME 2001 (Antverpy)",
+          "Světový rekord na 50 m znak v krátkém bazénu",
+          "Stříbro a bronz na MS",
+          "Finále na Letních olympijských hrách 2004 v Athénách"
+        ],
+        bestTimes: [
+          { discipline: "50 m znak", pool: "25m", time: "27.06", year: 2001, fina: 948 },
+          { discipline: "100 m znak", pool: "25m", time: "57.75", year: 2001, fina: 935 },
+          { discipline: "50 m volný způsob", pool: "25m", time: "24.95", year: 2003, fina: 880 },
+          { discipline: "50 m znak", pool: "50m", time: "28.50", year: 2002, fina: 915 },
+          { discipline: "100 m znak", pool: "50m", time: "1:01.40", year: 2002, fina: 890 }
+        ]
+      },
+      {
+        id: "pavel-srb",
+        name: "Mgr. Pavel Srb",
+        birthYear: 1980,
+        gender: "Muži",
+        category: "Dospělí",
+        role: "Bývalý reprezentant ČR",
+        bio: "Bývalý reprezentant České republiky ve volném způsobu a polohových závodech, opora štafet a držitel oddílových kraulových rekordů.",
+        achievements: [
+          "Účastník MS v plavání Fukuoka 2001 a ME",
+          "Více než 25 titulů mistra ČR",
+          "Oddílový rekordman na 100 m a 200 m VZ"
+        ],
+        bestTimes: [
+          { discipline: "100 m volný způsob", pool: "25m", time: "49.62", year: 2001, fina: 835 },
+          { discipline: "200 m volný způsob", pool: "25m", time: "1:48.35", year: 2002, fina: 825 },
+          { discipline: "100 m volný způsob", pool: "50m", time: "51.03", year: 2001, fina: 820 },
+          { discipline: "400 m volný způsob", pool: "50m", time: "3:54.30", year: 2002, fina: 810 }
+        ]
+      },
+      {
+        id: "michal-judickij",
+        name: "Michal Judickij",
+        birthYear: 2004,
+        gender: "Muži",
+        category: "U22 / Dospělí",
+        role: "Mistr ČR U22, reprezentant oddílu",
+        bio: "Přední prsař a polohovkář oddílu. Na MČR juniorů a U22 2026 vybojoval 3 mistrovské tituly a je oporou bohemáckých štafet.",
+        achievements: [
+          "3× zlato na MČR juniorů a U22 2026",
+          "Stříbro a bronz na Velké ceně Pardubic 2026",
+          "Člen bronzové mixové polohové štafety MČR"
+        ],
+        bestTimes: [
+          { discipline: "100 m prsa", pool: "25m", time: "1:01.42", year: 2026, fina: 815 },
+          { discipline: "200 m prsa", pool: "25m", time: "2:13.20", year: 2026, fina: 810 },
+          { discipline: "200 m polohový závod", pool: "25m", time: "2:01.80", year: 2026, fina: 808 },
+          { discipline: "200 m prsa", pool: "50m", time: "2:16.80", year: 2026, fina: 795 }
+        ]
+      },
+      {
+        id: "natalie-zapotocka",
+        name: "Natálie Zápotocká",
+        birthYear: 2007,
+        gender: "Ženy",
+        category: "Junioři",
+        role: "Mistryně ČR, juniorská reprezentantka",
+        bio: "Univerzální plavkyně vynikající v polohových závodech a znaku. Zářila na MČR 2026 se ziskem tří mistrovských titulů.",
+        achievements: [
+          "3× zlato a 1× bronz na MČR 2026",
+          "3× zlato na VC Pardubic 2026",
+          "Oddílová rekordmanka na 200 m a 400 m polohově"
+        ],
+        bestTimes: [
+          { discipline: "200 m polohový závod", pool: "25m", time: "2:14.90", year: 2026, fina: 820 },
+          { discipline: "400 m polohový závod", pool: "25m", time: "4:48.20", year: 2026, fina: 790 },
+          { discipline: "200 m znak", pool: "50m", time: "2:15.40", year: 2026, fina: 785 },
+          { discipline: "100 m znak", pool: "25m", time: "1:03.10", year: 2026, fina: 770 }
+        ]
+      },
+      {
+        id: "karla-skopova",
+        name: "Karla Škopová",
+        birthYear: 2008,
+        gender: "Ženy",
+        category: "Junioři",
+        role: "Mistryně ČR, vytrvalkyně",
+        bio: "Přední kraulová vytrvalkyně a motýlkářka. Držitelka oddílových rekordů na dlouhých tratích a medailistka z Českého poháru.",
+        achievements: [
+          "Mistrovský titul z MČR 2026 na 400 m volný způsob",
+          "Zlato a bronz na Českém poháru v Pardubicích",
+          "Oddílový rekord na 400 m volný způsob"
+        ],
+        bestTimes: [
+          { discipline: "400 m volný způsob", pool: "25m", time: "4:16.80", year: 2026, fina: 805 },
+          { discipline: "400 m volný způsob", pool: "50m", time: "4:21.60", year: 2026, fina: 798 },
+          { discipline: "800 m volný způsob", pool: "50m", time: "8:58.20", year: 2026, fina: 782 },
+          { discipline: "200 m motýlek", pool: "25m", time: "2:15.60", year: 2026, fina: 775 }
+        ]
+      },
+      {
+        id: "bara-skopova",
+        name: "Bára Škopová",
+        birthYear: 2008,
+        gender: "Ženy",
+        category: "Junioři",
+        role: "Medailistka MČR, motýlkářka",
+        bio: "Specialistka na motýlkové a sprintérské tratě. Pravidelně se umisťuje na stupních vítězů na celostátních soutěžích.",
+        achievements: [
+          "Stříbro z VC Pardubic 2026",
+          "Medailistka z MČR juniorů 2026",
+          "Členka úspěšných štafet Klokanů"
+        ],
+        bestTimes: [
+          { discipline: "100 m motýlek", pool: "25m", time: "1:01.80", year: 2026, fina: 792 },
+          { discipline: "50 m motýlek", pool: "25m", time: "27.85", year: 2026, fina: 760 },
+          { discipline: "200 m motýlek", pool: "25m", time: "2:16.10", year: 2026, fina: 770 }
+        ]
+      },
+      {
+        id: "patrik-bohac",
+        name: "Patrik Boháč",
+        birthYear: 2007,
+        gender: "Muži",
+        category: "Junioři",
+        role: "Medailista MČR, znakař",
+        bio: "Znakový specialista s výborným podvodním vlněním a startem. Stabilní opora týmu na republikových šampionátech.",
+        achievements: [
+          "2× bronz z VC Pardubic 2026",
+          "Medailista MČR juniorů 2026",
+          "Člen mixové štafety MČR"
+        ],
+        bestTimes: [
+          { discipline: "100 m znak", pool: "25m", time: "55.40", year: 2026, fina: 780 },
+          { discipline: "200 m znak", pool: "25m", time: "2:01.10", year: 2026, fina: 772 },
+          { discipline: "50 m znak", pool: "25m", time: "25.90", year: 2026, fina: 765 }
+        ]
+      }
+    ]
+  }
 };
+
+// Backward compatibility alias
+window.KlokaniData = window.BohData;
+

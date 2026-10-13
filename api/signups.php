@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/db.php';
 
-$method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+$method = $_SERVER['REQUEST_METHOD'];
 $pdo = getDb();
 
 if ($method === 'GET') {
@@ -31,10 +31,26 @@ if ($method === 'POST') {
         exit;
     }
 
-    $eventId = $input['eventId'];
-    $disciplines = json_encode($input['disciplines'] ?? []);
-    $note = $input['note'] ?? '';
-    $at = $input['at'] ?? date('c');
+    $eventId = preg_replace('/[^a-zA-Z0-9_\-]/', '', (string)$input['eventId']);
+    if (empty($eventId)) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Invalid eventId format']);
+        exit;
+    }
+
+    $disciplinesArr = [];
+    if (is_array($input['disciplines'] ?? null)) {
+        foreach ($input['disciplines'] as $d) {
+            if (is_string($d)) {
+                $cleanD = htmlspecialchars(strip_tags(trim($d)), ENT_QUOTES, 'UTF-8');
+                if ($cleanD !== '') $disciplinesArr[] = mb_substr($cleanD, 0, 50, 'UTF-8');
+            }
+        }
+    }
+    $disciplines = json_encode($disciplinesArr, JSON_UNESCAPED_UNICODE);
+    $note = htmlspecialchars(strip_tags(trim((string)($input['note'] ?? ''))), ENT_QUOTES, 'UTF-8');
+    $note = mb_substr($note, 0, 200, 'UTF-8');
+    $at = date('c');
 
     if ($pdo) {
         $stmt = $pdo->prepare("INSERT OR REPLACE INTO signups (event_id, disciplines, note, created_at) VALUES (?, ?, ?, ?)");
@@ -43,7 +59,7 @@ if ($method === 'POST') {
         $signups = readJsonFile('signups.json', []);
         $signups[$eventId] = [
             'eventId' => $eventId,
-            'disciplines' => $input['disciplines'] ?? [],
+            'disciplines' => $disciplinesArr,
             'note' => $note,
             'at' => $at
         ];
@@ -54,7 +70,7 @@ if ($method === 'POST') {
 }
 
 if ($method === 'DELETE') {
-    $eventId = $_GET['id'] ?? null;
+    $eventId = preg_replace('/[^a-zA-Z0-9_\-]/', '', (string)($_GET['id'] ?? ''));
     if ($eventId) {
         if ($pdo) {
             $stmt = $pdo->prepare("DELETE FROM signups WHERE event_id = ?");
