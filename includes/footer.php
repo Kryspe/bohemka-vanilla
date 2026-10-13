@@ -4,7 +4,8 @@
         <div class="md:col-span-2">
           <div class="flex items-center gap-3">
             <img src="assets/bohemka_badge.png" alt="TJ Bohemians Praha" class="h-10 w-10 object-contain rounded-full">
-            <div>
+            <img src="assets/logo-klokani.png" alt="TJ Bohemians Praha" class="site-logo-adaptive h-8 w-auto object-contain hidden sm:block">
+            <div class="sm:hidden">
               <span class="font-display text-base font-bold text-foreground">TJ Bohemians Praha — oddíl plavání</span>
               <p class="text-xs text-primary font-semibold">Tradice od roku 1946 · Zelenobílá rodina Klokanů</p>
             </div>

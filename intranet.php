@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         ]);
         setFlash('success', 'Přihláška byla zrušena.');
     }
-    header("Location: intranet.php#zavody");
+    header("Location: intranet.php#moje-prihlasky");
     exit;
 }
 
@@ -396,6 +396,63 @@ require_once __DIR__ . '/includes/header.php';
             </div>
           </div>
         <?php endforeach; ?>
+      </div>
+    </section>
+
+    <!-- 4. TRÉNINKOVÉ INFORMACE A ROZPIS SKUPIN -->
+    <section id="treninky">
+      <div class="border-b border-border pb-3 mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-primary">Tréninkový plán</span>
+          <h2 class="mt-1 font-display text-xl sm:text-2xl font-extrabold text-foreground">Tréninkové informace & časy skupin</h2>
+          <p class="mt-1 text-sm text-muted-foreground">Přehled tréninkových časů pro sezónu 2026/27 na stadionu Podolí a Vinohradech.</p>
+        </div>
+        <a href="https://www.boh.cz/download/165_rozdeleni_plavani_2026-27.pdf" target="_blank" rel="noreferrer" 
+           class="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3.5 py-1.5 text-xs font-semibold text-foreground hover:bg-muted shrink-0">
+          <svg class="h-4 w-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Kompletní rozvrh PDF</span>
+        </a>
+      </div>
+
+      <div class="grid gap-4 md:grid-cols-3">
+        <div class="card-clean p-5 flex flex-col justify-between">
+          <div>
+            <span class="rounded bg-primary/10 px-2 py-0.5 text-xs font-bold text-primary">ST & Dorost</span>
+            <h3 class="mt-2.5 font-display text-base font-bold text-foreground">Sportovní třídy & Výběr</h3>
+            <p class="mt-1.5 text-xs text-muted-foreground leading-relaxed">
+              Trenéři: Jan Srb, Kateřina Holubová. Ráno Vinohrady (6:00–7:30), odpoledne Podolí (14:30–17:00). Sobotní ranní tréninky dle kalendáře.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-border text-[0.7rem] text-muted-foreground font-medium">
+            Místo: Podolí 50m / Vinohrady 25m
+          </div>
+        </div>
+
+        <div class="card-clean p-5 flex flex-col justify-between">
+          <div>
+            <span class="rounded bg-primary/10 px-2 py-0.5 text-xs font-bold text-primary">ODA & ODB</span>
+            <h3 class="mt-2.5 font-display text-base font-bold text-foreground">Oddílová družstva žactva</h3>
+            <p class="mt-1.5 text-xs text-muted-foreground leading-relaxed">
+              Tréninky Po, St, Pá odpoledne (15:00–16:30) v Podolí a Út, Čt odpoledne na Vinohradech. Příprava na krajské přebory.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-border text-[0.7rem] text-muted-foreground font-medium">
+            Místo: Podolí / Sokol Vinohrady
+          </div>
+        </div>
+
+        <div class="card-clean p-5 flex flex-col justify-between">
+          <div>
+            <span class="rounded bg-emerald-600/10 px-2 py-0.5 text-xs font-bold text-emerald-700 dark:text-emerald-400">Přípravka</span>
+            <h3 class="mt-2.5 font-display text-base font-bold text-foreground">Závodní přípravka (6–12 let)</h3>
+            <p class="mt-1.5 text-xs text-muted-foreground leading-relaxed">
+              Tréninky 2× až 3× týdně v bazénu Vinohrady. Zaměření na techniku všech plaveckých způsobů, starty a obrátky.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-border text-[0.7rem] text-muted-foreground font-medium">
+            Místo: Bazén Vinohrady (Polská 2400)
+          </div>
+        </div>
       </div>
     </section>
 

@@ -67,7 +67,8 @@ $navLinks = [
       <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
         <a href="index.php" class="flex items-center gap-3">
           <img src="assets/bohemka_badge.png" alt="TJ Bohemians Praha — oddíl plavání" class="h-10 w-10 object-contain rounded-full shadow-xs">
-          <div class="flex flex-col">
+          <img src="assets/logo-klokani.png" alt="TJ Bohemians Praha — oddíl plavání Klokani" class="site-logo-adaptive h-8 w-auto object-contain hidden sm:block">
+          <div class="flex flex-col sm:hidden">
             <span class="font-display text-base font-extrabold tracking-tight text-foreground sm:text-lg leading-tight">
               TJ Bohemians Praha
             </span>

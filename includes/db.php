@@ -148,6 +148,16 @@ function initSchema(PDO $pdo): void {
         note TEXT,
         created_at TEXT
     );
+
+    CREATE TABLE IF NOT EXISTS admin_items (
+        id TEXT PRIMARY KEY,
+        kind TEXT,
+        status TEXT DEFAULT 'pending',
+        source TEXT,
+        title TEXT NOT NULL,
+        fields_json TEXT,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
     ";
     $pdo->exec($sql);
 }

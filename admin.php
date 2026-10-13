@@ -84,6 +84,36 @@ if (!in_array($activeTab, $validTabs)) {
     $activeTab = 'news';
 }
 
+$editId = trim($_GET['edit'] ?? '');
+$editItem = null;
+if ($isAdmin && !empty($editId)) {
+    if ($activeTab === 'news') {
+        $st = $pdo->prepare("SELECT * FROM news WHERE id = ? LIMIT 1");
+        $st->execute([$editId]);
+        $editItem = $st->fetch();
+    } elseif ($activeTab === 'events') {
+        $st = $pdo->prepare("SELECT * FROM events WHERE id = ? LIMIT 1");
+        $st->execute([$editId]);
+        $editItem = $st->fetch();
+    } elseif ($activeTab === 'messages') {
+        $st = $pdo->prepare("SELECT * FROM parent_messages WHERE id = ? LIMIT 1");
+        $st->execute([(int)$editId]);
+        $editItem = $st->fetch();
+    } elseif ($activeTab === 'trainers') {
+        $st = $pdo->prepare("SELECT * FROM trainers WHERE id = ? LIMIT 1");
+        $st->execute([(int)$editId]);
+        $editItem = $st->fetch();
+    } elseif ($activeTab === 'yearbooks') {
+        $st = $pdo->prepare("SELECT * FROM yearbooks WHERE id = ? LIMIT 1");
+        $st->execute([(int)$editId]);
+        $editItem = $st->fetch();
+    } elseif ($activeTab === 'records') {
+        $st = $pdo->prepare("SELECT * FROM records WHERE id = ? LIMIT 1");
+        $st->execute([(int)$editId]);
+        $editItem = $st->fetch();
+    }
+}
+
 // Handle CRUD actions if authenticated
 if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
@@ -318,19 +348,27 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         $category = trim($_POST['club_category'] ?? '');
 
         if (!empty($username) && !empty($password)) {
-            $stmt = $pdo->prepare("
-                INSERT INTO users (username, password_hash, name, role, year_of_birth, club_category)
-                VALUES (:username, :password_hash, :name, :role, :year_of_birth, :club_category)
-            ");
-            $stmt->execute([
-                ':username' => $username,
-                ':password_hash' => password_hash($password, PASSWORD_DEFAULT),
-                ':name' => $name,
-                ':role' => $role,
-                ':year_of_birth' => $yearOfBirth,
-                ':club_category' => $category
-            ]);
-            setFlash('success', 'Uživatel byl úspěšně vytvořen.');
+            $chk = $pdo->prepare("SELECT id FROM users WHERE LOWER(username) = LOWER(:u) LIMIT 1");
+            $chk->execute([':u' => $username]);
+            if ($chk->fetch()) {
+                setFlash('error', 'Uživatel se jménem "' . $username . '" již existuje.');
+            } else {
+                $stmt = $pdo->prepare("
+                    INSERT INTO users (username, password_hash, name, role, year_of_birth, club_category)
+                    VALUES (:username, :password_hash, :name, :role, :year_of_birth, :club_category)
+                ");
+                $stmt->execute([
+                    ':username' => $username,
+                    ':password_hash' => password_hash($password, PASSWORD_DEFAULT),
+                    ':name' => !empty($name) ? $name : $username,
+                    ':role' => $role,
+                    ':year_of_birth' => $yearOfBirth,
+                    ':club_category' => $category
+                ]);
+                setFlash('success', 'Uživatel byl úspěšně vytvořen.');
+            }
+        } else {
+            setFlash('error', 'Vyplňte uživatelské jméno a heslo.');
         }
         header("Location: admin.php?tab=users");
         exit;
@@ -463,55 +501,62 @@ require_once __DIR__ . '/includes/header.php';
       <div class="grid gap-8 lg:grid-cols-12">
         <div class="lg:col-span-5">
           <div class="card-clean p-6">
-            <h2 class="font-display text-lg font-bold text-foreground mb-4">Přidat / Upravit aktualitu</h2>
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="font-display text-lg font-bold text-foreground">
+                <?= $editItem ? 'Upravit aktualitu' : 'Přidat novou aktualitu' ?>
+              </h2>
+              <?php if ($editItem): ?>
+                <a href="admin.php?tab=news" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
+              <?php endif; ?>
+            </div>
             <form method="post" action="admin.php?tab=news" class="space-y-3.5">
               <input type="hidden" name="action" value="save_news">
 
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">ID / Slug</label>
-                <input type="text" name="id" placeholder="např. akt-2241 (nechte prázdné pro automatické)"
+                <input type="text" name="id" value="<?= e($editItem['id'] ?? '') ?>" placeholder="např. akt-2241 (nechte prázdné pro automatické)"
                        class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
               </div>
 
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Nadpis aktuality</label>
-                <input type="text" name="title" required placeholder="Zadejte název článku"
+                <input type="text" name="title" required value="<?= e($editItem['title'] ?? '') ?>" placeholder="Zadejte název článku"
                        class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
               </div>
 
               <div class="grid grid-cols-2 gap-2">
                 <div>
                   <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Datum</label>
-                  <input type="date" name="date" required value="<?= date('Y-m-d') ?>"
+                  <input type="date" name="date" required value="<?= e($editItem['date'] ?? date('Y-m-d')) ?>"
                          class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
                 </div>
                 <div>
                   <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Autor</label>
-                  <input type="text" name="author" value="Jan Srb"
+                  <input type="text" name="author" value="<?= e($editItem['author'] ?? 'Jan Srb') ?>"
                          class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
                 </div>
               </div>
 
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Obrázek (cesta nebo URL)</label>
-                <input type="text" name="image_url" placeholder="assets/aktuality/2240.jpg"
+                <input type="text" name="image_url" value="<?= e($editItem['image_url'] ?? '') ?>" placeholder="assets/aktuality/2240.jpg"
                        class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
               </div>
 
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Krátký výtah (Perex)</label>
                 <textarea name="excerpt" rows="2" placeholder="Stručný úvod na úvodní stránku a přehled"
-                          class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none"></textarea>
+                          class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none"><?= e($editItem['excerpt'] ?? '') ?></textarea>
               </div>
 
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Obsah článku (odstavce oddělte prázdným řádkem)</label>
                 <textarea name="body" rows="6" required placeholder="Text článku..."
-                          class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none"></textarea>
+                          class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none"><?= e($editItem['body'] ?? '') ?></textarea>
               </div>
 
               <button type="submit" class="w-full rounded-xl bg-primary py-2.5 text-xs font-bold text-primary-foreground shadow-xs hover:opacity-95">
-                Uložit aktualitu
+                <?= $editItem ? 'Uložit změny v článku' : 'Uložit novou aktualitu' ?>
               </button>
             </form>
           </div>
@@ -536,7 +581,10 @@ require_once __DIR__ . '/includes/header.php';
                     <p class="text-xs text-muted-foreground line-clamp-1 mt-1"><?= e($n['excerpt']) ?></p>
                   </div>
                   <div class="flex items-center gap-2 shrink-0">
-                    <a href="aktuality.php?id=<?= urlencode($n['id']) ?>" target="_blank" class="text-xs font-semibold text-primary hover:underline">
+                    <a href="admin.php?tab=news&edit=<?= urlencode($n['id']) ?>" class="text-xs font-semibold text-primary hover:underline">
+                      Upravit
+                    </a>
+                    <a href="aktuality.php?id=<?= urlencode($n['id']) ?>" target="_blank" class="text-xs font-semibold text-muted-foreground hover:underline">
                       Zobrazit
                     </a>
                     <form method="post" action="admin.php?tab=news" onsubmit="return confirm('Opravdu smazat tuto aktualitu?');">
@@ -555,53 +603,64 @@ require_once __DIR__ . '/includes/header.php';
     <?php elseif ($activeTab === 'events'): ?>
       <!-- TAB 2: EVENTS & ENTRIES -->
       <div class="space-y-8">
-        <!-- Add Event Form -->
+        <!-- Add / Edit Event Form -->
         <div class="card-clean p-6">
-          <h2 class="font-display text-lg font-bold text-foreground mb-4">Přidat nový závod do kalendáře</h2>
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="font-display text-lg font-bold text-foreground">
+              <?= $editItem ? 'Upravit závod: ' . e($editItem['name']) : 'Přidat nový závod do kalendáře' ?>
+            </h2>
+            <?php if ($editItem): ?>
+              <a href="admin.php?tab=events" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
+            <?php endif; ?>
+          </div>
+          <?php 
+            $evDiscsRaw = $editItem ? implode(', ', json_decode($editItem['disciplines_json'] ?? '[]', true) ?: []) : '50 VZ, 100 VZ, 200 VZ, 50 Z, 100 Z, 50 P, 100 P, 50 M, 100 M, 100 PZ, 200 PZ';
+          ?>
           <form method="post" action="admin.php?tab=events" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <input type="hidden" name="action" value="save_event">
+            <input type="hidden" name="id" value="<?= e($editItem['id'] ?? '') ?>">
 
             <div>
               <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Název závodu</label>
-              <input type="text" name="name" required placeholder="Velká cena města..."
+              <input type="text" name="name" required value="<?= e($editItem['name'] ?? '') ?>" placeholder="Velká cena města..."
                      class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
             </div>
 
             <div>
               <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Místo / Bazén</label>
-              <input type="text" name="place" placeholder="Plzeň – Slovany / Podolí"
+              <input type="text" name="place" value="<?= e($editItem['place'] ?? '') ?>" placeholder="Plzeň – Slovany / Podolí"
                      class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
             </div>
 
             <div>
               <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Datum konání</label>
-              <input type="date" name="date" required
+              <input type="date" name="date" required value="<?= e($editItem['date'] ?? '') ?>"
                      class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
             </div>
 
             <div>
               <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Uzávěrka přihlášek</label>
-              <input type="date" name="deadline" required
+              <input type="date" name="deadline" required value="<?= e($editItem['deadline'] ?? '') ?>"
                      class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
             </div>
 
             <div class="sm:col-span-2">
               <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Seznam disciplín (oddělené čárkou)</label>
-              <input type="text" name="disciplines_raw" value="50 VZ, 100 VZ, 200 VZ, 50 Z, 100 Z, 50 P, 100 P, 50 M, 100 M, 100 PZ, 200 PZ"
+              <input type="text" name="disciplines_raw" value="<?= e($evDiscsRaw) ?>"
                      class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
             </div>
 
             <div>
               <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Stav přihlášek</label>
               <select name="status" class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
-                <option value="open">Otevřeno pro přihlášky</option>
-                <option value="closed">Uzavřeno</option>
+                <option value="open" <?= ($editItem && $editItem['status'] === 'open') ? 'selected' : '' ?>>Otevřeno pro přihlášky</option>
+                <option value="closed" <?= ($editItem && $editItem['status'] === 'closed') ? 'selected' : '' ?>>Uzavřeno</option>
               </select>
             </div>
 
             <div class="flex items-end">
               <button type="submit" class="w-full rounded-xl bg-primary py-2.5 text-xs font-bold text-primary-foreground shadow-xs hover:opacity-95">
-                Uložit nový závod
+                <?= $editItem ? 'Uložit změny v závodu' : 'Uložit nový závod' ?>
               </button>
             </div>
           </form>
@@ -634,16 +693,20 @@ require_once __DIR__ . '/includes/header.php';
                   </div>
 
                   <div class="flex items-center gap-2">
+                    <a href="admin.php?tab=events&edit=<?= urlencode($ev['id']) ?>" 
+                       class="inline-flex items-center gap-1 rounded-lg border border-border bg-card px-3 py-1.5 text-xs font-semibold text-primary hover:bg-muted">
+                      <span>Upravit</span>
+                    </a>
                     <a href="admin.php?action=export_csv&event_id=<?= urlencode($ev['id']) ?>" 
                        class="inline-flex items-center gap-1 rounded-lg border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground hover:bg-muted">
                       <svg class="h-3.5 w-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                      <span>Export soupisky (CSV)</span>
+                      <span>Export (CSV)</span>
                     </a>
                     <form method="post" action="admin.php?tab=events" onsubmit="return confirm('Opravdu smazat tento závod včetně přihlášek?');">
                       <input type="hidden" name="action" value="delete_event">
                       <input type="hidden" name="id" value="<?= e($ev['id']) ?>">
                       <button type="submit" class="rounded-lg bg-red-600/10 px-2.5 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-600/20">
-                        Smazat závod
+                        Smazat
                       </button>
                     </form>
                   </div>
@@ -691,43 +754,51 @@ require_once __DIR__ . '/includes/header.php';
       <div class="grid gap-8 lg:grid-cols-12">
         <div class="lg:col-span-5">
           <div class="card-clean p-6">
-            <h2 class="font-display text-lg font-bold text-foreground mb-4">Přidat nový vzkaz na nástěnku</h2>
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="font-display text-lg font-bold text-foreground">
+                <?= $editItem ? 'Upravit vzkaz na nástěnce' : 'Přidat nový vzkaz na nástěnku' ?>
+              </h2>
+              <?php if ($editItem): ?>
+                <a href="admin.php?tab=messages" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
+              <?php endif; ?>
+            </div>
             <form method="post" action="admin.php?tab=messages" class="space-y-3.5">
               <input type="hidden" name="action" value="save_message">
+              <input type="hidden" name="id" value="<?= e($editItem['id'] ?? 0) ?>">
 
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Kategorie</label>
-                <input type="text" name="category" value="Upozornění trenérů" required
+                <input type="text" name="category" value="<?= e($editItem['category'] ?? 'Upozornění trenérů') ?>" required
                        class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
               </div>
 
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Titulek vzkazu</label>
-                <input type="text" name="title" value="Informace pro rodiče" required
+                <input type="text" name="title" value="<?= e($editItem['title'] ?? 'Informace pro rodiče') ?>" required
                        class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
               </div>
 
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Text vzkazu</label>
                 <textarea name="text" rows="4" required placeholder="Text vzkazu..."
-                          class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none"></textarea>
+                          class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none"><?= e($editItem['text'] ?? '') ?></textarea>
               </div>
 
               <div class="grid grid-cols-2 gap-2">
                 <div>
                   <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Datum</label>
-                  <input type="date" name="date" value="<?= date('Y-m-d') ?>" required
+                  <input type="date" name="date" value="<?= e($editItem['date'] ?? date('Y-m-d')) ?>" required
                          class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
                 </div>
                 <div>
                   <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Autor</label>
-                  <input type="text" name="author" value="Jan Srb" required
+                  <input type="text" name="author" value="<?= e($editItem['author'] ?? 'Jan Srb') ?>" required
                          class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
                 </div>
               </div>
 
               <button type="submit" class="w-full rounded-xl bg-primary py-2.5 text-xs font-bold text-primary-foreground shadow-xs hover:opacity-95">
-                Zveřejnit vzkaz
+                <?= $editItem ? 'Uložit změny ve vzkazu' : 'Zveřejnit vzkaz' ?>
               </button>
             </form>
           </div>
@@ -750,11 +821,16 @@ require_once __DIR__ . '/includes/header.php';
                     </div>
                     <p class="text-xs text-foreground mt-1 leading-relaxed"><?= nl2br(e($msg['text'])) ?></p>
                   </div>
-                  <form method="post" action="admin.php?tab=messages" onsubmit="return confirm('Smazat vzkaz?');">
-                    <input type="hidden" name="action" value="delete_message">
-                    <input type="hidden" name="id" value="<?= $msg['id'] ?>">
-                    <button type="submit" class="text-xs font-semibold text-red-600 hover:underline">Smazat</button>
-                  </form>
+                  <div class="flex items-center gap-2 shrink-0">
+                    <a href="admin.php?tab=messages&edit=<?= $msg['id'] ?>" class="text-xs font-semibold text-primary hover:underline">
+                      Upravit
+                    </a>
+                    <form method="post" action="admin.php?tab=messages" onsubmit="return confirm('Smazat vzkaz?');">
+                      <input type="hidden" name="action" value="delete_message">
+                      <input type="hidden" name="id" value="<?= $msg['id'] ?>">
+                      <button type="submit" class="text-xs font-semibold text-red-600 hover:underline">Smazat</button>
+                    </form>
+                  </div>
                 </div>
               <?php endforeach; ?>
             </div>
@@ -767,42 +843,50 @@ require_once __DIR__ . '/includes/header.php';
       <div class="grid gap-8 lg:grid-cols-12">
         <div class="lg:col-span-5">
           <div class="card-clean p-6">
-            <h2 class="font-display text-lg font-bold text-foreground mb-4">Přidat trenéra do oddílu</h2>
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="font-display text-lg font-bold text-foreground">
+                <?= $editItem ? 'Upravit profil trenéra' : 'Přidat trenéra do oddílu' ?>
+              </h2>
+              <?php if ($editItem): ?>
+                <a href="admin.php?tab=trainers" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
+              <?php endif; ?>
+            </div>
             <form method="post" action="admin.php?tab=trainers" class="space-y-3.5">
               <input type="hidden" name="action" value="save_trainer">
+              <input type="hidden" name="id" value="<?= e($editItem['id'] ?? 0) ?>">
 
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Jméno a titul</label>
-                <input type="text" name="name" required placeholder="Mgr. Jan Novák"
+                <input type="text" name="name" required value="<?= e($editItem['name'] ?? '') ?>" placeholder="Mgr. Jan Novák"
                        class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
               </div>
 
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Funkce / Skupina</label>
-                <input type="text" name="role" required placeholder="Hlavní trenér — ST & Přípravka"
+                <input type="text" name="role" required value="<?= e($editItem['role'] ?? '') ?>" placeholder="Hlavní trenér — ST & Přípravka"
                        class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
               </div>
 
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Email</label>
-                <input type="email" name="email" placeholder="trener@bohemians.cz"
+                <input type="email" name="email" value="<?= e($editItem['email'] ?? '') ?>" placeholder="trener@bohemians.cz"
                        class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
               </div>
 
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Telefon</label>
-                <input type="text" name="phone" placeholder="777 123 456"
+                <input type="text" name="phone" value="<?= e($editItem['phone'] ?? '') ?>" placeholder="777 123 456"
                        class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
               </div>
 
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Kvalifikace & Popis</label>
                 <textarea name="bio" rows="3" placeholder="trenér I. třídy • FTVS UK"
-                          class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none"></textarea>
+                          class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none"><?= e($editItem['bio'] ?? '') ?></textarea>
               </div>
 
               <button type="submit" class="w-full rounded-xl bg-primary py-2.5 text-xs font-bold text-primary-foreground shadow-xs hover:opacity-95">
-                Uložit trenéra
+                <?= $editItem ? 'Uložit změny v trenérovi' : 'Uložit trenéra' ?>
               </button>
             </form>
           </div>
@@ -826,11 +910,16 @@ require_once __DIR__ . '/includes/header.php';
                       <?php if (!empty($t['phone'])): ?><span>📞 <?= e($t['phone']) ?></span><?php endif; ?>
                     </div>
                   </div>
-                  <form method="post" action="admin.php?tab=trainers" onsubmit="return confirm('Smazat trenéra?');">
-                    <input type="hidden" name="action" value="delete_trainer">
-                    <input type="hidden" name="id" value="<?= $t['id'] ?>">
-                    <button type="submit" class="text-xs font-semibold text-red-600 hover:underline">Smazat</button>
-                  </form>
+                  <div class="flex items-center gap-2 shrink-0">
+                    <a href="admin.php?tab=trainers&edit=<?= $t['id'] ?>" class="text-xs font-semibold text-primary hover:underline">
+                      Upravit
+                    </a>
+                    <form method="post" action="admin.php?tab=trainers" onsubmit="return confirm('Smazat trenéra?');">
+                      <input type="hidden" name="action" value="delete_trainer">
+                      <input type="hidden" name="id" value="<?= $t['id'] ?>">
+                      <button type="submit" class="text-xs font-semibold text-red-600 hover:underline">Smazat</button>
+                    </form>
+                  </div>
                 </div>
               <?php endforeach; ?>
             </div>
@@ -843,36 +932,44 @@ require_once __DIR__ . '/includes/header.php';
       <div class="grid gap-8 lg:grid-cols-12">
         <div class="lg:col-span-5">
           <div class="card-clean p-6">
-            <h2 class="font-display text-lg font-bold text-foreground mb-4">Přidat ročenku oddílu</h2>
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="font-display text-lg font-bold text-foreground">
+                <?= $editItem ? 'Upravit ročenku oddílu' : 'Přidat ročenku oddílu' ?>
+              </h2>
+              <?php if ($editItem): ?>
+                <a href="admin.php?tab=yearbooks" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
+              <?php endif; ?>
+            </div>
             <form method="post" action="admin.php?tab=yearbooks" class="space-y-3.5">
               <input type="hidden" name="action" value="save_yearbook">
+              <input type="hidden" name="id" value="<?= e($editItem['id'] ?? 0) ?>">
 
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Rok</label>
-                <input type="number" name="year" required value="<?= date('Y') ?>"
+                <input type="number" name="year" required value="<?= e($editItem['year'] ?? date('Y')) ?>"
                        class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
               </div>
 
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Název dokumentu</label>
-                <input type="text" name="title" required placeholder="Oddílové tabulky a TOP 10 k 31. 12...."
+                <input type="text" name="title" required value="<?= e($editItem['title'] ?? '') ?>" placeholder="Oddílové tabulky a TOP 10 k 31. 12...."
                        class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
               </div>
 
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">URL odkaz na soubor (PDF)</label>
-                <input type="text" name="file_url" required placeholder="https://www.boh.cz/download/..."
+                <input type="text" name="file_url" required value="<?= e($editItem['file_url'] ?? '') ?>" placeholder="https://www.boh.cz/download/..."
                        class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
               </div>
 
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Velikost souboru</label>
-                <input type="text" name="file_size" placeholder="1,7 MB"
+                <input type="text" name="file_size" value="<?= e($editItem['file_size'] ?? '') ?>" placeholder="1,7 MB"
                        class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
               </div>
 
               <button type="submit" class="w-full rounded-xl bg-primary py-2.5 text-xs font-bold text-primary-foreground shadow-xs hover:opacity-95">
-                Uložit ročenku
+                <?= $editItem ? 'Uložit změny v ročence' : 'Uložit ročenku' ?>
               </button>
             </form>
           </div>
@@ -893,7 +990,8 @@ require_once __DIR__ . '/includes/header.php';
                     <span class="text-muted-foreground ml-2">(<?= e($yb['file_size']) ?>)</span>
                   </div>
                   <div class="flex items-center gap-2">
-                    <a href="<?= e($yb['file_url']) ?>" target="_blank" class="text-primary hover:underline">Stáhnout</a>
+                    <a href="admin.php?tab=yearbooks&edit=<?= $yb['id'] ?>" class="text-primary hover:underline">Upravit</a>
+                    <a href="<?= e($yb['file_url']) ?>" target="_blank" class="text-muted-foreground hover:underline">Stáhnout</a>
                     <form method="post" action="admin.php?tab=yearbooks" onsubmit="return confirm('Smazat ročenku?');">
                       <input type="hidden" name="action" value="delete_yearbook">
                       <input type="hidden" name="id" value="<?= $yb['id'] ?>">
@@ -911,59 +1009,67 @@ require_once __DIR__ . '/includes/header.php';
       <!-- TAB 6: RECORDS -->
       <div class="space-y-8">
         <div class="card-clean p-6">
-          <h2 class="font-display text-lg font-bold text-foreground mb-4">Přidat nový oddílový rekord</h2>
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="font-display text-lg font-bold text-foreground">
+              <?= $editItem ? 'Upravit oddílový rekord' : 'Přidat nový oddílový rekord' ?>
+            </h2>
+            <?php if ($editItem): ?>
+              <a href="admin.php?tab=records" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
+            <?php endif; ?>
+          </div>
           <form method="post" action="admin.php?tab=records" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <input type="hidden" name="action" value="save_record">
+            <input type="hidden" name="id" value="<?= e($editItem['id'] ?? 0) ?>">
 
             <div>
               <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Bazén</label>
               <select name="pool" class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
-                <option value="50m">50m bazén</option>
-                <option value="25m">25m bazén</option>
+                <option value="50m" <?= ($editItem && $editItem['pool'] === '50m') ? 'selected' : '' ?>>50m bazén</option>
+                <option value="25m" <?= ($editItem && $editItem['pool'] === '25m') ? 'selected' : '' ?>>25m bazén</option>
               </select>
             </div>
 
             <div>
               <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Kategorie</label>
               <select name="gender" class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
-                <option value="Muži">Muži</option>
-                <option value="Ženy">Ženy</option>
+                <option value="Muži" <?= ($editItem && $editItem['gender'] === 'Muži') ? 'selected' : '' ?>>Muži</option>
+                <option value="Ženy" <?= ($editItem && $editItem['gender'] === 'Ženy') ? 'selected' : '' ?>>Ženy</option>
               </select>
             </div>
 
             <div>
               <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Disciplína</label>
-              <input type="text" name="event" required placeholder="např. 100 VZ"
+              <input type="text" name="event" required value="<?= e($editItem['event'] ?? '') ?>" placeholder="např. 100 VZ"
                      class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
             </div>
 
             <div>
               <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Čas</label>
-              <input type="text" name="time" required placeholder="00:52,14"
+              <input type="text" name="time" required value="<?= e($editItem['time'] ?? '') ?>" placeholder="00:52,14"
                      class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
             </div>
 
             <div>
               <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Plavec / Držitel</label>
-              <input type="text" name="swimmer_name" required placeholder="Jméno plavce"
+              <input type="text" name="swimmer_name" required value="<?= e($editItem['swimmer_name'] ?? '') ?>" placeholder="Jméno plavce"
                      class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
             </div>
 
             <div>
               <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Rok</label>
-              <input type="text" name="year" placeholder="2024"
+              <input type="text" name="year" value="<?= e($editItem['year'] ?? '') ?>" placeholder="2024"
                      class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
             </div>
 
             <div class="sm:col-span-2">
               <label class="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">Poznámka / Místo / Datum</label>
-              <input type="text" name="note" placeholder="Plzeň, Mistrovství ČR"
+              <input type="text" name="note" value="<?= e($editItem['note'] ?? '') ?>" placeholder="Plzeň, Mistrovství ČR"
                      class="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-none">
             </div>
 
             <div class="lg:col-span-4 flex justify-end">
               <button type="submit" class="rounded-xl bg-primary px-6 py-2.5 text-xs font-bold text-primary-foreground shadow-xs hover:opacity-95">
-                Uložit rekord
+                <?= $editItem ? 'Uložit změny v rekordu' : 'Uložit rekord' ?>
               </button>
             </div>
           </form>
@@ -998,7 +1104,8 @@ require_once __DIR__ . '/includes/header.php';
                     <td class="p-2.5 font-medium"><?= e($r['swimmer_name']) ?></td>
                     <td class="p-2.5 text-muted-foreground"><?= e($r['year']) ?></td>
                     <td class="p-2.5 text-muted-foreground"><?= e($r['note']) ?></td>
-                    <td class="p-2.5 text-right">
+                    <td class="p-2.5 text-right whitespace-nowrap">
+                      <a href="admin.php?tab=records&edit=<?= $r['id'] ?>" class="text-primary hover:underline mr-2">Upravit</a>
                       <form method="post" action="admin.php?tab=records" onsubmit="return confirm('Smazat rekord?');" class="inline">
                         <input type="hidden" name="action" value="delete_record">
                         <input type="hidden" name="id" value="<?= $r['id'] ?>">

@@ -8,7 +8,7 @@ require_once __DIR__ . '/includes/db.php';
 
 $pdo = getDb();
 
-$articleId = trim($_GET['id'] ?? '');
+$articleId = trim($_GET['id'] ?? $_GET['slug'] ?? '');
 
 if (!empty($articleId)) {
     $stmt = $pdo->prepare("SELECT * FROM news WHERE id = :id OR slug = :id LIMIT 1");

@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/db.php';
 
-$method = $_SERVER['REQUEST_METHOD'];
+$method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 $pdo = getDb();
 
 if ($method === 'GET') {
