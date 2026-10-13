@@ -260,10 +260,22 @@
   <script>
     let activePool = "all";
     let activeGender = "all";
+    let allRecords = (window.KlokaniData && window.KlokaniData.records) ? window.KlokaniData.records : [];
+
+    async function loadRecords() {
+      if (window.KlokaniSupabase && typeof window.KlokaniSupabase.getRecords === "function") {
+        try {
+          const remote = await window.KlokaniSupabase.getRecords();
+          if (Array.isArray(remote) && remote.length > 0) {
+            allRecords = remote;
+            renderRecords();
+          }
+        } catch (_) {}
+      }
+    }
 
     function filterRecords() {
-      const records = window.KlokaniData.records || [];
-      return records.filter(r => 
+      return allRecords.filter(r => 
         (activePool === "all" || r.pool === activePool) &&
         (activeGender === "all" || r.gender === activeGender)
       );
@@ -341,6 +353,8 @@
     });
 
     renderRecords();
+    loadRecords();
+    window.addEventListener("klokani:data-updated", loadRecords);
   </script>
 </body>
 </html>

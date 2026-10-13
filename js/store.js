@@ -30,6 +30,8 @@ window.KlokaniStore = (function () {
     const signups = getSignups();
     signups[eventId] = {
       eventId,
+      swimmer: getUser(),
+      swimmer_name: getUser(),
       disciplines: disciplines || [],
       note: note || "",
       at: new Date().toISOString()
@@ -119,7 +121,8 @@ window.KlokaniStore = (function () {
     localStorage.setItem(ADMIN_ITEMS_KEY, JSON.stringify(items));
 
     if (window.KlokaniSupabase) {
-      if (item.kind === "aktualita" && typeof window.KlokaniSupabase.saveNews === "function") {
+      const k = (item.kind || "").toLowerCase();
+      if ((k === "aktualita" || k === "aktuality") && typeof window.KlokaniSupabase.saveNews === "function") {
         window.KlokaniSupabase.saveNews({
           title: item.title,
           excerpt: (item.fields && item.fields.text) ? item.fields.text.slice(0, 150) : item.title,
@@ -127,14 +130,14 @@ window.KlokaniStore = (function () {
           author: (item.fields && item.fields.autor) || "Správce",
           date: (item.fields && item.fields.datum) || new Date().toISOString().slice(0, 10)
         }).catch(console.error);
-      } else if (item.kind === "zavod" && typeof window.KlokaniSupabase.saveEvent === "function") {
+      } else if ((k === "zavod" || k === "zavody") && typeof window.KlokaniSupabase.saveEvent === "function") {
         window.KlokaniSupabase.saveEvent({
           name: item.title,
           date: (item.fields && item.fields.datum) || new Date().toISOString().slice(0, 10),
           place: (item.fields && item.fields.misto) || "Podolí",
           note: (item.fields && item.fields.text) || ""
         }).catch(console.error);
-      } else if (item.kind === "informace" && typeof window.KlokaniSupabase.saveMessage === "function") {
+      } else if ((k === "informace" || k === "zprava" || k === "vzkaz") && typeof window.KlokaniSupabase.saveMessage === "function") {
         window.KlokaniSupabase.saveMessage({
           title: item.title,
           text: (item.fields && item.fields.text) || item.title,
@@ -152,6 +155,33 @@ window.KlokaniStore = (function () {
     if (target) {
       target.status = status;
       localStorage.setItem(ADMIN_ITEMS_KEY, JSON.stringify(items));
+
+      // If approved, ensure item is synced to Supabase
+      if (status === "approved" && window.KlokaniSupabase) {
+        const k = (target.kind || "").toLowerCase();
+        if ((k === "aktualita" || k === "aktuality") && typeof window.KlokaniSupabase.saveNews === "function") {
+          window.KlokaniSupabase.saveNews({
+            title: target.title,
+            excerpt: (target.fields && target.fields.text) ? target.fields.text.slice(0, 150) : target.title,
+            body: [target.fields && target.fields.text ? target.fields.text : target.title],
+            author: (target.fields && target.fields.autor) || "Správce",
+            date: (target.fields && target.fields.datum) || new Date().toISOString().slice(0, 10)
+          }).catch(console.error);
+        } else if ((k === "zavod" || k === "zavody") && typeof window.KlokaniSupabase.saveEvent === "function") {
+          window.KlokaniSupabase.saveEvent({
+            name: target.title,
+            date: (target.fields && target.fields.datum) || new Date().toISOString().slice(0, 10),
+            place: (target.fields && target.fields.misto) || "Podolí",
+            note: (target.fields && target.fields.text) || ""
+          }).catch(console.error);
+        } else if ((k === "informace" || k === "zprava" || k === "vzkaz") && typeof window.KlokaniSupabase.saveMessage === "function") {
+          window.KlokaniSupabase.saveMessage({
+            title: target.title,
+            text: (target.fields && target.fields.text) || target.title,
+            category: "Informace pro rodiče"
+          }).catch(console.error);
+        }
+      }
     }
     return items;
   }

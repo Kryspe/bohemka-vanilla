@@ -186,9 +186,54 @@
       </div>
     </div>
 
+  <!-- SIGNUP MODAL (SignUpDialog) -->
+  <div id="signup-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden" data-modal-overlay>
+    <div class="fixed inset-0 bg-black/80 backdrop-blur-sm -z-10 modal-overlay-bg"></div>
+    <div class="relative w-full max-w-lg rounded-3xl border border-border/70 bg-card/95 p-6 shadow-2xl backdrop-blur-xl max-h-[90vh] overflow-y-auto">
+      <button type="button" onclick="closeModal('signup-modal')" class="absolute right-4 top-4 rounded-sm opacity-70 hover:opacity-100 transition-opacity">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+
+      <div class="flex flex-col space-y-1.5 text-left">
+        <h2 id="signup-modal-title" class="font-display text-xl font-bold">Přihláška na závod</h2>
+        <p id="signup-modal-desc" class="text-sm text-muted-foreground"></p>
+      </div>
+
+      <form id="signup-form" class="mt-4 space-y-4">
+        <div id="signup-disciplines-container"></div>
+
+        <div>
+          <label class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Poznámka pro trenéra
+          </label>
+          <textarea
+            name="note"
+            rows="2"
+            placeholder="Např. přijedu vlastní dopravou…"
+            class="w-full resize-none rounded-xl border border-input bg-background/60 px-4 py-2.5 text-sm outline-none transition focus:border-foreground/40 text-foreground"
+          ></textarea>
+        </div>
+
+        <div class="flex flex-col-reverse gap-2 sm:flex-row sm:justify-between sm:space-x-2 pt-2">
+          <button
+            type="button"
+            id="signup-cancel-btn"
+            class="rounded-full border border-border px-5 py-2.5 text-sm font-semibold text-muted-foreground transition hover:border-destructive hover:text-destructive hidden"
+          >
+            Odhlásit se
+          </button>
+          <button
+            type="submit"
+            id="signup-submit-btn"
+            class="inline-flex items-center justify-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold bg-primary text-primary-foreground transition-all hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-50 ml-auto"
+          >
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            Potvrdit přihlášku
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
-
-
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/data.js"></script>
@@ -802,7 +847,35 @@
       `;
     }
 
+    let remoteSignupsMap = {};
+    let remoteSignupsLoaded = false;
+
+    async function loadRemoteSignupsForCoach() {
+      if (window.KlokaniSupabase && typeof window.KlokaniSupabase.getSignups === "function") {
+        try {
+          const allEntries = await window.KlokaniSupabase.getSignups();
+          if (Array.isArray(allEntries)) {
+            remoteSignupsMap = {};
+            allEntries.forEach(entry => {
+              if (entry.event_id) {
+                if (!remoteSignupsMap[entry.event_id]) remoteSignupsMap[entry.event_id] = [];
+                remoteSignupsMap[entry.event_id].push(entry);
+              }
+            });
+            remoteSignupsLoaded = true;
+            const container = document.getElementById("tab-container");
+            if (container && (currentTab === "zavody" || currentTab === "rezervace")) {
+              renderActiveTab();
+            }
+          }
+        } catch (_) {}
+      }
+    }
+
     function renderCoachRosterCard(event) {
+      if (!remoteSignupsLoaded) {
+        setTimeout(loadRemoteSignupsForCoach, 50);
+      }
       const signups = window.KlokaniStore.getSignups();
       const mySignup = signups[event.id];
       const demo = (window.KlokaniData.demoRoster && window.KlokaniData.demoRoster[event.id]) || [];
@@ -815,6 +888,18 @@
           disciplines: mySignup.disciplines || []
         });
       }
+
+      const remoteEntries = remoteSignupsMap[event.id] || [];
+      remoteEntries.forEach(entry => {
+        const name = entry.swimmer_name || entry.swimmer;
+        if (!roster.some(r => r.swimmer === name)) {
+          roster.push({
+            swimmer: name,
+            group: entry.group_name || "Závodník",
+            disciplines: Array.isArray(entry.disciplines) ? entry.disciplines : []
+          });
+        }
+      });
 
       return `
         <div class="card-clean p-5">
@@ -954,6 +1039,10 @@
 
     renderIntranet();
     window.onSignupUpdated = renderActiveTab;
+    window.addEventListener("klokani:data-updated", () => {
+      loadRemoteSignupsForCoach();
+      renderActiveTab();
+    });
   </script>
 </body>
 </html>

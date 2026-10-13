@@ -648,9 +648,21 @@
   <script src="js/app.js"></script>
   <script>
     // News cards
-    const newsCards = document.getElementById("home-news-cards");
-    if (newsCards && window.KlokaniData && window.KlokaniData.news) {
-      newsCards.innerHTML = window.KlokaniData.news.slice(0, 3).map(n => `
+    async function renderHomeNews() {
+      const newsCards = document.getElementById("home-news-cards");
+      if (!newsCards) return;
+
+      let newsList = (window.KlokaniData && window.KlokaniData.news) ? window.KlokaniData.news : [];
+      if (window.KlokaniSupabase && typeof window.KlokaniSupabase.getNews === "function") {
+        try {
+          const remoteNews = await window.KlokaniSupabase.getNews();
+          if (Array.isArray(remoteNews) && remoteNews.length > 0) {
+            newsList = remoteNews;
+          }
+        } catch (_) {}
+      }
+
+      newsCards.innerHTML = newsList.slice(0, 3).map(n => `
         <a href="aktuality.html?id=${n.id}" class="card-clean p-5 flex flex-col h-full">
           ${n.image ? `
             <div class="mb-4 -mx-5 -mt-5 h-44 overflow-hidden rounded-t-xl border-b border-border bg-muted">
@@ -670,6 +682,9 @@
         </a>
       `).join("");
     }
+
+    renderHomeNews();
+    window.addEventListener("klokani:data-updated", renderHomeNews);
 
     // Groups cards
     const groupsCards = document.getElementById("home-groups-cards");

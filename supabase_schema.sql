@@ -344,8 +344,7 @@ VALUES
 ('50m', 'Muži', '25 km', '5:14:01,00', 'Matěj Kozubek', '2018', '01. 04. 2018 Zlín'),
 ('50m', 'Ženy', '50 M', '00:26,84', 'Anna Kolářová', '2017', '09. 07. 2017 Praha - Podolí'),
 ('50m', 'Ženy', '100 M', '01:00,90', 'Anna Kolářová', '2021', '09. 04. 2021 Stockholm (SWE)'),
-('50m', 'Ženy', '200 M', '02:19,47', 'Lenka Jarošová', '2011', '09. 07. 2011 Praha -
- Podolí'),
+('50m', 'Ženy', '200 M', '02:19,47', 'Lenka Jarošová', '2011', '09. 07. 2011 Praha - Podolí'),
 ('50m', 'Ženy', '50 Z', '00:27,63', 'Ilona Kudrnáčová', '2005', '18. 01. 2005 Stockholm (SWE)'),
 ('50m', 'Ženy', '100 Z', '00:37,72', 'Mia Srbová', '2026', '30. 05. 2026 Ústí nad Labem'),
 ('50m', 'Ženy', '200 Z', '02:14,32', 'Lenka Jarošová', '2009', '03. 05. 2009 České Budějovice'),

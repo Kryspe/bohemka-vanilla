@@ -328,13 +328,26 @@
       if (s) {
         results.push({
           event_id: eventId,
-          swimmer_name: (root.KlokaniStore && root.KlokaniStore.getUser()) || "Moje přihláška",
-          group_name: "Závodník",
+          swimmer_name: s.swimmer_name || s.swimmer || (root.KlokaniStore && root.KlokaniStore.getUser()) || "Moje přihláška",
+          group_name: s.group_name || "Závodník",
           disciplines: s.disciplines || [],
           note: s.note || "",
           created_at: s.at
         });
       }
+    } else {
+      Object.entries(localSignups).forEach(([evId, s]) => {
+        if (s) {
+          results.push({
+            event_id: evId,
+            swimmer_name: s.swimmer_name || s.swimmer || (root.KlokaniStore && root.KlokaniStore.getUser()) || "Moje přihláška",
+            group_name: s.group_name || "Závodník",
+            disciplines: s.disciplines || [],
+            note: s.note || "",
+            created_at: s.at
+          });
+        }
+      });
     }
     return results;
   }
@@ -351,6 +364,9 @@
       const signups = raw ? JSON.parse(raw) : {};
       signups[eventId] = {
         eventId,
+        swimmer: swimmer,
+        swimmer_name: swimmer,
+        group_name: g,
         disciplines: discs,
         note: n,
         at: new Date().toISOString()
@@ -633,17 +649,31 @@
     if (client) {
       try {
         let q = client.from("records").select("*");
-        if (pool) q = q.eq("pool", pool);
-        if (gender) q = q.eq("gender", gender);
+        if (pool && pool !== "all") q = q.eq("pool", pool);
+        if (gender && gender !== "all") q = q.eq("gender", gender);
         const { data, error } = await q;
-        if (!error && Array.isArray(data) && data.length > 0) return data;
+        if (!error && Array.isArray(data) && data.length > 0) {
+          return data.map(item => ({
+            id: item.id,
+            pool: item.pool,
+            gender: item.gender,
+            event: item.event,
+            time: item.time,
+            holder: item.swimmer_name || item.holder || "",
+            swimmer_name: item.swimmer_name || item.holder || "",
+            year: item.year || "",
+            date: item.date || item.year || "",
+            place: item.note || item.place || "",
+            note: item.note || item.place || ""
+          }));
+        }
       } catch (err) {
         console.warn("[Bohemka Supabase] getRecords error:", err);
       }
     }
     let list = (root.KlokaniData && root.KlokaniData.records) ? [...root.KlokaniData.records] : [];
-    if (pool) list = list.filter(r => r.pool === pool);
-    if (gender) list = list.filter(r => r.gender === gender);
+    if (pool && pool !== "all") list = list.filter(r => r.pool === pool);
+    if (gender && gender !== "all") list = list.filter(r => r.gender === gender);
     return list;
   }
 
@@ -658,6 +688,26 @@
       }
     }
     return item;
+  }
+
+  async function testConnection() {
+    const creds = getStoredCredentials();
+    if (!creds.url || !creds.key) {
+      return { success: false, message: "Supabase není nakonfigurována (chybí URL nebo anon klíč)." };
+    }
+    const client = getClient();
+    if (!client) {
+      return { success: false, message: "Knihovna @supabase/supabase-js není načtena na stránce." };
+    }
+    try {
+      const { data, error } = await client.from("news").select("id").limit(1);
+      if (error) {
+        return { success: false, message: "Chyba při komunikaci se Supabase: " + error.message, error };
+      }
+      return { success: true, message: "Spojení se Supabase je aktivní a plně funkční!", data };
+    } catch (err) {
+      return { success: false, message: "Chyba sítě nebo neplatná adresa: " + (err.message || err), error: err };
+    }
   }
 
   // ============================================================================
@@ -696,6 +746,7 @@
     isConfigured,
     setCredentials,
     getStoredCredentials,
+    testConnection,
     syncAll,
 
     // News
