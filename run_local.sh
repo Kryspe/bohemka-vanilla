@@ -5,7 +5,7 @@
 
 cd "$(dirname "$0")"
 
-PORT=8080
+PORT=${1:-8000}
 
 echo "============================================================"
 echo "Spoustim Klokani — TJ Bohemians Praha (Vanilla verze)"
