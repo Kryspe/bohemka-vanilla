@@ -1,58 +1,70 @@
-# TJ Bohemians Praha — Plavecký oddíl Klokani (Vanilla PHP + SQLite)
+# TJ Bohemians Praha — Plavecký oddíl Klokani (Vanilla HTML/CSS/JS + Supabase)
 
 Oficiální moderní prezentace plaveckého oddílu TJ Bohemians Praha k 80. výročí oddílu (1946–2026).
 
 ## 💡 Architektura a technologie
 
-- **Backend & Databáze:** Čisté **PHP** s databází **SQLite** (`data/bohemka.sqlite`).
-- **Nulová konfigurace:** Databáze a tabulky se automaticky inicializují a seedují při prvním spuštění.
-- **Bez frameworků a bundlerů:** Žádný npm build, žádné `node_modules`, žádné závislosti. Funguje okamžitě na jakémkoliv standardním PHP hostingu (Apache/Nginx/Caddy) i lokálně.
-- **Server-side renderované stránky (.php):** Okamžité načtení, žádný layout shift (FOUC), plné SEO.
-- **Klientský Intranet (`intranet.php`):** Přihlášení pro plavce a rodiče, registrace na závody a disciplíny, stav přihlášek a oddílové zprávy.
-- **Administrace oddílu (`admin.php`):** Zabezpečený management panel pro trenéry a správce. Kompletní CRUD správa pro aktuality, závody, přihlášky, vzkazy, trenéry, ročenky, rekordy a uživatelské účty. Export soupisky plavců do CSV.
+- **Hosting na Vercelu:** 100% **ZDARMA** bez nákladů na server (statické HTML5, moderní CSS a Vanilla JavaScript).
+- **Cloudová databáze:** **Supabase** (bezplatný PostgreSQL s REST API a JS SDK).
+- **Odolný fallback:** Pokud Supabase ještě není nakonfigurována nebo je uživatel offline, web okamžitě využívá statická data `js/data.js` a `localStorage` bez jakéhokoliv pádu či chyb.
+- **Bez frameworků a bundlerů:** Žádný React, žádné TSX, žádný build krok. Funguje ihned a čistě.
+- **Členský Intranet (`intranet.html`):** Přihlášení pro plavce, trenéry a rodiče, registrace na závody a disciplíny, stav přihlášek.
+- **Administrace oddílu (`admin.html`):** Panel pro správu obsahu, schvalování položek, závody, aktuality a vzkazy.
+- **Podpora PHP hostingu:** Soubory `.php` a SQLite (`data/bohemka.sqlite`) zůstávají plně zachovány pro klasické PHP servery.
+
+---
+
+## ⚡ Rychlé nastavení Supabase pro Vercel
+
+Kompletní podrobný návod krok za krokem najdete v souboru **[`SUPABASE_SETUP.md`](SUPABASE_SETUP.md)**.
+
+1. **Vytvořte projekt zdarma:** Na [supabase.com](https://supabase.com) vytvořte bezplatný projekt (Free tier).
+2. **Spusťte schéma:** V SQL Editoru vložte a spusťte obsah souboru [`supabase_schema.sql`](supabase_schema.sql). Vytvoří se tabulky, bezpečnostní RLS politiky a kompletní data Klokanů.
+3. **Zadejte klíče:** Vložte své `Project URL` a `anon` klíč do [`js/supabase.js`](js/supabase.js) nebo v konzoli spusťte:
+   ```javascript
+   window.KlokaniSupabase.setCredentials("https://VASE-ID.supabase.co", "VASE_ANON_KEY");
+   ```
 
 ---
 
 ## 🚀 Jak spustit lokálně
 
-### 1. Rychlé spuštění vestavěným serverem
+### Možnost 1: Statický web (stejně jako na Vercelu)
+Otevřete kterýkoliv soubor `.html` přímo v prohlížeči nebo pomocí libovolného lokálního serveru:
 ```bash
-php -S localhost:8000
+npx serve .
+# nebo
+python3 -m http.server 8000
 ```
-Nebo přes pomocný skript:
+A otevřete: **http://localhost:8000**
+
+### Možnost 2: Lokální PHP server
 ```bash
 ./run_local.sh
+# nebo
+php -S localhost:8000
 ```
-A otevřete v prohlížeči: **http://localhost:8000**
 
-### 2. Výchozí přístupové údaje
+---
+
+## 🔑 Výchozí přístupové údaje
 - **Správce / Hlavní trenér:** `admin` / heslo: `bohemka`
-- **Plavec / Rodič:** `plavec` / heslo: `bohemka`
 - **Trenér:** `trener` / heslo: `bohemka`
-
-### 3. Znovuvytvoření a přeseedování databáze (CLI)
-```bash
-php seed.php --fresh
-```
+- **Plavec / Rodič:** `plavec` / heslo: `bohemka`
 
 ---
 
 ## 📁 Struktura projektu
 
-- `includes/`
-  - `db.php` — PDO SQLite připojení, automatická inicializace schématu, auto-seed a autentizace
-  - `header.php` — sjednocená hlavička, navigace s detekcí aktivní stránky, podpora dark módu a adaptivní logo
-  - `footer.php` — sjednocená patička oddílu, mobilní navigace a menu
-  - `seed_data.json` — výchozí obsah pro inicializaci SQLite databáze
-- `index.php` — úvodní stránka s dynamickým kalendářem, vzkazy a aktualitami
-- `aktuality.php` — archiv aktualit a detail článku v zaoblené bublině
-- `zavody.php` — kalendář závodů a přímý vstup k přihláškám
-- `pro-rodice.php` — nástěnka trenérů, informace k platbám a lékařským prohlídkám
-- `intranet.php` — členský portál pro plavce a rodiče (přihlašování na disciplíny)
-- `admin.php` — správa oddílu pro trenéry a administrátory (plný CRUD)
-- `rekordy.php` — oddílové rekordy v 25m a 50m bazénech
-- `statistika.php` — historické štafety a ročenky oddílu v PDF
-- `ke-stazeni.php` — formuláře, zdravotní prohlídky a pravidla plavání
-- `foto.php` — fotogalerie z oslav 80 let oddílu a závodů
-- `kontakt.php` — kontakty na trenéry, bazény Podolí a Vinohrady
-- `css/style.css` — moderní design bez rušivých hover posunů s vyladěným tmavým i světlým režimem
+- `supabase_schema.sql` — kompletní SQL schéma tabulek, RLS a seed dat pro Supabase
+- `SUPABASE_SETUP.md` — podrobný návod na zprovoznění Supabase
+- `PROJECT_RULES.md` — základní pravidla projektu (pouze Vanilla HTML/CSS/JS na Vercelu)
+- `js/`
+  - `supabase.js` — Supabase SDK klient s fallbackem na LocalStorage a data.js
+  - `data.js` — výchozí data oddílu (aktuality, závody, rekordy, ročenky, trenéři)
+  - `store.js` — správa stavu přihlášek, rolí a administrace
+  - `app.js` — navigační logika, modály, toasty, přihláškový dialog a přepínač tmavého režimu
+- `css/`
+  - `style.css` — moderní design bez rušivých hover posunů, adaptivní logo pro tmavý/světlý režim
+- `*.html` — statické webové stránky pro nasazení na Vercel
+- `*.php`, `includes/`, `api/` — zachovaná alternativa pro PHP hostované prostředí

@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <script>
-    // Clean redirect to server-rendered PHP equivalent when served via HTTP
-    if (window.location.protocol.startsWith("http")) {
-      var p = window.location.pathname.replace(/\.html$/, ".php");
-      if (p === "/" || p === "") p = "/index.php";
-      window.location.replace(p + window.location.search + window.location.hash);
-    }
-  </script>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,7 +34,8 @@
       <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
         <a href="index.html" class="flex items-center gap-3">
           <img src="assets/bohemka_badge.png" alt="TJ Bohemians Praha — oddíl plavání" class="h-10 w-10 object-contain rounded-full shadow-xs">
-          <div class="flex flex-col">
+          <img src="assets/logo-klokani.png" alt="TJ Bohemians Praha — oddíl plavání Klokani" class="site-logo-adaptive h-8 w-auto object-contain hidden sm:block">
+          <div class="flex flex-col sm:hidden">
             <span class="font-display text-base font-extrabold tracking-tight text-foreground sm:text-lg leading-tight">
               TJ Bohemians Praha
             </span>
@@ -218,15 +211,27 @@
 
 
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/data.js"></script>
   <script src="js/store.js"></script>
+  <script src="js/supabase.js"></script>
   <script src="js/app.js"></script>
   <script>
-    function renderEventsList() {
+    async function renderEventsList() {
       const container = document.getElementById("events-grid");
       if (!container) return;
 
-      const events = (window.KlokaniData.events || [])
+      let eventList = (window.KlokaniData && window.KlokaniData.events) ? window.KlokaniData.events : [];
+      if (window.KlokaniSupabase && typeof window.KlokaniSupabase.getEvents === "function") {
+        try {
+          const remoteEvents = await window.KlokaniSupabase.getEvents();
+          if (Array.isArray(remoteEvents) && remoteEvents.length > 0) {
+            eventList = remoteEvents;
+          }
+        } catch (_) {}
+      }
+
+      const events = eventList
         .filter(e => daysUntil(e.date) >= -1)
         .sort((a, b) => a.date.localeCompare(b.date));
 
@@ -313,6 +318,7 @@
 
     updateAndRevealEvents();
     window.renderEventsList = updateAndRevealEvents;
+    window.addEventListener("klokani:data-updated", updateAndRevealEvents);
   </script>
 </body>
 </html>

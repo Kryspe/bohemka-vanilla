@@ -36,6 +36,9 @@ window.KlokaniStore = (function () {
     };
     localStorage.setItem(SIGNUPS_KEY, JSON.stringify(signups));
 
+    if (window.KlokaniSupabase && typeof window.KlokaniSupabase.signupSwimmer === "function") {
+      window.KlokaniSupabase.signupSwimmer(eventId, getUser(), disciplines, note).catch(console.error);
+    }
     if (hasPhpBackend) {
       fetch("api/signups.php", {
         method: "POST",
@@ -51,6 +54,9 @@ window.KlokaniStore = (function () {
     delete signups[eventId];
     localStorage.setItem(SIGNUPS_KEY, JSON.stringify(signups));
 
+    if (window.KlokaniSupabase && typeof window.KlokaniSupabase.cancelSignup === "function") {
+      window.KlokaniSupabase.cancelSignup(eventId, getUser()).catch(console.error);
+    }
     if (hasPhpBackend) {
       fetch(`api/signups.php?id=${encodeURIComponent(eventId)}`, {
         method: "DELETE"
@@ -111,6 +117,32 @@ window.KlokaniStore = (function () {
     item.createdAt = item.createdAt || new Date().toISOString();
     items.unshift(item);
     localStorage.setItem(ADMIN_ITEMS_KEY, JSON.stringify(items));
+
+    if (window.KlokaniSupabase) {
+      if (item.kind === "aktualita" && typeof window.KlokaniSupabase.saveNews === "function") {
+        window.KlokaniSupabase.saveNews({
+          title: item.title,
+          excerpt: (item.fields && item.fields.text) ? item.fields.text.slice(0, 150) : item.title,
+          body: [item.fields && item.fields.text ? item.fields.text : item.title],
+          author: (item.fields && item.fields.autor) || "Správce",
+          date: (item.fields && item.fields.datum) || new Date().toISOString().slice(0, 10)
+        }).catch(console.error);
+      } else if (item.kind === "zavod" && typeof window.KlokaniSupabase.saveEvent === "function") {
+        window.KlokaniSupabase.saveEvent({
+          name: item.title,
+          date: (item.fields && item.fields.datum) || new Date().toISOString().slice(0, 10),
+          place: (item.fields && item.fields.misto) || "Podolí",
+          note: (item.fields && item.fields.text) || ""
+        }).catch(console.error);
+      } else if (item.kind === "informace" && typeof window.KlokaniSupabase.saveMessage === "function") {
+        window.KlokaniSupabase.saveMessage({
+          title: item.title,
+          text: (item.fields && item.fields.text) || item.title,
+          category: "Informace pro rodiče"
+        }).catch(console.error);
+      }
+    }
+
     return items;
   }
 
