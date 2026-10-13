@@ -263,33 +263,94 @@
       const username = window.KlokaniStore.getUser();
       const displayName = username.charAt(0).toUpperCase() + username.slice(1);
       const role = window.KlokaniStore.getRole();
+      const allAdminItems = window.KlokaniStore.getAdminItems ? window.KlokaniStore.getAdminItems() : [];
+      const pendingAdminCount = allAdminItems.filter(i => i.status === "pending").length;
+
+      let tabs = [];
+      if (role === "admin") {
+        tabs = [
+          { id: "schvaleni", label: "Ke schválení", badge: pendingAdminCount, icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>` },
+          { id: "zavody", label: "Závody & Soupisky", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="m9 16 2 2 4-4"/></svg>` },
+          { id: "rezervace", label: "Soustředění & akce", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21 12 10 5 21"/><path d="m12 10 7 11"/><path d="m5 21 7-11"/><circle cx="12" cy="5" r="2"/></svg>` },
+          { id: "nastenka", label: "Nástěnka pro rodiče", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>` },
+          { id: "vysledky", label: "Výsledky závodníků", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>` },
+          { id: "cms", label: "Správa webu (CMS)", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>` },
+          { id: "ucet", label: "Můj účet", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>` }
+        ];
+        if (!tabs.find(t => t.id === currentTab)) currentTab = "schvaleni";
+      } else if (role === "trener") {
+        tabs = [
+          { id: "zavody", label: "Soupisky závodů", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="m9 16 2 2 4-4"/></svg>` },
+          { id: "rezervace", label: "Soustředění & tábory", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21 12 10 5 21"/><path d="m12 10 7 11"/><path d="m5 21 7-11"/><circle cx="12" cy="5" r="2"/></svg>` },
+          { id: "vysledky", label: "Výsledky svěřenců", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>` },
+          { id: "ucet", label: "Nastavení účtu", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>` }
+        ];
+        if (!tabs.find(t => t.id === currentTab)) currentTab = "zavody";
+      } else {
+        // plavec / rodič
+        tabs = [
+          { id: "zavody", label: "Přihlášky na závody", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="m9 16 2 2 4-4"/></svg>` },
+          { id: "rezervace", label: "Rezervace na akce", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21 12 10 5 21"/><path d="m12 10 7 11"/><path d="m5 21 7-11"/><circle cx="12" cy="5" r="2"/></svg>` },
+          { id: "vysledky", label: "Moje výsledky", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>` },
+          { id: "ucet", label: "Nastavení účtu", icon: `<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>` }
+        ];
+        if (!tabs.find(t => t.id === currentTab)) currentTab = "zavody";
+      }
+
+      const roleBadge = role === "admin"
+        ? "Administrátor oddílu (plná správa)"
+        : role === "trener"
+          ? "Trenérská sekce"
+          : "Členská sekce (Plavec / Rodič)";
+
+      const roleTitle = role === "admin"
+        ? "Správa oddílu & Intranet"
+        : `Vítej zpět, ${displayName}`;
 
       container.innerHTML = `
         <!-- Header band -->
         <section class="relative overflow-hidden border-b border-border/60 bg-card/30">
-          <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[var(--intranet-accent)]/15 blur-3xl"></div>
-          <div class="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-6 md:py-12">
+          <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-primary/10 blur-3xl"></div>
+          <div class="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-6 md:py-10">
             <div class="flex items-center gap-4">
-              <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[var(--intranet-accent)]/15 text-[var(--intranet-accent)]">
-                <span class="font-display text-2xl font-extrabold">${displayName.charAt(0)}</span>
+              <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-primary/15 text-primary">
+                ${role === 'admin'
+                  ? `<svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`
+                  : `<span class="font-display text-2xl font-extrabold">${displayName.charAt(0)}</span>`
+                }
               </div>
               <div>
-                <p class="mb-1 text-xs font-semibold uppercase tracking-[0.3em] text-[var(--intranet-accent)]">Členská sekce</p>
-                <h1 class="font-display text-2xl font-extrabold sm:text-3xl md:text-4xl">Vítej zpět, ${displayName}</h1>
-                <p class="mt-1 text-sm text-muted-foreground">Přihlášen jako <span class="font-semibold text-foreground">${username}</span></p>
+                <p class="mb-1 text-xs font-semibold uppercase tracking-[0.25em] text-primary">${roleBadge}</p>
+                <h1 class="font-display text-2xl font-extrabold sm:text-3xl">${roleTitle}</h1>
+                <p class="mt-1 text-sm text-muted-foreground">Přihlášen uživatel: <strong class="text-foreground">${username}</strong></p>
               </div>
             </div>
 
             <div class="flex flex-col gap-3 sm:items-end">
-              <!-- Role Switch -->
-              <div class="inline-flex rounded-full border border-border/70 bg-card/70 p-1">
-                <button id="role-plavec-btn" class="rounded-full px-3.5 py-1.5 text-xs font-semibold transition-colors ${role === 'plavec' ? 'bg-[var(--intranet-accent)] text-[var(--intranet-accent-foreground)]' : 'text-muted-foreground hover:text-foreground'}">Plavec / Rodič</button>
-                <button id="role-trener-btn" class="rounded-full px-3.5 py-1.5 text-xs font-semibold transition-colors ${role === 'trener' ? 'bg-[var(--intranet-accent)] text-[var(--intranet-accent-foreground)]' : 'text-muted-foreground hover:text-foreground'}">Trenér</button>
+              <!-- Role Switcher -->
+              <div class="inline-flex rounded-full border border-border bg-card p-1 shadow-xs">
+                <button id="role-plavec-btn" class="rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${role === 'plavec' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}">Plavec / Rodič</button>
+                <button id="role-trener-btn" class="rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${role === 'trener' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}">Trenér</button>
+                <button id="role-admin-btn" class="rounded-full px-3 py-1.5 text-xs font-semibold transition-colors flex items-center gap-1.5 ${role === 'admin' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}">
+                  <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  <span>Administrátor</span>
+                  ${pendingAdminCount > 0 ? `<span class="rounded-full bg-destructive px-1.5 py-0.2 text-[10px] font-bold text-destructive-foreground">${pendingAdminCount}</span>` : ''}
+                </button>
               </div>
-              <button id="logout-btn" class="inline-flex w-fit items-center gap-2 rounded-full border border-border px-5 py-2 text-sm font-semibold transition-all hover:border-[var(--intranet-accent)] hover:text-[var(--intranet-accent)]">
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
-                Odhlásit
-              </button>
+
+              <!-- Action buttons -->
+              <div class="flex items-center gap-2">
+                ${role === 'admin' ? `
+                  <a href="admin.html" class="inline-flex items-center gap-1.5 rounded-full bg-primary/10 border border-primary/30 px-3.5 py-1.5 text-xs font-bold text-primary hover:bg-primary/20 transition-colors">
+                    <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                    Plné CMS (admin.html) →
+                  </a>
+                ` : ''}
+                <button id="logout-btn" class="inline-flex w-fit items-center gap-1.5 rounded-full border border-border px-3.5 py-1.5 text-xs font-semibold text-muted-foreground transition hover:border-destructive hover:text-destructive">
+                  <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                  Odhlásit
+                </button>
+              </div>
             </div>
           </div>
         </section>
@@ -297,24 +358,17 @@
         <!-- Main Workspace -->
         <div class="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[260px_1fr] lg:py-12">
           <!-- Side nav -->
-          <aside class="-mx-4 overflow-x-auto px-4 pb-2 sm:-mx-6 sm:px-6 lg:mx-0 lg:space-y-2 lg:overflow-visible lg:p-0 lg:pb-0">
+          <aside class="-mx-4 overflow-x-auto px-4 pb-2 sm:-mx-6 sm:px-6 lg:mx-0 lg:space-y-1.5 lg:overflow-visible lg:p-0">
             <div class="flex gap-2 lg:flex-col" id="intranet-tab-btns">
-              <button data-tab="zavody" class="flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-left text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:px-4 lg:py-3 ${currentTab === 'zavody' ? 'border-[var(--intranet-accent)]/50 bg-[var(--intranet-accent)]/10 text-[var(--intranet-accent)]' : 'border-border/60 text-muted-foreground hover:border-border hover:bg-card/60 hover:text-foreground'}">
-                <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
-                <span class="whitespace-nowrap">Přihlášky na závody</span>
-              </button>
-              <button data-tab="rezervace" class="flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-left text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:px-4 lg:py-3 ${currentTab === 'rezervace' ? 'border-[var(--intranet-accent)]/50 bg-[var(--intranet-accent)]/10 text-[var(--intranet-accent)]' : 'border-border/60 text-muted-foreground hover:border-border hover:bg-card/60 hover:text-foreground'}">
-                <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21 12 10 5 21"/><path d="m12 10 7 11"/><path d="m5 21 7-11"/><circle cx="12" cy="5" r="2"/></svg>
-                <span class="whitespace-nowrap">Rezervace na akce</span>
-              </button>
-              <button data-tab="vysledky" class="flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-left text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:px-4 lg:py-3 ${currentTab === 'vysledky' ? 'border-[var(--intranet-accent)]/50 bg-[var(--intranet-accent)]/10 text-[var(--intranet-accent)]' : 'border-border/60 text-muted-foreground hover:border-border hover:bg-card/60 hover:text-foreground'}">
-                <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
-                <span class="whitespace-nowrap">Moje výsledky</span>
-              </button>
-              <button data-tab="ucet" class="flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-left text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:px-4 lg:py-3 ${currentTab === 'ucet' ? 'border-[var(--intranet-accent)]/50 bg-[var(--intranet-accent)]/10 text-[var(--intranet-accent)]' : 'border-border/60 text-muted-foreground hover:border-border hover:bg-card/60 hover:text-foreground'}">
-                <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                <span class="whitespace-nowrap">Nastavení účtu</span>
-              </button>
+              ${tabs.map(t => `
+                <button data-tab="${t.id}" class="flex shrink-0 items-center justify-between gap-2 rounded-xl border px-4 py-2.5 text-left text-sm font-medium transition-all lg:w-full lg:py-3 ${currentTab === t.id ? 'border-primary/60 bg-primary/10 text-primary font-semibold shadow-xs' : 'border-border bg-card text-muted-foreground hover:bg-muted hover:text-foreground'}">
+                  <div class="flex items-center gap-2.5">
+                    ${t.icon}
+                    <span class="whitespace-nowrap">${t.label}</span>
+                  </div>
+                  ${t.badge && t.badge > 0 ? `<span class="ml-2 rounded-full bg-primary px-2 py-0.5 text-xs font-bold text-primary-foreground">${t.badge}</span>` : ''}
+                </button>
+              `).join("")}
             </div>
           </aside>
 
@@ -324,11 +378,11 @@
           </div>
         </div>
 
-        <!-- Parents Notes banner cards -->
+        <!-- Parents Notes footer cards -->
         <div class="mx-auto max-w-7xl px-4 pb-12 sm:px-6">
           <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             ${(window.KlokaniData.parentsNotes || []).map(note => `
-              <div class="rounded-2xl border border-[var(--intranet-accent)]/30 bg-[var(--intranet-accent)]/[0.06] p-5 text-sm leading-relaxed text-muted-foreground">
+              <div class="rounded-xl border border-primary/20 bg-primary/5 p-4 text-xs leading-relaxed text-muted-foreground">
                 ${note}
               </div>
             `).join("")}
@@ -344,11 +398,19 @@
 
       document.getElementById("role-plavec-btn").addEventListener("click", () => {
         window.KlokaniStore.setRole("plavec");
+        currentTab = "zavody";
         renderDashboard(container);
       });
 
       document.getElementById("role-trener-btn").addEventListener("click", () => {
         window.KlokaniStore.setRole("trener");
+        currentTab = "zavody";
+        renderDashboard(container);
+      });
+
+      document.getElementById("role-admin-btn").addEventListener("click", () => {
+        window.KlokaniStore.setRole("admin");
+        currentTab = "schvaleni";
         renderDashboard(container);
       });
 
@@ -356,9 +418,10 @@
         btn.addEventListener("click", () => {
           currentTab = btn.getAttribute("data-tab");
           document.querySelectorAll("#intranet-tab-btns button").forEach(b => {
-            b.className = b === btn
-              ? "flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-left text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:px-4 lg:py-3 border-[var(--intranet-accent)]/50 bg-[var(--intranet-accent)]/10 text-[var(--intranet-accent)]"
-              : "flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-left text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:px-4 lg:py-3 border-border/60 text-muted-foreground hover:border-border hover:bg-card/60 hover:text-foreground";
+            const isTarget = b === btn;
+            b.className = isTarget
+              ? "flex shrink-0 items-center justify-between gap-2 rounded-xl border px-4 py-2.5 text-left text-sm font-semibold transition-all lg:w-full lg:py-3 border-primary/60 bg-primary/10 text-primary shadow-xs"
+              : "flex shrink-0 items-center justify-between gap-2 rounded-xl border px-4 py-2.5 text-left text-sm font-medium transition-all lg:w-full lg:py-3 border-border bg-card text-muted-foreground hover:bg-muted hover:text-foreground";
           });
           renderActiveTab();
         });
@@ -374,11 +437,17 @@
       const role = window.KlokaniStore.getRole();
       if (currentTab === "ucet") {
         renderAccountTab(container);
+      } else if (currentTab === "schvaleni") {
+        renderAdminApprovalsTab(container);
+      } else if (currentTab === "cms") {
+        renderAdminCmsTab(container);
+      } else if (currentTab === "nastenka") {
+        renderAdminNoticeboardTab(container);
       } else if (currentTab === "zavody") {
-        if (role === "trener") renderCoachRacesTab(container);
+        if (role === "admin" || role === "trener") renderCoachRacesTab(container);
         else renderSwimmerRacesTab(container);
       } else if (currentTab === "rezervace") {
-        if (role === "trener") renderCoachCampsTab(container);
+        if (role === "admin" || role === "trener") renderCoachCampsTab(container);
         else renderSwimmerCampsTab(container);
       } else if (currentTab === "vysledky") {
         renderResultsTab(container);
@@ -386,11 +455,211 @@
       if (window.initScrollReveal) setTimeout(window.initScrollReveal, 40);
     }
 
+    // A1. Admin Approvals Tab
+    function renderAdminApprovalsTab(container) {
+      const items = window.KlokaniStore.getAdminItems();
+      const pending = items.filter(i => i.status === "pending");
+
+      container.innerHTML = `
+        <div class="card-clean p-6 space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border pb-4">
+            <div>
+              <div class="flex items-center gap-2">
+                <h2 class="font-display text-xl font-bold">Importy ze subdomén ke schválení</h2>
+                <span class="rounded-full bg-primary/15 text-primary text-xs font-bold px-2 py-0.5">${pending.length} čeká</span>
+              </div>
+              <p class="mt-1 text-xs text-muted-foreground">Synchronizace s kurzy.boh.cz, vysledky.boh.cz a foto.boh.cz.</p>
+            </div>
+            ${pending.length > 0 ? `
+              <button id="approve-all-intranet-btn" class="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-xs font-bold text-primary-foreground shadow-xs hover:opacity-90 transition">
+                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Schválit vše (${pending.length})
+              </button>
+            ` : ''}
+          </div>
+
+          ${pending.length === 0 ? `
+            <div class="py-12 text-center text-sm text-muted-foreground">
+              <svg class="mx-auto h-10 w-10 text-primary opacity-70 mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <p class="font-semibold text-foreground">Všechny položky jsou schválené!</p>
+              <p class="text-xs text-muted-foreground mt-1">Žádná nová data z externích modulů nečekají na zpracování.</p>
+            </div>
+          ` : `
+            <div class="space-y-3">
+              ${pending.map(i => `
+                <div class="flex flex-col gap-3 rounded-xl border border-border bg-card p-4 sm:flex-row sm:items-center sm:justify-between" data-item-id="${i.id}">
+                  <div class="min-w-0">
+                    <div class="flex flex-wrap items-center gap-2">
+                      <span class="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-bold text-primary">${i.kind}</span>
+                      <span class="rounded bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground">zdroj: ${i.source || 'interní'}</span>
+                      <span class="text-xs text-muted-foreground">${formatCzDate(i.createdAt ? i.createdAt.slice(0, 10) : '')}</span>
+                    </div>
+                    <p class="mt-1.5 font-semibold text-foreground text-sm">${i.title}</p>
+                    <p class="mt-0.5 text-xs text-muted-foreground">${Object.entries(i.fields || {}).map(([k, v]) => `${k}: ${v}`).join(" · ")}</p>
+                  </div>
+                  <div class="flex shrink-0 items-center gap-2">
+                    <button data-action="approve" data-id="${i.id}" class="inline-flex items-center gap-1 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:opacity-90 transition">
+                      <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Schválit
+                    </button>
+                    <button data-action="reject" data-id="${i.id}" class="inline-flex items-center gap-1 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground hover:border-destructive hover:text-destructive transition">
+                      <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Zamítnout
+                    </button>
+                  </div>
+                </div>
+              `).join("")}
+            </div>
+          `}
+        </div>
+      `;
+
+      const appAll = document.getElementById("approve-all-intranet-btn");
+      if (appAll) {
+        appAll.addEventListener("click", () => {
+          pending.forEach(p => window.KlokaniStore.setAdminItemStatus(p.id, "approved"));
+          showToast("Všechny položky byly schváleny!");
+          renderDashboard(document.getElementById("intranet-main"));
+        });
+      }
+
+      container.querySelectorAll("button[data-action='approve']").forEach(b => {
+        b.addEventListener("click", () => {
+          const id = b.getAttribute("data-id");
+          window.KlokaniStore.setAdminItemStatus(id, "approved");
+          showToast("Položka byla schválena!");
+          renderDashboard(document.getElementById("intranet-main"));
+        });
+      });
+
+      container.querySelectorAll("button[data-action='reject']").forEach(b => {
+        b.addEventListener("click", () => {
+          const id = b.getAttribute("data-id");
+          window.KlokaniStore.setAdminItemStatus(id, "rejected");
+          showToast("Položka byla zamítnuta.", "info");
+          renderDashboard(document.getElementById("intranet-main"));
+        });
+      });
+    }
+
+    // A2. Admin CMS Tab
+    function renderAdminCmsTab(container) {
+      container.innerHTML = `
+        <div class="card-clean p-6 sm:p-8 space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border pb-5">
+            <div>
+              <p class="text-xs font-bold uppercase tracking-wider text-primary">Redakční systém</p>
+              <h2 class="mt-1 font-display text-2xl font-bold">Kompletní správa webu oddílu (CMS)</h2>
+              <p class="mt-1 text-sm text-muted-foreground">Plný editor všech sekcí webu Bohemians Praha.</p>
+            </div>
+            <a href="admin.html" class="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-primary-foreground shadow-xs hover:opacity-90 transition">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+              Otevřít plnou administraci (admin.html) →
+            </a>
+          </div>
+
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 text-sm">
+            <a href="admin.html" class="rounded-xl border border-border bg-card p-4 hover:border-primary/50 transition">
+              <p class="font-bold text-foreground">📰 Aktuality & články</p>
+              <p class="mt-1 text-xs text-muted-foreground">Přidávání a editace novinek, zpráv ze závodů a fotoreportáží.</p>
+            </a>
+            <a href="admin.html" class="rounded-xl border border-border bg-card p-4 hover:border-primary/50 transition">
+              <p class="font-bold text-foreground">⏱️ Termínovka závodů</p>
+              <p class="mt-1 text-xs text-muted-foreground">Správa kalendáře, uzávěrek přihlášek a rozpisu disciplín.</p>
+            </a>
+            <a href="admin.html" class="rounded-xl border border-border bg-card p-4 hover:border-primary/50 transition">
+              <p class="font-bold text-foreground">🏆 Výsledky & statistika</p>
+              <p class="mt-1 text-xs text-muted-foreground">Vkládání oficiálních výsledků, štafet a mezičasů.</p>
+            </a>
+            <a href="admin.html" class="rounded-xl border border-border bg-card p-4 hover:border-primary/50 transition">
+              <p class="font-bold text-foreground">📷 Fotogalerie</p>
+              <p class="mt-1 text-xs text-muted-foreground">Nahrávání a správa fotoalb ze soustředění a závodů.</p>
+            </a>
+            <a href="admin.html" class="rounded-xl border border-border bg-card p-4 hover:border-primary/50 transition">
+              <p class="font-bold text-foreground">🥇 Oddílové rekordy</p>
+              <p class="mt-1 text-xs text-muted-foreground">Správa historických tabulek a oddílových rekordů 25m/50m.</p>
+            </a>
+            <a href="admin.html" class="rounded-xl border border-border bg-card p-4 hover:border-primary/50 transition">
+              <p class="font-bold text-foreground">📞 Trenéři & oddíl</p>
+              <p class="mt-1 text-xs text-muted-foreground">Kontaktní údaje, licence trenérů a informace o bazénech.</p>
+            </a>
+          </div>
+        </div>
+      `;
+    }
+
+    // A3. Admin Noticeboard Tab
+    function renderAdminNoticeboardTab(container) {
+      const notes = window.KlokaniData.parentsNotes || [];
+
+      container.innerHTML = `
+        <div class="card-clean p-6 space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border pb-4">
+            <div>
+              <h2 class="font-display text-xl font-bold">Zprávy a oznámení pro rodiče</h2>
+              <p class="mt-1 text-xs text-muted-foreground">Tyto zprávy se zobrazují v členské sekci a na stránce Pro rodiče.</p>
+            </div>
+            <button id="add-notice-btn" class="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-xs font-bold text-primary-foreground shadow-xs hover:opacity-90 transition">
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Přidat novou zprávu
+            </button>
+          </div>
+
+          <div id="notice-form-box" class="hidden rounded-xl border border-primary/30 bg-primary/5 p-4 space-y-3">
+            <label class="block text-xs font-bold uppercase text-foreground">Text nové zprávy pro rodiče</label>
+            <textarea id="notice-textarea" rows="3" class="w-full rounded-lg border border-input bg-card p-3 text-sm text-foreground outline-none focus:border-primary" placeholder="Zadejte text oznámení..."></textarea>
+            <div class="flex justify-end gap-2">
+              <button id="cancel-notice-btn" type="button" class="rounded-lg border border-border px-3 py-1.5 text-xs font-semibold text-muted-foreground">Zrušit</button>
+              <button id="save-notice-btn" type="button" class="rounded-lg bg-primary px-4 py-1.5 text-xs font-bold text-primary-foreground">Publikovat</button>
+            </div>
+          </div>
+
+          <div class="space-y-3" id="notices-list">
+            ${notes.map((n, idx) => `
+              <div class="flex items-start justify-between gap-4 rounded-xl border border-border bg-card p-4 text-sm leading-relaxed text-foreground">
+                <div class="flex items-start gap-3">
+                  <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">${idx + 1}</span>
+                  <p class="text-sm">${n}</p>
+                </div>
+                <button data-idx="${idx}" class="remove-notice-btn text-muted-foreground hover:text-destructive shrink-0 p-1" title="Smazat oznámení">
+                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                </button>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+
+      const addBtn = document.getElementById("add-notice-btn");
+      const formBox = document.getElementById("notice-form-box");
+      const cancelBtn = document.getElementById("cancel-notice-btn");
+      const saveBtn = document.getElementById("save-notice-btn");
+
+      if (addBtn) addBtn.addEventListener("click", () => formBox.classList.toggle("hidden"));
+      if (cancelBtn) cancelBtn.addEventListener("click", () => formBox.classList.add("hidden"));
+      if (saveBtn) {
+        saveBtn.addEventListener("click", () => {
+          const val = document.getElementById("notice-textarea").value.trim();
+          if (!val) return;
+          window.KlokaniData.parentsNotes.unshift(val);
+          showToast("Nové oznámení bylo publikováno!");
+          renderAdminNoticeboardTab(container);
+        });
+      }
+
+      container.querySelectorAll(".remove-notice-btn").forEach(b => {
+        b.addEventListener("click", () => {
+          const idx = parseInt(b.getAttribute("data-idx"), 10);
+          window.KlokaniData.parentsNotes.splice(idx, 1);
+          showToast("Oznámení bylo odstraněno.", "info");
+          renderAdminNoticeboardTab(container);
+        });
+      });
+    }
+
     // 1. Swimmer Races
     function renderSwimmerRacesTab(container) {
       const races = (window.KlokaniData.events || []).filter(e => e.kind === "zavod");
       container.innerHTML = `
-        <div class="rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
+        <div class="card-clean p-6">
           <h2 class="mb-5 font-display text-xl font-bold">Přihlášky na závody</h2>
           <div class="grid gap-4 sm:grid-cols-2">
             ${races.map(e => renderEventCard(e)).join("")}
@@ -403,7 +672,7 @@
     function renderSwimmerCampsTab(container) {
       const camps = (window.KlokaniData.events || []).filter(e => e.kind === "soustredeni");
       container.innerHTML = `
-        <div class="rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
+        <div class="card-clean p-6">
           <h2 class="mb-5 font-display text-xl font-bold">Rezervace na akce (tábory, soustředění)</h2>
           <div class="grid gap-4 sm:grid-cols-2">
             ${camps.map(e => renderEventCard(e)).join("")}
@@ -439,7 +708,7 @@
       const btnText = signed ? "Upravit přihlášku" : closed ? "Uzavřeno" : "Přihlásit se";
 
       return `
-        <div class="flex flex-col gap-4 rounded-2xl border border-border/60 bg-card/50 p-5 shadow-[var(--shadow-elevated)] backdrop-blur-sm transition-all duration-300 hover:border-[var(--intranet-accent)]/40">
+        <div class="card-clean p-5 flex flex-col gap-4">
           <div class="flex items-start justify-between gap-3">
             <div>
               <h3 class="font-display text-lg font-bold">${event.name}</h3>
@@ -456,7 +725,7 @@
 
           ${discHtml}
 
-          <div class="mt-auto flex items-center justify-between border-t border-border/60 pt-4">
+          <div class="mt-auto flex items-center justify-between border-t border-border pt-4">
             <span class="text-xs text-muted-foreground">Přihlášky do ${formatCzDate(event.deadline)}</span>
             <button
               type="button"
@@ -477,11 +746,14 @@
       container.innerHTML = `
         <div class="space-y-6">
           <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <h2 class="font-display text-2xl font-extrabold">Přehled přihlášených plavců — závody</h2>
+            <div>
+              <h2 class="font-display text-2xl font-extrabold">Přehled přihlášených plavců — závody</h2>
+              <p class="text-xs text-muted-foreground mt-0.5">Kompletní soupisky oddílu s možností exportu pro pořadatele.</p>
+            </div>
             <button
               type="button"
               id="export-all-csv-btn"
-              class="inline-flex shrink-0 items-center gap-2 self-start rounded-xl bg-[var(--intranet-accent)] px-5 py-3 text-sm font-semibold text-[var(--intranet-accent-foreground)] transition hover:scale-[1.02] hover:shadow-[0_0_30px_-8px_var(--intranet-accent)]"
+              class="inline-flex shrink-0 items-center gap-2 self-start rounded-xl bg-primary px-4 py-2.5 text-xs font-bold text-primary-foreground shadow-xs hover:opacity-90 transition"
             >
               <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
               Exportovat přihlášky (CSV)
@@ -504,7 +776,7 @@
       const camps = (window.KlokaniData.events || []).filter(e => e.kind === "soustredeni");
       container.innerHTML = `
         <div class="space-y-6">
-          <div class="rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
+          <div class="card-clean p-6">
             <h2 class="mb-5 font-display text-xl font-bold">Přehled přihlášených plavců — soustředění</h2>
             <div class="grid gap-4 sm:grid-cols-2">
               ${camps.map(e => renderCoachRosterCard(e)).join("")}
@@ -529,7 +801,7 @@
       }
 
       return `
-        <div class="rounded-2xl border border-border/60 bg-card/50 p-5 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
+        <div class="card-clean p-5">
           <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <div class="flex items-center gap-2">
@@ -540,7 +812,7 @@
               <p class="text-sm text-muted-foreground">${event.place}</p>
             </div>
             <div class="flex items-center gap-3">
-              <span class="rounded-full bg-[var(--intranet-accent)]/15 px-3 py-1 text-sm font-semibold text-[var(--intranet-accent)]">
+              <span class="rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary">
                 ${roster.length} přihlášených
               </span>
             </div>
@@ -548,9 +820,9 @@
 
           <div class="mt-4 space-y-2">
             ${roster.map(r => `
-              <div class="flex flex-col gap-1 rounded-xl border border-border/50 bg-background/40 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+              <div class="flex flex-col gap-1 rounded-xl border border-border bg-muted/40 px-4 py-2.5 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <p class="font-semibold text-foreground">${r.swimmer}</p>
+                  <p class="font-semibold text-foreground text-sm">${r.swimmer}</p>
                   <p class="text-xs text-muted-foreground">Skupina ${r.group}</p>
                 </div>
                 <div class="flex flex-wrap gap-1">
@@ -572,7 +844,7 @@
       ];
 
       container.innerHTML = `
-        <div class="rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
+        <div class="card-clean p-6">
           <h2 class="mb-5 font-display text-xl font-bold">Moje výsledky</h2>
           <div class="overflow-x-auto">
             <table class="w-full min-w-[520px] border-collapse text-sm">
@@ -625,39 +897,39 @@
 
       container.innerHTML = `
         <div class="space-y-6">
-          <div class="rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
+          <div class="card-clean p-6">
             <h2 class="mb-5 font-display text-xl font-bold">Změna hesla</h2>
             <div class="grid gap-4 sm:max-w-md">
               <div>
-                <label class="mb-1.5 block text-sm font-medium">Staré heslo</label>
-                <input type="password" placeholder="••••••••" class="w-full rounded-xl border border-input bg-background/60 px-4 py-2.5 text-sm outline-none transition focus:border-[var(--intranet-accent)] focus:ring-2 focus:ring-[var(--intranet-accent)]/30 text-foreground">
+                <label class="mb-1.5 block text-xs font-medium uppercase text-muted-foreground">Staré heslo</label>
+                <input type="password" placeholder="••••••••" class="w-full rounded-xl border border-input bg-card px-4 py-2.5 text-sm outline-none transition focus:border-primary text-foreground">
               </div>
               <div>
-                <label class="mb-1.5 block text-sm font-medium">Nové heslo</label>
-                <input type="password" placeholder="••••••••" class="w-full rounded-xl border border-input bg-background/60 px-4 py-2.5 text-sm outline-none transition focus:border-[var(--intranet-accent)] focus:ring-2 focus:ring-[var(--intranet-accent)]/30 text-foreground">
+                <label class="mb-1.5 block text-xs font-medium uppercase text-muted-foreground">Nové heslo</label>
+                <input type="password" placeholder="••••••••" class="w-full rounded-xl border border-input bg-card px-4 py-2.5 text-sm outline-none transition focus:border-primary text-foreground">
               </div>
               <div>
-                <label class="mb-1.5 block text-sm font-medium">Nové heslo (znovu)</label>
-                <input type="password" placeholder="••••••••" class="w-full rounded-xl border border-input bg-background/60 px-4 py-2.5 text-sm outline-none transition focus:border-[var(--intranet-accent)] focus:ring-2 focus:ring-[var(--intranet-accent)]/30 text-foreground">
+                <label class="mb-1.5 block text-xs font-medium uppercase text-muted-foreground">Nové heslo (znovu)</label>
+                <input type="password" placeholder="••••••••" class="w-full rounded-xl border border-input bg-card px-4 py-2.5 text-sm outline-none transition focus:border-primary text-foreground">
               </div>
-              <button onclick="showToast('Heslo bylo úspěšně změněno!')" class="inline-flex w-fit items-center gap-2 rounded-xl bg-[var(--intranet-accent)] px-5 py-2.5 text-sm font-semibold text-[var(--intranet-accent-foreground)] transition hover:scale-[1.02]">
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21 2-2 2m-6 6 2-2m-2 2-3 3-2.5-2.5L7 11l-4 4 4 4 4-4 2.5 2.5L16 15l3-3m-6-6 4 4"/></svg> Uložit heslo
+              <button onclick="showToast('Heslo bylo úspěšně změněno!')" class="inline-flex w-fit items-center gap-2 rounded-xl bg-primary px-4 py-2 text-xs font-bold text-primary-foreground shadow-xs hover:opacity-90 transition">
+                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21 2-2 2m-6 6 2-2m-2 2-3 3-2.5-2.5L7 11l-4 4 4 4 4-4 2.5 2.5L16 15l3-3m-6-6 4 4"/></svg> Uložit heslo
               </button>
             </div>
           </div>
 
-          <div class="rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
+          <div class="card-clean p-6">
             <h2 class="mb-5 font-display text-xl font-bold">Editace údajů</h2>
             <div class="grid gap-4 sm:grid-cols-2">
               ${fields.map(([label, value]) => `
                 <div>
                   <label class="mb-1.5 block text-xs font-medium uppercase tracking-wide text-muted-foreground">${label}</label>
-                  <input value="${value}" class="w-full rounded-xl border border-input bg-background/60 px-4 py-2.5 text-sm outline-none transition focus:border-[var(--intranet-accent)] focus:ring-2 focus:ring-[var(--intranet-accent)]/30 text-foreground">
+                  <input value="${value}" class="w-full rounded-xl border border-input bg-card px-4 py-2.5 text-sm outline-none transition focus:border-primary text-foreground">
                 </div>
               `).join("")}
             </div>
-            <button onclick="showToast('Změny profilu byly uloženy!')" class="mt-6 inline-flex items-center gap-2 rounded-xl bg-[var(--intranet-accent)] px-5 py-2.5 text-sm font-semibold text-[var(--intranet-accent-foreground)] transition hover:scale-[1.02]">
-              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Uložit změny
+            <button onclick="showToast('Změny profilu byly uloženy!')" class="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-xs font-bold text-primary-foreground shadow-xs hover:opacity-90 transition">
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Uložit změny
             </button>
           </div>
         </div>

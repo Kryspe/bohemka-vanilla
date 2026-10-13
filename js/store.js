@@ -138,22 +138,39 @@ window.KlokaniStore = (function () {
 
   function login(username) {
     localStorage.setItem(AUTH_KEY, "1");
-    localStorage.setItem(USER_KEY, username || "admin");
-    if (!localStorage.getItem(ROLE_KEY)) {
+    const u = (username || "admin").trim().toLowerCase();
+    localStorage.setItem(USER_KEY, u);
+    if (u === "admin") {
+      localStorage.setItem(ROLE_KEY, "admin");
+      localStorage.setItem("klokani-admin-authed", "1");
+    } else if (!localStorage.getItem(ROLE_KEY)) {
       localStorage.setItem(ROLE_KEY, "plavec");
     }
   }
 
   function logout() {
     localStorage.removeItem(AUTH_KEY);
+    localStorage.removeItem("klokani-admin-authed");
+    sessionStorage.removeItem("klokani-role-switched");
   }
 
   function getRole() {
-    return localStorage.getItem(ROLE_KEY) || "plavec";
+    const r = localStorage.getItem(ROLE_KEY);
+    const u = getUser();
+    if (u === "admin" && (!r || r === "plavec") && !sessionStorage.getItem("klokani-role-switched")) {
+      localStorage.setItem(ROLE_KEY, "admin");
+      localStorage.setItem("klokani-admin-authed", "1");
+      return "admin";
+    }
+    return r || (u === "admin" ? "admin" : "plavec");
   }
 
   function setRole(role) {
+    sessionStorage.setItem("klokani-role-switched", "1");
     localStorage.setItem(ROLE_KEY, role);
+    if (role === "admin") {
+      localStorage.setItem("klokani-admin-authed", "1");
+    }
   }
 
   function getUser() {
