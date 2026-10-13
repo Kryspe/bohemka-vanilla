@@ -16,7 +16,7 @@ function initTheme() {
   const THEME_KEY = "klokani-theme";
   const stored = localStorage.getItem(THEME_KEY);
 
-  if (stored === "dark" || (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+  if (stored === "dark") {
     document.documentElement.classList.add("dark");
   } else {
     document.documentElement.classList.remove("dark");
@@ -42,7 +42,7 @@ function updateThemeMeta() {
     meta.name = "theme-color";
     document.head.appendChild(meta);
   }
-  meta.setAttribute("content", isDark ? "#030705" : "#fbfdfc");
+  meta.setAttribute("content", isDark ? "#0b1310" : "#ffffff");
 }
 
 function updateThemeIcons() {
@@ -55,48 +55,24 @@ function updateThemeIcons() {
   });
 }
 
-// Scroll Reveal (1:1 with React Framer Motion Reveal component)
+// Scroll Reveal - clean instant display
 function initScrollReveal() {
-  const elements = document.querySelectorAll(
-    ".reveal, [data-reveal], .group, main section > div.grid > *, main section > div > ol > li, figure, #home-groups-cards > div, #home-news-cards > a"
-  );
-  if (!elements.length) return;
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("revealed");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {
-    threshold: 0.05,
-    rootMargin: "0px 0px -25px 0px"
-  });
-
-  elements.forEach((el, index) => {
-    if (!el.classList.contains("reveal")) {
-      el.classList.add("reveal");
-    }
-    const stagger = (index % 6) * 45;
-    el.style.transitionDelay = `${stagger}ms`;
-    observer.observe(el);
-  });
+  // Elements remain immediately visible without lagging delay
 }
 window.initScrollReveal = initScrollReveal;
 
-// 2. Active Link Highlight
+// 2. Active Link Highlight (Clean & Solid)
 function highlightActiveNav() {
   const currentPath = window.location.pathname.split("/").pop() || "index.html";
 
-  document.querySelectorAll("header nav a.nav-item").forEach(link => {
+  document.querySelectorAll("header nav a.nav-item, #drawer-content a").forEach(link => {
     const href = link.getAttribute("href");
     if (!href) return;
     const target = href.split("/").pop();
     if (target === currentPath || (currentPath === "" && target === "index.html")) {
-      link.className = "nav-item group relative rounded-full border border-primary/70 text-primary bg-primary/10 shadow-[0_8px_20px_-12px_var(--color-primary)] px-3.5 py-1.5 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5";
+      link.classList.add("active");
     } else {
-      link.className = "nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]";
+      link.classList.remove("active");
     }
   });
 }

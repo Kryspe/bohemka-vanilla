@@ -5,85 +5,156 @@
    SMOOTH SCROLL, BUTTERY HOVER & MOBILE OVERSCROLL BOUNCE FIX
    ========================================================================== */
 
-/* 1. Mobile rubber-banding / pull-down background fix */
+/* ==========================================================================
+   CLEAN, MODERN & USER-FRIENDLY DESIGN SYSTEM (NO SLOP)
+   ========================================================================== */
+
+:root {
+  --background: #f8faf9;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #006837;
+  --primary-foreground: #ffffff;
+  --secondary: #eef5f1;
+  --secondary-foreground: #0f172a;
+  --muted: #f1f5f3;
+  --muted-foreground: #475569;
+  --accent: #008244;
+  --accent-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #006837;
+  --radius: 0.75rem;
+  --shadow-elevated: 0 4px 16px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+  --glow-aqua: 0 2px 8px rgba(0, 104, 55, 0.12);
+  --intranet-accent: #006837;
+  --intranet-accent-foreground: #ffffff;
+}
+
+.dark {
+  --background: #0b1310;
+  --foreground: #f8fafc;
+  --card: #121e1a;
+  --card-foreground: #f8fafc;
+  --popover: #121e1a;
+  --popover-foreground: #f8fafc;
+  --primary: #10b981;
+  --primary-foreground: #041f14;
+  --secondary: #172621;
+  --secondary-foreground: #f8fafc;
+  --muted: #152420;
+  --muted-foreground: #94a3b8;
+  --accent: #34d399;
+  --accent-foreground: #041f14;
+  --border: #20352e;
+  --input: #20352e;
+  --ring: #10b981;
+  --shadow-elevated: 0 8px 24px -4px rgba(0, 0, 0, 0.45);
+  --glow-aqua: 0 4px 16px rgba(16, 185, 129, 0.18);
+  --intranet-accent: #10b981;
+  --intranet-accent-foreground: #041f14;
+}
+
 html {
-  background-color: #030705;
-  background-color: var(--background, #030705);
-  min-height: 100%;
+  background-color: var(--background);
+  color: var(--foreground);
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
 }
 
-html:not(.dark) {
-  background-color: #fbfdfc;
-}
-
 body {
-  background-color: var(--background, #030705);
+  background-color: var(--background);
+  color: var(--foreground);
   min-height: 100dvh;
   position: relative;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Fixed background extension that covers overscroll pull-down on mobile */
+/* Remove AI slop background gradient blobs completely */
 body::before {
-  content: "";
-  position: fixed;
-  top: -100vh;
-  left: 0;
-  right: 0;
-  height: 300vh;
-  z-index: -999;
-  background-color: var(--background, #030705);
-  background-image:
-    radial-gradient(65% 55% at 20% 35%, oklch(0.58 0.13 215 / 0.18), transparent 70%),
-    radial-gradient(55% 45% at 85% 40%, oklch(0.65 0.18 35 / 0.12), transparent 70%);
-  background-repeat: no-repeat;
-  pointer-events: none;
+  display: none !important;
 }
 
-html:not(.dark) body::before {
-  background-image:
-    radial-gradient(65% 55% at 20% 35%, oklch(0.44 0.115 156 / 0.08), transparent 70%),
-    radial-gradient(55% 45% at 85% 40%, oklch(0.65 0.18 35 / 0.05), transparent 70%);
-}
-
-/* 2. Reveal on scroll (1:1 replica of Framer Motion Reveal component) */
-.reveal {
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-}
-
-.reveal.revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* 3. Smooth, buttery hover transitions across cards, buttons and interactive elements */
+/* Crisp, natural interactive states */
 a, button {
-  transition: color 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.rounded-2xl, .rounded-3xl, .rounded-xl {
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+/* Modern navigation link styling */
+.nav-item {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  transition: all 0.15s ease !important;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
-/* Hover lift on cards with subtle glow */
-.group:hover .group-hover\:text-primary {
-  transition: color 0.25s ease;
+.nav-item:hover {
+  color: var(--foreground);
+  background-color: var(--muted);
+  transform: none !important;
 }
 
-/* Modal open/close smooth animation */
+.nav-item.active {
+  color: var(--primary);
+  font-weight: 600;
+  background-color: rgba(0, 104, 55, 0.08);
+}
+
+.dark .nav-item.active {
+  background-color: rgba(16, 185, 129, 0.12);
+}
+
+/* Header style polish */
+.site-header {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background-color: rgba(248, 250, 249, 0.94);
+  border-bottom: 1px solid var(--border);
+}
+
+.dark .site-header {
+  background-color: rgba(11, 19, 16, 0.94);
+}
+
+/* Cards & containers */
+.card-clean {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-clean:hover {
+  border-color: rgba(0, 104, 55, 0.35);
+  box-shadow: 0 6px 20px -4px rgba(0, 0, 0, 0.08);
+}
+
+.dark .card-clean:hover {
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.4);
+}
+
+/* Modal animation */
 #signup-modal:not(.hidden) > div:last-child {
-  animation: modalEnter 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: modalEnter 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes modalEnter {
   from {
     opacity: 0;
-    transform: scale(0.95) translateY(12px);
+    transform: scale(0.97) translateY(8px);
   }
   to {
     opacity: 1;
