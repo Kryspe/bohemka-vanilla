@@ -243,6 +243,16 @@
   <script src="js/supabase.js"></script>
   <script src="js/app.js"></script>
   <script>
+    const escapeHtml = window.escapeHtml || function (str) {
+      if (str === null || str === undefined) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    };
+
     let currentTab = "zavody";
 
     function renderIntranet() {
@@ -304,17 +314,19 @@
           const auth = await window.KlokaniSupabase.loginUser(u, p);
           if (auth) {
             err.classList.add("hidden");
-            window.KlokaniStore.login(u);
-            if (auth.role) window.KlokaniStore.setRole(auth.role);
+            const userRole = (auth.role === "trainer") ? "trener" : (auth.role || (u === "admin" ? "admin" : "plavec"));
+            window.KlokaniStore.login(u, userRole);
+            window.KlokaniStore.setRole(userRole);
             renderIntranet();
             return;
           }
         }
 
-        if ((u === "admin" || u === "trener" || u === "plavec") && (p === "bohemka" || p === "")) {
+        if ((u === "admin" || u === "trener" || u === "plavec" || u === "user") && (p === "bohemka" || p === "")) {
           err.classList.add("hidden");
-          window.KlokaniStore.login(u);
-          window.KlokaniStore.setRole(u === "admin" ? "admin" : u === "trener" ? "trainer" : "plavec");
+          const userRole = u === "admin" ? "admin" : u === "trener" ? "trener" : "plavec";
+          window.KlokaniStore.login(u, userRole);
+          window.KlokaniStore.setRole(userRole);
           renderIntranet();
         } else {
           err.classList.remove("hidden");
@@ -323,9 +335,12 @@
     }
 
     function renderDashboard(container) {
-      const username = window.KlokaniStore.getUser();
-      const displayName = username.charAt(0).toUpperCase() + username.slice(1);
+      const rawUser = window.KlokaniStore.getUser();
+      const username = escapeHtml(rawUser);
+      const displayName = escapeHtml(rawUser.charAt(0).toUpperCase() + rawUser.slice(1));
       const role = window.KlokaniStore.getRole();
+      const isAdminUser = rawUser === "admin";
+      const isCoachUser = rawUser === "trener";
       const allAdminItems = window.KlokaniStore.getAdminItems ? window.KlokaniStore.getAdminItems() : [];
       const pendingAdminCount = allAdminItems.filter(i => i.status === "pending").length;
 
@@ -379,7 +394,7 @@
               <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-primary/15 text-primary">
                 ${role === 'admin'
                   ? `<svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`
-                  : `<span class="font-display text-2xl font-extrabold">${displayName.charAt(0)}</span>`
+                  : `<span class="font-display text-2xl font-extrabold">${rawUser.charAt(0).toUpperCase()}</span>`
                 }
               </div>
               <div>
@@ -390,20 +405,33 @@
             </div>
 
             <div class="flex flex-col gap-3 sm:items-end">
-              <!-- Role Switcher -->
-              <div class="inline-flex rounded-full border border-border bg-card p-1 shadow-xs">
-                <button id="role-plavec-btn" class="rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${role === 'plavec' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}">Plavec / Rodič</button>
-                <button id="role-trener-btn" class="rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${role === 'trener' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}">Trenér</button>
-                <button id="role-admin-btn" class="rounded-full px-3 py-1.5 text-xs font-semibold transition-colors flex items-center gap-1.5 ${role === 'admin' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}">
-                  <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                  <span>Administrátor</span>
-                  ${pendingAdminCount > 0 ? `<span class="rounded-full bg-destructive px-1.5 py-0.2 text-[10px] font-bold text-destructive-foreground">${pendingAdminCount}</span>` : ''}
-                </button>
-              </div>
+              <!-- Role Switcher: Strictly protected. Swimmers / parents CANNOT switch roles! -->
+              ${isAdminUser ? `
+                <div class="inline-flex rounded-full border border-border bg-card p-1 shadow-xs">
+                  <button id="role-admin-btn" class="rounded-full px-3 py-1.5 text-xs font-semibold transition-colors flex items-center gap-1.5 ${role === 'admin' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}">
+                    <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span>Administrátor</span>
+                    ${pendingAdminCount > 0 ? `<span class="rounded-full bg-destructive px-1.5 py-0.2 text-[10px] font-bold text-destructive-foreground">${pendingAdminCount}</span>` : ''}
+                  </button>
+                  <button id="role-trener-btn" class="rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${role === 'trener' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}">Náhled trenér</button>
+                  <button id="role-plavec-btn" class="rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${role === 'plavec' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}">Náhled plavec</button>
+                </div>
+              ` : isCoachUser ? `
+                <div class="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-xs font-semibold text-primary shadow-xs">
+                  <span class="h-2 w-2 rounded-full bg-primary"></span>
+                  <span>Trenérská sekce</span>
+                </div>
+              ` : `
+                <!-- Swimmer / Parent view: strictly static badge, role switcher completely removed -->
+                <div class="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-xs font-semibold text-muted-foreground shadow-xs">
+                  <span class="h-2 w-2 rounded-full bg-primary"></span>
+                  <span>Plavec / Rodič</span>
+                </div>
+              `}
 
               <!-- Action buttons -->
               <div class="flex items-center gap-2">
-                ${role === 'admin' ? `
+                ${(isAdminUser && role === 'admin') ? `
                   <a href="admin.html" class="inline-flex items-center gap-1.5 rounded-full bg-primary/10 border border-primary/30 px-3.5 py-1.5 text-xs font-bold text-primary hover:bg-primary/20 transition-colors">
                     <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
                     Plné CMS (admin.html) →
@@ -446,7 +474,7 @@
           <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             ${(window.KlokaniData.parentsNotes || []).map(note => `
               <div class="rounded-xl border border-primary/20 bg-primary/5 p-4 text-xs leading-relaxed text-muted-foreground">
-                ${note}
+                ${escapeHtml(note)}
               </div>
             `).join("")}
           </div>
@@ -459,19 +487,19 @@
         renderIntranet();
       });
 
-      document.getElementById("role-plavec-btn").addEventListener("click", () => {
+      document.getElementById("role-plavec-btn")?.addEventListener("click", () => {
         window.KlokaniStore.setRole("plavec");
         currentTab = "zavody";
         renderDashboard(container);
       });
 
-      document.getElementById("role-trener-btn").addEventListener("click", () => {
+      document.getElementById("role-trener-btn")?.addEventListener("click", () => {
         window.KlokaniStore.setRole("trener");
         currentTab = "zavody";
         renderDashboard(container);
       });
 
-      document.getElementById("role-admin-btn").addEventListener("click", () => {
+      document.getElementById("role-admin-btn")?.addEventListener("click", () => {
         window.KlokaniStore.setRole("admin");
         currentTab = "schvaleni";
         renderDashboard(container);
@@ -550,21 +578,21 @@
           ` : `
             <div class="space-y-3">
               ${pending.map(i => `
-                <div class="flex flex-col gap-3 rounded-xl border border-border bg-card p-4 sm:flex-row sm:items-center sm:justify-between" data-item-id="${i.id}">
+                <div class="flex flex-col gap-3 rounded-xl border border-border bg-card p-4 sm:flex-row sm:items-center sm:justify-between" data-item-id="${escapeHtml(i.id)}">
                   <div class="min-w-0">
                     <div class="flex flex-wrap items-center gap-2">
-                      <span class="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-bold text-primary">${i.kind}</span>
-                      <span class="rounded bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground">zdroj: ${i.source || 'interní'}</span>
+                      <span class="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-bold text-primary">${escapeHtml(i.kind)}</span>
+                      <span class="rounded bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground">zdroj: ${escapeHtml(i.source || 'interní')}</span>
                       <span class="text-xs text-muted-foreground">${formatCzDate(i.createdAt ? i.createdAt.slice(0, 10) : '')}</span>
                     </div>
-                    <p class="mt-1.5 font-semibold text-foreground text-sm">${i.title}</p>
-                    <p class="mt-0.5 text-xs text-muted-foreground">${Object.entries(i.fields || {}).map(([k, v]) => `${k}: ${v}`).join(" · ")}</p>
+                    <p class="mt-1.5 font-semibold text-foreground text-sm">${escapeHtml(i.title)}</p>
+                    <p class="mt-0.5 text-xs text-muted-foreground">${Object.entries(i.fields || {}).map(([k, v]) => `${escapeHtml(k)}: ${escapeHtml(v)}`).join(" · ")}</p>
                   </div>
                   <div class="flex shrink-0 items-center gap-2">
-                    <button data-action="approve" data-id="${i.id}" class="inline-flex items-center gap-1 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:opacity-90 transition">
+                    <button data-action="approve" data-id="${escapeHtml(i.id)}" class="inline-flex items-center gap-1 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:opacity-90 transition">
                       <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Schválit
                     </button>
-                    <button data-action="reject" data-id="${i.id}" class="inline-flex items-center gap-1 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground hover:border-destructive hover:text-destructive transition">
+                    <button data-action="reject" data-id="${escapeHtml(i.id)}" class="inline-flex items-center gap-1 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground hover:border-destructive hover:text-destructive transition">
                       <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Zamítnout
                     </button>
                   </div>
@@ -680,7 +708,7 @@
               <div class="flex items-start justify-between gap-4 rounded-xl border border-border bg-card p-4 text-sm leading-relaxed text-foreground">
                 <div class="flex items-start gap-3">
                   <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">${idx + 1}</span>
-                  <p class="text-sm">${n}</p>
+                  <p class="text-sm">${escapeHtml(n)}</p>
                 </div>
                 <button data-idx="${idx}" class="remove-notice-btn text-muted-foreground hover:text-destructive shrink-0 p-1" title="Smazat oznámení">
                   <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
@@ -758,7 +786,7 @@
       let discHtml = "";
       if (event.disciplines && event.disciplines.length > 0) {
         discHtml = `<div class="flex flex-wrap gap-2">` +
-          event.disciplines.slice(0, 8).map(d => `<span class="rounded-md bg-primary/10 px-2 py-1 text-xs font-medium text-primary">${d}</span>`).join("") +
+          event.disciplines.slice(0, 8).map(d => `<span class="rounded-md bg-primary/10 px-2 py-1 text-xs font-medium text-primary">${escapeHtml(d)}</span>`).join("") +
           `</div>`;
       }
 
@@ -774,11 +802,11 @@
         <div class="card-clean p-5 flex flex-col gap-4">
           <div class="flex items-start justify-between gap-3">
             <div>
-              <h3 class="font-display text-lg font-bold">${event.name}</h3>
+              <h3 class="font-display text-lg font-bold">${escapeHtml(event.name)}</h3>
               <div class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
                 <span class="flex items-center gap-1">
                   <svg class="h-3.5 w-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                  ${event.place}
+                  ${escapeHtml(event.place)}
                 </span>
                 <span>${formatCzDate(event.date)}</span>
               </div>
@@ -793,7 +821,7 @@
             <button
               type="button"
               ${closed ? 'disabled' : ''}
-              onclick="openSignUpDialog('${event.id}', 'intranet')"
+              onclick="openSignUpDialog('${escapeHtml(event.id)}', 'intranet')"
               class="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold transition-all active:scale-95 ${btnClass}"
             >
               ${btnText}
@@ -908,11 +936,11 @@
           <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <div class="flex items-center gap-2">
-                <span class="rounded-full px-2.5 py-0.5 text-xs font-semibold ${typeStyles[event.type] || 'bg-primary/20 text-primary'}">${event.type}</span>
+                <span class="rounded-full px-2.5 py-0.5 text-xs font-semibold ${typeStyles[event.type] || 'bg-primary/20 text-primary'}">${escapeHtml(event.type)}</span>
                 <span class="text-xs text-muted-foreground">${formatCzDate(event.date)}</span>
               </div>
-              <h3 class="mt-2 font-display text-lg font-bold">${event.name}</h3>
-              <p class="text-sm text-muted-foreground">${event.place}</p>
+              <h3 class="mt-2 font-display text-lg font-bold">${escapeHtml(event.name)}</h3>
+              <p class="text-sm text-muted-foreground">${escapeHtml(event.place)}</p>
             </div>
             <div class="flex items-center gap-3">
               <span class="rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary">
@@ -925,11 +953,11 @@
             ${roster.map(r => `
               <div class="flex flex-col gap-1 rounded-xl border border-border bg-muted/40 px-4 py-2.5 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <p class="font-semibold text-foreground text-sm">${r.swimmer}</p>
-                  <p class="text-xs text-muted-foreground">Skupina ${r.group}</p>
+                  <p class="font-semibold text-foreground text-sm">${escapeHtml(r.swimmer)}</p>
+                  <p class="text-xs text-muted-foreground">Skupina ${escapeHtml(r.group)}</p>
                 </div>
                 <div class="flex flex-wrap gap-1">
-                  ${r.disciplines.length > 0 ? r.disciplines.map(d => `<span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">${d}</span>`).join("") : '<span class="text-xs text-muted-foreground">Bez disciplín</span>'}
+                  ${r.disciplines.length > 0 ? r.disciplines.map(d => `<span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">${escapeHtml(d)}</span>`).join("") : '<span class="text-xs text-muted-foreground">Bez disciplín</span>'}
                 </div>
               </div>
             `).join("")}

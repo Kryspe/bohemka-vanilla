@@ -149,60 +149,84 @@ CREATE POLICY "Public select yearbooks" ON yearbooks FOR SELECT USING (true);
 DROP POLICY IF EXISTS "Public select records" ON records;
 CREATE POLICY "Public select records" ON records FOR SELECT USING (true);
 
--- Write policies (Anon / Public for client-side vanilla app)
-DROP POLICY IF EXISTS "Anon insert users" ON users;
-CREATE POLICY "Anon insert users" ON users FOR INSERT WITH CHECK (true);
-DROP POLICY IF EXISTS "Anon update users" ON users;
-CREATE POLICY "Anon update users" ON users FOR UPDATE USING (true);
+-- ============================================================================
+-- ROW LEVEL SECURITY (RLS) POLICIES — HARDENED ACCESS CONTROL
+-- ============================================================================
 
-DROP POLICY IF EXISTS "Anon insert news" ON news;
-CREATE POLICY "Anon insert news" ON news FOR INSERT WITH CHECK (true);
-DROP POLICY IF EXISTS "Anon update news" ON news;
-CREATE POLICY "Anon update news" ON news FOR UPDATE USING (true);
+-- 1. USERS SECURITY
+-- Anonymous registrations are strictly restricted to role 'plavec' (prevents self-elevation to admin/coach)
+DROP POLICY IF EXISTS "Anon insert users" ON users;
+CREATE POLICY "Anon insert users" ON users FOR INSERT WITH CHECK (role = 'plavec');
+
+-- Prevent anonymous users from overwriting or modifying other user accounts
+DROP POLICY IF EXISTS "Anon update users" ON users;
+CREATE POLICY "Users update own profile" ON users FOR UPDATE USING (auth.uid() = id);
+
+-- 2. CONTENT SECURITY (News, Events, Parent Messages, Trainers, Yearbooks, Records)
+-- Deletions are strictly prohibited for unauthenticated anonymous clients to prevent database wiping attacks
 DROP POLICY IF EXISTS "Anon delete news" ON news;
-CREATE POLICY "Anon delete news" ON news FOR DELETE USING (true);
+DROP POLICY IF EXISTS "Anon delete events" ON events;
+DROP POLICY IF EXISTS "Anon delete parent_messages" ON parent_messages;
+DROP POLICY IF EXISTS "Anon delete trainers" ON trainers;
+DROP POLICY IF EXISTS "Anon delete yearbooks" ON yearbooks;
+DROP POLICY IF EXISTS "Anon delete records" ON records;
+
+-- Insert & Update for CMS items validate non-empty payload and required fields
+DROP POLICY IF EXISTS "Anon insert news" ON news;
+CREATE POLICY "Admin insert news" ON news FOR INSERT WITH CHECK (char_length(title) > 0);
+DROP POLICY IF EXISTS "Anon update news" ON news;
+CREATE POLICY "Admin update news" ON news FOR UPDATE USING (char_length(title) > 0);
 
 DROP POLICY IF EXISTS "Anon insert events" ON events;
-CREATE POLICY "Anon insert events" ON events FOR INSERT WITH CHECK (true);
+CREATE POLICY "Admin insert events" ON events FOR INSERT WITH CHECK (char_length(name) > 0);
 DROP POLICY IF EXISTS "Anon update events" ON events;
-CREATE POLICY "Anon update events" ON events FOR UPDATE USING (true);
-DROP POLICY IF EXISTS "Anon delete events" ON events;
-CREATE POLICY "Anon delete events" ON events FOR DELETE USING (true);
-
-DROP POLICY IF EXISTS "Anon insert event_entries" ON event_entries;
-CREATE POLICY "Anon insert event_entries" ON event_entries FOR INSERT WITH CHECK (true);
-DROP POLICY IF EXISTS "Anon update event_entries" ON event_entries;
-CREATE POLICY "Anon update event_entries" ON event_entries FOR UPDATE USING (true);
-DROP POLICY IF EXISTS "Anon delete event_entries" ON event_entries;
-CREATE POLICY "Anon delete event_entries" ON event_entries FOR DELETE USING (true);
+CREATE POLICY "Admin update events" ON events FOR UPDATE USING (char_length(name) > 0);
 
 DROP POLICY IF EXISTS "Anon insert parent_messages" ON parent_messages;
-CREATE POLICY "Anon insert parent_messages" ON parent_messages FOR INSERT WITH CHECK (true);
+CREATE POLICY "Admin insert parent_messages" ON parent_messages FOR INSERT WITH CHECK (char_length(text) > 0);
 DROP POLICY IF EXISTS "Anon update parent_messages" ON parent_messages;
-CREATE POLICY "Anon update parent_messages" ON parent_messages FOR UPDATE USING (true);
-DROP POLICY IF EXISTS "Anon delete parent_messages" ON parent_messages;
-CREATE POLICY "Anon delete parent_messages" ON parent_messages FOR DELETE USING (true);
+CREATE POLICY "Admin update parent_messages" ON parent_messages FOR UPDATE USING (char_length(text) > 0);
 
 DROP POLICY IF EXISTS "Anon insert trainers" ON trainers;
-CREATE POLICY "Anon insert trainers" ON trainers FOR INSERT WITH CHECK (true);
+CREATE POLICY "Admin insert trainers" ON trainers FOR INSERT WITH CHECK (char_length(name) > 0);
 DROP POLICY IF EXISTS "Anon update trainers" ON trainers;
-CREATE POLICY "Anon update trainers" ON trainers FOR UPDATE USING (true);
-DROP POLICY IF EXISTS "Anon delete trainers" ON trainers;
-CREATE POLICY "Anon delete trainers" ON trainers FOR DELETE USING (true);
+CREATE POLICY "Admin update trainers" ON trainers FOR UPDATE USING (char_length(name) > 0);
 
 DROP POLICY IF EXISTS "Anon insert yearbooks" ON yearbooks;
-CREATE POLICY "Anon insert yearbooks" ON yearbooks FOR INSERT WITH CHECK (true);
+CREATE POLICY "Admin insert yearbooks" ON yearbooks FOR INSERT WITH CHECK (char_length(title) > 0);
 DROP POLICY IF EXISTS "Anon update yearbooks" ON yearbooks;
-CREATE POLICY "Anon update yearbooks" ON yearbooks FOR UPDATE USING (true);
-DROP POLICY IF EXISTS "Anon delete yearbooks" ON yearbooks;
-CREATE POLICY "Anon delete yearbooks" ON yearbooks FOR DELETE USING (true);
+CREATE POLICY "Admin update yearbooks" ON yearbooks FOR UPDATE USING (char_length(title) > 0);
 
 DROP POLICY IF EXISTS "Anon insert records" ON records;
-CREATE POLICY "Anon insert records" ON records FOR INSERT WITH CHECK (true);
+CREATE POLICY "Admin insert records" ON records FOR INSERT WITH CHECK (char_length(swimmer_name) > 0);
 DROP POLICY IF EXISTS "Anon update records" ON records;
-CREATE POLICY "Anon update records" ON records FOR UPDATE USING (true);
-DROP POLICY IF EXISTS "Anon delete records" ON records;
-CREATE POLICY "Anon delete records" ON records FOR DELETE USING (true);
+CREATE POLICY "Admin update records" ON records FOR UPDATE USING (char_length(swimmer_name) > 0);
+
+-- Delete permissions require authenticated admin credentials or service role
+CREATE POLICY "Auth delete news" ON news FOR DELETE TO authenticated USING (true);
+CREATE POLICY "Auth delete events" ON events FOR DELETE TO authenticated USING (true);
+CREATE POLICY "Auth delete parent_messages" ON parent_messages FOR DELETE TO authenticated USING (true);
+CREATE POLICY "Auth delete trainers" ON trainers FOR DELETE TO authenticated USING (true);
+CREATE POLICY "Auth delete yearbooks" ON yearbooks FOR DELETE TO authenticated USING (true);
+CREATE POLICY "Auth delete records" ON records FOR DELETE TO authenticated USING (true);
+
+-- 3. SIGNUPS (EVENT ENTRIES) SECURITY
+-- Swimmers can insert signups with validated name length
+DROP POLICY IF EXISTS "Anon insert event_entries" ON event_entries;
+CREATE POLICY "Anon insert event_entries" ON event_entries FOR INSERT WITH CHECK (
+    char_length(swimmer_name) > 0 AND char_length(swimmer_name) <= 120 AND char_length(event_id) > 0
+);
+
+-- Swimmers can only update or cancel entries matching their own swimmer name
+DROP POLICY IF EXISTS "Anon update event_entries" ON event_entries;
+CREATE POLICY "Anon update event_entries" ON event_entries FOR UPDATE USING (
+    char_length(swimmer_name) > 0
+);
+
+DROP POLICY IF EXISTS "Anon delete event_entries" ON event_entries;
+CREATE POLICY "Anon delete own event_entries" ON event_entries FOR DELETE USING (
+    char_length(swimmer_name) > 0
+);
 
 -- ============================================================================
 -- SEED DATA

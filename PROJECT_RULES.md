@@ -1,8 +1,10 @@
 # Pravidla projektu Bohemka Vanilla
 
 1. **Výhradně Vanilla verze:**
-   - Pracovat VÝHRADNĚ na tomto repozitáři (`bohemka-vanilla`).
+   - Pracovat VÝHRADNĚ na tomto projektu (`bohemka-vanilla`).
    - Žádný React, žádné TSX, žádné bundlery. Čisté HTML, CSS, JavaScript.
+   - **GitHub Remote:** Git push smí jít VÝHRADNĚ do repozitáře `boh2` (`bohemka 2` - `git@github.com:Kryspe/boh2.git`).
+   - Repozitář `zkousimbohemku` (React/TSX od Lovable) se NIKDY nesmí přepisovat ani do něj pushovat.
 
 2. **Prostředí & Hosting:**
    - Projekt je nasazen na **Vercelu**.

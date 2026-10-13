@@ -1,7 +1,18 @@
 /**
- * Klokani — Main Application JavaScript
- * Handles navigation, theme toggle, mobile drawer, modals, and toasts.
+ * Universal HTML Escaping to prevent XSS attacks across all templates and dynamic rendering
  */
+function escapeHtml(str) {
+  if (str === null || str === undefined) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+if (typeof window !== "undefined") {
+  window.escapeHtml = escapeHtml;
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
@@ -346,7 +357,8 @@ function openSignUpDialog(eventId, accent = "primary") {
         const cls = on
           ? "border-primary bg-primary/12 text-primary"
           : "border-border/70 text-muted-foreground hover:border-foreground/40 hover:text-foreground";
-        html += `<button type="button" data-disc="${d}" class="rounded-full border px-3 py-1.5 text-sm font-medium transition-all duration-200 active:scale-95 ${cls}">${d}</button>`;
+        const safeD = escapeHtml(d);
+        html += `<button type="button" data-disc="${safeD}" class="rounded-full border px-3 py-1.5 text-sm font-medium transition-all duration-200 active:scale-95 ${cls}">${safeD}</button>`;
       });
       html += `</div>`;
       discContainer.innerHTML = html;

@@ -198,45 +198,71 @@ window.KlokaniStore = (function () {
     return localStorage.getItem(AUTH_KEY) === "1";
   }
 
-  function login(username) {
+  function login(username, role) {
     localStorage.setItem(AUTH_KEY, "1");
-    const u = (username || "admin").trim().toLowerCase();
+    const u = (username || "plavec").trim().toLowerCase();
     localStorage.setItem(USER_KEY, u);
+    let resolvedRole = "plavec";
     if (u === "admin") {
-      localStorage.setItem(ROLE_KEY, "admin");
+      resolvedRole = "admin";
       localStorage.setItem("klokani-admin-authed", "1");
-    } else if (!localStorage.getItem(ROLE_KEY)) {
-      localStorage.setItem(ROLE_KEY, "plavec");
+    } else if (u === "trener") {
+      resolvedRole = "trener";
+      localStorage.removeItem("klokani-admin-authed");
+    } else {
+      resolvedRole = "plavec";
+      localStorage.removeItem("klokani-admin-authed");
     }
+    localStorage.setItem(ROLE_KEY, resolvedRole);
   }
 
   function logout() {
     localStorage.removeItem(AUTH_KEY);
+    localStorage.removeItem(ROLE_KEY);
+    localStorage.removeItem(USER_KEY);
     localStorage.removeItem("klokani-admin-authed");
     sessionStorage.removeItem("klokani-role-switched");
   }
 
   function getRole() {
-    const r = localStorage.getItem(ROLE_KEY);
-    const u = getUser();
-    if (u === "admin" && (!r || r === "plavec") && !sessionStorage.getItem("klokani-role-switched")) {
-      localStorage.setItem(ROLE_KEY, "admin");
-      localStorage.setItem("klokani-admin-authed", "1");
-      return "admin";
+    const u = getUser().trim().toLowerCase();
+    // Swimmers & general users are strictly locked to 'plavec' role
+    if (u !== "admin" && u !== "trener") {
+      return "plavec";
     }
-    return r || (u === "admin" ? "admin" : "plavec");
+    const r = localStorage.getItem(ROLE_KEY);
+    if (u === "admin") {
+      return (r === "trener" || r === "plavec") ? r : "admin";
+    }
+    if (u === "trener") {
+      return r === "plavec" ? "plavec" : "trener";
+    }
+    return "plavec";
   }
 
   function setRole(role) {
+    const u = getUser().trim().toLowerCase();
+    // Strictly block unauthorized privilege escalation
+    if (u !== "admin" && u !== "trener") {
+      console.warn("[KlokaniStore] Security Alert: Unauthorized role switch attempt by", u);
+      return;
+    }
+    if (role === "admin" && u !== "admin") {
+      console.warn("[KlokaniStore] Security Alert: Only admin user can assume admin role");
+      return;
+    }
     sessionStorage.setItem("klokani-role-switched", "1");
-    localStorage.setItem(ROLE_KEY, role);
-    if (role === "admin") {
+    const norm = (role === "trainer") ? "trener" : role;
+    localStorage.setItem(ROLE_KEY, norm);
+    if (norm === "admin" && u === "admin") {
       localStorage.setItem("klokani-admin-authed", "1");
+    } else {
+      localStorage.removeItem("klokani-admin-authed");
     }
   }
 
   function getUser() {
-    return localStorage.getItem(USER_KEY) || "admin";
+    return localStorage.getItem(USER_KEY) || "plavec";
   }
 
   // 4. CSV Roster Export
