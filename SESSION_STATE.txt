@@ -1,27 +1,29 @@
 # ==============================================================================
 # TJ BOHEMIANS PRAHA (ODDÍL PLAVÁNÍ) — SESSION HANDOFF & MASTER STATUS
 # ==============================================================================
-Projekt: zkousimbohemkuvanilla (Čistý, moderní a bezpečný web oddílu TJ Bohemians Praha)
-Verze: 6.0 (Trenérská administrace: přidávání závodů s výběrem disciplín a skupin, soupisky CSV pro ČSPS, aktuality s okamžitou synchronizací do Hero na index.html, rychlá hlášení/upozornění oddílu, fotogalerie, PDF ke stažení, oddělení role trenéra od plavce a oprava zaoblení hero animace)
-Poslední aktualizace: 2. října 2026, 20:00 CEST
-Git repozitář: https://github.com/Kryspe/boh2 (Větev: main)
-Produkční hosting: Vercel (napojeno na GitHub automatický CI/CD deploy)
-Lokální server: http://localhost:8080 (node server.cjs)
-Pracovní složka projektu: /home/krystofspejchal/zkousimbohemkuvanilla
+Projekt: bohemka-vanilla / boh2 (Autentický klubový web TJ Bohemians Praha)
+Verze: 7.2 (Obnoven autentický klubový design boh.cz s tapetou, uzamčena role plavce, neprůsvitné bubliny článků, Supabase cloud integrace)
+Poslední aktualizace: 13. října 2026, 21:10 CEST
+Git repozitář: git@github.com:Kryspe/boh2.git (Větve: main a master v synchronizaci)
+Produkční hosting: https://boh2-eight.vercel.app (napojeno na GitHub boh2 CI/CD deploy)
+Databáze: Supabase (https://xjvpyznywisuuykwsedd.supabase.co - resume do července 2027) + bezpečný fallback na LocalStorage
+Pracovní složka projektu: /home/krystofspejchal/Projects/bohemka-vanilla
 
 ==============================================================================
 1. STRUČNÝ PŘEHLED PRO POKRAČOVÁNÍ V PŘÍŠTÍ SESSION
 ==============================================================================
 Tento soubor obsahuje kompletní záznam všech požadavků uživatele, jejich 
 technické realizace, architektury kódu, bezpečnostních opatření a designových
-pravidel. Pokud začínáte novou session, stačí si přečíst tento soubor – 
-obsahuje veškerý kontext, stav repozitáře a návod, jak pokračovat.
+pravidel. Pokud začínáte novou session, stačí si přečíst tento soubor.
 
-Hlavní zásady projektu:
-- Pracovní složka projektu: `/home/krystofspejchal/zkousimbohemkuvanilla`
-- Čistý vanilla stack: HTML5, CSS3, moderní ES6+ JavaScript bez bundlerů a bez frameworků.
-- Žádný TypeScript, žádný React ani Lovable balast – všechny HTML soubory leží přímo v kořeni repozitáře (`index.html`, `intranet.html`, `aktuality.html` atd.).
-- Git repozitář: `https://github.com/Kryspe/boh2` (každý `git push origin main` automaticky triggruje live produkční deployment).
+Klíčová pravidla:
+- GitHub remote: PUSH SMÍ JÍT VÝHRADNĚ DO REPOZITÁŘE `boh2` (`git@github.com:Kryspe/boh2.git`).
+- Repozitář `zkousimbohemku` (React/TSX od Lovable) se NIKDY nesmí přepisovat ani do něj pushovat!
+- Vzhled webu: ZACHOVAT AUTENTICKÝ DESIGN Z COMMITU `7db4220`! Reálná klubová tapeta smaragdové vody (assets/background-bohemka.jpg, assets/boh-wallpaper-green.jpg), fonty Sora a Manrope, css/style.css, originální komponenty a logo 80 let.
+- Role v intranetu: Plavec / Rodič má trvale zamčenou roli 'plavec' bez možnosti přepnout na trenéra.
+- Detail aktuality (aktuality.html): Otevřený článek je vždy v neprůsvitné bublině (bg-card) kvůli čitelnosti.
+- Dokumenty ke stažení (ke-stazeni.html): Otevírají se přímo z oficiální domény boh.cz (https://www.boh.cz/download/...).
+- Supabase: Schema je v supabase_schema.sql, automatická konfigurace přes /api/config.js.
 - Zákaz používání barevných emoji znaků v UI – všude jsou použity čisté vektorové SVG ikony.
 - Všech 13 HTML stránek je plně propojeno, responzivních, bez překrývání textů a vrací HTTP 200.
 - Výchozí motiv webu: **Autentický zelený klubový režim Bohemians (`html.bohemka`)** s reálnou tapetou smaragdové vody s bublinkami přímo z `boh.cz` na barvě `#074015`.
