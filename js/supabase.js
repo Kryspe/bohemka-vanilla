@@ -22,7 +22,7 @@
   // ============================================================================
 
   const DEFAULT_SUPABASE_URL = "https://xjvpyznywisuuykwsedd.supabase.co";
-  const DEFAULT_SUPABASE_ANON_KEY = "";
+  const DEFAULT_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhqdnB5em55d2lzdXV5a3dzZWRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3ODc3MzMsImV4cCI6MjA5NTM2MzczM30.tL1qj2pxeB64GtNEn13Y_xzU7yd74DU-N02huw4zOaQ";
 
   const STORAGE_KEY_URL = "klokani_supabase_url";
   const STORAGE_KEY_ANON = "klokani_supabase_anon_key";
