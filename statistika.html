@@ -310,6 +310,16 @@
       viewRelays.classList.add("hidden");
     });
 
+    const escapeHtml = window.escapeHtml || function (str) {
+      if (str === null || str === undefined) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    };
+
     // Relays filter
     let poolFilter = "all";
     let genderFilter = "all";
@@ -331,12 +341,12 @@
 
       tbody.innerHTML = filtered.map(r => `
         <tr class="hover:bg-primary/5 transition-colors">
-          <td class="px-5 py-3 font-semibold text-foreground">${r.event}</td>
-          <td class="px-5 py-3"><span class="rounded-full bg-card px-2.5 py-0.5 text-xs font-medium border border-border/60">${r.pool}</span></td>
-          <td class="px-5 py-3 text-xs text-muted-foreground font-medium">${r.gender}</td>
-          <td class="px-5 py-3 font-mono font-bold text-primary">${r.time}</td>
-          <td class="px-5 py-3 text-xs text-muted-foreground">${r.team}</td>
-          <td class="px-5 py-3 text-xs text-muted-foreground">${r.year} · <span class="text-foreground/80">${r.note}</span></td>
+          <td class="px-5 py-3 font-semibold text-foreground">${escapeHtml(r.event)}</td>
+          <td class="px-5 py-3"><span class="rounded-full bg-card px-2.5 py-0.5 text-xs font-medium border border-border/60">${escapeHtml(r.pool)}</span></td>
+          <td class="px-5 py-3 text-xs text-muted-foreground font-medium">${escapeHtml(r.gender)}</td>
+          <td class="px-5 py-3 font-mono font-bold text-primary">${escapeHtml(r.time)}</td>
+          <td class="px-5 py-3 text-xs text-muted-foreground">${escapeHtml(r.team)}</td>
+          <td class="px-5 py-3 text-xs text-muted-foreground">${escapeHtml(r.year)} · <span class="text-foreground/80">${escapeHtml(r.note)}</span></td>
         </tr>
       `).join("");
     }
@@ -380,19 +390,19 @@
       });
 
       if (!filtered.length) {
-        yearbooksGrid.innerHTML = `<div class="col-span-full py-8 text-center text-muted-foreground text-xs">Nebyly nalezeny žádné ročenky pro dotaz "${yearQuery}".</div>`;
+        yearbooksGrid.innerHTML = `<div class="col-span-full py-8 text-center text-muted-foreground text-xs">Nebyly nalezeny žádné ročenky pro dotaz "${escapeHtml(yearQuery)}".</div>`;
         return;
       }
 
       yearbooksGrid.innerHTML = filtered.map(y => `
-        <a href="${y.url}" target="_blank" rel="noreferrer" class="flex items-center justify-between rounded-xl border border-border bg-card p-3.5">
+        <a href="${escapeHtml(y.url)}" target="_blank" rel="noreferrer" class="flex items-center justify-between rounded-xl border border-border bg-card p-3.5 hover:border-primary/50 transition">
           <div class="flex items-center gap-3">
             <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 font-mono text-sm font-bold text-primary">
-              ${y.year}
+              ${escapeHtml(y.year)}
             </span>
             <div>
-              <div class="text-xs font-bold text-foreground">${y.title}</div>
-              <div class="text-[0.65rem] text-muted-foreground font-mono">${y.size} · PDF</div>
+              <div class="text-xs font-bold text-foreground">${escapeHtml(y.title)}</div>
+              <div class="text-[0.65rem] text-muted-foreground font-mono">${escapeHtml(y.size)} · PDF</div>
             </div>
           </div>
           <svg class="h-4 w-4 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x1="12" y1="15" y2="3"/></svg>

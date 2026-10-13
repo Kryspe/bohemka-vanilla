@@ -991,13 +991,13 @@
               <tbody>
                 ${results.map(r => `
                   <tr class="border-b border-border/50">
-                    <td class="py-3 pr-4 font-medium text-foreground">${r.event}</td>
-                    <td class="py-3 pr-4 text-muted-foreground">${r.date}</td>
-                    <td class="py-3 pr-4 text-foreground">${r.discipline}</td>
-                    <td class="py-3 pr-4 font-mono font-semibold text-primary">${r.time}</td>
+                    <td class="py-3 pr-4 font-medium text-foreground">${escapeHtml(r.event)}</td>
+                    <td class="py-3 pr-4 text-muted-foreground">${escapeHtml(r.date)}</td>
+                    <td class="py-3 pr-4 text-foreground">${escapeHtml(r.discipline)}</td>
+                    <td class="py-3 pr-4 font-mono font-semibold text-primary">${escapeHtml(r.time)}</td>
                     <td class="py-3">
                       <span class="rounded-full bg-[var(--intranet-accent)]/15 px-2.5 py-0.5 font-semibold text-[var(--intranet-accent)]">
-                        ${r.place}
+                        ${escapeHtml(r.place)}
                       </span>
                     </td>
                   </tr>
@@ -1011,17 +1011,18 @@
 
     // 6. Account Tab
     function renderAccountTab(container) {
+      const curUser = window.KlokaniStore.getUser() || "plavec";
       const fields = [
-        ["Uživatelské jméno", "admin"],
-        ["Jméno", "Jan"],
-        ["Příjmení", "Klokan"],
+        ["Uživatelské jméno", curUser],
+        ["Jméno", curUser === "admin" ? "Správce" : "Jan"],
+        ["Příjmení", curUser === "admin" ? "Oddílu" : "Klokan"],
         ["Pohlaví", "Muž"],
         ["Občanství", "ČR"],
         ["Ročník", "2008"],
         ["ČSPS ID", "5•••••"],
         ["Příspěvky zaplacené", "Ano (2026)"],
         ["Prohlídka do", "2026-12-31"],
-        ["E-mail", "jan.klokan@boh.cz"],
+        ["E-mail", curUser + "@boh.cz"],
         ["Mobil", "777 •••• ••"],
         ["Město", "Praha"]
       ];
@@ -1054,8 +1055,8 @@
             <div class="grid gap-4 sm:grid-cols-2">
               ${fields.map(([label, value]) => `
                 <div>
-                  <label class="mb-1.5 block text-xs font-medium uppercase tracking-wide text-muted-foreground">${label}</label>
-                  <input value="${value}" class="w-full rounded-xl border border-input bg-card px-4 py-2.5 text-sm outline-none transition focus:border-primary text-foreground">
+                  <label class="mb-1.5 block text-xs font-medium uppercase tracking-wide text-muted-foreground">${escapeHtml(label)}</label>
+                  <input value="${escapeHtml(value)}" class="w-full rounded-xl border border-input bg-card px-4 py-2.5 text-sm outline-none transition focus:border-primary text-foreground">
                 </div>
               `).join("")}
             </div>

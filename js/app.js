@@ -348,7 +348,7 @@ function openSignUpDialog(eventId, accent = "primary") {
   const discContainer = document.getElementById("signup-disciplines-container");
   if (discContainer) {
     if (!event.disciplines || event.disciplines.length === 0) {
-      discContainer.innerHTML = `<p class="text-sm text-muted-foreground">${event.note || "Rezervace místa na akci — disciplíny se nevybírají."}</p>`;
+      discContainer.innerHTML = `<p class="text-sm text-muted-foreground">${escapeHtml(event.note || "Rezervace místa na akci — disciplíny se nevybírají.")}</p>`;
     } else {
       let html = `<p class="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Disciplíny</p>`;
       html += `<div class="flex flex-wrap gap-2" id="signup-disc-pills">`;

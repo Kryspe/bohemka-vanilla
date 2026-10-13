@@ -227,6 +227,16 @@
   <script src="js/app.js"></script>
   <script>
     // Coaches
+    const escapeHtml = window.escapeHtml || function (str) {
+      if (str === null || str === undefined) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    };
+
     const coachesContainer = document.getElementById("coaches-grid");
     if (coachesContainer) {
       coachesContainer.innerHTML = (window.KlokaniData.coaches || []).map(c => {
@@ -244,13 +254,13 @@
             icon = `<svg class="h-4 w-4 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>`;
           }
 
-          let linkHtml = `<span>${d}</span>`;
+          let linkHtml = `<span>${escapeHtml(d)}</span>`;
           if (isMail) {
-            linkHtml = `<a href="mailto:${d}" class="hover:text-primary transition-colors">${d}</a>`;
+            linkHtml = `<a href="mailto:${encodeURIComponent(d)}" class="hover:text-primary transition-colors">${escapeHtml(d)}</a>`;
           } else if (isPhone) {
-            linkHtml = `<a href="tel:${d.replace(/\s+/g, '')}" class="hover:text-primary transition-colors">${d}</a>`;
+            linkHtml = `<a href="tel:${escapeHtml(d.replace(/\s+/g, ''))}" class="hover:text-primary transition-colors">${escapeHtml(d)}</a>`;
           } else if (isWeb) {
-            linkHtml = `<a href="https://${d.replace(/^https?:\/\//, '')}" target="_blank" rel="noreferrer" class="hover:text-primary transition-colors">${d}</a>`;
+            linkHtml = `<a href="https://${escapeHtml(d.replace(/^https?:\/\//, ''))}" target="_blank" rel="noreferrer" class="hover:text-primary transition-colors">${escapeHtml(d)}</a>`;
           }
 
           return `
@@ -264,8 +274,8 @@
         return `
           <div class="card-clean p-6 flex flex-col justify-between">
             <div>
-              <h2 class="font-display text-xl font-bold">${c.name}</h2>
-              <p class="mt-1 text-sm font-semibold text-primary">${c.role}</p>
+              <h2 class="font-display text-xl font-bold">${escapeHtml(c.name)}</h2>
+              <p class="mt-1 text-sm font-semibold text-primary">${escapeHtml(c.role)}</p>
               <ul class="mt-4 space-y-2 text-sm text-muted-foreground">
                 ${detailsHtml}
               </ul>
@@ -279,7 +289,7 @@
     const otherCoachesContainer = document.getElementById("other-coaches");
     if (otherCoachesContainer) {
       otherCoachesContainer.innerHTML = (window.KlokaniData.otherCoaches || []).map(name => `
-        <span class="rounded-full bg-muted border border-border px-3 py-1 text-xs font-semibold text-foreground">${name}</span>
+        <span class="rounded-full bg-muted border border-border px-3 py-1 text-xs font-semibold text-foreground">${escapeHtml(name)}</span>
       `).join("");
     }
 
@@ -289,7 +299,7 @@
       poolsContainer.innerHTML = (window.KlokaniData.club.pools || []).map(p => `
         <div class="card-clean p-5 flex items-start gap-3">
           <svg class="mt-0.5 h-5 w-5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-          <span class="text-sm font-medium text-foreground">${p}</span>
+          <span class="text-sm font-medium text-foreground">${escapeHtml(p)}</span>
         </div>
       `).join("");
     }

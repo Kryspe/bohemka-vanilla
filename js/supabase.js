@@ -21,11 +21,29 @@
   //    window.KlokaniSupabase.setCredentials('https://xyz.supabase.co', 'your-anon-key');
   // ============================================================================
 
-  const DEFAULT_SUPABASE_URL = "";
+  const DEFAULT_SUPABASE_URL = "https://xjvpyznywisuuykwsedd.supabase.co";
   const DEFAULT_SUPABASE_ANON_KEY = "";
 
   const STORAGE_KEY_URL = "klokani_supabase_url";
   const STORAGE_KEY_ANON = "klokani_supabase_anon_key";
+
+  // Auto-fetch credentials from Vercel integration if available
+  if (typeof fetch === "function") {
+    fetch("/api/config")
+      .then(r => r.ok ? r.json() : null)
+      .then(cfg => {
+        if (cfg && cfg.anonKey) {
+          const current = getStoredCredentials();
+          if (!current.key || current.key !== cfg.anonKey) {
+            setCredentials(cfg.url || DEFAULT_SUPABASE_URL, cfg.anonKey);
+            if (typeof window !== "undefined") {
+              window.dispatchEvent(new CustomEvent("klokani:data-updated"));
+            }
+          }
+        }
+      })
+      .catch(() => {});
+  }
 
   function getStoredCredentials() {
     let url = "";
@@ -45,7 +63,7 @@
     key = (key || DEFAULT_SUPABASE_ANON_KEY || "").trim();
 
     // Sanity check for unedited placeholders
-    if (url.includes("YOUR_") || !url.startsWith("http")) url = "";
+    if (url.includes("YOUR_") || !url.startsWith("http")) url = DEFAULT_SUPABASE_URL;
     if (key.includes("YOUR_") || key.length < 20) key = "";
 
     return { url, key };

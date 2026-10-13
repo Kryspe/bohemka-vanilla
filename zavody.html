@@ -264,6 +264,16 @@
   <script src="js/supabase.js"></script>
   <script src="js/app.js"></script>
   <script>
+    const escapeHtml = window.escapeHtml || function (str) {
+      if (str === null || str === undefined) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    };
+
     async function renderEventsList() {
       const container = document.getElementById("events-grid");
       if (!container) return;
@@ -297,7 +307,7 @@
         let discHtml = "";
         if (e.disciplines && e.disciplines.length > 0) {
           discHtml = `<div class="mt-4 flex flex-wrap gap-1.5">` +
-            e.disciplines.slice(0, 6).map(d => `<span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">${d}</span>`).join("") +
+            e.disciplines.slice(0, 6).map(d => `<span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">${escapeHtml(d)}</span>`).join("") +
             (e.disciplines.length > 6 ? `<span class="rounded-md bg-muted px-2 py-0.5 text-xs text-muted-foreground">+${e.disciplines.length - 6}</span>` : "") +
             `</div>`;
         }
@@ -318,19 +328,19 @@
           <div class="card-clean p-5 flex h-full flex-col">
             <div class="flex items-start justify-between gap-3">
               <span class="rounded-md px-2.5 py-0.5 text-xs font-semibold ${typeCls}">
-                ${e.type}
+                ${escapeHtml(e.type)}
               </span>
               <span class="shrink-0 rounded-md px-2.5 py-0.5 text-xs font-semibold ${st.cls}">
-                ${st.label}
+                ${escapeHtml(st.label)}
               </span>
             </div>
 
-            <h3 class="mt-3 font-display text-base font-bold text-foreground leading-snug">${e.name}</h3>
+            <h3 class="mt-3 font-display text-base font-bold text-foreground leading-snug">${escapeHtml(e.name)}</h3>
 
             <div class="mt-2.5 space-y-1 text-xs text-muted-foreground">
               <div class="flex items-center gap-1.5">
                 <svg class="h-3.5 w-3.5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                ${e.place}
+                ${escapeHtml(e.place)}
               </div>
               <div class="flex items-center gap-1.5">
                 <svg class="h-3.5 w-3.5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
@@ -347,7 +357,7 @@
               <button
                 type="button"
                 ${closed ? 'disabled' : ''}
-                onclick="openSignUpDialog('${e.id}')"
+                onclick="openSignUpDialog('${escapeHtml(e.id)}')"
                 class="inline-flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all ${btnClass}"
               >
                 ${btnContent}

@@ -864,7 +864,7 @@
             </div>
           ` : ''}
           <div class="flex items-center gap-2 text-xs font-semibold text-primary">
-            <time>${new Date(n.date).toLocaleDateString("cs-CZ")}</time>
+            <time>${(!isNaN(new Date(n.date).getTime())) ? new Date(n.date).toLocaleDateString("cs-CZ") : (escapeHtml(n.date) || '')}</time>
             <span>·</span>
             <span>${escapeHtml(n.author || 'Jan Srb')}</span>
           </div>

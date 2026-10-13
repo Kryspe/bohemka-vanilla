@@ -260,6 +260,16 @@
   <script src="js/supabase.js"></script>
   <script src="js/app.js"></script>
   <script>
+    const escapeHtml = window.escapeHtml || function (str) {
+      if (str === null || str === undefined) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    };
+
     let activePool = "all";
     let activeGender = "all";
     let allRecords = (window.KlokaniData && window.KlokaniData.records) ? window.KlokaniData.records : [];
@@ -295,16 +305,16 @@
           mobileEl.innerHTML = filtered.map(r => `
             <div class="rounded-2xl border border-border/60 bg-card/50 p-4 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
               <div class="flex items-start justify-between gap-3">
-                <p class="font-semibold text-foreground">${r.event}</p>
-                <span class="shrink-0 font-mono text-lg font-bold text-primary">${r.time}</span>
+                <p class="font-semibold text-foreground">${escapeHtml(r.event)}</p>
+                <span class="shrink-0 font-mono text-lg font-bold text-primary">${escapeHtml(r.time)}</span>
               </div>
               <div class="mt-3 flex flex-wrap gap-2 text-xs text-muted-foreground">
-                <span class="rounded-full bg-secondary px-2.5 py-1 font-medium">${r.pool}</span>
-                <span class="rounded-full bg-secondary px-2.5 py-1 font-medium">${r.gender}</span>
-                <span class="rounded-full bg-secondary px-2.5 py-1 font-medium">${r.date || r.year}</span>
+                <span class="rounded-full bg-secondary px-2.5 py-1 font-medium">${escapeHtml(r.pool)}</span>
+                <span class="rounded-full bg-secondary px-2.5 py-1 font-medium">${escapeHtml(r.gender)}</span>
+                <span class="rounded-full bg-secondary px-2.5 py-1 font-medium">${escapeHtml(r.date || r.year)}</span>
               </div>
-              <p class="mt-3 text-sm font-semibold text-foreground">${r.holder}</p>
-              ${r.place ? `<p class="mt-0.5 text-xs text-muted-foreground">${r.place}</p>` : ''}
+              <p class="mt-3 text-sm font-semibold text-foreground">${escapeHtml(r.holder)}</p>
+              ${r.place ? `<p class="mt-0.5 text-xs text-muted-foreground">${escapeHtml(r.place)}</p>` : ''}
             </div>
           `).join("");
         }
@@ -316,12 +326,12 @@
         } else {
           desktopEl.innerHTML = filtered.map(r => `
             <tr class="bg-background transition-colors hover:bg-card/60">
-              <td class="px-5 py-4 font-medium text-foreground">${r.event}</td>
-              <td class="px-5 py-4 text-muted-foreground">${r.pool}</td>
-              <td class="px-5 py-4 text-muted-foreground">${r.gender}</td>
-              <td class="px-5 py-4 font-mono font-semibold text-primary">${r.time}</td>
-              <td class="px-5 py-4 font-medium text-foreground">${r.holder}</td>
-              <td class="px-5 py-4 text-muted-foreground">${r.date || r.year}${r.place ? ` · ${r.place}` : ''}</td>
+              <td class="px-5 py-4 font-medium text-foreground">${escapeHtml(r.event)}</td>
+              <td class="px-5 py-4 text-muted-foreground">${escapeHtml(r.pool)}</td>
+              <td class="px-5 py-4 text-muted-foreground">${escapeHtml(r.gender)}</td>
+              <td class="px-5 py-4 font-mono font-semibold text-primary">${escapeHtml(r.time)}</td>
+              <td class="px-5 py-4 font-medium text-foreground">${escapeHtml(r.holder)}</td>
+              <td class="px-5 py-4 text-muted-foreground">${escapeHtml(r.date || r.year)}${r.place ? ` · ${escapeHtml(r.place)}` : ''}</td>
             </tr>
           `).join("");
         }
