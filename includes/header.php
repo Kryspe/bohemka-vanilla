@@ -22,13 +22,13 @@ $flash = getFlash();
 $navLinks = [
     'index' => ['label' => 'Úvod', 'url' => 'index.php'],
     'aktuality' => ['label' => 'Aktuality', 'url' => 'aktuality.php'],
-    'oddil' => ['label' => 'Oddíl', 'url' => 'oddil.php'],
     'pro-rodice' => ['label' => 'Pro rodiče', 'url' => 'pro-rodice.php'],
+    'oddil' => ['label' => 'Oddíl', 'url' => 'oddil.php'],
     'zavody' => ['label' => 'Závody', 'url' => 'zavody.php'],
     'rekordy' => ['label' => 'Rekordy', 'url' => 'rekordy.php'],
     'statistika' => ['label' => 'Statistika', 'url' => 'statistika.php'],
-    'ke-stazeni' => ['label' => 'Ke stažení', 'url' => 'ke-stazeni.php'],
     'foto' => ['label' => 'Foto', 'url' => 'foto.php'],
+    'ke-stazeni' => ['label' => 'Ke stažení', 'url' => 'ke-stazeni.php'],
     'kontakt' => ['label' => 'Kontakt', 'url' => 'kontakt.php'],
 ];
 ?>
