@@ -163,9 +163,20 @@ h1, h2, h3, h4, h5, h6, p {
 [class*="group-hover:scale"],
 [class*="hover:scale"],
 [class*="hover:-translate"],
-[class*="group-hover:translate"] {
+[class*="group-hover:translate"],
+article:hover,
+section:hover,
+.card-clean:hover {
   transform: none !important;
   transition: none !important;
+}
+
+/* Logo visibility guarantee in both light and dark themes */
+.site-logo-adaptive {
+  filter: brightness(0);
+}
+.dark .site-logo-adaptive {
+  filter: brightness(0) invert(1) !important;
 }
 
 /* Modal animation */
