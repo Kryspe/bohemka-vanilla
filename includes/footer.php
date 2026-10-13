@@ -24,12 +24,14 @@
           <h3 class="mb-3 text-xs font-bold uppercase tracking-wider text-foreground">Sekce webu</h3>
           <ul class="space-y-1.5 text-sm text-muted-foreground">
             <li><a href="aktuality.php" class="hover:text-primary">Aktuality</a></li>
-            <li><a href="oddil.php" class="hover:text-primary">O oddílu & bazény</a></li>
             <li><a href="pro-rodice.php" class="hover:text-primary">Pro rodiče</a></li>
+            <li><a href="oddil.php" class="hover:text-primary">O oddílu & bazény</a></li>
             <li><a href="zavody.php" class="hover:text-primary">Závody & kalendář</a></li>
             <li><a href="rekordy.php" class="hover:text-primary">Oddílové rekordy</a></li>
             <li><a href="statistika.php" class="hover:text-primary">Statistika & Ročenky</a></li>
+            <li><a href="foto.php" class="hover:text-primary">Fotogalerie</a></li>
             <li><a href="ke-stazeni.php" class="hover:text-primary">Ke stažení</a></li>
+            <li><a href="kontakt.php" class="hover:text-primary">Kontakty</a></li>
           </ul>
         </div>
 

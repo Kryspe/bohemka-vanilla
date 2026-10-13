@@ -43,7 +43,7 @@ require_once __DIR__ . '/includes/header.php';
         Zpět na přehled aktualit
       </a>
 
-      <article class="rounded-2xl border border-border/80 bg-card/90 p-6 sm:p-10 shadow-sm backdrop-blur-sm">
+      <article class="rounded-2xl border border-border bg-card p-6 sm:p-10 shadow-md">
         <div class="flex items-center gap-2 text-xs font-semibold text-primary">
           <time datetime="<?= e($article['date']) ?>"><?= date('d. m. Y', strtotime($article['date'])) ?></time>
           <span>·</span>
@@ -55,12 +55,12 @@ require_once __DIR__ . '/includes/header.php';
         </h1>
 
         <?php if (!empty($article['image_url'])): ?>
-          <div class="my-6 overflow-hidden rounded-xl border border-border/70 bg-background/50">
+          <div class="my-6 overflow-hidden rounded-xl border border-border bg-background">
             <img src="<?= e($article['image_url']) ?>" alt="<?= e($article['title']) ?>" class="w-full max-h-[460px] object-cover">
           </div>
         <?php endif; ?>
 
-        <div class="mt-6 space-y-4 text-base leading-relaxed text-foreground/90">
+        <div class="mt-6 space-y-4 text-base leading-relaxed text-foreground">
           <?php 
             $paragraphs = preg_split('/[\r\n]+[\r\n]+/', trim($article['body'] ?? ''));
             foreach ($paragraphs as $p):

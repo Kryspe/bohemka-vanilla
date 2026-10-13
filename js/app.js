@@ -153,7 +153,7 @@ function showToast(message, type = "success") {
 
   const toast = document.createElement("div");
   const isErr = type === "error" || type === "danger";
-  toast.className = `pointer-events-auto flex items-center gap-2 rounded-2xl border ${isErr ? 'border-destructive/40 bg-card/95 text-destructive' : 'border-primary/40 bg-card/95 text-foreground'} px-5 py-3 text-sm font-semibold shadow-[var(--shadow-elevated)] backdrop-blur-md transition-all duration-300 translate-y-3 opacity-0`;
+  toast.className = `pointer-events-auto flex items-center gap-2 rounded-2xl border ${isErr ? 'border-destructive/40 bg-card text-destructive' : 'border-primary/40 bg-card text-foreground'} px-5 py-3 text-sm font-semibold shadow-[var(--shadow-elevated)] transition-all duration-300 translate-y-3 opacity-0`;
   toast.innerHTML = `
     <svg class="h-4 w-4 shrink-0 ${isErr ? 'text-destructive' : 'text-primary'}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
     <span>${message}</span>
@@ -253,7 +253,7 @@ function ensureSignUpModal() {
   const html = `
   <div id="signup-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden" data-modal-overlay>
     <div class="fixed inset-0 bg-black/80 backdrop-blur-sm -z-10 modal-overlay-bg"></div>
-    <div class="relative w-full max-w-lg rounded-3xl border border-border/70 bg-card/95 p-6 shadow-2xl backdrop-blur-xl max-h-[90vh] overflow-y-auto">
+    <div class="relative w-full max-w-lg rounded-3xl border border-border bg-card p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
       <button type="button" onclick="closeModal('signup-modal')" class="absolute right-4 top-4 rounded-sm opacity-70 hover:opacity-100 transition-opacity">
         <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </button>
