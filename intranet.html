@@ -32,8 +32,8 @@
         <!-- SITE HEADER -->
     <header class="sticky top-0 z-50 w-full site-header transition-colors">
       <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-        <a href="index.html" class="group flex items-center gap-3">
-          <img src="assets/bohemka_badge.png" alt="TJ Bohemians Praha — oddíl plavání" class="h-10 w-10 object-contain rounded-full shadow-xs transition-transform group-hover:scale-105">
+        <a href="index.html" class="flex items-center gap-3">
+          <img src="assets/bohemka_badge.png" alt="TJ Bohemians Praha — oddíl plavání" class="h-10 w-10 object-contain rounded-full shadow-xs">
           <div class="flex flex-col">
             <span class="font-display text-base font-extrabold tracking-tight text-foreground sm:text-lg leading-tight">
               TJ Bohemians Praha
@@ -231,7 +231,7 @@
                 <span>Nesprávné jméno nebo heslo.</span>
               </div>
 
-              <button type="submit" class="w-full rounded-xl bg-[var(--intranet-accent)] px-4 py-3 font-semibold text-[var(--intranet-accent-foreground)] shadow-lg transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_-6px_var(--intranet-accent)]">
+              <button type="submit" class="w-full rounded-xl bg-[var(--intranet-accent)] px-4 py-3 font-semibold text-[var(--intranet-accent-foreground)] shadow-sm transition-colors hover:brightness-105">
                 Přihlásit se
               </button>
             </form>
@@ -703,7 +703,7 @@
         ? "cursor-not-allowed bg-muted text-muted-foreground"
         : signed
           ? "bg-[var(--intranet-accent)]/15 text-[var(--intranet-accent)] hover:bg-[var(--intranet-accent)]/25"
-          : "bg-[var(--intranet-accent)] text-[var(--intranet-accent-foreground)] hover:scale-[1.03] hover:shadow-[0_0_30px_-8px_var(--intranet-accent)]";
+          : "bg-[var(--intranet-accent)] text-[var(--intranet-accent-foreground)] hover:brightness-105";
 
       const btnText = signed ? "Upravit přihlášku" : closed ? "Uzavřeno" : "Přihlásit se";
 

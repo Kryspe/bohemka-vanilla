@@ -127,23 +127,45 @@ a, button {
   background-color: rgba(11, 19, 16, 0.94);
 }
 
-/* Cards & containers */
+/* Cards & containers — stable, calm, no hover effects */
 .card-clean {
   background-color: var(--card);
   border: 1px solid var(--border);
   border-radius: 1rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: none !important;
+  transform: none !important;
 }
 
-.card-clean:hover {
-  border-color: rgba(0, 104, 55, 0.35);
-  box-shadow: 0 6px 20px -4px rgba(0, 0, 0, 0.08);
-}
-
+.card-clean:hover,
 .dark .card-clean:hover {
-  border-color: rgba(16, 185, 129, 0.4);
-  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.4);
+  border-color: var(--border) !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04) !important;
+  transform: none !important;
+}
+
+/* Remove hover animations, transforms and color flips on blocks, headings and text */
+.card-clean h1, .card-clean h2, .card-clean h3, .card-clean h4, .card-clean h5,
+.card-clean p, .card-clean span, .card-clean div, .card-clean img,
+h1, h2, h3, h4, h5, h6, p {
+  transition: none !important;
+  transform: none !important;
+}
+
+.group:hover .group-hover\:text-primary,
+.group-hover\:text-primary,
+.group-hover\:text-primary:hover {
+  color: inherit !important;
+}
+
+.group:hover .group-hover\:scale-105,
+.group-hover\:scale-105,
+[class*="group-hover:scale"],
+[class*="hover:scale"],
+[class*="hover:-translate"],
+[class*="group-hover:translate"] {
+  transform: none !important;
+  transition: none !important;
 }
 
 /* Modal animation */

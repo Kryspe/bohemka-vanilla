@@ -31,8 +31,8 @@
         <!-- SITE HEADER -->
     <header class="sticky top-0 z-50 w-full site-header transition-colors">
       <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-        <a href="index.html" class="group flex items-center gap-3">
-          <img src="assets/bohemka_badge.png" alt="TJ Bohemians Praha — oddíl plavání" class="h-10 w-10 object-contain rounded-full shadow-xs transition-transform group-hover:scale-105">
+        <a href="index.html" class="flex items-center gap-3">
+          <img src="assets/bohemka_badge.png" alt="TJ Bohemians Praha — oddíl plavání" class="h-10 w-10 object-contain rounded-full shadow-xs">
           <div class="flex flex-col">
             <span class="font-display text-base font-extrabold tracking-tight text-foreground sm:text-lg leading-tight">
               TJ Bohemians Praha
@@ -371,9 +371,9 @@
     const notesContainer = document.getElementById("parents-notes");
     if (notesContainer) {
       notesContainer.innerHTML = (window.KlokaniData.parentsNotes || []).map(note => `
-        <div class="flex items-start gap-3 rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[var(--shadow-elevated)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50">
+        <div class="card-clean p-5 flex items-start gap-3">
           <svg class="mt-0.5 h-5 w-5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-          <p class="leading-relaxed text-muted-foreground">${note}</p>
+          <p class="leading-relaxed text-muted-foreground text-sm">${note}</p>
         </div>
       `).join("");
     }
