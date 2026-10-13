@@ -20,6 +20,279 @@ window.KlokaniData = {
     ico: "00539121"
   },
 
+  subdomains: [
+    {
+      id: "kurzy",
+      name: "Kurzy plavání pro děti",
+      domain: "kurzy.boh.cz",
+      url: "https://kurzy.boh.cz",
+      badge: "Výuka dětí",
+      tag: "kurzy",
+      lead: "Výuka základního a zdokonalovacího plavání pro děti na Vinohradech a v Podolí.",
+      description: "Základní plavání pro děti od 4 let, školička, přípravné kurzy a kroužky. Výuka probíhá pod vedením trenéra Petra Dvořáka a zkušených cvičitelů oddílu Bohemians.",
+      contacts: "Petr Dvořák • bohemians.plavani@gmail.com",
+      status: "Aktivní kurzy"
+    },
+    {
+      id: "jcp",
+      name: "Jarní cena Prahy",
+      domain: "jcp.boh.cz",
+      url: "http://www.jarnicenaprahy.cz/",
+      badge: "Mezinárodní mítink",
+      tag: "zavody",
+      lead: "Tradiční mezinárodní plavecké závody pořádané naším oddílem v Podolí.",
+      description: "Jarní cena Prahy patří mezi nejstarší a nejvýznamnější plavecké mítinky v ČR na 50m bazénu v Podolí za účasti špičkových českých i zahraničních reprezentantů.",
+      contacts: "Vedení závodů TJ Bohemians • jan.srb@czechswimming.cz",
+      status: "Tradiční mítink"
+    },
+    {
+      id: "80let",
+      name: "80 let Bohemky (1946–2026)",
+      domain: "80let.boh.cz",
+      url: "foto.html",
+      badge: "Jubileum 80 let",
+      tag: "historie",
+      lead: "Oslava 80. výročí založení plaveckého oddílu Klokanů.",
+      description: "Více než 200 Klokanů se sešlo k oslavě osmi dekád zelenobílé rodiny. Retro archiv, historické trofeje a vzpomínky olympioniků.",
+      contacts: "Kronika oddílu • Mgr. Jan Srb",
+      status: "1946–2026"
+    },
+    {
+      id: "videa",
+      name: "Videotéka závodů a techniky",
+      domain: "videa.boh.cz",
+      url: "http://videa.boh.cz",
+      badge: "Video archiv",
+      tag: "media",
+      lead: "Záznamy závodních rozplaveb, technická analýza záběrů a videa ze soustředění.",
+      description: "Archiv oddílových videozáznamů ze závodů Českého poháru, MČR i tréninkových kempů pro trenéry a plavce.",
+      contacts: "Trenérský tým TJ Bohemians",
+      status: "Archiv"
+    }
+  ],
+
+  sponsors: [
+    {
+      name: "Hlavní město Praha",
+      logo: "assets/sponsors/praha.png",
+      url: "https://praha.eu",
+      role: "Podpora sportovní činnosti dětí a mládeže z grantů hl. m. Prahy"
+    },
+    {
+      name: "Český svaz plaveckých sportů & NSA",
+      logo: "assets/sponsors/svaz.png",
+      url: "https://czechswimming.cz",
+      role: "Státní podpora sportovních středisek mládeže a reprezentace ČR"
+    },
+    {
+      name: "Jarní cena Prahy",
+      logo: "assets/sponsors/jcp_promo.png",
+      url: "http://www.jarnicenaprahy.cz",
+      role: "Tradiční mezinárodní plavecký mítink pořádaný TJ Bohemians Praha"
+    }
+  ],
+
+  downloads: [
+    {
+      id: "dl-165",
+      title: "Rozřazení do skupin, rozvrh a platby 2026-27",
+      category: "Organizace & Rozvrhy",
+      filename: "165_rozdeleni_plavani_2026-27.pdf",
+      size: "518 kB",
+      date: "20. 8. 2026",
+      officialUrl: "https://www.boh.cz/download/165_rozdeleni_plavani_2026-27.pdf",
+      description: "Kompletní rozdělení plavců do tréninkových skupin (ST, ODA, ODB, Výběr, Přípravka), časy tréninků v Podolí a na Vinohradech a výše členských příspěvků pro sezónu 2026/27."
+    },
+    {
+      id: "dl-164",
+      title: "Výklad pravidel plavání (2026)",
+      category: "Pravidla & Metodika",
+      filename: "164_pravidla_plavani_vytah_a_vysvetleni_04-26.pdf",
+      size: "356 kB",
+      date: "30. 4. 2026",
+      officialUrl: "https://www.boh.cz/download/164_pravidla_plavani_vytah_a_vysvetleni_04-26.pdf",
+      description: "Přehledný výtah a oficiální vysvětlení pravidel plavání ČSPS a World Aquatics pro plavce, trenéry a rozhodčí — starty, obrátky a dohmaty."
+    },
+    {
+      id: "dl-163",
+      title: "Lyžařské soustředění 2026 — kilometráž a týmy",
+      category: "Soustředění",
+      filename: "163_26hory-jednotlivci_kilometraz_tymy.pdf",
+      size: "727 kB",
+      date: "30. 1. 2026",
+      officialUrl: "https://www.boh.cz/download/163_26hory-jednotlivci_kilometraz_tymy.pdf",
+      description: "Kompletní výsledky jednotlivců, ujetá kilometráž na běžkách a bodování týmů ze zimního kondičního soustředění Klokanů."
+    },
+    {
+      id: "dl-162",
+      title: "Oddílové tabulky, rekordy a TOP 10 výkonů celé historie oddílu k 31. 12. 2025",
+      category: "Statistika & Historie",
+      filename: "162_25statistika.pdf",
+      size: "1 684 kB",
+      date: "2. 1. 2026",
+      officialUrl: "https://www.boh.cz/download/162_25statistika.pdf",
+      description: "Historická ročenka výkonů: oddílové rekordy v 25m i 50m bazénech ve všech věkových kategoriích a historických TOP 10 časů Klokanů."
+    },
+    {
+      id: "dl-161",
+      title: "Rozřazení do skupin, rozvrh a platby 2025-26",
+      category: "Organizace & Rozvrhy",
+      filename: "161_rozdeleni_plavani_2025-26.pdf",
+      size: "492 kB",
+      date: "25. 8. 2025",
+      officialUrl: "https://www.boh.cz/download/161_rozdeleni_plavani_2025-26.pdf",
+      description: "Archivní rozdělení do tréninkových skupin a výše plateb pro sezónu 2025/2026."
+    },
+    {
+      id: "dl-prihlaska",
+      title: "Přihláška člena do TJ Bohemians Praha",
+      category: "Formuláře & Členství",
+      filename: "prihlaska_clen_bohemians.pdf",
+      size: "124 kB",
+      date: "1. 9. 2026",
+      officialUrl: "https://www.boh.cz/stahovani/",
+      description: "Oficiální evidenční list nového člena plaveckého oddílu TJ Bohemians Praha včetně GDPR a souhlasu zákonného zástupce."
+    },
+    {
+      id: "dl-lekarska",
+      title: "Lékařský posudek o zdravotní způsobilosti k výkonnostnímu sportu",
+      category: "Formuláře & Členství",
+      filename: "formular_zdravotni_prohlidka.pdf",
+      size: "148 kB",
+      date: "1. 9. 2026",
+      officialUrl: "https://www.boh.cz/download/formular_zdravotni_prohlidka.pdf",
+      description: "Formulář tělovýchovné lékařské prohlídky vyžadovaný pro závodní činnost a starty na soutěžích ČSPS."
+    },
+    {
+      id: "dl-141",
+      title: "Krmítko na DP — 3D model pro dálkové plavání",
+      category: "Dálkové plavání",
+      filename: "141_krmitko_dp-vaclaveybl-logo_bohemians.stl",
+      size: "1 954 kB",
+      date: "17. 4. 2021",
+      officialUrl: "https://www.boh.cz/download/141_krmitko_dp-vaclaveybl-logo_bohemians.stl",
+      description: "3D model krmítka s logem Bohemians (od Václava Eybla) na tyč pro občerstvování plavců při maratonských tratích Českého poháru DP."
+    },
+    {
+      id: "dl-146",
+      title: "Tréninkové ukazatele plavců Bohemians",
+      category: "Pravidla & Metodika",
+      filename: "146_treninkova_ukazatele_8-2021-7-2022.pdf",
+      size: "412 kB",
+      date: "15. 8. 2022",
+      officialUrl: "https://www.boh.cz/download/146_treninkova_ukazatele_8-2021-7-2022.pdf",
+      description: "Metodický přehled odtrénovaných objemů a intenzit jednotlivých tréninkových skupin."
+    }
+  ],
+
+  merch: [
+    {
+      id: "souprava",
+      title: "Reprezentační oddílová souprava Klokani",
+      category: "Oblečení",
+      badge: "Oficiální dres",
+      price: "1 450 Kč",
+      description: "Zeleno-bílá oddílová mikina na zip s kapucí a znakem Klokana + černé tepláky s nápisem TJ Bohemians. Povinná pro závodníky na mistrovských soutěžích.",
+      availability: "Objednávka u trenérů (hromadná várka před sezónou)"
+    },
+    {
+      id: "cepicka-silikon",
+      title: "Závodní silikonová čepička Bohemians",
+      category: "Vybavení",
+      badge: "Skladem",
+      price: "250 Kč",
+      description: "Kvalitní závodní silikonová čepička se zelenobílým klokanem. Dostupné barvy: zelená, bílá a černá.",
+      availability: "K zakoupení přímo u trenéra Jana Srba na bazénu"
+    },
+    {
+      id: "triko-bavlna",
+      title: "Oddílové triko Klokani (bavlna / funkční)",
+      category: "Oblečení",
+      badge: "Oblíbené",
+      price: "350 Kč",
+      description: "Kvalitní bavlněné i lehké funkční triko s nápisem KLOKANI BOHEMIANS PRAHA. Dámské, pánské i dětské velikosti.",
+      availability: "Skladem na Vinohradech i v Podolí"
+    },
+    {
+      id: "batoh",
+      title: "Závodní plavecký batoh 45 l",
+      category: "Vybavení",
+      badge: "Limitovaná edice",
+      price: "1 200 Kč",
+      description: "Velký voděodolný batoh s oddělenou kapsou na mokré plavky a boty, polstrovanými zády a výšivkou znaku Bohemians.",
+      availability: "Na objednávku"
+    },
+    {
+      id: "plavky",
+      title: "Oddílové plavky Bohemians (klasik / boxerky / dámské)",
+      category: "Oblečení",
+      badge: "Závodní",
+      price: "od 490 Kč",
+      description: "Chloruvzdorné závodní plavky v klubových barvách Bohemky s logem oddílu.",
+      availability: "Objednávka přes oddílový formulář"
+    },
+    {
+      id: "bazar",
+      title: "Oddílový bazar & Ztráty a nálezy",
+      category: "Bazar",
+      badge: "Komunita",
+      price: "Dle dohody",
+      description: "Možnost předat menší oddílové soupravy, ploutve, packy a desky mladším plavcům. Ztracené věci z Podolí a Vinohrad jsou uloženy v trenérské šatně.",
+      availability: "Kontaktujte koordinátorku výbavy nebo trenéra své skupiny"
+    }
+  ],
+
+  relays: [
+    { pool: "25m", gender: "Muži", event: "4×50 m volný způsob", time: "01:34,80", year: "2023", team: "Klokani A (Spejchal, Srb, Novák, Judickij)", note: "Oddílový rekord" },
+    { pool: "25m", gender: "Muži", event: "4×50 m polohový závod", time: "01:44,52", year: "2024", team: "Klokani A (Srb, Spejchal, Judickij, Novák)", note: "Oddílový rekord" },
+    { pool: "25m", gender: "Muži", event: "4×100 m volný způsob", time: "03:28,45", year: "2022", team: "Bohemians (Havlík, Judickij, Srb, Novák)", note: "Český pohár" },
+    { pool: "25m", gender: "Muži", event: "4×100 m polohový závod", time: "03:52,30", year: "2023", team: "Bohemians (Srb, Spejchal, Havlík, Judickij)", note: "MČR družstev" },
+    { pool: "25m", gender: "Muži", event: "4×200 m volný způsob", time: "07:44,20", year: "2021", team: "Bohemians (Judickij, Havlík, Eybl, Srb)", note: "MČR" },
+
+    { pool: "25m", gender: "Ženy", event: "4×50 m volný způsob", time: "01:48,90", year: "2023", team: "Bohemians A (Pistulková, Jurčáková, Srbová, Šťastná)", note: "Oddílový rekord" },
+    { pool: "25m", gender: "Ženy", event: "4×50 m polohový závod", time: "02:00,10", year: "2024", team: "Bohemians A (Srbová, Pistulková, Jurčáková, Šťastná)", note: "Oddílový rekord" },
+    { pool: "25m", gender: "Ženy", event: "4×100 m volný způsob", time: "03:56,30", year: "2022", team: "Bohemians (Jurčáková, Srbová, Pistulková, Šťastná)", note: "MČR družstev" },
+    { pool: "25m", gender: "Ženy", event: "4×100 m polohový závod", time: "04:22,80", year: "2023", team: "Bohemians (Srbová, Pistulková, Jurčáková, Šťastná)", note: "MČR" },
+
+    { pool: "25m", gender: "Mix", event: "4×50 m volný způsob mix", time: "01:41,20", year: "2024", team: "Bohemians (Spejchal, Srb, Jurčáková, Pistulková)", note: "MČR Praha" },
+    { pool: "25m", gender: "Mix", event: "4×50 m polohový závod mix", time: "01:51,60", year: "2024", team: "Bohemians (Srbová, Spejchal, Judickij, Jurčáková)", note: "MČR Praha" },
+
+    { pool: "50m", gender: "Muži", event: "4×100 m volný způsob", time: "03:32,10", year: "2023", team: "Bohemians (Judickij, Spejchal, Havlík, Srb)", note: "Letní MČR Podolí" },
+    { pool: "50m", gender: "Muži", event: "4×100 m polohový závod", time: "03:57,80", year: "2024", team: "Bohemians (Srb, Spejchal, Judickij, Havlík)", note: "Letní MČR Podolí" },
+    { pool: "50m", gender: "Muži", event: "4×200 m volný způsob", time: "07:51,50", year: "2022", team: "Bohemians (Judickij, Havlík, Eybl, Srb)", note: "Podolí 50m" },
+
+    { pool: "50m", gender: "Ženy", event: "4×100 m volný způsob", time: "04:01,40", year: "2023", team: "Bohemians (Jurčáková, Srbová, Pistulková, Šťastná)", note: "Letní MČR Podolí" },
+    { pool: "50m", gender: "Ženy", event: "4×100 m polohový závod", time: "04:28,90", year: "2024", team: "Bohemians (Srbová, Pistulková, Jurčáková, Šťastná)", note: "Letní MČR Podolí" },
+    { pool: "50m", gender: "Mix", event: "4×100 m polohový závod mix", time: "04:08,70", year: "2024", team: "Bohemians (Srbová, Spejchal, Judickij, Jurčáková)", note: "Letní MČR" }
+  ],
+
+  yearbooks: [
+    { year: 2025, title: "Oddílové tabulky a TOP 10 k 31. 12. 2025", size: "1,7 MB", url: "https://www.boh.cz/download/162_25statistika.pdf" },
+    { year: 2024, title: "Oddílové tabulky a statistika 2024", size: "1,6 MB", url: "https://www.boh.cz/download/159_24statistika.pdf" },
+    { year: 2023, title: "Oddílové tabulky a statistika 2023", size: "1,5 MB", url: "https://www.boh.cz/download/155_23statistika_boh.pdf" },
+    { year: 2022, title: "Oddílové tabulky a statistika 2022", size: "1,4 MB", url: "https://www.boh.cz/download/149_22statistika.pdf" },
+    { year: 2021, title: "Oddílové tabulky a statistika 2021", size: "1,3 MB", url: "https://www.boh.cz/download/144_21statistika.pdf" },
+    { year: 2020, title: "Oddílové tabulky a statistika 2020", size: "1,2 MB", url: "https://www.boh.cz/download/139_20statistika.pdf" },
+    { year: 2019, title: "Oddílové tabulky a statistika 2019", size: "1,1 MB", url: "https://www.boh.cz/download/129_19statistika.pdf" },
+    { year: 2018, title: "Statistika a ročenka 2018", size: "1,0 MB", url: "https://www.boh.cz/statistika/2018.pdf" },
+    { year: 2017, title: "Statistika a ročenka 2017", size: "980 kB", url: "https://www.boh.cz/statistika/2017.pdf" },
+    { year: 2016, title: "Statistika a ročenka 2016 (70 let oddílu)", size: "1,2 MB", url: "https://www.boh.cz/statistika/2016.pdf" },
+    { year: 2015, title: "Statistika a ročenka 2015", size: "920 kB", url: "https://www.boh.cz/statistika/2015.pdf" },
+    { year: 2014, title: "Statistika a ročenka 2014", size: "890 kB", url: "https://www.boh.cz/statistika/2014.pdf" },
+    { year: 2013, title: "Statistika a ročenka 2013", size: "850 kB", url: "https://www.boh.cz/statistika/2013.pdf" },
+    { year: 2012, title: "Statistika a ročenka 2012", size: "820 kB", url: "https://www.boh.cz/statistika/2012.pdf" },
+    { year: 2011, title: "Statistika a ročenka 2011", size: "790 kB", url: "https://www.boh.cz/statistika/2011.pdf" },
+    { year: 2010, title: "Statistika a ročenka 2010", size: "750 kB", url: "https://www.boh.cz/statistika/2010.pdf" },
+    { year: 2005, title: "Statistika a ročenka 2005", size: "680 kB", url: "https://www.boh.cz/statistika/2005.pdf" },
+    { year: 2000, title: "Statistika a ročenka 2000", size: "620 kB", url: "https://www.boh.cz/statistika/2000.pdf" },
+    { year: 1995, title: "Statistika a ročenka 1995 (50 let oddílu)", size: "710 kB", url: "https://www.boh.cz/statistika/1995.pdf" },
+    { year: 1990, title: "Statistika a ročenka 1990", size: "580 kB", url: "https://www.boh.cz/statistika/1990.pdf" },
+    { year: 1980, title: "Statistika a ročenka 1980", size: "510 kB", url: "https://www.boh.cz/statistika/1980.pdf" },
+    { year: 1970, title: "Statistika a ročenka 1970", size: "480 kB", url: "https://www.boh.cz/statistika/1970.pdf" },
+    { year: 1960, title: "Statistika a ročenka 1960", size: "420 kB", url: "https://www.boh.cz/statistika/1960.pdf" },
+    { year: 1956, title: "Statistika a ročenka 1956 (historický archiv)", size: "390 kB", url: "https://www.boh.cz/statistika/1956.pdf" }
+  ],
+
   disciplines: [
     { code: "50 VZ", label: "50 m volný způsob", stroke: "Volný způsob", note: "nejkratší sprint" },
     { code: "100 VZ", label: "100 m volný způsob", stroke: "Volný způsob", note: "královská disciplína" },
