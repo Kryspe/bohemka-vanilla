@@ -197,7 +197,22 @@ window.BohStore = (function () {
     const items = getAdminItems();
     item.id = item.id || "item-" + Date.now();
     item.createdAt = item.createdAt || new Date().toISOString();
-    items.unshift(item);
+    
+    // Remove from deleted IDs if re-saved
+    const deleted = getDeletedIds();
+    const strId = String(item.id);
+    const origId = item.fields && item.fields.originalId ? String(item.fields.originalId) : null;
+    if (deleted.includes(strId) || (origId && deleted.includes(origId))) {
+      const cleanDeleted = deleted.filter(d => d !== strId && d !== origId);
+      localStorage.setItem(DELETED_IDS_KEY, JSON.stringify(cleanDeleted));
+    }
+
+    const existingIdx = items.findIndex(it => it.id === item.id || (origId && it.fields && it.fields.originalId === origId));
+    if (existingIdx > -1) {
+      items[existingIdx] = { ...items[existingIdx], ...item, updatedAt: new Date().toISOString() };
+    } else {
+      items.unshift(item);
+    }
     localStorage.setItem(ADMIN_ITEMS_KEY, JSON.stringify(items));
 
     if (hasPhpBackend) {
@@ -207,6 +222,46 @@ window.BohStore = (function () {
         body: JSON.stringify(item)
       }).catch(console.error);
     }
+
+    // Supabase background synchronization
+    if (typeof window !== "undefined" && window.KlokaniSupabase && window.KlokaniSupabase.isConfigured()) {
+      try {
+        if (item.kind === "aktualita" || item.kind === "aktuality") {
+          window.KlokaniSupabase.saveNews({
+            id: item.id,
+            title: item.title,
+            category: item.fields?.kategorie || "Oddíl",
+            date: item.fields?.datum || new Date().toISOString().slice(0, 10),
+            author: item.fields?.autor || "Jan Srb (hlavní trenér)",
+            lead: item.fields?.perex || "",
+            content: item.fields?.text || "",
+            image_url: item.fields?.image || item.fields?.url || ""
+          });
+        } else if (item.kind === "zavod" || item.kind === "zavody" || item.kind === "soustredeni") {
+          window.KlokaniSupabase.saveEvent({
+            id: item.id,
+            title: item.title,
+            location: item.fields?.misto || "Praha",
+            date_from: item.fields?.datum || new Date().toISOString().slice(0, 10),
+            date_to: item.fields?.datum || new Date().toISOString().slice(0, 10),
+            signup_deadline: item.fields?.deadline || new Date().toISOString().slice(0, 10),
+            event_type: item.fields?.typ || (item.kind === "soustredeni" ? "Soustředění" : "Pohár"),
+            note: item.fields?.poznamka || ""
+          });
+        } else if (item.kind === "informace" || item.kind === "vzkaz" || item.kind === "pro-rodice") {
+          window.KlokaniSupabase.saveMessage({
+            id: item.id,
+            title: item.title,
+            message: item.fields?.text || item.fields?.popis || "",
+            type: item.fields?.typ || "info",
+            target_group: "Všichni"
+          });
+        }
+      } catch (err) {
+        console.warn("[Bohemka Store] Supabase sync notice:", err);
+      }
+    }
+
     return items;
   }
 
@@ -263,16 +318,23 @@ window.BohStore = (function () {
     const approved = getAdminItems().filter(i => i.status === "approved" && (i.kind === "aktualita" || i.kind === "aktuality"));
     const managedNews = approved.map(i => ({
       id: i.id,
+      originalId: (i.fields && i.fields.originalId) || i.id,
       title: i.title,
-      date: (i.fields && (i.fields.datum || i.fields.date)) || i.createdAt.slice(0, 10),
+      date: (i.fields && (i.fields.datum || i.fields.date)) || (i.createdAt ? i.createdAt.slice(0, 10) : new Date().toISOString().slice(0, 10)),
       author: (i.fields && (i.fields.autor || i.fields.author)) || "TJ Bohemians Praha",
       category: (i.fields && (i.fields.kategorie || i.fields.category)) || "Oddíl",
       excerpt: (i.fields && (i.fields.perex || i.fields.excerpt || i.fields.text)) || "",
-      body: (i.fields && i.fields.text) ? [i.fields.text] : [],
+      body: (i.fields && i.fields.text) ? (Array.isArray(i.fields.text) ? i.fields.text : [i.fields.text]) : [],
       image: (i.fields && (i.fields.image || i.fields.url)) || "assets/aktuality/2240.jpg"
     }));
     const deleted = getDeletedIds();
-    const all = [...managedNews, ...defaultNews].filter(n => !deleted.includes(String(n.id)));
+    const overridden = new Set();
+    managedNews.forEach(m => {
+      overridden.add(String(m.id));
+      if (m.originalId) overridden.add(String(m.originalId));
+    });
+    const filteredDefault = defaultNews.filter(n => !overridden.has(String(n.id)) && !deleted.includes(String(n.id)));
+    const all = [...managedNews, ...filteredDefault].filter(n => !deleted.includes(String(n.id)));
     return all.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
   }
 
@@ -292,7 +354,9 @@ window.BohStore = (function () {
       }
       return {
         id: i.id,
+        originalId: (i.fields && i.fields.originalId) || i.id,
         name: i.title,
+        title: i.title,
         place: (i.fields && (i.fields.misto || i.fields.place)) || "Praha",
         date: (i.fields && (i.fields.datum || i.fields.date)) || "2026-10-15",
         deadline: (i.fields && (i.fields.deadline || i.fields.datum || i.fields.date)) || "2026-10-10",
@@ -305,7 +369,13 @@ window.BohStore = (function () {
       };
     });
     const deleted = getDeletedIds();
-    const all = [...managedEvents, ...defaultEvents].filter(e => !deleted.includes(String(e.id)));
+    const overridden = new Set();
+    managedEvents.forEach(m => {
+      overridden.add(String(m.id));
+      if (m.originalId) overridden.add(String(m.originalId));
+    });
+    const filteredDefault = defaultEvents.filter(e => !overridden.has(String(e.id)) && !deleted.includes(String(e.id)));
+    const all = [...managedEvents, ...filteredDefault].filter(e => !deleted.includes(String(e.id)));
     return all.sort((a, b) => new Date(a.date || 0) - new Date(b.date || 0));
   }
 
@@ -315,25 +385,63 @@ window.BohStore = (function () {
     const approved = getAdminItems().filter(i => i.status === "approved" && (i.kind === "dokument" || i.kind === "dokumenty" || i.kind === "ke-stazeni"));
     const managedDownloads = approved.map(i => ({
       id: i.id,
+      originalId: (i.fields && i.fields.originalId) || i.id,
       title: i.title,
       category: (i.fields && i.fields.kategorie) || "Rozvrhy a dráhy",
       description: (i.fields && (i.fields.popis || i.fields.text)) || "",
       fileName: (i.fields && i.fields.soubor) || `${i.title.replace(/\s+/g, "_")}.pdf`,
       fileSize: (i.fields && i.fields.velikost) || "250 KB",
-      updatedAt: (i.fields && i.fields.datum) || i.createdAt.slice(0, 10),
+      updatedAt: (i.fields && i.fields.datum) || (i.createdAt ? i.createdAt.slice(0, 10) : new Date().toISOString().slice(0, 10)),
       fileType: "pdf",
       important: Boolean(i.fields && i.fields.dulezite)
     }));
     const deleted = getDeletedIds();
-    return [...managedDownloads, ...defaultDownloads].filter(d => !deleted.includes(String(d.id)));
+    const overridden = new Set();
+    managedDownloads.forEach(m => {
+      overridden.add(String(m.id));
+      if (m.originalId) overridden.add(String(m.originalId));
+    });
+    const filteredDefault = defaultDownloads.filter(d => !overridden.has(String(d.id)) && !deleted.includes(String(d.id)));
+    return [...managedDownloads, ...filteredDefault].filter(d => !deleted.includes(String(d.id)));
   }
 
   function getParentsNotes() {
     const dataObj = window.BohData || window.KlokaniData;
     const defaultNotes = (dataObj && dataObj.parentsNotes) ? [...dataObj.parentsNotes] : [];
-    const approved = getAdminItems().filter(i => i.status === "approved" && (i.kind === "informace" || i.kind === "vzkaz" || i.kind === "pro-rodice"));
-    const managedNotes = approved.map(i => (i.fields && (i.fields.text || i.fields.popis)) || i.title);
-    return [...managedNotes, ...defaultNotes];
+    const approved = getAdminItems().filter(i => i.status === "approved" && (i.kind === "informace" || i.kind === "vzkaz" || i.kind === "pro-rodice" || i.kind === "aktivita"));
+    const managedNotes = approved.map(i => {
+      const txt = (i.fields && (i.fields.text || i.fields.popis)) || i.title;
+      return {
+        id: i.id,
+        originalId: (i.fields && i.fields.originalId) || i.id,
+        title: i.title,
+        text: txt,
+        type: (i.fields && (i.fields.typ || i.fields.type)) || "info",
+        date: (i.fields && (i.fields.datum || i.fields.date)) || (i.createdAt ? i.createdAt.slice(0, 10) : new Date().toISOString().slice(0, 10)),
+        toString: () => txt
+      };
+    });
+    const deleted = getDeletedIds();
+    const overridden = new Set();
+    managedNotes.forEach(m => {
+      overridden.add(String(m.id));
+      if (m.originalId) overridden.add(String(m.originalId));
+    });
+    const formattedDefault = defaultNotes.map((n, idx) => {
+      const id = `def-note-${idx}`;
+      const txt = typeof n === "string" ? n : (n.text || n.title || "");
+      const title = typeof n === "string" ? n.slice(0, 50) : (n.title || txt.slice(0, 50));
+      return {
+        id,
+        originalId: id,
+        title,
+        text: txt,
+        type: (typeof n === "object" && n.type) ? n.type : "info",
+        date: (typeof n === "object" && n.date) ? n.date : "Aktuální",
+        toString: () => txt
+      };
+    }).filter(d => !overridden.has(String(d.id)) && !overridden.has(String(d.text)));
+    return [...managedNotes, ...formattedDefault].filter(n => !deleted.includes(String(n.id)) && !deleted.includes(String(n.text)));
   }
 
   function getPhotos() {
@@ -349,14 +457,21 @@ window.BohStore = (function () {
     const approved = getAdminItems().filter(i => i.status === "approved" && (i.kind === "foto" || i.kind === "fotogalerie"));
     const managedPhotos = approved.map(i => ({
       id: i.id,
+      originalId: (i.fields && i.fields.originalId) || i.id,
       title: i.title,
       url: (i.fields && (i.fields.url || i.fields.image)) || "assets/aktuality/2240.jpg",
       caption: (i.fields && (i.fields.caption || i.fields.album || i.fields.popis || i.fields.text)) || "Fotografie",
       album: (i.fields && i.fields.album) || "Fotogalerie",
-      date: (i.fields && i.fields.datum) || i.createdAt.slice(0, 10)
+      date: (i.fields && i.fields.datum) || (i.createdAt ? i.createdAt.slice(0, 10) : new Date().toISOString().slice(0, 10))
     }));
     const deleted = getDeletedIds();
-    return [...managedPhotos, ...defaultPhotos].filter(p => !deleted.includes(String(p.id)));
+    const overridden = new Set();
+    managedPhotos.forEach(m => {
+      overridden.add(String(m.id));
+      if (m.originalId) overridden.add(String(m.originalId));
+    });
+    const filteredDefault = defaultPhotos.filter(p => !overridden.has(String(p.id)) && !deleted.includes(String(p.id)));
+    return [...managedPhotos, ...filteredDefault].filter(p => !deleted.includes(String(p.id)));
   }
 
   function getSwimmers() {
@@ -687,11 +802,9 @@ window.BohStore = (function () {
       sessionStorage.setItem(AUTH_KEY, "1");
       sessionStorage.setItem(USER_KEY, username || "admin");
       localStorage.setItem(USER_KEY, username || "admin");
-      if (!sessionStorage.getItem(ROLE_KEY) && !localStorage.getItem(ROLE_KEY)) {
-        const role = (username && (username.toLowerCase() === "admin" || username.toLowerCase().includes("trener") || username.toLowerCase().includes("srb"))) ? "trener" : "plavec";
-        sessionStorage.setItem(ROLE_KEY, role);
-        localStorage.setItem(ROLE_KEY, role);
-      }
+      const role = (username && (username.toLowerCase() === "admin" || username.toLowerCase().includes("trener") || username.toLowerCase().includes("srb"))) ? "trener" : "plavec";
+      sessionStorage.setItem(ROLE_KEY, role);
+      localStorage.setItem(ROLE_KEY, role);
     } catch {}
   }
 
@@ -699,6 +812,10 @@ window.BohStore = (function () {
     try {
       sessionStorage.removeItem(AUTH_KEY);
       localStorage.removeItem(AUTH_KEY);
+      sessionStorage.removeItem(ROLE_KEY);
+      localStorage.removeItem(ROLE_KEY);
+      sessionStorage.removeItem(USER_KEY);
+      localStorage.removeItem(USER_KEY);
     } catch {}
   }
 
@@ -763,13 +880,36 @@ window.BohStore = (function () {
 
   function addNews(item) {
     const adminItem = {
-      id: "news-" + Date.now(),
+      id: item.id || ("news-" + Date.now()),
       kind: "aktualita",
       status: "approved",
       source: "trener-intranet",
       createdAt: new Date().toISOString(),
       title: item.title,
       fields: {
+        datum: item.date || new Date().toISOString().slice(0, 10),
+        autor: item.author || "Jan Srb (hlavní trenér)",
+        kategorie: item.category || "Oddíl",
+        perex: item.excerpt || (item.body ? (Array.isArray(item.body) ? item.body[0] : String(item.body).slice(0, 200)) : ""),
+        text: Array.isArray(item.body) ? item.body.join("\n\n") : (item.body || ""),
+        image: item.image || ""
+      }
+    };
+    saveAdminItem(adminItem);
+    notifyDataUpdated("aktualita", adminItem);
+    return getNews();
+  }
+
+  function updateNews(id, item) {
+    const adminItem = {
+      id: id,
+      kind: "aktualita",
+      status: "approved",
+      source: "trener-intranet",
+      createdAt: item.createdAt || new Date().toISOString(),
+      title: item.title,
+      fields: {
+        originalId: item.originalId || id,
         datum: item.date || new Date().toISOString().slice(0, 10),
         autor: item.author || "Jan Srb (hlavní trenér)",
         kategorie: item.category || "Oddíl",
@@ -793,13 +933,40 @@ window.BohStore = (function () {
   function addEvent(item) {
     const isCamp = (item.kind === "soustredeni" || item.druh === "soustredeni");
     const adminItem = {
-      id: "event-" + Date.now(),
+      id: item.id || ("event-" + Date.now()),
       kind: isCamp ? "soustredeni" : "zavod",
       status: "approved",
       source: "trener-intranet",
       createdAt: new Date().toISOString(),
       title: item.name || item.title,
       fields: {
+        datum: item.date || new Date().toISOString().slice(0, 10),
+        deadline: item.deadline || item.date || new Date().toISOString().slice(0, 10),
+        misto: item.place || "Podolí 50m, Praha",
+        typ: item.type || (isCamp ? "Soustředění" : "Oddílový závod"),
+        druh: isCamp ? "soustredeni" : "zavod",
+        poznamka: item.note || "",
+        skupiny: Array.isArray(item.groups) ? item.groups : ["ST", "ODA", "ODB"],
+        vek: item.ageCategories || item.age || "Všechny ročníky",
+        disciplines: isCamp ? [] : (Array.isArray(item.disciplines) && item.disciplines.length > 0 ? item.disciplines : ["50 VZ", "100 VZ", "200 VZ", "100 Z", "100 P", "100 M", "200 PZ"])
+      }
+    };
+    saveAdminItem(adminItem);
+    notifyDataUpdated("zavod", adminItem);
+    return getEvents();
+  }
+
+  function updateEvent(id, item) {
+    const isCamp = (item.kind === "soustredeni" || item.druh === "soustredeni");
+    const adminItem = {
+      id: id,
+      kind: isCamp ? "soustredeni" : "zavod",
+      status: "approved",
+      source: "trener-intranet",
+      createdAt: item.createdAt || new Date().toISOString(),
+      title: item.name || item.title,
+      fields: {
+        originalId: item.originalId || id,
         datum: item.date || new Date().toISOString().slice(0, 10),
         deadline: item.deadline || item.date || new Date().toISOString().slice(0, 10),
         misto: item.place || "Podolí 50m, Praha",
@@ -825,7 +992,7 @@ window.BohStore = (function () {
 
   function addAlert(item) {
     const adminItem = {
-      id: "alert-" + Date.now(),
+      id: item.id || ("alert-" + Date.now()),
       kind: "informace",
       status: "approved",
       source: "trener-intranet",
@@ -850,6 +1017,28 @@ window.BohStore = (function () {
     return getAlerts();
   }
 
+  function updateAlert(id, item) {
+    const adminItem = {
+      id: id,
+      kind: "informace",
+      status: "approved",
+      source: "trener-intranet",
+      createdAt: item.createdAt || new Date().toISOString(),
+      title: item.title,
+      fields: {
+        originalId: item.originalId || id,
+        text: item.text || "",
+        popis: item.text || "",
+        typ: item.type || "upozorneni",
+        type: item.type || "upozorneni",
+        datum: item.date || new Date().toISOString().slice(0, 10)
+      }
+    };
+    saveAdminItem(adminItem);
+    notifyDataUpdated("informace", adminItem);
+    return getAlerts();
+  }
+
   function deleteAlert(id) {
     removeAdminItem(id);
     markIdDeleted(id);
@@ -859,13 +1048,34 @@ window.BohStore = (function () {
 
   function addPhoto(item) {
     const adminItem = {
-      id: "photo-" + Date.now(),
+      id: item.id || ("photo-" + Date.now()),
       kind: "foto",
       status: "approved",
       source: "trener-intranet",
       createdAt: new Date().toISOString(),
       title: item.title,
       fields: {
+        url: item.url || "assets/aktuality/2240.jpg",
+        caption: item.caption || item.title,
+        album: item.album || item.title,
+        datum: item.date || new Date().toISOString().slice(0, 10)
+      }
+    };
+    saveAdminItem(adminItem);
+    notifyDataUpdated("foto", adminItem);
+    return getPhotos();
+  }
+
+  function updatePhoto(id, item) {
+    const adminItem = {
+      id: id,
+      kind: "foto",
+      status: "approved",
+      source: "trener-intranet",
+      createdAt: item.createdAt || new Date().toISOString(),
+      title: item.title,
+      fields: {
+        originalId: item.originalId || id,
         url: item.url || "assets/aktuality/2240.jpg",
         caption: item.caption || item.title,
         album: item.album || item.title,
@@ -886,13 +1096,36 @@ window.BohStore = (function () {
 
   function addDownload(item) {
     const adminItem = {
-      id: "doc-" + Date.now(),
+      id: item.id || ("doc-" + Date.now()),
       kind: "dokument",
       status: "approved",
       source: "trener-intranet",
       createdAt: new Date().toISOString(),
       title: item.title,
       fields: {
+        kategorie: item.category || "Rozvrhy a dráhy",
+        popis: item.description || "",
+        soubor: item.fileName || `${item.title.replace(/\s+/g, "_")}.pdf`,
+        velikost: item.fileSize || "250 KB",
+        datum: item.updatedAt || new Date().toISOString().slice(0, 10),
+        dulezite: Boolean(item.important)
+      }
+    };
+    saveAdminItem(adminItem);
+    notifyDataUpdated("dokument", adminItem);
+    return getDownloads();
+  }
+
+  function updateDownload(id, item) {
+    const adminItem = {
+      id: id,
+      kind: "dokument",
+      status: "approved",
+      source: "trener-intranet",
+      createdAt: item.createdAt || new Date().toISOString(),
+      title: item.title,
+      fields: {
+        originalId: item.originalId || id,
         kategorie: item.category || "Rozvrhy a dráhy",
         popis: item.description || "",
         soubor: item.fileName || `${item.title.replace(/\s+/g, "_")}.pdf`,
@@ -913,67 +1146,152 @@ window.BohStore = (function () {
     return getDownloads();
   }
 
-  // 7. Comprehensive CSV Roster Export for Coach
+  // 7. Coach Roster Entries & Signups Management
+  const COACH_ROSTERS_KEY = "boh-coach-rosters";
+
+  function getCustomRosters() {
+    try {
+      const raw = localStorage.getItem(COACH_ROSTERS_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch {
+      return {};
+    }
+  }
+
+  function getRosterForEvent(eventId) {
+    const dataObj = window.BohData || window.KlokaniData;
+    const demo = (dataObj && dataObj.demoRoster && dataObj.demoRoster[eventId]) || [];
+    const custom = getCustomRosters();
+    const eventCustom = custom[eventId] || [];
+    const signups = getSignups();
+    const mySignup = signups[eventId];
+    const me = getUser();
+
+    let roster = [...eventCustom, ...demo];
+
+    if (mySignup) {
+      if (!roster.some(r => r.swimmer && r.swimmer.toLowerCase() === me.toLowerCase())) {
+        roster.push({
+          swimmer: me,
+          group: "Trenér / Plavec",
+          year: 2008,
+          gender: "M",
+          disciplines: mySignup.disciplines || [],
+          note: mySignup.note || ""
+        });
+      }
+    }
+    return roster;
+  }
+
+  function addSwimmerEntry(eventId, entry) {
+    const custom = getCustomRosters();
+    if (!custom[eventId]) custom[eventId] = [];
+    const swimmerName = (entry.swimmer || "").trim();
+    if (!swimmerName) return getRosterForEvent(eventId);
+
+    custom[eventId] = custom[eventId].filter(e => e.swimmer.toLowerCase() !== swimmerName.toLowerCase());
+    custom[eventId].unshift({
+      swimmer: swimmerName,
+      group: entry.group || "ST",
+      year: Number(entry.year) || 2010,
+      gender: entry.gender || "M",
+      disciplines: Array.isArray(entry.disciplines) ? entry.disciplines : (entry.disciplines ? [entry.disciplines] : ["100 VZ"]),
+      note: entry.note || "",
+      addedAt: new Date().toISOString()
+    });
+    localStorage.setItem(COACH_ROSTERS_KEY, JSON.stringify(custom));
+
+    // Also sync to Supabase if available
+    if (typeof window !== "undefined" && window.KlokaniSupabase && window.KlokaniSupabase.isConfigured()) {
+      try {
+        window.KlokaniSupabase.signupSwimmer({
+          event_id: eventId,
+          swimmer_name: swimmerName,
+          category: entry.group || "ST",
+          disciplines: Array.isArray(entry.disciplines) ? entry.disciplines : [entry.disciplines],
+          notes: entry.note || ""
+        });
+      } catch (err) {
+        console.warn("[Bohemka Store] Supabase swimmer entry sync notice:", err);
+      }
+    }
+
+    notifyDataUpdated("roster", { eventId, swimmer: swimmerName });
+    return getRosterForEvent(eventId);
+  }
+
+  function removeSwimmerEntry(eventId, swimmerName) {
+    const custom = getCustomRosters();
+    if (custom[eventId]) {
+      custom[eventId] = custom[eventId].filter(e => e.swimmer.toLowerCase() !== swimmerName.toLowerCase());
+      localStorage.setItem(COACH_ROSTERS_KEY, JSON.stringify(custom));
+    }
+    const me = getUser();
+    if (swimmerName.toLowerCase() === me.toLowerCase()) {
+      cancelSignup(eventId);
+    }
+    notifyDataUpdated("roster", { eventId, swimmerName, removed: true });
+    return getRosterForEvent(eventId);
+  }
+
+  // 8. Comprehensive CSV Roster Export for Coach
   function exportSignupsCsv(eventOrId) {
     const allEvents = getEvents();
     let targetEvents = [];
     if (eventOrId) {
       const found = typeof eventOrId === "string" ? allEvents.find(e => e.id === eventOrId) : eventOrId;
-      if (found) targetEvents = [found];
+      if (found) {
+        targetEvents = [found];
+      } else if (typeof eventOrId === "string") {
+        targetEvents = [{ id: eventOrId, name: "Závod " + eventOrId, date: "", place: "" }];
+      }
     }
     if (targetEvents.length === 0) {
       targetEvents = allEvents.filter(e => e.kind !== "soustredeni");
     }
 
-    const signups = getSignups();
-    const dataObj = window.BohData || window.KlokaniData;
-    const me = getUser();
-
     let rows = [
-      ["Závod", "Datum", "Místo", "Jméno plavce", "Kategorie/Skupina", "Přihlášené disciplíny", "Poznámka / Odhláška"]
+      ["Závod", "Datum", "Místo", "Jméno plavce", "Ročník", "Pohlaví", "Kategorie/Skupina", "Přihlášené disciplíny", "Poznámka / Odhláška"]
     ];
 
     targetEvents.forEach(ev => {
-      const demo = (dataObj && dataObj.demoRoster && dataObj.demoRoster[ev.id]) || [];
-      demo.forEach(entry => {
+      const roster = getRosterForEvent(ev.id);
+      roster.forEach(entry => {
         rows.push([
           sanitizeCsv(ev.name),
           sanitizeCsv(ev.date),
           sanitizeCsv(ev.place),
           sanitizeCsv(entry.swimmer),
-          sanitizeCsv(entry.group),
-          sanitizeCsv((entry.disciplines || []).join(", ")),
-          ""
+          sanitizeCsv(entry.year || "2010"),
+          sanitizeCsv(entry.gender || "M"),
+          sanitizeCsv(entry.group || "ST"),
+          sanitizeCsv((Array.isArray(entry.disciplines) ? entry.disciplines : [entry.disciplines]).filter(Boolean).join(", ")),
+          sanitizeCsv(entry.note || "")
         ]);
       });
-
-      const mySignup = signups[ev.id];
-      if (mySignup) {
-        rows.push([
-          sanitizeCsv(ev.name),
-          sanitizeCsv(ev.date),
-          sanitizeCsv(ev.place),
-          sanitizeCsv(me),
-          "Závodník TJ Bohemians",
-          sanitizeCsv((mySignup.disciplines || []).join(", ")),
-          sanitizeCsv(mySignup.note || "")
-        ]);
-      }
     });
 
     const csvContent = "\uFEFF" + rows.map(r => r.map(cell => `"${String(cell || "").replace(/"/g, '""')}"`).join(";")).join("\r\n");
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    const filename = targetEvents.length === 1
-      ? `Soupiska_CSPS_${targetEvents[0].name.replace(/[^a-zA-Z0-9_\u00C0-\u017F]/g, "_")}.csv`
-      : `Prehled_prihlasek_zavody_BOH_2026.csv`;
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    if (typeof document !== "undefined" && typeof document.createElement === "function" && typeof Blob !== "undefined" && typeof URL !== "undefined") {
+      try {
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        const filename = targetEvents.length === 1
+          ? `Soupiska_CSPS_${targetEvents[0].name.replace(/[^a-zA-Z0-9_\u00C0-\u017F]/g, "_")}.csv`
+          : `Prehled_prihlasek_zavody_BOH_2026.csv`;
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      } catch (e) {
+        console.warn("[Bohemka Store] CSV download trigger skipped:", e);
+      }
+    }
+    return csvContent;
   }
 
   return {
@@ -1011,18 +1329,31 @@ window.BohStore = (function () {
     getUser,
     exportSignupsCsv,
     addNews,
+    updateNews,
     deleteNews,
     addEvent,
+    updateEvent,
     deleteEvent,
     addAlert,
+    updateAlert,
     deleteAlert,
     addPhoto,
+    updatePhoto,
     deletePhoto,
     addDownload,
+    updateDownload,
     deleteDownload,
-    notifyDataUpdated
+    notifyDataUpdated,
+    getCustomRosters,
+    getRosterForEvent,
+    addSwimmerEntry,
+    removeSwimmerEntry
   };
 })();
 
-// Backward compatibility alias
+// Backward compatibility alias & Supabase exposure
 window.KlokaniStore = window.BohStore;
+if (typeof window !== "undefined") {
+  window.BohSupabase = window.KlokaniSupabase || null;
+}
+

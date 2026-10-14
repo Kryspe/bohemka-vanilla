@@ -238,6 +238,7 @@
 
   <script src="js/data.js"></script>
   <script src="js/store.js"></script>
+  <script src="js/supabase.js"></script>
   <script src="js/animations.js"></script>
   <script src="js/app.js"></script>
   <script>
@@ -897,19 +898,7 @@
     }
 
     function renderCoachRosterCard(event) {
-      const signups = window.BohStore.getSignups();
-      const mySignup = signups[event.id];
-      const demo = (window.BohData.demoRoster && window.BohData.demoRoster[event.id]) || [];
-
-      const roster = [...demo];
-      if (mySignup) {
-        roster.push({
-          swimmer: window.BohStore.getUser(),
-          group: "Závodník oddílu",
-          disciplines: mySignup.disciplines || [],
-          note: mySignup.note || ""
-        });
-      }
+      const roster = window.BohStore ? window.BohStore.getRosterForEvent(event.id) : [];
 
       const typeStyles = {
         "Mistrovství": "bg-coral/20 text-coral",
@@ -948,12 +937,30 @@
             <div class="flex flex-wrap items-center gap-2 sm:self-start">
               <button
                 type="button"
+                onclick="window.coachSignupSelf('${event.id}')"
+                class="inline-flex items-center gap-1.5 rounded-xl border border-[var(--intranet-accent)]/40 bg-[var(--intranet-accent)]/10 px-3 py-1.5 text-xs font-semibold text-[var(--intranet-accent)] transition hover:bg-[var(--intranet-accent)]/20 cursor-pointer"
+                title="Přihlásit se na závod osobně"
+              >
+                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Přihlásit se</span>
+              </button>
+              <button
+                type="button"
+                onclick="window.coachAddSwimmer('${event.id}')"
+                class="inline-flex items-center gap-1.5 rounded-xl bg-[var(--intranet-accent)] px-3 py-1.5 text-xs font-bold text-[var(--intranet-accent-foreground)] transition hover:opacity-90 cursor-pointer shadow-sm"
+                title="Přihlásit plavce oddílu na tento závod"
+              >
+                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14m-7-7h14"/></svg>
+                <span>+ Přihlásit plavce</span>
+              </button>
+              <button
+                type="button"
                 onclick="window.BohStore.exportSignupsCsv('${event.id}'); showToast('Soupiska pro závod byla stažena.');"
-                class="inline-flex items-center gap-1.5 rounded-xl bg-[var(--intranet-accent)]/15 px-3 py-1.5 text-xs font-semibold text-[var(--intranet-accent)] transition hover:bg-[var(--intranet-accent)]/25 cursor-pointer"
+                class="inline-flex items-center gap-1.5 rounded-xl bg-background/80 border border-border/70 px-3 py-1.5 text-xs font-semibold text-foreground transition hover:border-[var(--intranet-accent)] cursor-pointer"
                 title="Stáhnout soupisku přihlášek v CSV"
               >
                 <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                <span>Stáhnout soupisku (CSV)</span>
+                <span>CSV</span>
               </button>
               <button
                 type="button"
@@ -994,13 +1001,24 @@
               <div class="space-y-1.5 max-h-56 overflow-y-auto pr-1">
                 ${roster.map(r => `
                   <div class="flex flex-col gap-1 rounded-xl border border-border/40 bg-background/50 px-3.5 py-2 sm:flex-row sm:items-center sm:justify-between text-xs">
-                    <div>
+                    <div class="flex items-center gap-2">
                       <span class="font-semibold text-foreground">${escapeHtml(r.swimmer)}</span>
-                      <span class="text-muted-foreground ml-1.5 font-medium">(${escapeHtml(r.group)})</span>
-                      ${r.note ? `<span class="ml-2 text-coral italic">Pozn: ${escapeHtml(r.note)}</span>` : ''}
+                      <span class="text-muted-foreground font-medium">(${escapeHtml(r.group || 'ST')})</span>
+                      ${r.year ? `<span class="text-muted-foreground text-[11px]">${escapeHtml(String(r.year))}</span>` : ''}
+                      ${r.note ? `<span class="text-coral italic text-[11px]">Pozn: ${escapeHtml(r.note)}</span>` : ''}
                     </div>
-                    <div class="flex flex-wrap gap-1">
-                      ${r.disciplines && r.disciplines.length > 0 ? r.disciplines.map(d => `<span class="rounded bg-primary/15 px-1.5 py-0.5 text-[11px] font-medium text-primary">${escapeHtml(d)}</span>`).join("") : '<span class="text-muted-foreground italic">Bez disciplín</span>'}
+                    <div class="flex items-center gap-2">
+                      <div class="flex flex-wrap gap-1">
+                        ${(Array.isArray(r.disciplines) ? r.disciplines : [r.disciplines]).filter(Boolean).map(d => `<span class="rounded bg-primary/15 px-1.5 py-0.5 text-[11px] font-medium text-primary">${escapeHtml(d)}</span>`).join("")}
+                      </div>
+                      <button
+                        type="button"
+                        onclick="if(confirm('Odhlásit závodníka ${escapeHtml(r.swimmer)}?')){ window.BohStore.removeSwimmerEntry('${event.id}', '${escapeHtml(r.swimmer)}'); showToast('Závodník byl odhlášen.'); renderActiveTab(); }"
+                        class="p-1 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition"
+                        title="Odhlásit"
+                      >
+                        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                      </button>
                     </div>
                   </div>
                 `).join("")}
@@ -1010,6 +1028,47 @@
         </div>
       `;
     }
+
+    window.coachSignupSelf = function(eventId) {
+      const allEvents = window.BohStore.getEvents();
+      const ev = allEvents.find(e => e.id === eventId);
+      if (!ev) return;
+      const disc = prompt(`Zadejte disciplíny pro přihlášení trenéra (${ev.disciplines ? ev.disciplines.slice(0, 3).join(', ') : '50 VZ'}):`, (ev.disciplines && ev.disciplines[0]) || "50 VZ");
+      if (disc === null) return;
+      const note = prompt("Poznámka (nepovinné):", "Trenér / Masters") || "";
+      window.BohStore.addSwimmerEntry(eventId, {
+        swimmer: window.BohStore.getUser() || "Trenér",
+        group: "Trenér",
+        year: 1990,
+        gender: "M",
+        disciplines: disc.split(",").map(s => s.trim()).filter(Boolean),
+        note
+      });
+      showToast("Byl(a) jste úspěšně přihlášen(a) na závod.");
+      renderActiveTab();
+    };
+
+    window.coachAddSwimmer = function(eventId) {
+      const allEvents = window.BohStore.getEvents();
+      const ev = allEvents.find(e => e.id === eventId);
+      if (!ev) return;
+      const swimmer = prompt("Jméno a příjmení plavce k přihlášení:");
+      if (!swimmer || !swimmer.trim()) return;
+      const group = prompt("Skupina (ST, JUN, DOR, ŽAC, ODA, Přípravka):", "ST") || "ST";
+      const disc = prompt(`Disciplíny (např. ${ev.disciplines ? ev.disciplines.slice(0, 2).join(', ') : '100 VZ'}):`, (ev.disciplines && ev.disciplines.slice(0, 2).join(', ')) || "100 VZ");
+      if (disc === null) return;
+      const note = prompt("Poznámka (nepovinné):", "") || "";
+      window.BohStore.addSwimmerEntry(eventId, {
+        swimmer: swimmer.trim(),
+        group,
+        year: 2010,
+        gender: "M",
+        disciplines: disc.split(",").map(s => s.trim()).filter(Boolean),
+        note
+      });
+      showToast(`Plavec "${swimmer.trim()}" byl přihlášen na závod.`);
+      renderActiveTab();
+    };
 
     // 2. Coach News Management
     let coachShowAddNews = false;
@@ -1994,7 +2053,7 @@
         try {
           const url = new URL(link.href, window.location.origin);
           const targetPath = (url.pathname.split("/").pop() || "").toLowerCase();
-          if (targetPath && targetPath !== "intranet.html" && !link.href.startsWith("javascript:") && !link.hash) {
+          if (targetPath && targetPath !== "intranet.html" && targetPath !== "admin.html" && !link.href.startsWith("javascript:") && !link.hash) {
             window.BohStore.logout();
           }
         } catch {}
