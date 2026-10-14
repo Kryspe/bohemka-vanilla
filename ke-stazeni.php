@@ -75,7 +75,7 @@ require_once __DIR__ . '/includes/header.php';
         <?php endforeach; ?>
       </div>
 
-      <form method="get" action="ke-stazeni.php" class="relative w-full sm:w-72">
+      <form method="get" action="ke-stazeni" class="relative w-full sm:w-72">
         <?php if ($catFilter !== 'all'): ?>
           <input type="hidden" name="cat" value="<?= e($catFilter) ?>">
         <?php endif; ?>

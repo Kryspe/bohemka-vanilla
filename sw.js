@@ -1,5 +1,5 @@
 // TJ Bohemians Praha (Offline Service Worker)
-const CACHE_NAME = "boh-cache-v2";
+const CACHE_NAME = "boh-cache-v3";
 const STATIC_ASSETS = [
   "/",
   "aktuality",
@@ -48,6 +48,7 @@ self.addEventListener("fetch", (e) => {
   // Skip cross-origin or API calls from caching
   const url = new URL(e.request.url);
   if (url.origin !== self.location.origin) return;
+  if (url.pathname.startsWith("/api/")) return;
 
   e.respondWith(
     caches.match(e.request).then((cached) => {

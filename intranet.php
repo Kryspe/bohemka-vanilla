@@ -12,7 +12,7 @@ $user = currentUser();
 // Handle Logout
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     logoutUser();
-    header("Location: intranet.php");
+    header("Location: intranet");
     exit;
 }
 
@@ -23,11 +23,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
     if (loginUser($username, $password)) {
         setFlash('success', 'Úspěšně přihlášen do intranetu.');
-        header("Location: intranet.php");
+        header("Location: intranet");
         exit;
     } else {
         setFlash('error', 'Neplatné přihlašovací jméno nebo heslo. (Tip: plavec / bohemka)');
-        header("Location: intranet.php");
+        header("Location: intranet");
         exit;
     }
 }
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 // Handle Event Registration (Swimmer/Parent)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'register_event') {
     if (!$user) {
-        header("Location: intranet.php");
+        header("Location: intranet");
         exit;
     }
 
@@ -83,14 +83,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         setFlash('error', 'Musíte vybrat alespoň jednu plaveckou disciplínu.');
     }
 
-    header("Location: intranet.php#zavody");
+    header("Location: intranet#zavody");
     exit;
 }
 
 // Handle Cancel Entry
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'cancel_entry') {
     if (!$user) {
-        header("Location: intranet.php");
+        header("Location: intranet");
         exit;
     }
 
@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         ]);
         setFlash('success', 'Přihláška byla zrušena.');
     }
-    header("Location: intranet.php#moje-prihlasky");
+    header("Location: intranet#moje-prihlasky");
     exit;
 }
 
@@ -153,7 +153,7 @@ require_once __DIR__ . '/includes/header.php';
           <p class="mt-2 text-sm text-muted-foreground">Přihlášení pro plavce a rodiče do oddílového systému</p>
         </div>
 
-        <form method="post" action="intranet.php" class="mt-6 space-y-4">
+        <form method="post" action="intranet" class="mt-6 space-y-4">
           <input type="hidden" name="action" value="login">
 
           <div>
@@ -267,7 +267,7 @@ require_once __DIR__ . '/includes/header.php';
 
               <div class="mt-5 border-t border-border pt-3 flex items-center justify-between">
                 <span class="text-[0.7rem] text-muted-foreground">Podáno: <?= date('d.m. H:i', strtotime($entry['created_at'])) ?></span>
-                <form method="post" action="intranet.php" onsubmit="return confirm('Opravdu chcete zrušit přihlášku na tento závod?');">
+                <form method="post" action="intranet" onsubmit="return confirm('Opravdu chcete zrušit přihlášku na tento závod?');">
                   <input type="hidden" name="action" value="cancel_entry">
                   <input type="hidden" name="entry_id" value="<?= $entry['id'] ?>">
                   <button type="submit" class="text-xs font-semibold text-red-600 hover:text-red-700 dark:text-red-400 hover:underline">
@@ -329,7 +329,7 @@ require_once __DIR__ . '/includes/header.php';
             </div>
 
             <?php if ($isOpen): ?>
-              <form method="post" action="intranet.php" class="mt-6 border-t border-border pt-4">
+              <form method="post" action="intranet" class="mt-6 border-t border-border pt-4">
                 <input type="hidden" name="action" value="register_event">
                 <input type="hidden" name="event_id" value="<?= e($ev['id']) ?>">
 

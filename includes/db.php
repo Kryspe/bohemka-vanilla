@@ -451,14 +451,14 @@ function logoutUser(): void {
     unset($_SESSION['user']);
 }
 
-function requireAuth(string $redirect = 'intranet.php'): void {
+function requireAuth(string $redirect = 'intranet'): void {
     if (!isLoggedIn()) {
         header("Location: $redirect");
         exit;
     }
 }
 
-function requireAdmin(string $redirect = 'admin.php'): void {
+function requireAdmin(string $redirect = 'admin'): void {
     if (!isAdmin()) {
         header("Location: $redirect");
         exit;

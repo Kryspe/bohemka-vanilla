@@ -40,10 +40,11 @@ if (document.readyState === "loading") {
   bootstrapApp();
 }
 
-// Helper to normalize clean URLs, extensions (.html, .php), and root paths
+// Helper to normalize clean URLs, extensions (.html, .php), trailing slashes, and root paths
 function normalizePageName(path) {
   if (!path) return "index";
   let clean = path.split("?")[0].split("#")[0];
+  clean = clean.replace(/\/+$/, "");
   clean = clean.split("/").pop() || "";
   clean = clean.replace(/\.(html|php)$/i, "");
   if (!clean || clean === "index") return "index";

@@ -18,17 +18,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $u = currentUser();
         if (in_array($u['role'], ['admin', 'trainer'])) {
             setFlash('success', 'Vítejte v administraci oddílu Bohemians.');
-            header("Location: admin.php");
+            header("Location: admin");
             exit;
         } else {
             logoutUser();
             setFlash('error', 'Uživatelský účet nemá trenérská ani správcovská oprávnění.');
-            header("Location: admin.php");
+            header("Location: admin");
             exit;
         }
     } else {
         setFlash('error', 'Neplatné přihlašovací údaje pro administraci. (Výchozí: admin / bohemka)');
-        header("Location: admin.php");
+        header("Location: admin");
         exit;
     }
 }
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 // 2. Handle Logout
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     logoutUser();
-    header("Location: admin.php");
+    header("Location: admin");
     exit;
 }
 
@@ -147,7 +147,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
             ':image_url' => $imageUrl
         ]);
         setFlash('success', 'Aktualita byla úspěšně uložena.');
-        header("Location: admin.php?tab=news");
+        header("Location: admin?tab=news");
         exit;
     }
 
@@ -156,7 +156,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("DELETE FROM news WHERE id = :id");
         $stmt->execute([':id' => $id]);
         setFlash('success', 'Aktualita byla smazána.');
-        header("Location: admin.php?tab=news");
+        header("Location: admin?tab=news");
         exit;
     }
 
@@ -192,7 +192,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
             ':disciplines_json' => $disciplinesJson
         ]);
         setFlash('success', 'Závod byl úspěšně uložen.');
-        header("Location: admin.php?tab=events");
+        header("Location: admin?tab=events");
         exit;
     }
 
@@ -204,7 +204,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmtE = $pdo->prepare("DELETE FROM event_entries WHERE event_id = :id");
         $stmtE->execute([':id' => $id]);
         setFlash('success', 'Závod a jeho přihlášky byly smazány.');
-        header("Location: admin.php?tab=events");
+        header("Location: admin?tab=events");
         exit;
     }
 
@@ -213,7 +213,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("DELETE FROM event_entries WHERE id = :id");
         $stmt->execute([':id' => $entryId]);
         setFlash('success', 'Přihláška plavce byla odstraněna.');
-        header("Location: admin.php?tab=events");
+        header("Location: admin?tab=events");
         exit;
     }
 
@@ -234,7 +234,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([':category' => $category, ':title' => $title, ':text' => $text, ':date' => $date, ':author' => $author]);
         }
         setFlash('success', 'Vzkaz pro rodiče byl uložen.');
-        header("Location: admin.php?tab=messages");
+        header("Location: admin?tab=messages");
         exit;
     }
 
@@ -243,7 +243,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("DELETE FROM parent_messages WHERE id = :id");
         $stmt->execute([':id' => $id]);
         setFlash('success', 'Vzkaz byl smazán.');
-        header("Location: admin.php?tab=messages");
+        header("Location: admin?tab=messages");
         exit;
     }
 
@@ -264,7 +264,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([':name' => $name, ':role' => $role, ':email' => $email, ':phone' => $phone, ':bio' => $bio]);
         }
         setFlash('success', 'Trenér byl uložen.');
-        header("Location: admin.php?tab=trainers");
+        header("Location: admin?tab=trainers");
         exit;
     }
 
@@ -273,7 +273,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("DELETE FROM trainers WHERE id = :id");
         $stmt->execute([':id' => $id]);
         setFlash('success', 'Trenér byl smazán.');
-        header("Location: admin.php?tab=trainers");
+        header("Location: admin?tab=trainers");
         exit;
     }
 
@@ -293,7 +293,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([':year' => $year, ':title' => $title, ':file_url' => $fileUrl, ':file_size' => $fileSize]);
         }
         setFlash('success', 'Ročenka byla uložena.');
-        header("Location: admin.php?tab=yearbooks");
+        header("Location: admin?tab=yearbooks");
         exit;
     }
 
@@ -302,7 +302,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("DELETE FROM yearbooks WHERE id = :id");
         $stmt->execute([':id' => $id]);
         setFlash('success', 'Ročenka byla smazána.');
-        header("Location: admin.php?tab=yearbooks");
+        header("Location: admin?tab=yearbooks");
         exit;
     }
 
@@ -325,7 +325,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([':pool' => $pool, ':gender' => $gender, ':event' => $event, ':time' => $time, ':swimmer_name' => $swimmerName, ':year' => $year, ':note' => $note]);
         }
         setFlash('success', 'Rekord byl uložen.');
-        header("Location: admin.php?tab=records");
+        header("Location: admin?tab=records");
         exit;
     }
 
@@ -334,7 +334,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("DELETE FROM records WHERE id = :id");
         $stmt->execute([':id' => $id]);
         setFlash('success', 'Rekord byl smazán.');
-        header("Location: admin.php?tab=records");
+        header("Location: admin?tab=records");
         exit;
     }
 
@@ -370,7 +370,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             setFlash('error', 'Vyplňte uživatelské jméno a heslo.');
         }
-        header("Location: admin.php?tab=users");
+        header("Location: admin?tab=users");
         exit;
     }
 
@@ -384,7 +384,7 @@ if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             setFlash('error', 'Nemůžete smazat svůj vlastní přihlášený účet.');
         }
-        header("Location: admin.php?tab=users");
+        header("Location: admin?tab=users");
         exit;
     }
 }
@@ -411,7 +411,7 @@ require_once __DIR__ . '/includes/header.php';
           <p class="mt-2 text-sm text-muted-foreground">Přihlášení do zabezpečeného panelu pro vedení oddílu</p>
         </div>
 
-        <form method="post" action="admin.php" class="mt-6 space-y-4">
+        <form method="post" action="admin" class="mt-6 space-y-4">
           <input type="hidden" name="action" value="admin_login">
 
           <div>
@@ -509,7 +509,7 @@ require_once __DIR__ . '/includes/header.php';
                 <a href="admin?tab=news" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
               <?php endif; ?>
             </div>
-            <form method="post" action="admin.php?tab=news" class="space-y-3.5">
+            <form method="post" action="admin?tab=news" class="space-y-3.5">
               <input type="hidden" name="action" value="save_news">
 
               <div>
@@ -587,7 +587,7 @@ require_once __DIR__ . '/includes/header.php';
                     <a href="aktuality?id=<?= urlencode($n['id']) ?>" target="_blank" class="text-xs font-semibold text-muted-foreground hover:underline">
                       Zobrazit
                     </a>
-                    <form method="post" action="admin.php?tab=news" onsubmit="return confirm('Opravdu smazat tuto aktualitu?');">
+                    <form method="post" action="admin?tab=news" onsubmit="return confirm('Opravdu smazat tuto aktualitu?');">
                       <input type="hidden" name="action" value="delete_news">
                       <input type="hidden" name="id" value="<?= e($n['id']) ?>">
                       <button type="submit" class="text-xs font-semibold text-red-600 hover:underline">Smazat</button>
@@ -616,7 +616,7 @@ require_once __DIR__ . '/includes/header.php';
           <?php 
             $evDiscsRaw = $editItem ? implode(', ', json_decode($editItem['disciplines_json'] ?? '[]', true) ?: []) : '50 VZ, 100 VZ, 200 VZ, 50 Z, 100 Z, 50 P, 100 P, 50 M, 100 M, 100 PZ, 200 PZ';
           ?>
-          <form method="post" action="admin.php?tab=events" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <form method="post" action="admin?tab=events" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <input type="hidden" name="action" value="save_event">
             <input type="hidden" name="id" value="<?= e($editItem['id'] ?? '') ?>">
 
@@ -702,7 +702,7 @@ require_once __DIR__ . '/includes/header.php';
                       <svg class="h-3.5 w-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                       <span>Export (CSV)</span>
                     </a>
-                    <form method="post" action="admin.php?tab=events" onsubmit="return confirm('Opravdu smazat tento závod včetně přihlášek?');">
+                    <form method="post" action="admin?tab=events" onsubmit="return confirm('Opravdu smazat tento závod včetně přihlášek?');">
                       <input type="hidden" name="action" value="delete_event">
                       <input type="hidden" name="id" value="<?= e($ev['id']) ?>">
                       <button type="submit" class="rounded-lg bg-red-600/10 px-2.5 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-600/20">
@@ -733,7 +733,7 @@ require_once __DIR__ . '/includes/header.php';
                               <span class="text-amber-700 dark:text-amber-400 ml-2">(<?= e($ent['note']) ?>)</span>
                             <?php endif; ?>
                           </div>
-                          <form method="post" action="admin.php?tab=events" onsubmit="return confirm('Smazat přihlášku plavce?');">
+                          <form method="post" action="admin?tab=events" onsubmit="return confirm('Smazat přihlášku plavce?');">
                             <input type="hidden" name="action" value="delete_entry">
                             <input type="hidden" name="entry_id" value="<?= $ent['id'] ?>">
                             <button type="submit" class="text-red-500 hover:underline">Odstranit</button>
@@ -762,7 +762,7 @@ require_once __DIR__ . '/includes/header.php';
                 <a href="admin?tab=messages" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
               <?php endif; ?>
             </div>
-            <form method="post" action="admin.php?tab=messages" class="space-y-3.5">
+            <form method="post" action="admin?tab=messages" class="space-y-3.5">
               <input type="hidden" name="action" value="save_message">
               <input type="hidden" name="id" value="<?= e($editItem['id'] ?? 0) ?>">
 
@@ -825,7 +825,7 @@ require_once __DIR__ . '/includes/header.php';
                     <a href="admin?tab=messages&edit=<?= $msg['id'] ?>" class="text-xs font-semibold text-primary hover:underline">
                       Upravit
                     </a>
-                    <form method="post" action="admin.php?tab=messages" onsubmit="return confirm('Smazat vzkaz?');">
+                    <form method="post" action="admin?tab=messages" onsubmit="return confirm('Smazat vzkaz?');">
                       <input type="hidden" name="action" value="delete_message">
                       <input type="hidden" name="id" value="<?= $msg['id'] ?>">
                       <button type="submit" class="text-xs font-semibold text-red-600 hover:underline">Smazat</button>
@@ -851,7 +851,7 @@ require_once __DIR__ . '/includes/header.php';
                 <a href="admin?tab=trainers" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
               <?php endif; ?>
             </div>
-            <form method="post" action="admin.php?tab=trainers" class="space-y-3.5">
+            <form method="post" action="admin?tab=trainers" class="space-y-3.5">
               <input type="hidden" name="action" value="save_trainer">
               <input type="hidden" name="id" value="<?= e($editItem['id'] ?? 0) ?>">
 
@@ -914,7 +914,7 @@ require_once __DIR__ . '/includes/header.php';
                     <a href="admin?tab=trainers&edit=<?= $t['id'] ?>" class="text-xs font-semibold text-primary hover:underline">
                       Upravit
                     </a>
-                    <form method="post" action="admin.php?tab=trainers" onsubmit="return confirm('Smazat trenéra?');">
+                    <form method="post" action="admin?tab=trainers" onsubmit="return confirm('Smazat trenéra?');">
                       <input type="hidden" name="action" value="delete_trainer">
                       <input type="hidden" name="id" value="<?= $t['id'] ?>">
                       <button type="submit" class="text-xs font-semibold text-red-600 hover:underline">Smazat</button>
@@ -940,7 +940,7 @@ require_once __DIR__ . '/includes/header.php';
                 <a href="admin?tab=yearbooks" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
               <?php endif; ?>
             </div>
-            <form method="post" action="admin.php?tab=yearbooks" class="space-y-3.5">
+            <form method="post" action="admin?tab=yearbooks" class="space-y-3.5">
               <input type="hidden" name="action" value="save_yearbook">
               <input type="hidden" name="id" value="<?= e($editItem['id'] ?? 0) ?>">
 
@@ -992,7 +992,7 @@ require_once __DIR__ . '/includes/header.php';
                   <div class="flex items-center gap-2">
                     <a href="admin?tab=yearbooks&edit=<?= $yb['id'] ?>" class="text-primary hover:underline">Upravit</a>
                     <a href="<?= e($yb['file_url']) ?>" target="_blank" class="text-muted-foreground hover:underline">Stáhnout</a>
-                    <form method="post" action="admin.php?tab=yearbooks" onsubmit="return confirm('Smazat ročenku?');">
+                    <form method="post" action="admin?tab=yearbooks" onsubmit="return confirm('Smazat ročenku?');">
                       <input type="hidden" name="action" value="delete_yearbook">
                       <input type="hidden" name="id" value="<?= $yb['id'] ?>">
                       <button type="submit" class="text-red-500 hover:underline">Smazat</button>
@@ -1017,7 +1017,7 @@ require_once __DIR__ . '/includes/header.php';
               <a href="admin?tab=records" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
             <?php endif; ?>
           </div>
-          <form method="post" action="admin.php?tab=records" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <form method="post" action="admin?tab=records" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <input type="hidden" name="action" value="save_record">
             <input type="hidden" name="id" value="<?= e($editItem['id'] ?? 0) ?>">
 
@@ -1106,7 +1106,7 @@ require_once __DIR__ . '/includes/header.php';
                     <td class="p-2.5 text-muted-foreground"><?= e($r['note']) ?></td>
                     <td class="p-2.5 text-right whitespace-nowrap">
                       <a href="admin?tab=records&edit=<?= $r['id'] ?>" class="text-primary hover:underline mr-2">Upravit</a>
-                      <form method="post" action="admin.php?tab=records" onsubmit="return confirm('Smazat rekord?');" class="inline">
+                      <form method="post" action="admin?tab=records" onsubmit="return confirm('Smazat rekord?');" class="inline">
                         <input type="hidden" name="action" value="delete_record">
                         <input type="hidden" name="id" value="<?= $r['id'] ?>">
                         <button type="submit" class="text-red-500 hover:underline">Smazat</button>
@@ -1126,7 +1126,7 @@ require_once __DIR__ . '/includes/header.php';
         <div class="lg:col-span-5">
           <div class="card-clean p-6">
             <h2 class="font-display text-lg font-bold text-foreground mb-4">Vytvořit nový uživatelský účet</h2>
-            <form method="post" action="admin.php?tab=users" class="space-y-3.5">
+            <form method="post" action="admin?tab=users" class="space-y-3.5">
               <input type="hidden" name="action" value="save_user">
 
               <div>
@@ -1196,7 +1196,7 @@ require_once __DIR__ . '/includes/header.php';
                     </p>
                   </div>
                   <?php if ($u['id'] !== $user['id']): ?>
-                    <form method="post" action="admin.php?tab=users" onsubmit="return confirm('Smazat tohoto uživatele?');">
+                    <form method="post" action="admin?tab=users" onsubmit="return confirm('Smazat tohoto uživatele?');">
                       <input type="hidden" name="action" value="delete_user">
                       <input type="hidden" name="id" value="<?= $u['id'] ?>">
                       <button type="submit" class="text-red-500 hover:underline">Smazat</button>

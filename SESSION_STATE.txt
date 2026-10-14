@@ -2,8 +2,8 @@
 # TJ BOHEMIANS PRAHA (ODDÍL PLAVÁNÍ) — SESSION HANDOFF & MASTER STATUS
 # ==============================================================================
 Projekt: bohemka-vanilla / boh2 (Autentický klubový web TJ Bohemians Praha)
-Verze: 7.3 (Čisté URL sekcí bez .html přípon na Vercelu a lokálním serveru, vercel.json cleanUrls/rewrites, normalizace aktivní navigace, synchronizace PHP a HTML)
-Poslední aktualizace: 14. října 2026, 11:55 CEST
+Verze: 7.4 (Robustní podpora koncových lomítek, synchronizace PHP formulářů/přesměrování na čisté URL, ochrana Service Workeru před cachováním API, router.php 301 přesměrování)
+Poslední aktualizace: 14. října 2026, 12:10 CEST
 Git repozitář: git@github.com:Kryspe/boh2.git (Větve: main a master v synchronizaci)
 Produkční hosting: https://boh2-eight.vercel.app (napojeno na GitHub boh2 CI/CD deploy)
 Databáze: Supabase (https://xjvpyznywisuuykwsedd.supabase.co - resume do července 2027) + bezpečný fallback na LocalStorage

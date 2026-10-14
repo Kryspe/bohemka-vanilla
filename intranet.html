@@ -2052,8 +2052,10 @@
       if (link && link.href) {
         try {
           const url = new URL(link.href, window.location.origin);
-          const targetPath = (url.pathname.split("/").pop() || "").toLowerCase().replace(/\.(html|php)$/i, "");
-          if (targetPath && targetPath !== "intranet" && targetPath !== "admin" && !link.href.startsWith("javascript:") && !link.hash) {
+          const targetPath = (typeof normalizePageName === "function") 
+            ? normalizePageName(url.pathname) 
+            : (url.pathname.replace(/\/+$/, "").split("/").pop() || "index").toLowerCase().replace(/\.(html|php)$/i, "");
+          if (targetPath !== "intranet" && targetPath !== "admin" && !link.href.startsWith("javascript:") && !link.hash) {
             window.BohStore.logout();
           }
         } catch {}

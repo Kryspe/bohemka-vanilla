@@ -68,12 +68,13 @@ function escapeHtml(str) {
     .replace(/`/g, "&#96;");
 }
 
-function sanitizeUrl(rawUrl, defaultFallback = "index.html") {
+function sanitizeUrl(rawUrl, defaultFallback = "/") {
   if (!rawUrl || typeof rawUrl !== "string") return defaultFallback;
   const cleaned = rawUrl.replace(/[\x00-\x1F\x7F]/g, "").trim();
   if (!cleaned) return defaultFallback;
   if (/^(javascript|data|vbscript|file):/i.test(cleaned)) return defaultFallback;
   if (cleaned.startsWith("//")) return defaultFallback;
+  if (cleaned === "/") return "/";
   if (/^[a-zA-Z0-9_\-\.\/]+(#.*)?$/.test(cleaned)) return cleaned;
   return defaultFallback;
 }
@@ -177,7 +178,7 @@ async function handleApi(req, res, parsedUrl) {
             title: r.title,
             subtitle: `${r.place || ""} • ${r.date || ""} (${r.type || "Závod"})`,
             category: "Závod",
-            url: `zavody.html#${r.id}`
+            url: `zavody#${r.id}`
           });
         });
       } catch (e) {}
@@ -190,7 +191,7 @@ async function handleApi(req, res, parsedUrl) {
             title: r.title,
             subtitle: `${r.excerpt ? r.excerpt.slice(0, 100) + '…' : ''} (${r.date || ''})`,
             category: "Aktualita",
-            url: `aktuality.html#${r.id}`
+            url: `aktuality#${r.id}`
           });
         });
       } catch (e) {}
@@ -203,7 +204,7 @@ async function handleApi(req, res, parsedUrl) {
             title: r.title,
             subtitle: `Ročník ${r.birth_year || ""} • ${r.category || ""} • ${r.role || "Plavec"}`,
             category: "Plavec",
-            url: "statistika.html"
+            url: "statistika"
           });
         });
       } catch (e) {}
@@ -216,7 +217,7 @@ async function handleApi(req, res, parsedUrl) {
             title: `${r.event} — ${r.time} (${r.swimmer})`,
             subtitle: `Rekord Bohemians • ${r.category} • Bazén ${r.pool} • Rok ${r.year}`,
             category: "Rekord",
-            url: "rekordy.html"
+            url: "rekordy"
           });
         });
       } catch (e) {}
@@ -229,7 +230,7 @@ async function handleApi(req, res, parsedUrl) {
             title: r.title,
             subtitle: `${r.description || ""} • ${r.file_name || ""} (${r.file_size || ""})`,
             category: "Ke stažení",
-            url: "ke-stazeni.html"
+            url: "ke-stazeni"
           });
         });
       } catch (e) {}
@@ -247,7 +248,7 @@ async function handleApi(req, res, parsedUrl) {
         const subtitle = escapeHtml(String(body.subtitle || body.message || "").trim()).slice(0, 300);
         const allowedTypes = ["notice", "event", "payment", "training", "warning"];
         const type = allowedTypes.includes(body.type) ? body.type : "notice";
-        const url = sanitizeUrl(body.url, "index.html");
+        const url = sanitizeUrl(body.url, "/");
         const priority = ["normal", "high", "urgent"].includes(body.priority) ? body.priority : "normal";
         const id = `notif_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
         const now = new Date().toISOString();

@@ -13,7 +13,10 @@ if (!isset($pageDescription)) {
     $pageDescription = 'Plavecký oddíl TJ Bohemians Praha (Klokani) — tradice od roku 1946. Závodní plavání, přípravka, kurzy, závody, rekordy a aktuality.';
 }
 if (!isset($currentPage)) {
-    $currentPage = basename($_SERVER['SCRIPT_NAME'] ?? '', '.php');
+    $uri = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
+    $clean = trim($uri, '/');
+    $clean = preg_replace('/\.(php|html)$/i', '', $clean);
+    $currentPage = empty($clean) ? 'index' : $clean;
 }
 
 $user = currentUser();
@@ -33,11 +36,11 @@ $navLinks = [
 ];
 ?>
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="cs" class="bohemka">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#030705">
+  <meta name="theme-color" content="#007a3d">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title><?= e($pageTitle) ?></title>
@@ -50,11 +53,12 @@ $navLinks = [
   <link rel="stylesheet" href="css/style.css">
   <script>
     try {
-      var t = localStorage.getItem('klokani-theme');
-      var d = t === 'dark';
-      document.documentElement.classList.toggle('dark', d);
+      var t = localStorage.getItem('boh-theme') || 'bohemka';
+      document.documentElement.classList.remove('dark', 'bohemka');
+      if (t === 'bohemka') document.documentElement.classList.add('bohemka');
+      else if (t === 'dark') document.documentElement.classList.add('dark');
       var m = document.querySelector('meta[name="theme-color"]');
-      if (m) m.setAttribute('content', d ? '#0b1310' : '#ffffff');
+      if (m) m.setAttribute('content', t === 'bohemka' ? '#007a3d' : (t === 'dark' ? '#080d12' : '#fafcfd'));
     } catch(e) {}
   </script>
 </head>
