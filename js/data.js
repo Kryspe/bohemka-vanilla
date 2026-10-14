@@ -136,7 +136,7 @@ window.BohData = {
           "title": "Velká cena Prahy - hodnocení",
           "date": "2026-10-12",
           "author": "Martin Břenda",
-          "image": "",
+          "image": "assets/aktuality/86836.jpg",
           "excerpt": "Jestliže patřil v sobotu radlický bazén mladším plavcům, tak v neděli se do soutěžení v Radlicích zapojili starší plavci. Ve finále hlavního závodu na 400K obsadila Terka Čermáková 6. místo.",
           "body": [
                 "Jestliže patřil v sobotu radlický bazén mladším plavcům, tak v neděli se do soutěžení v Radlicích zapojili starší plavci. Účast bohemáků byla slušná, závodní nasazení bylo, z mého pohledu, dobré. Někdo dokázal zaplavat i osobní rekord a někteří vybojovali i umístění na bedně.",
@@ -162,7 +162,7 @@ window.BohData = {
           "title": "Velká cena města Plzně - hodnocení",
           "date": "2026-10-04",
           "author": "Jan Srb",
-          "image": "",
+          "image": "assets/aktuality/2242.jpg",
           "excerpt": "Velká cena města Plzně tradičně otevírá podzimní sezónu na 1500m. Mezi ženami doplavala na 2. místě Mia Srbová, mezi žáky zvítězil Ondra Benš.",
           "body": [
                 "Velká cena města Plzně je tradičně prvním závodem sezóny, na který se vydáváme. Pro naše plavce má především jednu důležitou úlohu – otestovat, jak se v probíhající přípravě daří budovat vytrvalost.",
