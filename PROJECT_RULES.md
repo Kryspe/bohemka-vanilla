@@ -18,3 +18,14 @@
    - Žádné skákající / zvětšovací hover efekty (karty a bloky jsou stabilní).
    - Logo v hlavičce je v tmavém režimu čistě bílé a dobře viditelné.
    - Články a důležité texty jsou v zaoblených čitelných blocích/kartách s kontrastním podbarvením.
+
+5. **Průběžná dokumentace v Obsidianu (POVINNÉ):**
+   - VŽDYCKY ukládat a průběžně aktualizovat dokumentaci k této konverzaci a projektu do Obsidianu:
+     - Hlavní technický stav a předávací protokol: `/home/krystofspejchal/Obsidian/DOKUMENTACE_A_PROGRES_BOHEMIANS.md`
+     - Záznam konverzace a rozhodnutí: `/home/krystofspejchal/Obsidian/Konverzace - Bohemians web vyvoj.md`
+   - Struktura záznamu:
+     1. **Co uživatel chce** (vize, požadavky, bezpečnostní a technologická pravidla)
+     2. **Co jsme udělali** (detailní chronologie, hotové funkce, commity)
+     3. **Co bychom měli udělat dál** (backlog, doporučení)
+     4. **Předávací protokol** (aby šlo v konverzaci pokračovat v jakémkoliv jiném účtu nebo relaci)
+
