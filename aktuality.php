@@ -91,6 +91,7 @@ require_once __DIR__ . '/includes/header.php';
           Oddílové zprávy
         </div>
         <h1 class="font-display text-3xl font-extrabold tracking-tight sm:text-4xl text-foreground">Aktuality</h1>
+        <div class="my-3 flex items-center"><span class="wave wave--md"></span></div>
         <p class="mt-3 text-base text-muted-foreground sm:text-lg leading-relaxed">
           Hodnocení závodů, organizační informace, úspěchy našich plavců a dění v oddíle TJ Bohemians Praha.
         </p>
@@ -109,6 +110,7 @@ require_once __DIR__ . '/includes/header.php';
               </div>
             <?php endif; ?>
             <div class="min-w-0 flex-1">
+              <div class="flex items-center gap-2 mb-2"><span class="wave wave--sm"></span></div>
               <div class="flex items-center gap-2 text-xs font-semibold text-primary">
                 <time datetime="<?= e($n['date']) ?>"><?= date('d. m. Y', strtotime($n['date'])) ?></time>
                 <span>·</span>

@@ -73,6 +73,13 @@
               <span class="notification-unread-dot absolute right-1 top-1 h-2 w-2 rounded-full bg-coral hidden"></span>
             </button>
 
+            <a href="https://www.instagram.com/bohemka_plavani" target="_blank" rel="noopener noreferrer" class="hidden xl:inline-flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:bg-card hover:text-foreground" aria-label="Instagram" title="Jsme na Instagramu (@bohemka_plavani)">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            </a>
+            <a href="https://www.facebook.com/bohplavani" target="_blank" rel="noopener noreferrer" class="hidden xl:inline-flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:bg-card hover:text-foreground" aria-label="Facebook" title="Jsme na Facebooku">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+
             <button type="button" class="theme-toggle-btn relative inline-flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:bg-card hover:text-foreground" aria-label="Přepnout motiv" title="Přepnout motiv"></button>
           </div>
         </nav>
@@ -97,84 +104,83 @@
     <!-- MAIN CONTENT -->
     <main class="w-full min-w-0 flex-1 pb-32 sm:pb-36 lg:pb-0">
 
-      <!-- HERO SECTION -->
-      <section class="relative overflow-hidden py-8 sm:py-12 lg:py-14">
+      <!-- HERO SECTION (KPS Ostrava inspired athletic split hero) -->
+      <section class="relative overflow-hidden py-4 sm:py-6 lg:py-8">
         <div class="mx-auto max-w-7xl px-4 sm:px-6">
-          <div class="grid gap-8 lg:grid-cols-12 lg:items-center">
+          <div class="hero-athletic hero-athletic-bg text-white">
+            <div class="grid lg:grid-cols-12 items-stretch min-h-[480px]">
 
-            <!-- Left: Info & CTAs -->
-            <div class="lg:col-span-7">
-              <div class="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary mb-4">
-                <span class="h-2 w-2 rounded-full bg-primary animate-pulse"></span>
-                80 let oddílu · 1946–2026 · TJ Bohemians Praha
+              <!-- Left: Club Motto, Wave & Action Buttons -->
+              <div class="lg:col-span-7 flex flex-col justify-center p-6 sm:p-10 lg:p-12 z-10">
+                <div class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1 text-xs font-semibold tracking-wider uppercase text-white/95 backdrop-blur-sm w-fit mb-4">
+                  <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  80 let oddílu · 1946–2026 · TJ Bohemians Praha
+                </div>
+
+                <h1 class="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.08] text-white">
+                  Jeden duch, jeden tým,<br><span class="text-emerald-300">jedno vítězství!</span>
+                </h1>
+
+                <div class="my-5 flex items-center">
+                  <span class="wave wave--md wave--light"></span>
+                </div>
+
+                <h2 class="text-lg sm:text-xl font-semibold text-emerald-100/95 leading-snug">
+                  Společně k nejlepším výkonům už od roku 1946
+                </h2>
+
+                <p class="mt-3 text-sm sm:text-base text-white/80 max-w-xl leading-relaxed">
+                  Jsme plavecký oddíl Klokanů. Vychováváme sportovce od dětských kurzů a přípravky až po reprezentaci na mistrovstvích republiky a Evropy. Domovské bazény: Plavecký stadion Podolí a Sokol Vinohrady.
+                </p>
+
+                <!-- Action Buttons -->
+                <div class="mt-8 flex flex-wrap items-center gap-3">
+                  <a href="pro-rodice" class="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-emerald-950 shadow-md hover:bg-emerald-50 transition-all">
+                    <svg class="h-4 w-4 text-emerald-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    Pro rodiče &amp; kurzy
+                  </a>
+                  <a href="zavody" class="inline-flex items-center gap-2 rounded-xl border border-white/30 bg-white/10 px-5 py-3 text-sm font-semibold text-white hover:bg-white/20 transition-all backdrop-blur-sm">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                    Kalendář závodů
+                  </a>
+                  <a href="intranet" class="inline-flex items-center gap-2 rounded-xl border border-emerald-300/40 bg-emerald-400/20 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-400/30 transition-all backdrop-blur-sm">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    Členský intranet
+                  </a>
+                </div>
               </div>
-              <h1 class="font-display text-3xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-foreground leading-[1.1]">
-                Plavecký oddíl <span class="text-primary">Bohemians Praha</span>
-              </h1>
-              <p class="mt-4 text-base text-muted-foreground sm:text-lg max-w-2xl leading-relaxed">
-                Jsme plavecký oddíl Klokanů s osmdesátiletou tradicí. Vychováváme sportovce od dětských kurzů a přípravky až po reprezentaci na mistrovstvích republiky a Evropy. Našimi domovy jsou plavecký stadion Podolí a bazén Vinohrady.
-              </p>
 
-              <!-- Quick Action Buttons -->
-              <div class="mt-8 flex flex-wrap items-center gap-3">
-                <a href="pro-rodice" class="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-xs hover:opacity-95 transition-opacity">
-                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                  Pro rodiče &amp; kurzy
-                </a>
-                <a href="zavody" class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-semibold text-foreground hover:bg-muted transition-colors">
-                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-                  Kalendář závodů
-                </a>
-                <a href="ke-stazeni" class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-semibold text-foreground hover:bg-muted transition-colors">
-                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x1="12" y1="15" y2="3"/></svg>
-                  Ke stažení
-                </a>
-                <a href="intranet" class="inline-flex items-center gap-2 rounded-xl border border-[var(--intranet-accent)]/40 bg-[var(--intranet-accent)]/15 px-5 py-3 text-sm font-semibold text-[var(--intranet-accent)] hover:bg-[var(--intranet-accent)]/25 transition-colors">
-                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                  Členský intranet
-                </a>
-              </div>
-            </div>
+              <!-- Right: High-impact Athletic Swimming Photo & Featured Notice -->
+              <div class="lg:col-span-5 relative min-h-[320px] lg:min-h-full overflow-hidden bg-emerald-950">
+                <img id="hero-feature-img" src="assets/foto/86071.jpg" alt="Plavci TJ Bohemians Praha v Podolí" class="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 hover:scale-105" loading="eager">
+                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-black/30 lg:bg-gradient-to-r lg:from-emerald-950/80 lg:via-transparent lg:to-black/30"></div>
 
-            <!-- Right: Featured Latest Article Card (The authentic voice of coaches) -->
-            <div class="lg:col-span-5">
-              <div class="card-clean rounded-3xl border border-primary/30 bg-card p-5 sm:p-6 shadow-lg flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between border-b border-border/60 pb-3">
-                    <span class="inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
-                      <span class="h-2 w-2 rounded-full bg-primary animate-pulse"></span>
-                      Aktualita z oddílu
-                    </span>
-                    <time id="hero-feature-date" class="text-xs font-semibold text-muted-foreground">12. 10. 2026</time>
-                  </div>
-
-                  <div id="hero-feature-img-box" class="mt-4 relative h-44 w-full overflow-hidden rounded-xl border border-border/40">
-                    <img id="hero-feature-img" src="assets/aktuality/2240.jpg" alt="Aktualita Bohemians" class="h-full w-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                    <div class="absolute bottom-2.5 left-3 right-3 text-xs font-semibold text-white/95">
-                      <span id="hero-feature-author">Autor: Martin Břenda</span>
+                <div id="hero-feature-img-box" class="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6">
+                  <div class="rounded-2xl border border-white/20 bg-black/50 p-4 sm:p-5 backdrop-blur-md shadow-lg">
+                    <div class="flex items-center justify-between text-xs text-emerald-300">
+                      <span class="inline-flex items-center gap-1.5 font-bold uppercase tracking-wider">
+                        <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        Aktualita z oddílu
+                      </span>
+                      <time id="hero-feature-date" class="font-semibold text-white/80">12. 10. 2026</time>
+                    </div>
+                    <h3 id="hero-feature-title" class="mt-2 font-display text-base sm:text-lg font-bold leading-snug text-white line-clamp-1">
+                      Velká cena Prahy - hodnocení
+                    </h3>
+                    <p id="hero-feature-excerpt" class="mt-1 line-clamp-2 text-xs sm:text-sm text-white/80 leading-relaxed">
+                      Účast bohemáků byla slušná, závodní nasazení bylo dobré a padla řada osobních rekordů.
+                    </p>
+                    <div class="mt-3 flex items-center justify-between pt-2 border-t border-white/15 text-xs">
+                      <span id="hero-feature-author" class="text-emerald-200/90 font-medium">Autor: Martin Břenda</span>
+                      <a id="hero-feature-link" href="aktuality?id=velka-cena-prahy-hodnoceni-2026" class="font-bold text-white hover:text-emerald-300 inline-flex items-center gap-1">
+                        Číst hodnocení &rarr;
+                      </a>
                     </div>
                   </div>
-
-                  <h3 id="hero-feature-title" class="mt-4 font-display text-xl font-bold leading-snug text-foreground">
-                    Velká cena Prahy - hodnocení
-                  </h3>
-                  <p id="hero-feature-excerpt" class="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
-                    Jestliže patřil v sobotu radlický bazén mladším plavcům, tak v neděli se do soutěžení v Radlicích zapojili starší plavci. Účast bohemáků byla slušná, závodní nasazení bylo dobré...
-                  </p>
-                </div>
-
-                <div class="mt-5 pt-3 border-t border-border/60 flex items-center justify-between">
-                  <a id="hero-feature-link" href="aktuality?id=velka-cena-prahy-hodnoceni-2026" class="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:underline">
-                    Číst celé hodnocení trenéra &rarr;
-                  </a>
-                  <a href="aktuality" class="text-xs font-semibold text-muted-foreground hover:text-foreground">
-                    Všechny aktuality &rarr;
-                  </a>
                 </div>
               </div>
-            </div>
 
+            </div>
           </div>
         </div>
       </section>
@@ -295,18 +301,116 @@
         </div>
       </section>
 
-      <!-- NEWS (Merged from static + approved admin items) -->
-      <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
-        <div class="reveal-fade mb-10 flex items-end justify-between">
-          <div>
-            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-primary">Aktuality</p>
-            <h2 class="mt-2 font-display text-3xl font-extrabold md:text-4xl">Další aktuality z oddílu</h2>
+      <!-- NEWS (KPS Ostrava inspired centered Aktuality section) -->
+      <section class="py-14 sm:py-20">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6">
+          <div class="text-center">
+            <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-foreground">Aktuality</h2>
+            <div class="my-4 flex justify-center">
+              <span class="wave wave--md"></span>
+            </div>
+            <p class="text-sm text-muted-foreground max-w-xl mx-auto">
+              Nejčerstvější informace ze závodů, hodnocení trenérů, rozpisy a zprávy z plaveckého dění v Bohemce.
+            </p>
           </div>
-          <a href="aktuality" class="hidden items-center gap-1 text-sm font-semibold text-primary hover:underline sm:inline-flex">
-            Všechny aktuality <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
-          </a>
+
+          <!-- 4 News Cards Grid -->
+          <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" id="home-news-cards"></div>
+
+          <div class="mt-10 text-center">
+            <a href="aktuality" class="inline-flex items-center gap-2 rounded-xl bg-primary px-7 py-3 text-sm font-bold text-primary-foreground shadow-sm hover:opacity-90 transition-opacity">
+              Zobrazit všechny aktuality
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+            </a>
+          </div>
         </div>
-        <div class="grid gap-6 md:grid-cols-3" id="home-news-cards"></div>
+      </section>
+
+      <!-- ZAJÍMAVOSTI Z ODDÍLU (KPS Ostrava inspired photo cards) -->
+      <section class="border-t border-border/60 bg-card/40 py-14 sm:py-20">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6">
+          <div class="text-center">
+            <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-foreground">Zajímavosti z oddílu</h2>
+            <div class="my-4 flex justify-center">
+              <span class="wave wave--md"></span>
+            </div>
+            <p class="text-sm text-muted-foreground max-w-xl mx-auto">
+              Život v klubu objektivem fotoaparátu. Reportáže ze soustředění, závodů i zákulisí tréninků v Podolí a na Vinohradech.
+            </p>
+          </div>
+
+          <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- Card 1 -->
+            <article class="group flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-card shadow-sm hover:shadow-md transition-all">
+              <div class="relative aspect-[4/3] overflow-hidden bg-muted">
+                <img src="assets/foto/86071.jpg" alt="Velká cena Prahy v Podolí" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                <span class="absolute top-3 left-3 rounded-full bg-black/60 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-sm">Podolí 50m</span>
+              </div>
+              <div class="flex flex-1 flex-col p-5 sm:p-6">
+                <div class="flex items-center gap-2"><span class="wave wave--sm"></span></div>
+                <time class="mt-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">12. října 2026</time>
+                <h3 class="mt-2 font-display text-lg font-bold leading-snug group-hover:text-primary transition-colors">
+                  <a href="aktuality?id=velka-cena-prahy-hodnoceni-2026" class="hover:underline">Velká cena Prahy v Podolí — hodnocení trenérů</a>
+                </h3>
+                <p class="mt-2 flex-1 text-sm text-muted-foreground leading-relaxed">
+                  Starší plavci Bohemians bojovali na domácí padesátce v Podolí. Výborné nasazení, osobní rekordy a splněné limity.
+                </p>
+                <a href="aktuality?id=velka-cena-prahy-hodnoceni-2026" class="mt-4 inline-flex items-center gap-1 text-xs font-bold text-primary group-hover:underline">
+                  Číst hodnocení &rarr;
+                </a>
+              </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="group flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-card shadow-sm hover:shadow-md transition-all">
+              <div class="relative aspect-[4/3] overflow-hidden bg-muted">
+                <img src="assets/foto/86049.jpg" alt="Podzimní soustředění a příprava" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                <span class="absolute top-3 left-3 rounded-full bg-black/60 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-sm">Soustředění</span>
+              </div>
+              <div class="flex flex-1 flex-col p-5 sm:p-6">
+                <div class="flex items-center gap-2"><span class="wave wave--sm"></span></div>
+                <time class="mt-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">28. září 2026</time>
+                <h3 class="mt-2 font-display text-lg font-bold leading-snug group-hover:text-primary transition-colors">
+                  <a href="foto" class="hover:underline">Podzimní kilometráž a příprava na mistrovské soutěže</a>
+                </h3>
+                <p class="mt-2 flex-1 text-sm text-muted-foreground leading-relaxed">
+                  Závodní družstva A a B absolvovala náročný objemový blok v bazénu i na suchu. Forma před podzimními poháry stoupá.
+                </p>
+                <a href="foto" class="mt-4 inline-flex items-center gap-1 text-xs font-bold text-primary group-hover:underline">
+                  Prohlédnout fotogalerii &rarr;
+                </a>
+              </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="group flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-card shadow-sm hover:shadow-md transition-all">
+              <div class="relative aspect-[4/3] overflow-hidden bg-muted">
+                <img src="assets/foto/86050.jpg" alt="Plzeňské sprinty a Velká cena Plzně" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                <span class="absolute top-3 left-3 rounded-full bg-black/60 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-sm">Závody</span>
+              </div>
+              <div class="flex flex-1 flex-col p-5 sm:p-6">
+                <div class="flex items-center gap-2"><span class="wave wave--sm"></span></div>
+                <time class="mt-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">3. října 2026</time>
+                <h3 class="mt-2 font-display text-lg font-bold leading-snug group-hover:text-primary transition-colors">
+                  <a href="zavody" class="hover:underline">Velká cena města Plzně — úspěšný vstup do sezóny</a>
+                </h3>
+                <p class="mt-2 flex-1 text-sm text-muted-foreground leading-relaxed">
+                  Ve Slovanech se představila kompletní špička ČR. Bohemáci potvrdili formu finálovými starty a medailemi.
+                </p>
+                <a href="zavody" class="mt-4 inline-flex items-center gap-1 text-xs font-bold text-primary group-hover:underline">
+                  Výsledky a statistiky &rarr;
+                </a>
+              </div>
+            </article>
+          </div>
+
+          <div class="mt-10 text-center">
+            <a href="foto" class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-6 py-3 text-sm font-bold text-foreground hover:bg-muted transition-colors">
+              Zobrazit fotogalerie oddílu
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
       </section>
 
       <!-- VZKAZY PRO RODIČE & INFOLÍSTKY (Authentic boh.cz sections) -->
@@ -597,6 +701,41 @@
         </div>
       </section>
 
+      <!-- PODPORUJÍ NÁS (KPS Ostrava inspired partner showcase) -->
+      <section class="border-t border-border/60 bg-card/25 py-14 sm:py-20">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6">
+          <div class="text-center">
+            <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-foreground">Podporují nás</h2>
+            <div class="my-4 flex justify-center">
+              <span class="wave wave--md"></span>
+            </div>
+            <p class="text-xs sm:text-sm text-muted-foreground max-w-md mx-auto">
+              Děkujeme našim partnerům a institucím za dlouhodobou podporu plaveckého oddílu TJ Bohemians Praha.
+            </p>
+          </div>
+
+          <div class="mt-10 flex flex-wrap items-center justify-center gap-8 sm:gap-14 lg:gap-16">
+            <a href="https://czechswimming.cz" target="_blank" rel="noreferrer" class="sponsor-badge flex items-center justify-center p-2" title="Český svaz plaveckých sportů (ČSPS)">
+              <img src="assets/sponsors/svaz.png" alt="Český svaz plaveckých sportů" class="h-10 sm:h-12 w-auto object-contain">
+            </a>
+            <a href="https://praha.eu" target="_blank" rel="noreferrer" class="sponsor-badge flex items-center justify-center p-2" title="Hlavní město Praha">
+              <img src="assets/sponsors/praha.png" alt="Hlavní město Praha" class="h-10 sm:h-12 w-auto object-contain">
+            </a>
+            <a href="https://nsa.gov.cz" target="_blank" rel="noreferrer" class="sponsor-badge flex items-center justify-center p-2" title="Národní sportovní agentura (NSA)">
+              <div class="flex items-center gap-2 border border-border/80 rounded-xl px-4 py-2 bg-card">
+                <span class="font-display font-extrabold text-xs sm:text-sm tracking-wider text-foreground">NÁRODNÍ SPORTOVNÍ AGENTURA</span>
+              </div>
+            </a>
+            <a href="https://www.bohemians.cz" target="_blank" rel="noreferrer" class="sponsor-badge flex items-center justify-center p-2" title="Tělovýchovná jednota Bohemians Praha">
+              <div class="flex items-center gap-2.5">
+                <img src="assets/bohemka_badge.png" alt="TJ Bohemians Praha" class="h-9 sm:h-10 w-auto object-contain">
+                <span class="font-display font-bold text-sm tracking-wide text-foreground">TJ BOHEMIANS</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
     </main>
 
     <!-- FOOTER -->
@@ -776,27 +915,27 @@
         }
       }
 
-      // 2. Dynamic News cards (show next 3 articles)
+      // 2. Dynamic News cards (show 4 articles for KPS Ostrava 4-col layout)
       const newsCards = document.getElementById("home-news-cards");
       if (newsCards && allNews.length > 0) {
-        const gridItems = allNews.length > 3 ? allNews.slice(1, 4) : allNews.slice(0, 3);
+        const gridItems = allNews.slice(0, 4);
         newsCards.innerHTML = gridItems.map(n => `
-          <a href="aktuality?id=${encodeURIComponent(n.id)}" class="card-clean spotlight-card reveal hover-float group flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-card p-6 transition-all duration-300 shadow-sm">
+          <article class="card-clean spotlight-card reveal hover-float group flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-card p-5 sm:p-6 transition-all duration-300 shadow-sm">
             ${n.image ? `
-              <div class="mb-4 -mx-6 -mt-6 h-48 overflow-hidden border-b border-border/40 bg-background/80">
+              <div class="mb-4 -mx-5 -mt-5 sm:-mx-6 sm:-mt-6 h-40 overflow-hidden border-b border-border/40 bg-background/80">
                 <img src="${escapeHtml(n.image)}" alt="${escapeHtml(n.title)}" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
               </div>
             ` : ''}
-            <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary">
-              <time>${new Date(n.date).toLocaleDateString("cs-CZ")}</time>
-              <span class="text-muted-foreground">· ${escapeHtml(n.author || 'TJ Bohemians Praha')}</span>
-            </div>
-            <h3 class="mt-2.5 font-display text-lg font-bold leading-snug transition-colors group-hover:text-primary">${escapeHtml(n.title)}</h3>
-            <p class="mt-2.5 flex-1 line-clamp-3 text-sm leading-relaxed text-muted-foreground">${escapeHtml(n.excerpt || '')}</p>
-            <span class="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">
-              Číst celou aktualitu <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
-            </span>
-          </a>
+            <div class="flex items-center gap-2 mb-2"><span class="wave wave--sm"></span></div>
+            <a href="aktuality?id=${encodeURIComponent(n.id)}" class="block font-display text-base font-bold leading-snug transition-colors group-hover:text-primary">
+              ${escapeHtml(n.title)}
+            </a>
+            <time class="mt-2 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">${new Date(n.date).toLocaleDateString("cs-CZ")}</time>
+            <p class="mt-2 flex-1 line-clamp-3 text-sm leading-relaxed text-muted-foreground">${escapeHtml(n.excerpt || '')}</p>
+            <a href="aktuality?id=${encodeURIComponent(n.id)}" class="mt-4 inline-flex items-center gap-1 text-xs font-bold text-primary group-hover:underline">
+              Číst více &rarr;
+            </a>
+          </article>
         `).join("");
       }
 

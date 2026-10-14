@@ -37,75 +37,83 @@ require_once __DIR__ . '/includes/header.php';
 
 <main class="w-full min-w-0 flex-1 overflow-x-clip pb-24 lg:pb-0">
 
-  <!-- HERO SECTION -->
-  <section class="border-b border-border/70 bg-gradient-to-b from-card to-background py-10 sm:py-16">
+  <!-- HERO SECTION (KPS Ostrava inspired athletic split hero) -->
+  <section class="relative overflow-hidden py-4 sm:py-6 lg:py-8">
     <div class="mx-auto max-w-7xl px-4 sm:px-6">
-      <div class="grid items-center gap-10 lg:grid-cols-12">
+      <div class="hero-athletic hero-athletic-bg text-white">
+        <div class="grid lg:grid-cols-12 items-stretch min-h-[480px]">
 
-        <!-- Left: Info & CTAs -->
-        <div class="lg:col-span-7">
-          <div class="inline-flex items-center gap-2 rounded-full border border-emerald-600/30 bg-emerald-600/10 px-3 py-1 text-xs font-semibold text-primary mb-4">
-            <span class="h-2 w-2 rounded-full bg-emerald-600"></span>
-            80 let oddílu · 1946–2026 · TJ Bohemians Praha
+          <!-- Left: Club Motto, Wave & Action Buttons -->
+          <div class="lg:col-span-7 flex flex-col justify-center p-6 sm:p-10 lg:p-12 z-10">
+            <div class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1 text-xs font-semibold tracking-wider uppercase text-white/95 backdrop-blur-sm w-fit mb-4">
+              <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              80 let oddílu · 1946–2026 · TJ Bohemians Praha
+            </div>
+
+            <h1 class="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.08] text-white">
+              Jeden duch, jeden tým,<br><span class="text-emerald-300">jedno vítězství!</span>
+            </h1>
+
+            <div class="my-5 flex items-center">
+              <span class="wave wave--md wave--light"></span>
+            </div>
+
+            <h2 class="text-lg sm:text-xl font-semibold text-emerald-100/95 leading-snug">
+              Společně k nejlepším výkonům už od roku 1946
+            </h2>
+
+            <p class="mt-3 text-sm sm:text-base text-white/80 max-w-xl leading-relaxed">
+              Jsme plavecký oddíl Klokanů. Vychováváme sportovce od dětských kurzů a přípravky až po reprezentaci na mistrovstvích republiky a Evropy. Domovské bazény: Plavecký stadion Podolí a Sokol Vinohrady.
+            </p>
+
+            <!-- Action Buttons -->
+            <div class="mt-8 flex flex-wrap items-center gap-3">
+              <a href="pro-rodice" class="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-emerald-950 shadow-md hover:bg-emerald-50 transition-all">
+                <svg class="h-4 w-4 text-emerald-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Pro rodiče &amp; kurzy
+              </a>
+              <a href="zavody" class="inline-flex items-center gap-2 rounded-xl border border-white/30 bg-white/10 px-5 py-3 text-sm font-semibold text-white hover:bg-white/20 transition-all backdrop-blur-sm">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                Kalendář závodů
+              </a>
+              <a href="ke-stazeni" class="inline-flex items-center gap-2 rounded-xl border border-white/30 bg-white/10 px-5 py-3 text-sm font-semibold text-white hover:bg-white/20 transition-all backdrop-blur-sm">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x1="12" y1="15" y2="3"/></svg>
+                Ke stažení
+              </a>
+            </div>
           </div>
-          <h1 class="font-display text-3xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-foreground leading-[1.1]">
-            Plavecký oddíl <span class="text-primary">Bohemians Praha</span>
-          </h1>
-          <p class="mt-4 text-base text-muted-foreground sm:text-lg max-w-2xl leading-relaxed">
-            Jsme plavecký oddíl Klokanů s osmdesátiletou tradicí. Vychováváme sportovce od dětských kurzů a přípravky až po reprezentaci na mistrovstvích republiky a Evropy. Našimi domovy jsou plavecký stadion Podolí a bazén Vinohrady.
-          </p>
 
-          <!-- Quick Action Buttons -->
-          <div class="mt-8 flex flex-wrap items-center gap-3">
-            <a href="pro-rodice" class="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-xs hover:opacity-95 transition-opacity">
-              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              Pro rodiče & kurzy
-            </a>
-            <a href="zavody" class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-semibold text-foreground hover:bg-muted transition-colors">
-              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-              Kalendář závodů
-            </a>
-            <a href="ke-stazeni" class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-semibold text-foreground hover:bg-muted transition-colors">
-              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x1="12" y1="15" y2="3"/></svg>
-              Ke stažení
-            </a>
-          </div>
-        </div>
+          <!-- Right: High-impact Athletic Swimming Photo & Featured Notice -->
+          <div class="lg:col-span-5 relative min-h-[320px] lg:min-h-full overflow-hidden bg-emerald-950">
+            <img src="assets/foto/86071.jpg" alt="Plavci TJ Bohemians Praha v Podolí" class="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 hover:scale-105" loading="eager">
+            <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-black/30 lg:bg-gradient-to-r lg:from-emerald-950/80 lg:via-transparent lg:to-black/30"></div>
 
-        <!-- Right: Photo & Snapshot Metrics -->
-        <div class="lg:col-span-5">
-          <div class="card-clean p-4 overflow-hidden">
-            <div class="relative h-60 sm:h-64 w-full overflow-hidden rounded-lg">
-              <img src="assets/aktuality/2240.jpg" alt="Oslava 80 let Bohemians" class="h-full w-full object-cover">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent"></div>
-              <div class="absolute bottom-3 left-4 right-4 text-white">
-                <span class="inline-flex items-center rounded bg-emerald-600/90 px-2 py-0.5 text-[0.7rem] font-bold text-white mb-1">
-                  80 let Klokanů na Hagiboru
-                </span>
-                <p class="font-display text-base font-bold sm:text-lg leading-snug">
-                  212 plavců, trenérů a přátel oddílu pohromadě
+            <div class="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6">
+              <div class="rounded-2xl border border-white/20 bg-black/50 p-4 sm:p-5 backdrop-blur-md shadow-lg">
+                <div class="flex items-center justify-between text-xs text-emerald-300">
+                  <span class="inline-flex items-center gap-1.5 font-bold uppercase tracking-wider">
+                    <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Aktualita z oddílu
+                  </span>
+                  <time class="font-semibold text-white/80">12. 10. 2026</time>
+                </div>
+                <h3 class="mt-2 font-display text-base sm:text-lg font-bold leading-snug text-white line-clamp-1">
+                  Velká cena Prahy - hodnocení
+                </h3>
+                <p class="mt-1 line-clamp-2 text-xs sm:text-sm text-white/80 leading-relaxed">
+                  Účast bohemáků byla slušná, závodní nasazení bylo dobré a padla řada osobních rekordů.
                 </p>
-              </div>
-            </div>
-
-            <!-- Club Snapshot Metrics -->
-            <div class="mt-4 grid grid-cols-3 gap-2 text-center border-t border-border pt-3">
-              <div>
-                <div class="font-display text-2xl font-black text-primary">80</div>
-                <div class="text-[0.68rem] uppercase font-bold text-muted-foreground">let tradice</div>
-              </div>
-              <div class="border-x border-border">
-                <div class="font-display text-2xl font-black text-primary">250+</div>
-                <div class="text-[0.68rem] uppercase font-bold text-muted-foreground">aktivních plavců</div>
-              </div>
-              <div>
-                <div class="font-display text-2xl font-black text-primary">2</div>
-                <div class="text-[0.68rem] uppercase font-bold text-muted-foreground">domácí bazény</div>
+                <div class="mt-3 flex items-center justify-between pt-2 border-t border-white/15 text-xs">
+                  <span class="text-emerald-200/90 font-medium">Autor: Martin Břenda</span>
+                  <a href="aktuality" class="font-bold text-white hover:text-emerald-300 inline-flex items-center gap-1">
+                    Číst hodnocení &rarr;
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
+        </div>
       </div>
     </div>
   </section>
@@ -427,6 +435,41 @@ require_once __DIR__ . '/includes/header.php';
           </div>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- PODPORUJÍ NÁS (KPS Ostrava inspired partner showcase) -->
+  <section class="border-t border-border/60 bg-card/25 py-12 sm:py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6">
+      <div class="text-center">
+        <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-foreground">Podporují nás</h2>
+        <div class="my-4 flex justify-center">
+          <span class="wave wave--md"></span>
+        </div>
+        <p class="text-xs sm:text-sm text-muted-foreground max-w-md mx-auto">
+          Děkujeme našim partnerům a institucím za dlouhodobou podporu plaveckého oddílu TJ Bohemians Praha.
+        </p>
+      </div>
+
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-8 sm:gap-14 lg:gap-16">
+        <a href="https://czechswimming.cz" target="_blank" rel="noreferrer" class="sponsor-badge flex items-center justify-center p-2" title="Český svaz plaveckých sportů (ČSPS)">
+          <img src="assets/sponsors/svaz.png" alt="Český svaz plaveckých sportů" class="h-10 sm:h-12 w-auto object-contain">
+        </a>
+        <a href="https://praha.eu" target="_blank" rel="noreferrer" class="sponsor-badge flex items-center justify-center p-2" title="Hlavní město Praha">
+          <img src="assets/sponsors/praha.png" alt="Hlavní město Praha" class="h-10 sm:h-12 w-auto object-contain">
+        </a>
+        <a href="https://nsa.gov.cz" target="_blank" rel="noreferrer" class="sponsor-badge flex items-center justify-center p-2" title="Národní sportovní agentura (NSA)">
+          <div class="flex items-center gap-2 border border-border/80 rounded-xl px-4 py-2 bg-card">
+            <span class="font-display font-extrabold text-xs sm:text-sm tracking-wider text-foreground">NÁRODNÍ SPORTOVNÍ AGENTURA</span>
+          </div>
+        </a>
+        <a href="https://www.bohemians.cz" target="_blank" rel="noreferrer" class="sponsor-badge flex items-center justify-center p-2" title="Tělovýchovná jednota Bohemians Praha">
+          <div class="flex items-center gap-2.5">
+            <img src="assets/bohemka_badge.png" alt="TJ Bohemians Praha" class="h-9 sm:h-10 w-auto object-contain">
+            <span class="font-display font-bold text-sm tracking-wide text-foreground">TJ BOHEMIANS</span>
+          </div>
+        </a>
       </div>
     </div>
   </section>

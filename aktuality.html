@@ -72,6 +72,12 @@
               <span class="notification-unread-dot absolute right-1 top-1 h-2 w-2 rounded-full bg-coral hidden"></span>
             </button>
 
+            <a href="https://www.instagram.com/bohemka_plavani" target="_blank" rel="noopener noreferrer" class="hidden xl:inline-flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:bg-card hover:text-foreground" aria-label="Instagram" title="Jsme na Instagramu (@bohemka_plavani)">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            </a>
+            <a href="https://www.facebook.com/bohplavani" target="_blank" rel="noopener noreferrer" class="hidden xl:inline-flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:bg-card hover:text-foreground" aria-label="Facebook" title="Jsme na Facebooku">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
             <button type="button" class="theme-toggle-btn relative inline-flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:bg-card hover:text-foreground" aria-label="Přepnout motiv" title="Přepnout motiv"></button>
           </div>
         </nav>
@@ -298,7 +304,8 @@
               <div>
                 <p class="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-primary">Novinky ze života oddílu · 80 let Bohemians</p>
                 <h1 class="max-w-3xl font-display text-4xl font-extrabold leading-tight md:text-5xl">Aktuality</h1>
-                <p class="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">Hodnocení závodů, termíny soustředění, organizační informace a úspěchy našich plavců.</p>
+                <div class="my-3 flex items-center"><span class="wave wave--md"></span></div>
+                <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">Hodnocení závodů, termíny soustředění, organizační informace a úspěchy našich plavců.</p>
               </div>
             </div>
           </section>
@@ -318,6 +325,7 @@
                       </div>
                     ` : ''}
                     <div class="news-card-body">
+                      <div class="flex items-center gap-2 mb-2"><span class="wave wave--sm"></span></div>
                       <div class="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-primary">
                         <time>${new Date(n.date).toLocaleDateString("cs-CZ")}</time>
                         <span class="text-muted-foreground">· ${escapeHtml(n.author || 'TJ Bohemians Praha')}</span>
