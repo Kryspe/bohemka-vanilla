@@ -191,9 +191,9 @@ function highlightActiveNav() {
     if (!href) return;
     const target = href.split("/").pop();
     if (target === currentPath || (currentPath === "" && target === "index.html")) {
-      link.className = "nav-item group relative rounded-full border border-primary/70 text-primary bg-primary/10 shadow-[0_8px_20px_-12px_var(--color-primary)] px-3.5 py-1.5 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5";
+      link.classList.add("active");
     } else {
-      link.className = "nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]";
+      link.classList.remove("active");
     }
   });
 
@@ -277,28 +277,6 @@ function initMobileNav() {
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && !drawerOverlay.classList.contains("hidden")) closeDrawer(e);
     });
-
-    // FOMO-Style Floating Bottom Dock scroll shrink & expand
-    const nav = document.getElementById("bottom-nav");
-    if (nav) {
-      let lastScrollY = window.scrollY;
-      let scrollTicking = false;
-      window.addEventListener("scroll", () => {
-        if (!scrollTicking) {
-          window.requestAnimationFrame(() => {
-            const currentY = window.scrollY;
-            if (currentY > lastScrollY && currentY > 60) {
-              nav.classList.add("dock-shrunk");
-            } else if (currentY < lastScrollY) {
-              nav.classList.remove("dock-shrunk");
-            }
-            lastScrollY = currentY <= 0 ? 0 : currentY;
-            scrollTicking = false;
-          });
-          scrollTicking = true;
-        }
-      }, { passive: true });
-    }
   }
 }
 

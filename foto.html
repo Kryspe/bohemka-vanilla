@@ -36,55 +36,56 @@
 
   <div class="flex min-h-screen flex-col">
 
-    <!-- HEADER -->
-    <header class="sticky top-0 z-50 bg-transparent px-3 pb-2 pt-[calc(0.75rem+env(safe-area-inset-top))] sm:px-4 sm:pt-4">
-      <div class="relative mx-auto flex max-w-7xl items-center justify-between gap-4 overflow-hidden rounded-[1.5rem] border border-border/60 bg-background/90 px-4 py-2.5 shadow-[var(--shadow-elevated)] backdrop-blur-md sm:px-5">
-        <a href="index.html" class="group flex items-center shrink-0">
-          <img src="assets/logo-80-let.png" alt="TJ Bohemians Praha — oddíl plavání 80 let" width="711" height="200" class="header-logo-img h-8 w-auto object-contain transition-all duration-500 group-hover:scale-[1.04] group-hover:drop-shadow-[var(--glow-aqua)] invert dark:invert-0 sm:h-10">
+    <!-- SITE HEADER -->
+    <header class="sticky top-0 z-50 w-full site-header transition-colors">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5 sm:px-6">
+        <a href="index.html" class="group flex items-center shrink-0 gap-3">
+          <img src="assets/logo-80-let.png" alt="TJ Bohemians Praha — oddíl plavání 80 let" width="711" height="200" class="header-logo-img h-8 sm:h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105">
         </a>
 
-        <nav class="hidden items-center gap-1.5 lg:flex">
-          <div><a href="index.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Úvod</span></a></div>
-          <div><a href="aktuality.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Aktuality</span></a></div>
-          <div><a href="oddil.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Oddíl</span></a></div>
-          <div><a href="pro-rodice.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Pro rodiče</span></a></div>
-          <div><a href="zavody.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Závody</span></a></div>
-          <div><a href="rekordy.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Rekordy</span></a></div>
-          <div><a href="foto.html" class="nav-item group relative rounded-full border border-primary/70 text-primary bg-primary/10 shadow-[0_8px_20px_-12px_var(--color-primary)] px-3.5 py-1.5 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5"><span class="relative z-10">Foto</span></a></div>
-          <div><a href="kontakt.html" class="nav-item group relative rounded-full border border-border/60 px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:text-foreground hover:shadow-[0_8px_20px_-12px_var(--color-primary)]"><span class="relative z-10">Kontakt</span></a></div>
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden items-center gap-1 xl:gap-1.5 lg:flex">
+          <a href="index.html" class="nav-item">Úvod</a>
+          <a href="aktuality.html" class="nav-item">Aktuality</a>
+          <a href="pro-rodice.html" class="nav-item">Pro rodiče</a>
+          <a href="oddil.html" class="nav-item">Oddíl</a>
+          <a href="zavody.html" class="nav-item">Závody</a>
+          <a href="rekordy.html" class="nav-item">Rekordy</a>
+          <a href="statistika.html" class="nav-item">Statistika</a>
+          <a href="foto.html" class="nav-item active">Foto</a>
+          <a href="ke-stazeni.html" class="nav-item">Ke stažení</a>
+          <a href="kontakt.html" class="nav-item">Kontakt</a>
 
-          <a href="intranet.html" class="group relative ml-2 overflow-hidden rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary ring-1 ring-inset ring-primary/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:text-primary-foreground hover:shadow-[var(--glow-aqua)]">
-            <span class="relative z-10">Intranet</span>
-            <span class="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full"></span>
-          </a>
+          <div class="ml-2 flex items-center gap-2 border-l border-border/60 pl-3">
+            <a href="intranet.html" class="inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-1.5 text-xs font-bold text-primary-foreground shadow-xs hover:opacity-90 transition-opacity">
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <span>Intranet</span>
+            </a>
 
-          <div class="ml-1 flex items-center gap-0.5 border-l border-border/40 pl-2">
-            <button type="button" class="site-search-btn relative inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/60 px-3 py-1.5 text-xs font-medium text-muted-foreground transition-all duration-200 hover:border-primary/60 hover:text-foreground hover:bg-card hover:shadow-sm" aria-label="Interní vyhledávání" title="Interní vyhledávání na webu (⌘K / Ctrl+K)">
+            <button type="button" class="site-search-btn relative inline-flex items-center gap-2 rounded-full border border-border/80 bg-card px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-all duration-200 hover:border-primary/60 hover:text-foreground hover:bg-card" aria-label="Interní vyhledávání" title="Interní vyhledávání (⌘K / Ctrl+K)">
               <svg class="h-3.5 w-3.5 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-              <span class="hidden xl:inline">Vyhledávání…</span>
-              <kbd class="hidden sm:inline-flex items-center rounded border border-border/70 bg-background/80 px-1.5 py-0.5 text-[10px] font-mono font-semibold text-muted-foreground/80">⌘K</kbd>
+              <kbd class="hidden xl:inline-flex items-center rounded border border-border bg-background px-1 py-0.5 text-[10px] font-mono font-semibold text-muted-foreground">⌘K</kbd>
             </button>
-            <div class="relative">
-              <button type="button" class="notification-bell-btn relative inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:scale-110 hover:bg-primary/10 hover:text-foreground" aria-label="Oznámení" title="Oznámení">
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-                <span class="notification-unread-dot absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-coral shadow-[0_0_0_2px_var(--color-background)] hidden"></span>
-              </button>
-            </div>
-            <button type="button" class="theme-toggle-btn relative inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:scale-110 hover:bg-primary/10 hover:text-foreground" aria-label="Přepnout motiv" title="Přepnout motiv"></button>
+
+            <button type="button" class="notification-bell-btn relative inline-flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:bg-card hover:text-foreground" aria-label="Oznámení" title="Oznámení">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+              <span class="notification-unread-dot absolute right-1 top-1 h-2 w-2 rounded-full bg-coral hidden"></span>
+            </button>
+
+            <button type="button" class="theme-toggle-btn relative inline-flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:bg-card hover:text-foreground" aria-label="Přepnout motiv" title="Přepnout motiv"></button>
           </div>
         </nav>
 
-        <div class="flex items-center gap-0.5 lg:hidden">
-          <button type="button" class="site-search-btn relative inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:scale-110 hover:bg-primary/10 hover:text-foreground" aria-label="Interní vyhledávání" title="Interní vyhledávání">
-            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <!-- Mobile Header Icons -->
+        <div class="flex items-center gap-1 lg:hidden">
+          <button type="button" class="site-search-btn relative inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground hover:bg-card hover:text-foreground" aria-label="Interní vyhledávání">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
           </button>
-          <div class="relative">
-            <button type="button" class="notification-bell-btn relative inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:scale-110 hover:bg-primary/10 hover:text-foreground" aria-label="Oznámení" title="Oznámení">
-              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-              <span class="notification-unread-dot absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-coral shadow-[0_0_0_2px_var(--color-background)] hidden"></span>
-            </button>
-          </div>
-          <button type="button" class="theme-toggle-btn relative inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:scale-110 hover:bg-primary/10 hover:text-foreground" aria-label="Přepnout motiv" title="Přepnout motiv"></button>
+          <button type="button" class="notification-bell-btn relative inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground hover:bg-card hover:text-foreground" aria-label="Oznámení">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+            <span class="notification-unread-dot absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-coral hidden"></span>
+          </button>
+          <button type="button" class="theme-toggle-btn relative inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground hover:bg-card hover:text-foreground" aria-label="Přepnout motiv"></button>
         </div>
       </div>
     </header>

@@ -358,86 +358,18 @@ body > div {
   100% { background-position: -180% 0; }
 }
 
-/* React Bits Aurora Ambient Waves for Hero Card (Concentric & fully rounded to all 4 corners) */
+/* Clean Sports Hero & Card Polish (Zero AI Slop) */
 .hero-aurora,
 .hero-card-aurora {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
+  display: none !important;
 }
 
 .hero-aurora-orb-1,
-.hero-card-aurora .hero-aurora-orb-1 {
-  position: absolute;
-  top: -20%;
-  left: -10%;
-  width: 550px;
-  height: 550px;
-  border-radius: 50%;
-  background: radial-gradient(circle, oklch(0.62 0.14 152 / 0.28), transparent 70%);
-  filter: blur(65px);
-  animation: auroraMotion1 16s ease-in-out infinite alternate;
-}
-
 .hero-aurora-orb-2,
-.hero-card-aurora .hero-aurora-orb-2 {
-  position: absolute;
-  bottom: -20%;
-  right: -10%;
-  width: 480px;
-  height: 480px;
-  border-radius: 50%;
-  background: radial-gradient(circle, oklch(0.55 0.18 200 / 0.22), transparent 70%);
-  filter: blur(65px);
-  animation: auroraMotion2 14s ease-in-out infinite alternate;
+.hero-aurora-orb-3 {
+  display: none !important;
 }
 
-.hero-card-aurora .hero-aurora-orb-3 {
-  position: absolute;
-  top: 30%;
-  left: 40%;
-  width: 380px;
-  height: 380px;
-  border-radius: 50%;
-  background: radial-gradient(circle, oklch(0.65 0.16 160 / 0.16), transparent 70%);
-  filter: blur(55px);
-  animation: auroraMotion1 20s ease-in-out infinite alternate-reverse;
-}
-
-/* Concentric animated border shine reaching flawlessly into all four rounded corners */
-.hero-card-aurora::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1.5px;
-  background: linear-gradient(
-    135deg,
-    rgba(0, 186, 96, 0.45) 0%,
-    rgba(255, 255, 255, 0.15) 30%,
-    rgba(0, 186, 96, 0.1) 65%,
-    rgba(14, 165, 233, 0.35) 100%
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-@keyframes auroraMotion1 {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(50px, 30px) scale(1.08); }
-  100% { transform: translate(-30px, 60px) scale(0.95); }
-}
-
-@keyframes auroraMotion2 {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-40px, -30px) scale(1.1); }
-  100% { transform: translate(30px, 40px) scale(0.92); }
-}
 
 /* Ambient organic wave drift for hero divider */
 @keyframes waveDrift {
@@ -811,45 +743,58 @@ html.bohemka .notif-header-banner {
   }
 }
 
-/* Bottom Floating Pill Dock for Mobile & Tablet (< 1024px) — Directly modeled after FOMO app */
+/* 6. Native Mobile Bottom Navigation Bar (Apple HIG & Material 3 Compliant) */
+@media (min-width: 1024px) {
+  .mobile-bottom-nav,
+  .fomo-bottom-dock,
+  #drawer-overlay,
+  #drawer-content {
+    display: none !important;
+  }
+}
+
 @media (max-width: 1023px) {
   body {
-    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px)) !important;
+    padding-bottom: calc(4.25rem + env(safe-area-inset-bottom, 0px)) !important;
   }
 
   .mobile-bottom-nav,
   .fomo-bottom-dock {
     position: fixed !important;
-    bottom: calc(1rem + env(safe-area-inset-bottom, 0px)) !important;
-    left: 50% !important;
-    transform: translateX(-50%) scale(1) !important;
-    transform-origin: center bottom !important;
-    width: auto !important;
-    max-width: calc(100vw - 2rem) !important;
-    height: 3.6rem !important;
-    padding: 0.35rem 0.65rem !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: calc(3.85rem + env(safe-area-inset-bottom, 0px)) !important;
+    padding: 0.3rem 0.5rem calc(0.3rem + env(safe-area-inset-bottom, 0px)) 0.5rem !important;
     margin: 0 !important;
     z-index: 50 !important;
-    background: rgba(6, 20, 13, 0.88) !important;
-    backdrop-filter: blur(28px) saturate(200%) !important;
-    -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
-    border: 1px solid rgba(0, 186, 96, 0.35) !important;
-    border-radius: 9999px !important;
+    background: rgba(7, 30, 18, 0.96) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-top: 1px solid rgba(0, 186, 96, 0.28) !important;
+    border-radius: 0 !important;
     display: flex !important;
     align-items: center !important;
-    justify-content: center !important;
-    gap: 0.4rem !important;
-    box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.08) inset !important;
-    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, box-shadow 0.25s ease !important;
+    justify-content: space-around !important;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.45) !important;
+    transform: none !important;
+    opacity: 1 !important;
     pointer-events: auto !important;
   }
 
-  /* When scrolling down: dock shrinks cleanly and tucks down smoothly */
-  .mobile-bottom-nav.dock-shrunk,
-  .fomo-bottom-dock.dock-shrunk {
-    transform: translateX(-50%) translateY(4px) scale(0.82) !important;
-    opacity: 0.88 !important;
-    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.6) !important;
+  html:not(.bohemka):not(.dark) .mobile-bottom-nav,
+  html:not(.bohemka):not(.dark) .fomo-bottom-dock {
+    background: rgba(255, 255, 255, 0.98) !important;
+    border-top: 1px solid rgba(0, 104, 55, 0.16) !important;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06) !important;
+  }
+
+  html.dark .mobile-bottom-nav,
+  html.dark .fomo-bottom-dock {
+    background: rgba(14, 20, 27, 0.98) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5) !important;
   }
 }
 
@@ -857,67 +802,62 @@ html.bohemka .notif-header-banner {
 .fomo-dock-item {
   position: relative;
   display: flex;
-  height: 2.85rem;
-  padding: 0 0.75rem;
+  flex: 1;
+  flex-direction: column;
+  height: 100%;
+  padding: 0.2rem 0.1rem;
   align-items: center;
   justify-content: center;
-  gap: 0.35rem;
-  border-radius: 9999px;
-  color: rgba(255, 255, 255, 0.65);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  gap: 2px;
+  color: #85b89c;
+  font-size: 0.68rem;
+  font-weight: 500;
   text-decoration: none;
   background: transparent;
   border: none;
   box-shadow: none;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: color 0.15s ease;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
   white-space: nowrap;
 }
 
-@media (max-width: 480px) {
-  .mobile-tab-item,
-  .fomo-dock-item {
-    width: 2.85rem;
-    height: 2.85rem;
-    padding: 0;
-  }
-  .mobile-tab-item span,
-  .fomo-dock-item span {
-    display: none !important;
-  }
-}
-
-.mobile-tab-item:active,
-.fomo-dock-item:active {
-  transform: scale(0.9);
-}
-
 .mobile-tab-item svg,
 .fomo-dock-item svg {
   width: 1.35rem;
   height: 1.35rem;
-  stroke-width: 2.2;
+  stroke-width: 2;
   transition: transform 0.15s ease, color 0.15s ease;
   flex-shrink: 0;
 }
 
-/* Active tab inside FOMO dock: circular/pill translucent highlight like in fomo.webp */
 .mobile-tab-item.active,
 .fomo-dock-item.active {
   color: #00ba60 !important;
-  background: rgba(0, 186, 96, 0.18) !important;
-  box-shadow: 0 0 16px rgba(0, 186, 96, 0.25) inset, 0 2px 8px rgba(0, 0, 0, 0.3) !important;
   font-weight: 700 !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 .mobile-tab-item.active svg,
 .fomo-dock-item.active svg {
   color: #00ba60 !important;
-  transform: translateY(-1px);
+}
+
+html:not(.bohemka):not(.dark) .mobile-tab-item,
+html:not(.bohemka):not(.dark) .fomo-dock-item {
+  color: #64748b;
+}
+
+html:not(.bohemka):not(.dark) .mobile-tab-item.active,
+html:not(.bohemka):not(.dark) .fomo-dock-item.active {
+  color: #007a3d !important;
+}
+
+html:not(.bohemka):not(.dark) .mobile-tab-item.active svg,
+html:not(.bohemka):not(.dark) .fomo-dock-item.active svg {
+  color: #007a3d !important;
 }
 
 /* Mobile Drawer Bottom Sheet (All Sections) */
@@ -1065,6 +1005,51 @@ html.bohemka .notif-header-banner {
   min-width: 0 !important;
 }
 
+/* Navigation item styling */
+.nav-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.nav-item:hover {
+  color: var(--foreground);
+  background-color: rgba(0, 186, 96, 0.12);
+}
+.nav-item.active {
+  color: var(--primary);
+  font-weight: 700;
+  background-color: rgba(0, 186, 96, 0.16);
+}
+html.bohemka .nav-item {
+  color: #a0c7b3;
+}
+html.bohemka .nav-item:hover {
+  color: #ffffff;
+  background-color: rgba(0, 186, 96, 0.18);
+}
+html.bohemka .nav-item.active {
+  color: #00ba60;
+  background-color: rgba(0, 186, 96, 0.22);
+}
+html:not(.bohemka):not(.dark) .nav-item {
+  color: #475569;
+}
+html:not(.bohemka):not(.dark) .nav-item:hover {
+  color: #0f172a;
+  background-color: rgba(0, 122, 61, 0.08);
+}
+html:not(.bohemka):not(.dark) .nav-item.active {
+  color: #007a3d;
+  background-color: rgba(0, 122, 61, 0.12);
+}
+
 /* Header nav bar protection against overlap between 1024px and 1240px */
 @media (min-width: 1024px) and (max-width: 1240px) {
   header nav a.nav-item {
@@ -1098,8 +1083,8 @@ html.bohemka,
 html.bohemka body {
   background-color: #074015 !important;
   color: #f2faf5;
-  /* Authentic wallpaper from boh.cz without dark gradients or obscuring masks */
-  background-image: url('../assets/background-bohemka.jpg') !important;
+  /* Authentic wallpaper from boh.cz with calm dark emerald overlay for superior contrast */
+  background-image: linear-gradient(180deg, rgba(6, 28, 16, 0.82) 0%, rgba(7, 36, 19, 0.88) 500px, rgba(4, 20, 11, 0.93) 100%), url('../assets/background-bohemka.jpg') !important;
   background-repeat: repeat !important;
   background-attachment: fixed !important;
   background-position: center top !important;
@@ -1125,58 +1110,60 @@ html.bohemka .absolute.-z-10 {
   display: none !important;
 }
 
-html.bohemka header {
-  background: transparent !important;
+html.bohemka header,
+html.bohemka .site-header {
+  background-color: rgba(6, 26, 16, 0.96) !important;
+  border-bottom: 1px solid rgba(0, 186, 96, 0.24) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+}
+
+html.bohemka header > div {
+  background-color: transparent !important;
   border: none !important;
   box-shadow: none !important;
 }
 
-html.bohemka header > div {
-  background-color: rgba(6, 26, 16, 0.82) !important;
-  backdrop-filter: blur(20px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-  border: 1px solid rgba(0, 186, 96, 0.35) !important;
-  box-shadow: 0 8px 32px -4px rgba(0, 20, 10, 0.5) !important;
-}
-
+/* Solid, High-Contrast Cards (100% Opaque — No Blurry See-Through Slop) */
 html.bohemka .bg-card,
 html.bohemka .bg-card\/70,
 html.bohemka .bg-card\/80,
 html.bohemka .bg-card\/90,
-html.bohemka .bg-card\/95 {
-  background-color: rgba(7, 30, 18, 0.82) !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
-  border-color: rgba(0, 186, 96, 0.28) !important;
-  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(0, 186, 96, 0.12) !important;
+html.bohemka .bg-card\/95,
+html.bohemka .card-clean,
+html.bohemka .spotlight-card,
+html.bohemka .hero-news-card {
+  background-color: #0c2617 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-color: rgba(0, 186, 96, 0.22) !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+  color: #f2faf5 !important;
 }
 
 html.bohemka .bg-background\/90,
 html.bohemka .bg-background\/80,
-html.bohemka .bg-background\/70 {
-  background-color: rgba(5, 22, 13, 0.82) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
+html.bohemka .bg-background\/70,
+html.bohemka .bg-background\/60,
+html.bohemka .bg-muted {
+  background-color: #071f12 !important;
+  border-color: rgba(0, 186, 96, 0.18) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 html.bohemka footer {
-  background-color: rgba(3, 15, 9, 0.92) !important;
+  background-color: #05180e !important;
   border-top: 1px solid rgba(0, 186, 96, 0.22) !important;
-}
-
-html.bohemka .mobile-bottom-nav,
-html.bohemka .fomo-bottom-dock {
-  background: rgba(6, 20, 13, 0.9) !important;
-  border-color: rgba(0, 186, 96, 0.35) !important;
-  border-radius: 9999px !important;
-  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(0, 186, 96, 0.2) inset !important;
 }
 
 html.bohemka .mobile-drawer-sheet,
 html.bohemka .fomo-drawer-sheet {
-  background: rgba(7, 24, 15, 0.97) !important;
-  border-top-color: rgba(0, 186, 96, 0.35) !important;
-  border-radius: 2rem 2rem 0 0 !important;
+  background: #092014 !important;
+  border-top: 1px solid rgba(0, 186, 96, 0.35) !important;
+  border-radius: 1.5rem 1.5rem 0 0 !important;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6) !important;
 }
 
 /* 13. Concentric Border Radii & Rounded Padding System */
@@ -1334,11 +1321,25 @@ textarea {
 }
 
 
-/* Footer logo in bohemka (green) mode: invert to pure white for perfect contrast */
-html.bohemka footer img[src*="logo"],
-html.bohemka footer .footer-logo-img {
+/* Adaptive 80-Year Logo: Pure white in Bohemka and Dark modes, natural in Light mode */
+.header-logo-img,
+.footer-logo-img {
+  filter: none;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+html.bohemka .header-logo-img,
+html.bohemka .footer-logo-img,
+html.dark .header-logo-img,
+html.dark .footer-logo-img {
   filter: brightness(0) invert(1) !important;
-  opacity: 0.95;
+  opacity: 0.98;
+}
+
+html:not(.bohemka):not(.dark) .header-logo-img,
+html:not(.bohemka):not(.dark) .footer-logo-img {
+  filter: none !important;
+  opacity: 1;
 }
 
 
