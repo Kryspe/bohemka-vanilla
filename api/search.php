@@ -37,7 +37,7 @@ if ($pdo) {
                 'title' => $row['title'],
                 'subtitle' => ($row['place'] ?? '') . ' • ' . ($row['date'] ?? '') . ' (' . ($row['type'] ?? 'Závod') . ')',
                 'category' => 'Závod',
-                'url' => 'zavody.html#' . $row['id']
+                'url' => 'zavody#' . $row['id']
             ];
         }
     } catch (Exception $e) {}
@@ -53,7 +53,7 @@ if ($pdo) {
                 'title' => $row['title'],
                 'subtitle' => $excerpt . ' (' . ($row['date'] ?? '') . ')',
                 'category' => 'Aktualita',
-                'url' => 'aktuality.html#' . $row['id']
+                'url' => 'aktuality#' . $row['id']
             ];
         }
     } catch (Exception $e) {}
@@ -68,7 +68,7 @@ if ($pdo) {
                 'title' => $row['title'],
                 'subtitle' => ($row['description'] ?? '') . ' • ' . ($row['file_name'] ?? '') . ' (' . ($row['file_size'] ?? '') . ')',
                 'category' => 'Ke stažení',
-                'url' => 'ke-stazeni.html'
+                'url' => 'ke-stazeni'
             ];
         }
     } catch (Exception $e) {}
@@ -83,7 +83,7 @@ if ($pdo) {
                 'title' => $row['title'],
                 'subtitle' => 'Ročník ' . ($row['birth_year'] ?? '') . ' • ' . ($row['category'] ?? '') . ' • ' . ($row['role'] ?? 'Plavec'),
                 'category' => 'Plavec',
-                'url' => 'intranet.html'
+                'url' => 'intranet'
             ];
         }
     } catch (Exception $e) {}
@@ -98,7 +98,7 @@ if ($pdo) {
                 'title' => $row['event'] . ' — ' . $row['time'] . ' (' . $row['swimmer'] . ')',
                 'subtitle' => 'Rekord Bohemians • ' . $row['category'] . ' • Bazén ' . $row['pool'] . ' • Rok ' . $row['year'],
                 'category' => 'Rekord',
-                'url' => 'rekordy.html'
+                'url' => 'rekordy'
             ];
         }
     } catch (Exception $e) {}
@@ -106,17 +106,17 @@ if ($pdo) {
 
 // Global Site Pages
 $sitePages = [
-    ['title' => 'O oddílu — historie 80 let a tréninkové skupiny', 'subtitle' => 'Představení TJ Bohemians Praha, trenéři Jan Srb a Martin Břenda, Podolí a Vinohrady', 'category' => 'Stránka', 'url' => 'oddil.html'],
-    ['title' => 'Oddílové vybavení Arena Bohemians', 'subtitle' => 'Oficiální zelenobílé plavky, čepičky a batohy Spiky III s logem klokana', 'category' => 'Stránka', 'url' => 'oddil.html#vybaveni'],
-    ['title' => 'Závody a přihlášky — sezóna 2026/2027', 'subtitle' => 'Kalendář plaveckých závodů a soustředění s iCal (.ics) exportem do kalendáře', 'category' => 'Stránka', 'url' => 'zavody.html'],
-    ['title' => 'Oddílové rekordy — 25m & 50m bazén', 'subtitle' => '396 oficiálních historických rekordů: Open, Dorost a Žactvo', 'category' => 'Stránka', 'url' => 'rekordy.html'],
-    ['title' => 'Statistika a kalkulačka FINA / AQUA bodů', 'subtitle' => 'Výpočet bodů World Aquatics, převodník časů 25m/50m a výkonnostní třídy ČSPS', 'category' => 'Stránka', 'url' => 'statistika.html'],
-    ['title' => 'Ke stažení — rozpisy drah a směrnice', 'subtitle' => 'Rozpisy tréninků v Podolí a na Vinohradech, přihlášky, stanovy a formuláře', 'category' => 'Stránka', 'url' => 'ke-stazeni.html'],
-    ['title' => 'Pro rodiče — informace a lékařské prohlídky', 'subtitle' => 'Pokyny pro rodiče, platnost prohlídek, příspěvky a vzkazy od trenérů', 'category' => 'Stránka', 'url' => 'pro-rodice.html'],
-    ['title' => 'Fotogalerie — 80 let tradice (1946–2026)', 'subtitle' => 'Fotoreportáže ze závodů, video archiv oslavy na Zonerama a fotky na Hagiboru', 'category' => 'Stránka', 'url' => 'foto.html'],
-    ['title' => 'Kontakt — vedení oddílu a tréninkové areály', 'subtitle' => 'Mgr. Jan Srb, Bc. Martin Břenda, bazény Podolí a Sokol Vinohrady', 'category' => 'Stránka', 'url' => 'kontakt.html'],
-    ['title' => 'Intranet plavce a trenéra', 'subtitle' => 'Křivka progrese časů, semafor lékařské prohlídky a přehled přihlášek', 'category' => 'Stránka', 'url' => 'intranet.html'],
-    ['title' => 'Administrace oddílu — správa a export', 'subtitle' => 'Export přihlášek ČSPS CSV a Lenex 3.0 pro Super Usera, správa novinek', 'category' => 'Stránka', 'url' => 'admin.html']
+    ['title' => 'O oddílu — historie 80 let a tréninkové skupiny', 'subtitle' => 'Představení TJ Bohemians Praha, trenéři Jan Srb a Martin Břenda, Podolí a Vinohrady', 'category' => 'Stránka', 'url' => 'oddil'],
+    ['title' => 'Oddílové vybavení Arena Bohemians', 'subtitle' => 'Oficiální zelenobílé plavky, čepičky a batohy Spiky III s logem klokana', 'category' => 'Stránka', 'url' => 'oddil#vybaveni'],
+    ['title' => 'Závody a přihlášky — sezóna 2026/2027', 'subtitle' => 'Kalendář plaveckých závodů a soustředění s iCal (.ics) exportem do kalendáře', 'category' => 'Stránka', 'url' => 'zavody'],
+    ['title' => 'Oddílové rekordy — 25m & 50m bazén', 'subtitle' => '396 oficiálních historických rekordů: Open, Dorost a Žactvo', 'category' => 'Stránka', 'url' => 'rekordy'],
+    ['title' => 'Statistika a kalkulačka FINA / AQUA bodů', 'subtitle' => 'Výpočet bodů World Aquatics, převodník časů 25m/50m a výkonnostní třídy ČSPS', 'category' => 'Stránka', 'url' => 'statistika'],
+    ['title' => 'Ke stažení — rozpisy drah a směrnice', 'subtitle' => 'Rozpisy tréninků v Podolí a na Vinohradech, přihlášky, stanovy a formuláře', 'category' => 'Stránka', 'url' => 'ke-stazeni'],
+    ['title' => 'Pro rodiče — informace a lékařské prohlídky', 'subtitle' => 'Pokyny pro rodiče, platnost prohlídek, příspěvky a vzkazy od trenérů', 'category' => 'Stránka', 'url' => 'pro-rodice'],
+    ['title' => 'Fotogalerie — 80 let tradice (1946–2026)', 'subtitle' => 'Fotoreportáže ze závodů, video archiv oslavy na Zonerama a fotky na Hagiboru', 'category' => 'Stránka', 'url' => 'foto'],
+    ['title' => 'Kontakt — vedení oddílu a tréninkové areály', 'subtitle' => 'Mgr. Jan Srb, Bc. Martin Břenda, bazény Podolí a Sokol Vinohrady', 'category' => 'Stránka', 'url' => 'kontakt'],
+    ['title' => 'Intranet plavce a trenéra', 'subtitle' => 'Křivka progrese časů, semafor lékařské prohlídky a přehled přihlášek', 'category' => 'Stránka', 'url' => 'intranet'],
+    ['title' => 'Administrace oddílu — správa a export', 'subtitle' => 'Export přihlášek ČSPS CSV a Lenex 3.0 pro Super Usera, správa novinek', 'category' => 'Stránka', 'url' => 'admin']
 ];
 
 $lq = mb_strtolower($q, 'UTF-8');

@@ -108,7 +108,7 @@ require_once __DIR__ . '/includes/header.php';
                 Uzavřeno
               </span>
             <?php else: ?>
-              <a href="intranet.php#zavody" class="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-bold text-primary-foreground shadow-xs hover:opacity-90">
+              <a href="intranet#zavody" class="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-bold text-primary-foreground shadow-xs hover:opacity-90">
                 <?= $isSigned ? 'Upravit v Intranetu' : 'Přihlásit se' ?> &rarr;
               </a>
             <?php endif; ?>

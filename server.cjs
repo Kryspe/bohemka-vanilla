@@ -415,7 +415,6 @@ const server = http.createServer(async (req, res) => {
     }
 
     // SECURITY GUARD 3: Block Access to Sensitive Files and Directories
-    // Prohibit direct download of SQLite database, .htaccess, .env, hidden files, or server code
     const lowerPath = pathname.toLowerCase();
     if (
       lowerPath.startsWith("/data/") ||
@@ -425,20 +424,44 @@ const server = http.createServer(async (req, res) => {
       lowerPath.endsWith(".env") ||
       lowerPath.endsWith(".htaccess") ||
       lowerPath.endsWith("server.js") ||
-      lowerPath.endsWith("server.cjs") ||
-      lowerPath.endsWith(".php")
+      lowerPath.endsWith("server.cjs")
     ) {
       res.writeHead(403, { ...SECURITY_HEADERS, "Content-Type": "text/plain; charset=utf-8" });
       res.end("403 Forbidden: Access to protected resources is denied.");
       return;
     }
 
-    // Resolve static file path
-    if (pathname === "/" || pathname === "") {
-      pathname = "/index.html";
+    // Clean URL Redirects (301)
+    if (lowerPath === "/index.html" || lowerPath === "/index.php") {
+      res.writeHead(301, { ...SECURITY_HEADERS, "Location": "/" });
+      res.end();
+      return;
+    }
+    if (lowerPath.endsWith(".php")) {
+      const cleanTarget = pathname.replace(/\.php$/i, "") || "/";
+      res.writeHead(301, { ...SECURITY_HEADERS, "Location": cleanTarget });
+      res.end();
+      return;
+    }
+    if (lowerPath.endsWith(".html") && lowerPath !== "/404.html") {
+      const cleanTarget = pathname.replace(/\.html$/i, "") || "/";
+      res.writeHead(301, { ...SECURITY_HEADERS, "Location": cleanTarget });
+      res.end();
+      return;
     }
 
-    const filePath = path.join(PUBLIC_DIR, pathname);
+    // Resolve static file path
+    let targetFile = pathname;
+    if (targetFile === "/" || targetFile === "") {
+      targetFile = "/index.html";
+    }
+
+    let filePath = path.join(PUBLIC_DIR, targetFile);
+
+    // If clean URL without extension is requested, map to corresponding .html file
+    if (!fs.existsSync(filePath) && fs.existsSync(filePath + ".html")) {
+      filePath = filePath + ".html";
+    }
 
     // Ensure resolved path stays strictly within PUBLIC_DIR
     if (!filePath.startsWith(PUBLIC_DIR)) {

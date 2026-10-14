@@ -17,13 +17,14 @@ function escapeHtml(str) {
     .replace(/`/g, "&#96;");
 }
 
-function safeUrl(rawUrl, defaultFallback = "index.html") {
+function safeUrl(rawUrl, defaultFallback = "/") {
   if (!rawUrl || typeof rawUrl !== "string") return defaultFallback;
   const cleaned = rawUrl.replace(/[\x00-\x1F\x7F]/g, "").trim();
   if (!cleaned) return defaultFallback;
   if (/^(javascript|data|vbscript|file):/i.test(cleaned)) return defaultFallback;
   if (cleaned.startsWith("//")) return defaultFallback;
   if (cleaned.startsWith("#") || cleaned.startsWith("?")) return cleaned;
+  if (cleaned === "/") return "/";
 
   try {
     const origin = (typeof window !== "undefined" && window.location && window.location.origin) ? window.location.origin : "http://localhost:8080";
@@ -34,7 +35,7 @@ function safeUrl(rawUrl, defaultFallback = "index.html") {
       if (!isAllowed) return defaultFallback;
       return parsed.href;
     }
-    const path = parsed.pathname.replace(/^\//, "") + parsed.search + parsed.hash;
+    const path = (parsed.pathname === "/" ? "/" : parsed.pathname.replace(/^\//, "")) + parsed.search + parsed.hash;
     return path || defaultFallback;
   } catch (e) {
     if (/^[a-zA-Z0-9_\-\.\/]+(#.*)?$/.test(cleaned)) return cleaned;
@@ -511,7 +512,7 @@ window.BohStore = (function () {
         title: "Platba oddílových příspěvků na 1. pololetí",
         subtitle: "Prosíme o úhradu oddílových příspěvků na účet 123456789/0300 (ČSOB) do 15. 10. Jako VS uveďte rodné číslo plavce.",
         type: "payment",
-        url: "pro-rodice.html",
+        url: "pro-rodice",
         createdAt: new Date().toISOString(),
         unread: true,
         priority: "high"
@@ -521,7 +522,7 @@ window.BohStore = (function () {
         title: "Uzávěrka přihlášek: Velká cena Plzně",
         subtitle: "Přihlášky na VC Plzně končí zítra ve 20:00! Nezapomeňte zkontrolovat své vybrané disciplíny.",
         type: "deadline",
-        url: "zavody.html",
+        url: "zavody",
         createdAt: new Date(Date.now() - 3600000 * 4).toISOString(),
         unread: true,
         priority: "normal"
@@ -531,7 +532,7 @@ window.BohStore = (function () {
         title: "Zpráva trenéra Jana Srba: Rozpis tréninků",
         subtitle: "Od pondělí platí aktualizovaný rozpis drah pro závodní družstva ST a ODA na bazénu v Podolí.",
         type: "coach",
-        url: "ke-stazeni.html",
+        url: "ke-stazeni",
         createdAt: new Date(Date.now() - 3600000 * 20).toISOString(),
         unread: false,
         priority: "normal"
@@ -541,7 +542,7 @@ window.BohStore = (function () {
         title: "Evropský pohár v dálkovém plavání v Razanacu",
         subtitle: "Háňa Jurčáková obsadila skvělé 12. místo v mezinárodním závodě v Chorvatsku.",
         type: "news",
-        url: "aktuality.html",
+        url: "aktuality",
         createdAt: new Date(Date.now() - 3600000 * 44).toISOString(),
         unread: false,
         priority: "normal"
@@ -576,7 +577,7 @@ window.BohStore = (function () {
       title: item.title || "Nové oznámení oddílu",
       subtitle: item.subtitle || item.message || "",
       type: item.type || "notice",
-      url: item.url || "index.html",
+      url: item.url || "/",
       createdAt: item.createdAt || new Date().toISOString(),
       unread: true,
       priority: item.priority || "normal"
@@ -683,17 +684,17 @@ window.BohStore = (function () {
 
     // Static pages
     const pages = [
-      { title: "Úvodní stránka", desc: "Přehled plaveckého oddílu TJ Bohemians Praha, kalendář závodů, aktuality a tréninkové skupiny.", url: "index.html", cat: "Stránka" },
-      { title: "Aktuality", desc: "Zprávy, výsledky z MČR a pohárů, nominace a oznámení trenérů.", url: "aktuality.html", cat: "Stránka" },
-      { title: "O oddílu", desc: "Historie od roku 1946 k 80. výročí, tréninkové skupiny ST, ODA, Výběr, Přípravka.", url: "oddil.html", cat: "Stránka" },
-      { title: "Závody a kalendář", desc: "Termíny závodů, uzávěrky přihlášek, bazén Podolí a Vinohrady.", url: "zavody.html", cat: "Stránka" },
-      { title: "Rekordy oddílu", desc: "Oddílové rekordy na 25m a 50m bazénu, historické tabulky časů.", url: "rekordy.html", cat: "Stránka" },
-      { title: "Statistika & Žebříčky", desc: "TOP 10 historické výkony, FINA body a profily plavců Bohemians.", url: "statistika.html", cat: "Stránka" },
-      { title: "Ke stažení", desc: "Rozdělení do drah 2026/27, rozvrhy tréninků, platby příspěvků, lékařské posudky.", url: "ke-stazeni.html", cat: "Stránka" },
-      { title: "Pro rodiče", desc: "Informace pro rodiče, zápisy dětí, omluvenky a desatero plavce.", url: "pro-rodice.html", cat: "Stránka" },
-      { title: "Fotogalerie", desc: "Fotoalba ze soustředění a závodů, odkaz na Zoneramu oddílu.", url: "foto.html", cat: "Stránka" },
-      { title: "Kontakty", desc: "Trenéři, předseda Mgr. Jan Srb, bazény Podolí a Vinohrady, IČO: 00539121.", url: "kontakt.html", cat: "Stránka" },
-      { title: "Intranet (Členská sekce)", desc: "Přihlašování na závody pro plavce i trenéry, správa rezervací a administrace.", url: "intranet.html", cat: "Intranet" }
+      { title: "Úvodní stránka", desc: "Přehled plaveckého oddílu TJ Bohemians Praha, kalendář závodů, aktuality a tréninkové skupiny.", url: "/", cat: "Stránka" },
+      { title: "Aktuality", desc: "Zprávy, výsledky z MČR a pohárů, nominace a oznámení trenérů.", url: "aktuality", cat: "Stránka" },
+      { title: "O oddílu", desc: "Historie od roku 1946 k 80. výročí, tréninkové skupiny ST, ODA, Výběr, Přípravka.", url: "oddil", cat: "Stránka" },
+      { title: "Závody a kalendář", desc: "Termíny závodů, uzávěrky přihlášek, bazén Podolí a Vinohrady.", url: "zavody", cat: "Stránka" },
+      { title: "Rekordy oddílu", desc: "Oddílové rekordy na 25m a 50m bazénu, historické tabulky časů.", url: "rekordy", cat: "Stránka" },
+      { title: "Statistika & Žebříčky", desc: "TOP 10 historické výkony, FINA body a profily plavců Bohemians.", url: "statistika", cat: "Stránka" },
+      { title: "Ke stažení", desc: "Rozdělení do drah 2026/27, rozvrhy tréninků, platby příspěvků, lékařské posudky.", url: "ke-stazeni", cat: "Stránka" },
+      { title: "Pro rodiče", desc: "Informace pro rodiče, zápisy dětí, omluvenky a desatero plavce.", url: "pro-rodice", cat: "Stránka" },
+      { title: "Fotogalerie", desc: "Fotoalba ze soustředění a závodů, odkaz na Zoneramu oddílu.", url: "foto", cat: "Stránka" },
+      { title: "Kontakty", desc: "Trenéři, předseda Mgr. Jan Srb, bazény Podolí a Vinohrady, IČO: 00539121.", url: "kontakt", cat: "Stránka" },
+      { title: "Intranet (Členská sekce)", desc: "Přihlašování na závody pro plavce i trenéry, správa rezervací a administrace.", url: "intranet", cat: "Intranet" }
     ];
 
     pages.forEach(p => {
@@ -705,28 +706,28 @@ window.BohStore = (function () {
     // News
     getNews().forEach(n => {
       if (matches(n.title) || matches(n.excerpt)) {
-        results.push({ title: n.title, subtitle: `${n.date} · ${n.author}`, url: "aktuality.html", category: "Aktualita" });
+        results.push({ title: n.title, subtitle: `${n.date} · ${n.author}`, url: "aktuality", category: "Aktualita" });
       }
     });
 
     // Events
     getEvents().forEach(e => {
       if (matches(e.name) || matches(e.place)) {
-        results.push({ title: e.name, subtitle: `${e.place} · ${e.date}`, url: "zavody.html", category: "Závod" });
+        results.push({ title: e.name, subtitle: `${e.place} · ${e.date}`, url: "zavody", category: "Závod" });
       }
     });
 
     // Downloads
     getDownloads().forEach(d => {
       if (matches(d.title) || matches(d.description) || matches(d.fileName)) {
-        results.push({ title: d.title, subtitle: `${d.category} · ${d.fileSize}`, url: "ke-stazeni.html", category: "Ke stažení" });
+        results.push({ title: d.title, subtitle: `${d.category} · ${d.fileSize}`, url: "ke-stazeni", category: "Ke stažení" });
       }
     });
 
     // Swimmers
     getSwimmers().forEach(s => {
       if (matches(s.name) || matches(s.category) || matches(s.role)) {
-        results.push({ title: s.name, subtitle: `${s.category} · ${s.role || ""}`, url: "statistika.html", category: "Plavec" });
+        results.push({ title: s.name, subtitle: `${s.category} · ${s.role || ""}`, url: "statistika", category: "Plavec" });
       }
     });
 
@@ -735,7 +736,7 @@ window.BohStore = (function () {
     if (dataObj && dataObj.coaches) {
       dataObj.coaches.forEach(c => {
         if (matches(c.name) || matches(c.role)) {
-          results.push({ title: c.name, subtitle: c.role, url: "kontakt.html", category: "Trenér" });
+          results.push({ title: c.name, subtitle: c.role, url: "kontakt", category: "Trenér" });
         }
       });
     }
@@ -748,7 +749,7 @@ window.BohStore = (function () {
           results.push({
             title: `${r.event} — ${r.time} (${sName})`,
             subtitle: `Rekord Bohemians • ${r.category} • Bazén ${r.pool} • Rok ${r.year}`,
-            url: "rekordy.html",
+            url: "rekordy",
             category: "Rekord"
           });
         }
@@ -764,7 +765,7 @@ window.BohStore = (function () {
           results.push({
             title: text.slice(0, 75) + (text.length > 75 ? '…' : ''),
             subtitle: 'Vzkaz pro rodiče • ' + (note.date || 'Aktuální'),
-            url: 'pro-rodice.html',
+            url: 'pro-rodice',
             category: 'Pro rodiče'
           });
         }

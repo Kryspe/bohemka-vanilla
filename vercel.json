@@ -1,0 +1,68 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/index.php",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:page.php",
+      "destination": "/:page",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/aktuality",
+      "destination": "/aktuality.html"
+    },
+    {
+      "source": "/zavody",
+      "destination": "/zavody.html"
+    },
+    {
+      "source": "/pro-rodice",
+      "destination": "/pro-rodice.html"
+    },
+    {
+      "source": "/oddil",
+      "destination": "/oddil.html"
+    },
+    {
+      "source": "/rekordy",
+      "destination": "/rekordy.html"
+    },
+    {
+      "source": "/statistika",
+      "destination": "/statistika.html"
+    },
+    {
+      "source": "/ke-stazeni",
+      "destination": "/ke-stazeni.html"
+    },
+    {
+      "source": "/foto",
+      "destination": "/foto.html"
+    },
+    {
+      "source": "/kontakt",
+      "destination": "/kontakt.html"
+    },
+    {
+      "source": "/intranet",
+      "destination": "/intranet.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
+    }
+  ]
+}

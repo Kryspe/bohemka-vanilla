@@ -59,15 +59,15 @@ require_once __DIR__ . '/includes/header.php';
       <div class="flex items-center gap-2">
         <span class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Bazén:</span>
         <div class="flex gap-1 rounded-lg border border-border bg-card p-1">
-          <a href="rekordy.php?pool=all&gender=<?= urlencode($genderFilter) ?>" 
+          <a href="rekordy?pool=all&gender=<?= urlencode($genderFilter) ?>" 
              class="rounded-md px-3 py-1 text-xs font-semibold transition-colors <?= $poolFilter === 'all' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground' ?>">
             Vše
           </a>
-          <a href="rekordy.php?pool=25m&gender=<?= urlencode($genderFilter) ?>" 
+          <a href="rekordy?pool=25m&gender=<?= urlencode($genderFilter) ?>" 
              class="rounded-md px-3 py-1 text-xs font-semibold transition-colors <?= $poolFilter === '25m' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground' ?>">
             25 m
           </a>
-          <a href="rekordy.php?pool=50m&gender=<?= urlencode($genderFilter) ?>" 
+          <a href="rekordy?pool=50m&gender=<?= urlencode($genderFilter) ?>" 
              class="rounded-md px-3 py-1 text-xs font-semibold transition-colors <?= $poolFilter === '50m' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground' ?>">
             50 m
           </a>
@@ -77,15 +77,15 @@ require_once __DIR__ . '/includes/header.php';
       <div class="flex items-center gap-2">
         <span class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Kategorie:</span>
         <div class="flex gap-1 rounded-lg border border-border bg-card p-1">
-          <a href="rekordy.php?pool=<?= urlencode($poolFilter) ?>&gender=all" 
+          <a href="rekordy?pool=<?= urlencode($poolFilter) ?>&gender=all" 
              class="rounded-md px-3 py-1 text-xs font-semibold transition-colors <?= $genderFilter === 'all' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground' ?>">
             Vše
           </a>
-          <a href="rekordy.php?pool=<?= urlencode($poolFilter) ?>&gender=Muži" 
+          <a href="rekordy?pool=<?= urlencode($poolFilter) ?>&gender=Muži" 
              class="rounded-md px-3 py-1 text-xs font-semibold transition-colors <?= $genderFilter === 'Muži' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground' ?>">
             Muži
           </a>
-          <a href="rekordy.php?pool=<?= urlencode($poolFilter) ?>&gender=Ženy" 
+          <a href="rekordy?pool=<?= urlencode($poolFilter) ?>&gender=Ženy" 
              class="rounded-md px-3 py-1 text-xs font-semibold transition-colors <?= $genderFilter === 'Ženy' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground' ?>">
             Ženy
           </a>

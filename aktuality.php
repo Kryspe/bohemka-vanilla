@@ -38,7 +38,7 @@ require_once __DIR__ . '/includes/header.php';
   <?php if ($article): ?>
     <!-- ARTICLE DETAIL IN READABLE ROUNDED BUBBLE CARD -->
     <div class="mx-auto max-w-4xl px-4 py-10 sm:px-6">
-      <a href="aktuality.php" class="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline mb-6">
+      <a href="aktuality" class="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline mb-6">
         <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 19-7-7 7-7m-7 7h14"/></svg>
         Zpět na přehled aktualit
       </a>
@@ -76,7 +76,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="mx-auto max-w-3xl px-4 py-24 text-center">
       <h1 class="font-display text-3xl font-bold text-foreground">Aktualita nenalezena</h1>
       <p class="mt-3 text-muted-foreground">Článek s tímto identifikátorem v databázi neexistuje.</p>
-      <a href="aktuality.php" class="mt-6 inline-block rounded-xl bg-primary px-5 py-2.5 text-xs font-bold text-primary-foreground hover:opacity-95">
+      <a href="aktuality" class="mt-6 inline-block rounded-xl bg-primary px-5 py-2.5 text-xs font-bold text-primary-foreground hover:opacity-95">
         Zpět na přehled aktualit
       </a>
     </div>
@@ -101,7 +101,7 @@ require_once __DIR__ . '/includes/header.php';
   <div class="mx-auto max-w-4xl px-4 py-12 sm:px-6">
     <div class="space-y-4">
       <?php foreach ($allNews as $n): ?>
-        <a href="aktuality.php?id=<?= urlencode($n['id']) ?>" class="card-clean p-5 sm:p-6 block">
+        <a href="aktuality?id=<?= urlencode($n['id']) ?>" class="card-clean p-5 sm:p-6 block">
           <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
             <?php if (!empty($n['image_url'])): ?>
               <div class="w-full shrink-0 overflow-hidden rounded-lg border border-border bg-muted sm:w-48 sm:h-36">

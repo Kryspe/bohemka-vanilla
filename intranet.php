@@ -177,7 +177,7 @@ require_once __DIR__ . '/includes/header.php';
 
         <div class="mt-6 border-t border-border pt-4 text-center text-xs text-muted-foreground">
           <p>Výchozí demo účet pro plavce: <strong class="text-foreground">plavec</strong> / heslo: <strong class="text-foreground">bohemka</strong></p>
-          <p class="mt-2">Jste trenér nebo správce? <a href="admin.php" class="font-semibold text-primary hover:underline">Přejít do administrace &rarr;</a></p>
+          <p class="mt-2">Jste trenér nebo správce? <a href="admin" class="font-semibold text-primary hover:underline">Přejít do administrace &rarr;</a></p>
         </div>
       </div>
     </div>
@@ -202,12 +202,12 @@ require_once __DIR__ . '/includes/header.php';
 
         <div class="flex items-center gap-2">
           <?php if (in_array($user['role'], ['admin', 'trainer'])): ?>
-            <a href="admin.php" class="inline-flex items-center gap-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 px-4 py-2 text-xs font-bold text-white shadow-xs transition-colors">
+            <a href="admin" class="inline-flex items-center gap-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 px-4 py-2 text-xs font-bold text-white shadow-xs transition-colors">
               <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
               <span>Vstup do Administrace</span>
             </a>
           <?php endif; ?>
-          <a href="intranet.php?action=logout" class="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-4 py-2 text-xs font-semibold text-foreground hover:bg-muted transition-colors">
+          <a href="intranet?action=logout" class="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-4 py-2 text-xs font-semibold text-foreground hover:bg-muted transition-colors">
             <svg class="h-4 w-4 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
             <span>Odhlásit se</span>
           </a>

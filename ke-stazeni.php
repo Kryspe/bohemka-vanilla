@@ -68,7 +68,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-border pb-6">
       <div class="flex items-center gap-2 overflow-x-auto pb-1">
         <?php foreach ($categories as $catKey => $catLabel): ?>
-          <a href="ke-stazeni.php?cat=<?= urlencode($catKey) ?>" 
+          <a href="ke-stazeni?cat=<?= urlencode($catKey) ?>" 
              class="rounded-full px-3.5 py-1.5 text-xs font-semibold transition-colors shrink-0 <?= $catFilter === $catKey ? 'bg-primary text-primary-foreground' : 'border border-border text-muted-foreground hover:text-foreground' ?>">
             <?= e($catLabel) ?>
           </a>
@@ -125,7 +125,7 @@ require_once __DIR__ . '/includes/header.php';
           <a href="https://www.boh.cz/download/formular_zdravotni_prohlidka.pdf" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-xs font-bold text-primary-foreground shadow-xs hover:opacity-95">
             Stáhnout formulář prohlídky
           </a>
-          <a href="pro-rodice.php" class="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-4 py-2.5 text-xs font-semibold text-foreground hover:bg-muted">
+          <a href="pro-rodice" class="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-4 py-2.5 text-xs font-semibold text-foreground hover:bg-muted">
             Informace pro rodiče &rarr;
           </a>
         </div>

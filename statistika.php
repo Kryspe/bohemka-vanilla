@@ -37,10 +37,10 @@ require_once __DIR__ . '/includes/header.php';
           Kompletní přehled oddílových štafetových výkonů, rekordů a digitalizovaný archiv ročenek TJ Bohemians Praha v PDF.
         </p>
         <div class="mt-6 flex flex-wrap gap-2.5">
-          <a href="rekordy.php" class="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3.5 py-1.5 text-xs font-semibold text-foreground hover:bg-muted">
+          <a href="rekordy" class="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3.5 py-1.5 text-xs font-semibold text-foreground hover:bg-muted">
             <span>Rekordy jednotlivců</span> &rarr;
           </a>
-          <a href="ke-stazeni.php" class="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3.5 py-1.5 text-xs font-semibold text-foreground hover:bg-muted">
+          <a href="ke-stazeni" class="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3.5 py-1.5 text-xs font-semibold text-foreground hover:bg-muted">
             <span>Dokumenty ke stažení</span> &rarr;
           </a>
         </div>

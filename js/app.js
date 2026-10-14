@@ -40,10 +40,20 @@ if (document.readyState === "loading") {
   bootstrapApp();
 }
 
-// Automatic logout of Intranet whenever outside intranet.html
+// Helper to normalize clean URLs, extensions (.html, .php), and root paths
+function normalizePageName(path) {
+  if (!path) return "index";
+  let clean = path.split("?")[0].split("#")[0];
+  clean = clean.split("/").pop() || "";
+  clean = clean.replace(/\.(html|php)$/i, "");
+  if (!clean || clean === "index") return "index";
+  return clean.toLowerCase();
+}
+
+// Automatic logout of Intranet whenever outside intranet
 function checkIntranetAutoLogout() {
-  const curPage = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
-  if (curPage !== "intranet.html") {
+  const curPage = normalizePageName(window.location.pathname);
+  if (curPage !== "intranet" && curPage !== "admin") {
     if (window.BohStore && typeof window.BohStore.logout === "function") {
       window.BohStore.logout();
     } else {
@@ -183,14 +193,14 @@ window.initSpotlightCards = initSpotlightCards;
 
 // 4. Active Link Highlight
 function highlightActiveNav() {
-  const currentPath = window.location.pathname.split("/").pop() || "index.html";
+  const currentPage = normalizePageName(window.location.pathname);
 
   // Desktop Header Nav
   document.querySelectorAll("header nav a.nav-item").forEach(link => {
     const href = link.getAttribute("href");
     if (!href) return;
-    const target = href.split("/").pop();
-    if (target === currentPath || (currentPath === "" && target === "index.html")) {
+    const targetPage = normalizePageName(href);
+    if (targetPage === currentPage) {
       link.classList.add("active");
     } else {
       link.classList.remove("active");
@@ -203,10 +213,10 @@ function highlightActiveNav() {
     const dockItems = bottomNav.querySelectorAll(".mobile-tab-item, .fomo-dock-item");
     let matchedDock = false;
     dockItems.forEach(item => {
-      const href = item.getAttribute("href");
+      const href = item.getAttribute("href") || item.getAttribute("data-path");
       if (href) {
-        const target = href.split("/").pop();
-        if (target === currentPath || (currentPath === "" && target === "index.html")) {
+        const targetPage = normalizePageName(href);
+        if (targetPage === currentPage) {
           item.classList.add("active");
           matchedDock = true;
         } else {
@@ -230,8 +240,8 @@ function highlightActiveNav() {
     drawer.querySelectorAll("a").forEach(a => {
       const href = a.getAttribute("href");
       if (!href) return;
-      const target = href.split("/").pop();
-      if (target === currentPath || (currentPath === "" && target === "index.html")) {
+      const targetPage = normalizePageName(href);
+      if (targetPage === currentPage) {
         a.classList.add("border-primary", "bg-primary/15", "text-primary");
         a.classList.remove("border-border/60", "bg-background/70", "text-foreground");
       }
@@ -355,55 +365,55 @@ function initSearchModal() {
       title: "Termínová listina 2026/2027",
       category: "Závod",
       subtitle: "Rozpis závodů, propozice a přihlášky na bazénové i dálkové plavání",
-      url: "zavody.html"
+      url: "zavody"
     },
     {
       title: "Rozdělení do drah Podolí & Vinohrady",
       category: "Ke stažení",
       subtitle: "Oficiální rozpis tréninků a rozdělení plavců 2026/27 v PDF",
-      url: "ke-stazeni.html"
+      url: "ke-stazeni"
     },
     {
       title: "Oddílové rekordy 25m & 50m",
       category: "Rekord",
       subtitle: "Historické i aktuální rekordy oddílu Bohemians",
-      url: "rekordy.html"
+      url: "rekordy"
     },
     {
       title: "Členský intranet & platby příspěvků",
       category: "Intranet",
       subtitle: "Osobní rekordy, starty, přihlášky a bankovní QR platby",
-      url: "intranet.html"
+      url: "intranet"
     },
     {
       title: "Jan Srb — hlavní trenér",
       category: "Trenér",
       subtitle: "Kontakty na vedení oddílu a trenéry jednotlivých skupin",
-      url: "kontakt.html"
+      url: "kontakt"
     },
     {
       title: "Statistika a top výkony plavců",
       category: "Statistika",
       subtitle: "AQUA body, historické tabulky a vyhledávač výsledků plavců",
-      url: "statistika.html"
+      url: "statistika"
     },
     {
       title: "Informace pro rodiče & kurzy",
       category: "Pro rodiče",
       subtitle: "Kurzy plavání na Vinohradech, přípravka a lékařské posudky",
-      url: "pro-rodice.html"
+      url: "pro-rodice"
     },
     {
       title: "Fotogalerie z oslav 80 let oddílu",
       category: "Foto",
       subtitle: "Fotoreportáže ze soustředění a jubilejního setkání na Hagiboru",
-      url: "foto.html"
+      url: "foto"
     },
     {
       title: "Výklad pravidel plavání ČSPS",
       category: "Dokument",
       subtitle: "Oficiální pravidla Českého svazu plaveckých sportů v PDF",
-      url: "ke-stazeni.html"
+      url: "ke-stazeni"
     }
   ];
 
@@ -512,7 +522,7 @@ function initSearchModal() {
       const isSelected = idx === 0;
       const badge = m.category ? `<span class="inline-flex items-center rounded-md bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground border border-border/50 shrink-0">${escapeHtml(m.category)}</span>` : '';
       const subtitle = m.subtitle ? `<p class="text-xs text-muted-foreground mt-0.5 truncate">${highlightMatch(m.subtitle, queryStr)}</p>` : '';
-      const itemUrl = safeUrl(m.url, "index.html");
+      const itemUrl = safeUrl(m.url, "/");
 
       return `
         <a
@@ -604,7 +614,7 @@ function initSearchModal() {
       } else if (e.key === "Enter") {
         e.preventDefault();
         if (selectedIndex >= 0 && currentResults[selectedIndex]) {
-          window.location.href = safeUrl(currentResults[selectedIndex].url, "index.html");
+          window.location.href = safeUrl(currentResults[selectedIndex].url, "/");
         }
       } else if (e.key === "Escape") {
         closeModal("global-search-modal");
@@ -726,7 +736,7 @@ function showAppleToastBanner(notif) {
   `;
 
   banner.onclick = () => {
-    if (notif.url) window.location.href = safeUrl(notif.url, "index.html");
+    if (notif.url) window.location.href = safeUrl(notif.url, "/");
   };
 
   requestAnimationFrame(() => {
@@ -936,8 +946,8 @@ function toggleNotificationPopup(triggerBtn) {
 
       <!-- Footer -->
       <div class="flex items-center justify-between border-t border-border/50 bg-muted/20 px-4 py-2.5 text-xs">
-        <a href="zavody.html" class="font-semibold text-primary hover:underline flex items-center gap-1">Rozpis závodů →</a>
-        <a href="pro-rodice.html" class="font-medium text-muted-foreground hover:text-foreground">Pro rodiče</a>
+        <a href="zavody" class="font-semibold text-primary hover:underline flex items-center gap-1">Rozpis závodů →</a>
+        <a href="pro-rodice" class="font-medium text-muted-foreground hover:text-foreground">Pro rodiče</a>
       </div>
     `;
 
@@ -952,7 +962,7 @@ function toggleNotificationPopup(triggerBtn) {
         }
         updateNotificationBadges();
         popup.classList.add("hidden");
-        if (found && found.url) window.location.href = safeUrl(found.url, "index.html");
+        if (found && found.url) window.location.href = safeUrl(found.url, "/");
       });
     });
 
@@ -1328,13 +1338,14 @@ function escapeHtml(str) {
     .replace(/`/g, "&#96;");
 }
 
-function safeUrl(rawUrl, defaultFallback = "index.html") {
+function safeUrl(rawUrl, defaultFallback = "/") {
   if (!rawUrl || typeof rawUrl !== "string") return defaultFallback;
   const cleaned = rawUrl.replace(/[\x00-\x1F\x7F]/g, "").trim();
   if (!cleaned) return defaultFallback;
   if (/^(javascript|data|vbscript|file):/i.test(cleaned)) return defaultFallback;
   if (cleaned.startsWith("//")) return defaultFallback;
   if (cleaned.startsWith("#") || cleaned.startsWith("?")) return cleaned;
+  if (cleaned === "/") return "/";
 
   try {
     const origin = (typeof window !== "undefined" && window.location && window.location.origin) ? window.location.origin : "http://localhost:8080";
@@ -1345,7 +1356,7 @@ function safeUrl(rawUrl, defaultFallback = "index.html") {
       if (!isAllowed) return defaultFallback;
       return parsed.href;
     }
-    const path = parsed.pathname.replace(/^\//, "") + parsed.search + parsed.hash;
+    const path = (parsed.pathname === "/" ? "/" : parsed.pathname.replace(/^\//, "")) + parsed.search + parsed.hash;
     return path || defaultFallback;
   } catch (e) {
     if (/^[a-zA-Z0-9_\-\.\/]+(#.*)?$/.test(cleaned)) return cleaned;

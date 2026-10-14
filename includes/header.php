@@ -20,16 +20,16 @@ $user = currentUser();
 $flash = getFlash();
 
 $navLinks = [
-    'index' => ['label' => 'Úvod', 'url' => 'index.php'],
-    'aktuality' => ['label' => 'Aktuality', 'url' => 'aktuality.php'],
-    'pro-rodice' => ['label' => 'Pro rodiče', 'url' => 'pro-rodice.php'],
-    'oddil' => ['label' => 'Oddíl', 'url' => 'oddil.php'],
-    'zavody' => ['label' => 'Závody', 'url' => 'zavody.php'],
-    'rekordy' => ['label' => 'Rekordy', 'url' => 'rekordy.php'],
-    'statistika' => ['label' => 'Statistika', 'url' => 'statistika.php'],
-    'foto' => ['label' => 'Foto', 'url' => 'foto.php'],
-    'ke-stazeni' => ['label' => 'Ke stažení', 'url' => 'ke-stazeni.php'],
-    'kontakt' => ['label' => 'Kontakt', 'url' => 'kontakt.php'],
+    'index' => ['label' => 'Úvod', 'url' => '/'],
+    'aktuality' => ['label' => 'Aktuality', 'url' => 'aktuality'],
+    'pro-rodice' => ['label' => 'Pro rodiče', 'url' => 'pro-rodice'],
+    'oddil' => ['label' => 'Oddíl', 'url' => 'oddil'],
+    'zavody' => ['label' => 'Závody', 'url' => 'zavody'],
+    'rekordy' => ['label' => 'Rekordy', 'url' => 'rekordy'],
+    'statistika' => ['label' => 'Statistika', 'url' => 'statistika'],
+    'foto' => ['label' => 'Foto', 'url' => 'foto'],
+    'ke-stazeni' => ['label' => 'Ke stažení', 'url' => 'ke-stazeni'],
+    'kontakt' => ['label' => 'Kontakt', 'url' => 'kontakt'],
 ];
 ?>
 <!DOCTYPE html>
@@ -65,7 +65,7 @@ $navLinks = [
     <!-- SITE HEADER -->
     <header class="sticky top-0 z-50 w-full site-header transition-colors">
       <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-        <a href="index.php" class="flex items-center gap-3">
+        <a href="/" class="flex items-center gap-3">
           <img src="assets/bohemka_badge.png" alt="TJ Bohemians Praha — oddíl plavání" class="h-10 w-10 object-contain rounded-full shadow-xs">
           <img src="assets/logo-klokani.png" alt="TJ Bohemians Praha — oddíl plavání Klokani" class="site-logo-adaptive h-8 w-auto object-contain hidden sm:block">
           <div class="flex flex-col sm:hidden">
@@ -88,20 +88,20 @@ $navLinks = [
 
           <div class="ml-2 flex items-center gap-2 border-l border-border pl-3">
             <?php if ($user && in_array($user['role'], ['admin', 'trainer'])): ?>
-              <a href="admin.php" class="inline-flex items-center gap-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 px-3 py-1.5 text-xs font-semibold text-white shadow-xs transition-colors">
+              <a href="admin" class="inline-flex items-center gap-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 px-3 py-1.5 text-xs font-semibold text-white shadow-xs transition-colors">
                 <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
                 <span>Admin</span>
               </a>
-              <a href="intranet.php" class="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground shadow-xs hover:opacity-90 transition-opacity">
+              <a href="intranet" class="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground shadow-xs hover:opacity-90 transition-opacity">
                 <span>Intranet</span>
               </a>
             <?php elseif ($user): ?>
-              <a href="intranet.php" class="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3.5 py-1.5 text-xs font-semibold text-primary-foreground shadow-xs hover:opacity-90 transition-opacity">
+              <a href="intranet" class="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3.5 py-1.5 text-xs font-semibold text-primary-foreground shadow-xs hover:opacity-90 transition-opacity">
                 <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 <span><?= e($user['name']) ?></span>
               </a>
             <?php else: ?>
-              <a href="intranet.php" class="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3.5 py-1.5 text-xs font-semibold text-primary-foreground shadow-xs hover:opacity-90 transition-opacity">
+              <a href="intranet" class="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3.5 py-1.5 text-xs font-semibold text-primary-foreground shadow-xs hover:opacity-90 transition-opacity">
                 <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 <span>Intranet</span>
               </a>
@@ -113,11 +113,11 @@ $navLinks = [
         <!-- Mobile Header Actions -->
         <div class="flex items-center gap-2 lg:hidden">
           <?php if ($user && in_array($user['role'], ['admin', 'trainer'])): ?>
-            <a href="admin.php" class="inline-flex items-center gap-1 rounded-lg bg-emerald-700/20 px-2 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-400">
+            <a href="admin" class="inline-flex items-center gap-1 rounded-lg bg-emerald-700/20 px-2 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-400">
               <span>Admin</span>
             </a>
           <?php endif; ?>
-          <a href="intranet.php" class="inline-flex items-center gap-1 rounded-lg bg-primary/10 px-2.5 py-1.5 text-xs font-semibold text-primary">
+          <a href="intranet" class="inline-flex items-center gap-1 rounded-lg bg-primary/10 px-2.5 py-1.5 text-xs font-semibold text-primary">
             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             <span><?= $user ? e(explode(' ', $user['name'])[0]) : 'Intranet' ?></span>
           </a>

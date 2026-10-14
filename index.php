@@ -57,15 +57,15 @@ require_once __DIR__ . '/includes/header.php';
 
           <!-- Quick Action Buttons -->
           <div class="mt-8 flex flex-wrap items-center gap-3">
-            <a href="pro-rodice.php" class="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-xs hover:opacity-95 transition-opacity">
+            <a href="pro-rodice" class="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-xs hover:opacity-95 transition-opacity">
               <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
               Pro rodiče & kurzy
             </a>
-            <a href="zavody.php" class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-semibold text-foreground hover:bg-muted transition-colors">
+            <a href="zavody" class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-semibold text-foreground hover:bg-muted transition-colors">
               <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
               Kalendář závodů
             </a>
-            <a href="ke-stazeni.php" class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-semibold text-foreground hover:bg-muted transition-colors">
+            <a href="ke-stazeni" class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-semibold text-foreground hover:bg-muted transition-colors">
               <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x1="12" y1="15" y2="3"/></svg>
               Ke stažení
             </a>
@@ -118,7 +118,7 @@ require_once __DIR__ . '/includes/header.php';
     </div>
 
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      <a href="pro-rodice.php" class="card-clean p-5 flex flex-col justify-between">
+      <a href="pro-rodice" class="card-clean p-5 flex flex-col justify-between">
         <div>
           <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-500/10 text-primary mb-3">
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -133,7 +133,7 @@ require_once __DIR__ . '/includes/header.php';
         </span>
       </a>
 
-      <a href="zavody.php" class="card-clean p-5 flex flex-col justify-between">
+      <a href="zavody" class="card-clean p-5 flex flex-col justify-between">
         <div>
           <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-500/10 text-primary mb-3">
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
@@ -148,7 +148,7 @@ require_once __DIR__ . '/includes/header.php';
         </span>
       </a>
 
-      <a href="ke-stazeni.php" class="card-clean p-5 flex flex-col justify-between">
+      <a href="ke-stazeni" class="card-clean p-5 flex flex-col justify-between">
         <div>
           <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-500/10 text-primary mb-3">
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x1="12" y1="15" y2="3"/></svg>
@@ -163,7 +163,7 @@ require_once __DIR__ . '/includes/header.php';
         </span>
       </a>
 
-      <a href="intranet.php" class="card-clean p-5 flex flex-col justify-between bg-emerald-500/[0.04]">
+      <a href="intranet" class="card-clean p-5 flex flex-col justify-between bg-emerald-500/[0.04]">
         <div>
           <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground mb-3">
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -219,10 +219,10 @@ require_once __DIR__ . '/includes/header.php';
             </div>
 
             <div class="mt-6 flex flex-wrap items-center gap-2 pt-2 border-t border-border">
-              <a href="zavody.php" class="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3.5 py-2 text-xs font-semibold text-primary-foreground hover:opacity-90">
+              <a href="zavody" class="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3.5 py-2 text-xs font-semibold text-primary-foreground hover:opacity-90">
                 <span>Detaily závodu</span> &rarr;
               </a>
-              <a href="intranet.php#zavody" class="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-2 text-xs font-semibold text-foreground hover:bg-muted">
+              <a href="intranet#zavody" class="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-2 text-xs font-semibold text-foreground hover:bg-muted">
                 <span>Přihláška v Intranetu</span>
               </a>
             </div>
@@ -254,10 +254,10 @@ require_once __DIR__ . '/includes/header.php';
           <?php endif; ?>
 
           <div class="mt-6 flex flex-wrap items-center gap-2 pt-2 border-t border-border">
-            <a href="pro-rodice.php" class="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600/10 px-3.5 py-2 text-xs font-semibold text-primary hover:bg-emerald-600/20">
+            <a href="pro-rodice" class="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600/10 px-3.5 py-2 text-xs font-semibold text-primary hover:bg-emerald-600/20">
               <span>Zobrazit všechny vzkazy</span> &rarr;
             </a>
-            <a href="ke-stazeni.php" class="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-2 text-xs font-semibold text-foreground hover:bg-muted">
+            <a href="ke-stazeni" class="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-2 text-xs font-semibold text-foreground hover:bg-muted">
               <span>Ke stažení PDF</span>
             </a>
           </div>
@@ -274,7 +274,7 @@ require_once __DIR__ . '/includes/header.php';
         <p class="text-xs font-bold uppercase tracking-wider text-primary">Kde trénujeme</p>
         <h2 class="mt-1 font-display text-2xl font-extrabold sm:text-3xl text-foreground">Naše domácí bazény</h2>
       </div>
-      <a href="oddil.php" class="text-xs sm:text-sm font-semibold text-primary hover:underline">
+      <a href="oddil" class="text-xs sm:text-sm font-semibold text-primary hover:underline">
         Více o oddílu a trénincích &rarr;
       </a>
     </div>
@@ -336,14 +336,14 @@ require_once __DIR__ . '/includes/header.php';
           <p class="text-xs font-bold uppercase tracking-wider text-primary">Zprávy z oddílu</p>
           <h2 class="mt-1 font-display text-2xl font-extrabold sm:text-3xl text-foreground">Co je u Klokanů nového</h2>
         </div>
-        <a href="aktuality.php" class="hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">
+        <a href="aktuality" class="hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">
           <span>Všechny aktuality</span> &rarr;
         </a>
       </div>
 
       <div class="grid gap-6 md:grid-cols-3">
         <?php foreach ($latestNews as $n): ?>
-          <a href="aktuality.php?id=<?= urlencode($n['id']) ?>" class="card-clean p-5 flex flex-col h-full">
+          <a href="aktuality?id=<?= urlencode($n['id']) ?>" class="card-clean p-5 flex flex-col h-full">
             <?php if (!empty($n['image_url'])): ?>
               <div class="mb-4 -mx-5 -mt-5 h-44 overflow-hidden rounded-t-xl border-b border-border bg-muted">
                 <img src="<?= e($n['image_url']) ?>" alt="<?= e($n['title']) ?>" class="h-full w-full object-cover" loading="lazy">
@@ -377,7 +377,7 @@ require_once __DIR__ . '/includes/header.php';
               <p class="text-xs font-bold uppercase tracking-wider text-primary">Oficiální dokumenty</p>
               <h3 class="mt-1 font-display text-xl font-extrabold text-foreground">Rychlé stažení formulářů</h3>
             </div>
-            <a href="ke-stazeni.php" class="text-xs font-semibold text-primary hover:underline">Všechny dokumenty &rarr;</a>
+            <a href="ke-stazeni" class="text-xs font-semibold text-primary hover:underline">Všechny dokumenty &rarr;</a>
           </div>
           <div class="mt-4 space-y-2.5">
             <a href="https://www.boh.cz/download/165_rozdeleni_plavani_2026-27.pdf" target="_blank" rel="noreferrer" class="card-clean p-3.5 flex items-center justify-between">

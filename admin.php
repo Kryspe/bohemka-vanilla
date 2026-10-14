@@ -435,7 +435,7 @@ require_once __DIR__ . '/includes/header.php';
 
         <div class="mt-6 border-t border-border pt-4 text-center text-xs text-muted-foreground">
           <p>Výchozí přihlašovací údaje: <strong class="text-foreground">admin</strong> / heslo: <strong class="text-foreground">bohemka</strong></p>
-          <p class="mt-2">Jste plavec nebo rodič? <a href="intranet.php" class="font-semibold text-primary hover:underline">Vstoupit do klientského Intranetu &rarr;</a></p>
+          <p class="mt-2">Jste plavec nebo rodič? <a href="intranet" class="font-semibold text-primary hover:underline">Vstoupit do klientského Intranetu &rarr;</a></p>
         </div>
       </div>
     </div>
@@ -456,11 +456,11 @@ require_once __DIR__ . '/includes/header.php';
         </div>
 
         <div class="flex items-center gap-2">
-          <a href="intranet.php" class="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-4 py-2 text-xs font-semibold text-foreground hover:bg-muted">
+          <a href="intranet" class="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-4 py-2 text-xs font-semibold text-foreground hover:bg-muted">
             <svg class="h-3.5 w-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             <span>Pohled plavce</span>
           </a>
-          <a href="admin.php?action=logout" class="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-4 py-2 text-xs font-semibold text-foreground hover:bg-muted">
+          <a href="admin?action=logout" class="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-4 py-2 text-xs font-semibold text-foreground hover:bg-muted">
             <svg class="h-3.5 w-3.5 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
             <span>Odhlásit správu</span>
           </a>
@@ -469,25 +469,25 @@ require_once __DIR__ . '/includes/header.php';
 
       <!-- Navigation Tabs -->
       <div class="mt-6 flex flex-wrap items-center gap-2 border-t border-border pt-4">
-        <a href="admin.php?tab=news" class="rounded-lg px-3.5 py-1.5 text-xs font-semibold <?= $activeTab === 'news' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted' ?>">
+        <a href="admin?tab=news" class="rounded-lg px-3.5 py-1.5 text-xs font-semibold <?= $activeTab === 'news' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted' ?>">
           📰 Aktuality
         </a>
-        <a href="admin.php?tab=events" class="rounded-lg px-3.5 py-1.5 text-xs font-semibold <?= $activeTab === 'events' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted' ?>">
+        <a href="admin?tab=events" class="rounded-lg px-3.5 py-1.5 text-xs font-semibold <?= $activeTab === 'events' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted' ?>">
           🏊 Závody & Přihlášky
         </a>
-        <a href="admin.php?tab=messages" class="rounded-lg px-3.5 py-1.5 text-xs font-semibold <?= $activeTab === 'messages' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted' ?>">
+        <a href="admin?tab=messages" class="rounded-lg px-3.5 py-1.5 text-xs font-semibold <?= $activeTab === 'messages' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted' ?>">
           📢 Vzkazy pro rodiče
         </a>
-        <a href="admin.php?tab=trainers" class="rounded-lg px-3.5 py-1.5 text-xs font-semibold <?= $activeTab === 'trainers' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted' ?>">
+        <a href="admin?tab=trainers" class="rounded-lg px-3.5 py-1.5 text-xs font-semibold <?= $activeTab === 'trainers' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted' ?>">
           🧑‍🏫 Trenéři
         </a>
-        <a href="admin.php?tab=yearbooks" class="rounded-lg px-3.5 py-1.5 text-xs font-semibold <?= $activeTab === 'yearbooks' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted' ?>">
+        <a href="admin?tab=yearbooks" class="rounded-lg px-3.5 py-1.5 text-xs font-semibold <?= $activeTab === 'yearbooks' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted' ?>">
           📚 Ročenky
         </a>
-        <a href="admin.php?tab=records" class="rounded-lg px-3.5 py-1.5 text-xs font-semibold <?= $activeTab === 'records' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted' ?>">
+        <a href="admin?tab=records" class="rounded-lg px-3.5 py-1.5 text-xs font-semibold <?= $activeTab === 'records' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted' ?>">
           ⏱️ Rekordy oddílu
         </a>
-        <a href="admin.php?tab=users" class="rounded-lg px-3.5 py-1.5 text-xs font-semibold <?= $activeTab === 'users' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted' ?>">
+        <a href="admin?tab=users" class="rounded-lg px-3.5 py-1.5 text-xs font-semibold <?= $activeTab === 'users' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted' ?>">
           👥 Uživatelé
         </a>
       </div>
@@ -506,7 +506,7 @@ require_once __DIR__ . '/includes/header.php';
                 <?= $editItem ? 'Upravit aktualitu' : 'Přidat novou aktualitu' ?>
               </h2>
               <?php if ($editItem): ?>
-                <a href="admin.php?tab=news" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
+                <a href="admin?tab=news" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
               <?php endif; ?>
             </div>
             <form method="post" action="admin.php?tab=news" class="space-y-3.5">
@@ -581,10 +581,10 @@ require_once __DIR__ . '/includes/header.php';
                     <p class="text-xs text-muted-foreground line-clamp-1 mt-1"><?= e($n['excerpt']) ?></p>
                   </div>
                   <div class="flex items-center gap-2 shrink-0">
-                    <a href="admin.php?tab=news&edit=<?= urlencode($n['id']) ?>" class="text-xs font-semibold text-primary hover:underline">
+                    <a href="admin?tab=news&edit=<?= urlencode($n['id']) ?>" class="text-xs font-semibold text-primary hover:underline">
                       Upravit
                     </a>
-                    <a href="aktuality.php?id=<?= urlencode($n['id']) ?>" target="_blank" class="text-xs font-semibold text-muted-foreground hover:underline">
+                    <a href="aktuality?id=<?= urlencode($n['id']) ?>" target="_blank" class="text-xs font-semibold text-muted-foreground hover:underline">
                       Zobrazit
                     </a>
                     <form method="post" action="admin.php?tab=news" onsubmit="return confirm('Opravdu smazat tuto aktualitu?');">
@@ -610,7 +610,7 @@ require_once __DIR__ . '/includes/header.php';
               <?= $editItem ? 'Upravit závod: ' . e($editItem['name']) : 'Přidat nový závod do kalendáře' ?>
             </h2>
             <?php if ($editItem): ?>
-              <a href="admin.php?tab=events" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
+              <a href="admin?tab=events" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
             <?php endif; ?>
           </div>
           <?php 
@@ -693,11 +693,11 @@ require_once __DIR__ . '/includes/header.php';
                   </div>
 
                   <div class="flex items-center gap-2">
-                    <a href="admin.php?tab=events&edit=<?= urlencode($ev['id']) ?>" 
+                    <a href="admin?tab=events&edit=<?= urlencode($ev['id']) ?>" 
                        class="inline-flex items-center gap-1 rounded-lg border border-border bg-card px-3 py-1.5 text-xs font-semibold text-primary hover:bg-muted">
                       <span>Upravit</span>
                     </a>
-                    <a href="admin.php?action=export_csv&event_id=<?= urlencode($ev['id']) ?>" 
+                    <a href="admin?action=export_csv&event_id=<?= urlencode($ev['id']) ?>" 
                        class="inline-flex items-center gap-1 rounded-lg border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground hover:bg-muted">
                       <svg class="h-3.5 w-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                       <span>Export (CSV)</span>
@@ -759,7 +759,7 @@ require_once __DIR__ . '/includes/header.php';
                 <?= $editItem ? 'Upravit vzkaz na nástěnce' : 'Přidat nový vzkaz na nástěnku' ?>
               </h2>
               <?php if ($editItem): ?>
-                <a href="admin.php?tab=messages" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
+                <a href="admin?tab=messages" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
               <?php endif; ?>
             </div>
             <form method="post" action="admin.php?tab=messages" class="space-y-3.5">
@@ -822,7 +822,7 @@ require_once __DIR__ . '/includes/header.php';
                     <p class="text-xs text-foreground mt-1 leading-relaxed"><?= nl2br(e($msg['text'])) ?></p>
                   </div>
                   <div class="flex items-center gap-2 shrink-0">
-                    <a href="admin.php?tab=messages&edit=<?= $msg['id'] ?>" class="text-xs font-semibold text-primary hover:underline">
+                    <a href="admin?tab=messages&edit=<?= $msg['id'] ?>" class="text-xs font-semibold text-primary hover:underline">
                       Upravit
                     </a>
                     <form method="post" action="admin.php?tab=messages" onsubmit="return confirm('Smazat vzkaz?');">
@@ -848,7 +848,7 @@ require_once __DIR__ . '/includes/header.php';
                 <?= $editItem ? 'Upravit profil trenéra' : 'Přidat trenéra do oddílu' ?>
               </h2>
               <?php if ($editItem): ?>
-                <a href="admin.php?tab=trainers" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
+                <a href="admin?tab=trainers" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
               <?php endif; ?>
             </div>
             <form method="post" action="admin.php?tab=trainers" class="space-y-3.5">
@@ -911,7 +911,7 @@ require_once __DIR__ . '/includes/header.php';
                     </div>
                   </div>
                   <div class="flex items-center gap-2 shrink-0">
-                    <a href="admin.php?tab=trainers&edit=<?= $t['id'] ?>" class="text-xs font-semibold text-primary hover:underline">
+                    <a href="admin?tab=trainers&edit=<?= $t['id'] ?>" class="text-xs font-semibold text-primary hover:underline">
                       Upravit
                     </a>
                     <form method="post" action="admin.php?tab=trainers" onsubmit="return confirm('Smazat trenéra?');">
@@ -937,7 +937,7 @@ require_once __DIR__ . '/includes/header.php';
                 <?= $editItem ? 'Upravit ročenku oddílu' : 'Přidat ročenku oddílu' ?>
               </h2>
               <?php if ($editItem): ?>
-                <a href="admin.php?tab=yearbooks" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
+                <a href="admin?tab=yearbooks" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
               <?php endif; ?>
             </div>
             <form method="post" action="admin.php?tab=yearbooks" class="space-y-3.5">
@@ -990,7 +990,7 @@ require_once __DIR__ . '/includes/header.php';
                     <span class="text-muted-foreground ml-2">(<?= e($yb['file_size']) ?>)</span>
                   </div>
                   <div class="flex items-center gap-2">
-                    <a href="admin.php?tab=yearbooks&edit=<?= $yb['id'] ?>" class="text-primary hover:underline">Upravit</a>
+                    <a href="admin?tab=yearbooks&edit=<?= $yb['id'] ?>" class="text-primary hover:underline">Upravit</a>
                     <a href="<?= e($yb['file_url']) ?>" target="_blank" class="text-muted-foreground hover:underline">Stáhnout</a>
                     <form method="post" action="admin.php?tab=yearbooks" onsubmit="return confirm('Smazat ročenku?');">
                       <input type="hidden" name="action" value="delete_yearbook">
@@ -1014,7 +1014,7 @@ require_once __DIR__ . '/includes/header.php';
               <?= $editItem ? 'Upravit oddílový rekord' : 'Přidat nový oddílový rekord' ?>
             </h2>
             <?php if ($editItem): ?>
-              <a href="admin.php?tab=records" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
+              <a href="admin?tab=records" class="text-xs font-semibold text-muted-foreground hover:text-foreground">Zrušit úpravy &times;</a>
             <?php endif; ?>
           </div>
           <form method="post" action="admin.php?tab=records" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -1105,7 +1105,7 @@ require_once __DIR__ . '/includes/header.php';
                     <td class="p-2.5 text-muted-foreground"><?= e($r['year']) ?></td>
                     <td class="p-2.5 text-muted-foreground"><?= e($r['note']) ?></td>
                     <td class="p-2.5 text-right whitespace-nowrap">
-                      <a href="admin.php?tab=records&edit=<?= $r['id'] ?>" class="text-primary hover:underline mr-2">Upravit</a>
+                      <a href="admin?tab=records&edit=<?= $r['id'] ?>" class="text-primary hover:underline mr-2">Upravit</a>
                       <form method="post" action="admin.php?tab=records" onsubmit="return confirm('Smazat rekord?');" class="inline">
                         <input type="hidden" name="action" value="delete_record">
                         <input type="hidden" name="id" value="<?= $r['id'] ?>">

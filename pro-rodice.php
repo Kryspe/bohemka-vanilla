@@ -130,7 +130,7 @@ require_once __DIR__ . '/includes/header.php';
             </p>
           </div>
           <div class="mt-5 pt-3 border-t border-border">
-            <a href="ke-stazeni.php" class="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1">
+            <a href="ke-stazeni" class="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1">
               <span>Rozpis výše plateb 2026/27</span> &rarr;
             </a>
           </div>
@@ -148,7 +148,7 @@ require_once __DIR__ . '/includes/header.php';
             </p>
           </div>
           <div class="mt-5 pt-3 border-t border-border">
-            <a href="intranet.php" class="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1">
+            <a href="intranet" class="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1">
               <span>Vstoupit do Intranetu</span> &rarr;
             </a>
           </div>

@@ -2,8 +2,8 @@
 # TJ BOHEMIANS PRAHA (ODDÍL PLAVÁNÍ) — SESSION HANDOFF & MASTER STATUS
 # ==============================================================================
 Projekt: bohemka-vanilla / boh2 (Autentický klubový web TJ Bohemians Praha)
-Verze: 7.2 (Obnoven autentický klubový design boh.cz s tapetou, uzamčena role plavce, neprůsvitné bubliny článků, Supabase cloud integrace)
-Poslední aktualizace: 13. října 2026, 21:10 CEST
+Verze: 7.3 (Čisté URL sekcí bez .html přípon na Vercelu a lokálním serveru, vercel.json cleanUrls/rewrites, normalizace aktivní navigace, synchronizace PHP a HTML)
+Poslední aktualizace: 14. října 2026, 11:55 CEST
 Git repozitář: git@github.com:Kryspe/boh2.git (Větve: main a master v synchronizaci)
 Produkční hosting: https://boh2-eight.vercel.app (napojeno na GitHub boh2 CI/CD deploy)
 Databáze: Supabase (https://xjvpyznywisuuykwsedd.supabase.co - resume do července 2027) + bezpečný fallback na LocalStorage
@@ -471,20 +471,24 @@ zkousimbohemkuvanilla/ (kořen repozitáře)
 ==============================================================================
 Lokální vývojový server:
   node server.cjs (port 8080, http://localhost:8080)
+  nebo: ./run_local.sh
 
-Ověření funkčnosti všech stránek (všechny musí vracet HTTP 200):
-  for p in index.html aktuality.html oddil.html zavody.html rekordy.html statistika.html ke-stazeni.html pro-rodice.html foto.html kontakt.html intranet.html admin.html 404.html; do
-    echo "$p: $(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/$p)"
+Ověření funkčnosti čistých URL sekcí (všechny musí vracet HTTP 200 a přesměrovat staré přípony):
+  for p in "" aktuality oddil zavody rekordy statistika ke-stazeni pro-rodice foto kontakt intranet admin; do
+    echo "/$p: $(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/$p)"
   done
 
-Kontrola syntaxe JavaScriptu:
-  node -c js/app.js js/store.js js/data.js server.cjs
+Kontrola syntaxe JavaScriptu a PHP:
+  node -c js/app.js js/store.js js/data.js server.cjs sw.js
+  for f in *.php; do php -l "$f"; done
 
 Kontrola gitu:
-  git -C /home/krystofspejchal/zkousimbohemkuvanilla status
+  git status
 
 Nasazení do produkce:
-  git push origin main  -> automaticky nasadí změny live na Vercel (repozitář Kryspe/boh2)
+  git push origin main && git push origin master
+  git push bohemka-vanilla-backup main && git push bohemka-vanilla-backup master
+
 
 ==============================================================================
 7. NÁVOD PRO PŘÍŠTÍHO AGENTA / POKRAČOVÁNÍ V SESSION
