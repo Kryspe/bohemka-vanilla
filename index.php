@@ -34,20 +34,6 @@ $currentPage = 'index';
 require_once __DIR__ . '/includes/header.php';
 ?>
 
-<!-- TOP NOTICE BANNER -->
-<?php if ($latestMessage): ?>
-  <div class="border-b border-emerald-500/20 bg-emerald-500/10 px-4 py-2 text-xs sm:text-sm">
-    <div class="mx-auto flex max-w-7xl items-center justify-between gap-3">
-      <div class="flex items-center gap-2 text-foreground font-medium truncate">
-        <span class="inline-flex shrink-0 items-center rounded-full bg-emerald-600 px-2 py-0.5 text-[0.68rem] font-bold text-white uppercase tracking-wider">Vzkaz</span>
-        <span class="truncate"><?= e($latestMessage['text']) ?></span>
-      </div>
-      <a href="pro-rodice.php" class="shrink-0 font-semibold text-primary hover:underline flex items-center gap-1 text-xs sm:text-sm">
-        <span>Všechny vzkazy</span> &rarr;
-      </a>
-    </div>
-  </div>
-<?php endif; ?>
 
 <main class="w-full min-w-0 flex-1 overflow-x-clip pb-24 lg:pb-0">
 
