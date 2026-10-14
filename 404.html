@@ -15,12 +15,12 @@
   <link rel="stylesheet" href="css/style.css">
   <script>
     try {
-      var t = localStorage.getItem('boh-theme') || 'dark';
+      var t = localStorage.getItem('boh-theme') || 'bohemka';
       document.documentElement.classList.remove('dark', 'bohemka');
-      if (t === 'dark') document.documentElement.classList.add('dark');
-      else if (t === 'bohemka') document.documentElement.classList.add('bohemka');
+      if (t === 'bohemka') document.documentElement.classList.add('bohemka');
+      else if (t === 'dark') document.documentElement.classList.add('dark');
       var m = document.querySelector('meta[name="theme-color"]');
-      if (m) m.setAttribute('content', t === 'dark' ? '#080d12' : (t === 'bohemka' ? '#007a3d' : '#fafcfd'));
+      if (m) m.setAttribute('content', t === 'bohemka' ? '#007a3d' : (t === 'dark' ? '#080d12' : '#fafcfd'));
     } catch(e) {}
   </script>
 </head>
@@ -79,6 +79,9 @@
             <span class="notification-unread-dot absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-coral hidden"></span>
           </button>
           <button type="button" class="theme-toggle-btn relative inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground hover:bg-card hover:text-foreground" aria-label="Přepnout motiv"></button>
+          <button type="button" class="mobile-drawer-trigger relative inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground hover:bg-card hover:text-foreground" aria-label="Otevřít menu sekcí oddílu" title="Všechny sekce">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
         </div>
       </div>
     </header>

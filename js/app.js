@@ -112,17 +112,17 @@ function updateThemeMeta(theme) {
 function updateThemeIcons(theme) {
   document.querySelectorAll(".theme-toggle-btn").forEach(btn => {
     if (theme === "bohemka") {
-      btn.innerHTML = `<svg class="h-4 w-4 text-[#007a3d]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`;
-      btn.setAttribute("title", "Klubový režim Bohemians aktivní • Kliknutím přepnete na světlý motiv");
-      btn.setAttribute("aria-label", "Přepnout motiv: Světlý");
+      btn.innerHTML = `<svg class="h-4 w-4 text-[#00ba60]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`;
+      btn.setAttribute("title", "Klubový režim Bohemians aktivní • Kliknutím přepnete na tmavý motiv");
+      btn.setAttribute("aria-label", "Přepnout motiv: Tmavý");
     } else if (theme === "dark") {
       btn.innerHTML = `<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>`;
-      btn.setAttribute("title", "Tmavý režim aktivní • Kliknutím přepnete na klubový motiv Bohemians");
-      btn.setAttribute("aria-label", "Přepnout motiv: Bohemians");
+      btn.setAttribute("title", "Tmavý režim aktivní • Kliknutím přepnete na světlý motiv");
+      btn.setAttribute("aria-label", "Přepnout motiv: Světlý");
     } else {
       btn.innerHTML = `<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`;
-      btn.setAttribute("title", "Světlý režim aktivní • Kliknutím přepnete na tmavý motiv");
-      btn.setAttribute("aria-label", "Přepnout motiv: Tmavý");
+      btn.setAttribute("title", "Světlý režim aktivní • Kliknutím přepnete na klubový motiv Bohemians");
+      btn.setAttribute("aria-label", "Přepnout motiv: Bohemians");
     }
   });
 }
@@ -270,7 +270,9 @@ function initMobileNav() {
       }
     };
 
-    moreBtn.addEventListener("click", toggleDrawer);
+    document.querySelectorAll("#bottom-nav-more, .mobile-drawer-trigger, #header-menu-btn").forEach(btn => {
+      btn.addEventListener("click", toggleDrawer);
+    });
     drawerOverlay.addEventListener("click", closeDrawer);
     if (drawerCloseBtn) drawerCloseBtn.addEventListener("click", closeDrawer);
     drawerContent.querySelectorAll("a").forEach(a => a.addEventListener("click", closeDrawer));
@@ -1190,48 +1192,48 @@ function initSignUpModal() {
         closeModal("signup-modal");
       }
     });
-  }
 
-  const form = document.getElementById("signup-form");
-  if (!form) return;
+    const form = modal.querySelector("#signup-form");
+    if (form) {
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (!activeEventForSignup) return;
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    if (!activeEventForSignup) return;
+        const note = form.querySelector("textarea[name='note']").value;
+        const submitBtn = document.getElementById("signup-submit-btn");
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = `<svg class="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-linecap="round"/></svg> Ukládám…`;
+        }
 
-    const note = form.querySelector("textarea[name='note']").value;
-    const submitBtn = document.getElementById("signup-submit-btn");
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = `<svg class="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-linecap="round"/></svg> Ukládám…`;
+        setTimeout(() => {
+          const storeObj = window.BohStore || window.KlokaniStore;
+          if (storeObj) storeObj.saveSignup(activeEventForSignup.id, selectedDisciplines, note);
+          closeModal("signup-modal");
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Potvrdit přihlášku`;
+          }
+          showToast(`Přihláška na ${activeEventForSignup.name} byla uložena!`);
+          if (typeof window.renderEventsList === "function") window.renderEventsList();
+          if (typeof window.onSignupUpdated === "function") window.onSignupUpdated();
+        }, 400);
+      });
     }
 
-    setTimeout(() => {
-      const storeObj = window.BohStore || window.KlokaniStore;
-      if (storeObj) storeObj.saveSignup(activeEventForSignup.id, selectedDisciplines, note);
-      closeModal("signup-modal");
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = `<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Potvrdit přihlášku`;
-      }
-      showToast(`Přihláška na ${activeEventForSignup.name} byla uložena!`);
-      if (typeof window.renderEventsList === "function") window.renderEventsList();
-      if (typeof window.onSignupUpdated === "function") window.onSignupUpdated();
-    }, 400);
-  });
-
-  const cancelBtn = document.getElementById("signup-cancel-btn");
-  if (cancelBtn) {
-    cancelBtn.addEventListener("click", () => {
-      if (activeEventForSignup && confirm("Opravdu si přejete zrušit přihlášku?")) {
-        const storeObj = window.BohStore || window.KlokaniStore;
-        if (storeObj) storeObj.cancelSignup(activeEventForSignup.id);
-        closeModal("signup-modal");
-        showToast("Přihláška byla zrušena.", "info");
-        if (typeof window.renderEventsList === "function") window.renderEventsList();
-        if (typeof window.onSignupUpdated === "function") window.onSignupUpdated();
-      }
-    });
+    const cancelBtn = modal.querySelector("#signup-cancel-btn");
+    if (cancelBtn) {
+      cancelBtn.addEventListener("click", () => {
+        if (activeEventForSignup && confirm("Opravdu si přejete zrušit přihlášku?")) {
+          const storeObj = window.BohStore || window.KlokaniStore;
+          if (storeObj) storeObj.cancelSignup(activeEventForSignup.id);
+          closeModal("signup-modal");
+          showToast("Přihláška byla zrušena.", "info");
+          if (typeof window.renderEventsList === "function") window.renderEventsList();
+          if (typeof window.onSignupUpdated === "function") window.onSignupUpdated();
+        }
+      });
+    }
   }
 }
 
@@ -1273,7 +1275,7 @@ function openSignUpDialog(eventId, accent = "primary") {
   const discContainer = document.getElementById("signup-disciplines-container");
   if (discContainer) {
     if (!event.disciplines || event.disciplines.length === 0) {
-      discContainer.innerHTML = `<p class="text-sm text-muted-foreground">${event.note || "Rezervace místa na akci — disciplíny se nevybírají."}</p>`;
+      discContainer.innerHTML = `<p class="text-sm text-muted-foreground">${escapeHtml(event.note || "Rezervace místa na akci — disciplíny se nevybírají.")}</p>`;
     } else {
       let html = `<p class="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Disciplíny</p>`;
       html += `<div class="flex flex-wrap gap-2" id="signup-disc-pills">`;

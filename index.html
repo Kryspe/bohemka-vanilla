@@ -99,6 +99,9 @@
             <span class="notification-unread-dot absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-coral hidden"></span>
           </button>
           <button type="button" class="theme-toggle-btn relative inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground hover:bg-card hover:text-foreground" aria-label="Přepnout motiv"></button>
+          <button type="button" class="mobile-drawer-trigger relative inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground hover:bg-card hover:text-foreground" aria-label="Otevřít menu sekcí oddílu" title="Všechny sekce">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
         </div>
       </div>
     </header>
@@ -107,7 +110,7 @@
     <main class="w-full min-w-0 flex-1 pb-32 sm:pb-36 lg:pb-0">
 
       <!-- HERO SECTION -->
-      <section class="relative overflow-hidden py-8 sm:py-14 lg:py-16">
+      <section class="relative overflow-hidden py-8 sm:py-12 lg:py-14">
         <div class="mx-auto max-w-7xl px-4 sm:px-6">
           <div class="grid gap-8 lg:grid-cols-12 lg:items-center">
 
@@ -145,36 +148,41 @@
               </div>
             </div>
 
-            <!-- Right: Real Photo & Stats Card -->
+            <!-- Right: Featured Latest Article Card (The authentic voice of coaches) -->
             <div class="lg:col-span-5">
-              <div class="card-clean rounded-2xl border border-border/80 bg-card p-4 overflow-hidden shadow-md">
-                <div class="relative h-60 sm:h-64 w-full overflow-hidden rounded-xl">
-                  <img id="hero-celebration-img" src="assets/aktuality/2240.jpg" alt="Oslava 80 let Bohemians" class="h-full w-full object-cover">
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent"></div>
-                  <div class="absolute bottom-3 left-4 right-4 text-white">
-                    <span class="inline-flex items-center rounded-full bg-emerald-600 px-2.5 py-0.5 text-[0.68rem] font-bold text-white mb-1 shadow-xs">
-                      80 let Klokanů na Hagiboru
+              <div class="card-clean rounded-3xl border border-primary/30 bg-card p-5 sm:p-6 shadow-lg flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between border-b border-border/60 pb-3">
+                    <span class="inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
+                      <span class="h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+                      Aktualita z oddílu
                     </span>
-                    <p class="font-display text-base font-bold sm:text-lg leading-snug">
-                      212 plavců, trenérů a přátel oddílu pohromadě
-                    </p>
+                    <time id="hero-feature-date" class="text-xs font-semibold text-muted-foreground">12. 10. 2026</time>
                   </div>
+
+                  <div id="hero-feature-img-box" class="mt-4 relative h-44 w-full overflow-hidden rounded-xl border border-border/40">
+                    <img id="hero-feature-img" src="assets/aktuality/2240.jpg" alt="Aktualita Bohemians" class="h-full w-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-2.5 left-3 right-3 text-xs font-semibold text-white/95">
+                      <span id="hero-feature-author">Autor: Martin Břenda</span>
+                    </div>
+                  </div>
+
+                  <h3 id="hero-feature-title" class="mt-4 font-display text-xl font-bold leading-snug text-foreground">
+                    Velká cena Prahy - hodnocení
+                  </h3>
+                  <p id="hero-feature-excerpt" class="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
+                    Jestliže patřil v sobotu radlický bazén mladším plavcům, tak v neděli se do soutěžení v Radlicích zapojili starší plavci. Účast bohemáků byla slušná, závodní nasazení bylo dobré...
+                  </p>
                 </div>
 
-                <!-- Club Snapshot Metrics -->
-                <div class="mt-4 grid grid-cols-3 gap-2 text-center border-t border-border/60 pt-3">
-                  <div>
-                    <div class="font-display text-2xl font-black text-primary">80</div>
-                    <div class="text-[0.68rem] uppercase font-bold text-muted-foreground">let tradice</div>
-                  </div>
-                  <div class="border-x border-border/60">
-                    <div class="font-display text-2xl font-black text-primary">250+</div>
-                    <div class="text-[0.68rem] uppercase font-bold text-muted-foreground">aktivních plavců</div>
-                  </div>
-                  <div>
-                    <div class="font-display text-2xl font-black text-primary">2</div>
-                    <div class="text-[0.68rem] uppercase font-bold text-muted-foreground">domácí bazény</div>
-                  </div>
+                <div class="mt-5 pt-3 border-t border-border/60 flex items-center justify-between">
+                  <a id="hero-feature-link" href="aktuality.html?id=velka-cena-prahy-hodnoceni-2026" class="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:underline">
+                    Číst celé hodnocení trenéra &rarr;
+                  </a>
+                  <a href="aktuality.html" class="text-xs font-semibold text-muted-foreground hover:text-foreground">
+                    Všechny aktuality &rarr;
+                  </a>
                 </div>
               </div>
             </div>
@@ -187,7 +195,7 @@
       <section class="relative z-10 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:py-10">
         <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <!-- Card 1: Nearest event -->
-          <a id="dash-event-link" href="zavody.html" class="spotlight-card reveal hover-float group flex h-full min-h-[220px] flex-col justify-between rounded-2xl border border-border/60 bg-card/90 p-5 shadow-[var(--shadow-elevated)] transition-all">
+          <a id="dash-event-link" href="zavody.html" class="spotlight-card reveal hover-float group flex h-full min-h-[200px] flex-col justify-between rounded-2xl border border-border/60 bg-card p-5 shadow-sm transition-all">
             <div>
               <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary">
                 <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
@@ -211,29 +219,8 @@
             </div>
           </a>
 
-          <!-- Card 2: Aktualita -->
-          <a id="dash-news-card-link" href="aktuality.html" class="spotlight-card reveal hover-float group flex h-full min-h-[220px] flex-col justify-between rounded-2xl border border-border/60 bg-card/90 p-5 shadow-[var(--shadow-elevated)] transition-all">
-            <div>
-              <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary">
-                <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-                Aktualita z oddílu
-              </div>
-              <p class="mt-3 font-display text-lg font-bold leading-snug group-hover:text-primary transition-colors" id="dash-news-title">
-                Zahájení sezóny 2026/2027 a rozpis tréninků
-              </p>
-              <p class="mt-1.5 line-clamp-2 text-sm leading-relaxed text-muted-foreground" id="dash-news-excerpt">
-                Všechny tréninkové skupiny zahajují provoz v týdnu od 1. září na Podolí i Vinohradech.
-              </p>
-            </div>
-            <div class="mt-4 border-t border-border/40 pt-3">
-              <span class="inline-flex items-center gap-1 text-sm font-semibold text-primary">
-                Číst celou aktualitu <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
-              </span>
-            </div>
-          </a>
-
-          <!-- Card 3: Vzkaz pro rodiče -->
-          <a href="pro-rodice.html" class="spotlight-card reveal hover-float group flex h-full min-h-[220px] flex-col justify-between rounded-2xl border border-border/60 bg-card/90 p-5 shadow-[var(--shadow-elevated)] transition-all">
+          <!-- Card 2: Vzkaz pro rodiče -->
+          <a href="pro-rodice.html" class="spotlight-card reveal hover-float group flex h-full min-h-[200px] flex-col justify-between rounded-2xl border border-border/60 bg-card p-5 shadow-sm transition-all">
             <div>
               <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary">
                 <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -250,18 +237,39 @@
             </div>
           </a>
 
+          <!-- Card 3: Infolístky k závodům -->
+          <a href="https://www.boh.cz/infolistek/26sprinty-listecek.pdf" target="_blank" rel="noreferrer" class="spotlight-card reveal hover-float group flex h-full min-h-[200px] flex-col justify-between rounded-2xl border border-border/60 bg-card p-5 shadow-sm transition-all">
+            <div>
+              <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary">
+                <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Infolístek (PDF)
+              </div>
+              <p class="mt-3 font-display text-base font-bold leading-snug group-hover:text-primary transition-colors">
+                Plzeňské sprinty 2026
+              </p>
+              <p class="mt-1.5 text-xs text-muted-foreground leading-relaxed">
+                Odjezdy, rozplavání, ubytování a instrukce pro závodníky Bohemians.
+              </p>
+            </div>
+            <div class="mt-4 border-t border-border/40 pt-3">
+              <span class="inline-flex items-center gap-1 text-xs font-semibold text-primary group-hover:underline">
+                Stáhnout PDF (boh.cz) ↗
+              </span>
+            </div>
+          </a>
+
           <!-- Card 4: Intranet -->
-          <a href="intranet.html" class="spotlight-card reveal hover-float group flex h-full min-h-[220px] flex-col justify-between rounded-2xl border border-[var(--intranet-accent)]/30 bg-[var(--intranet-accent)]/[0.06] p-5 shadow-[var(--shadow-elevated)] transition-all">
+          <a href="intranet.html" class="spotlight-card reveal hover-float group flex h-full min-h-[200px] flex-col justify-between rounded-2xl border border-[var(--intranet-accent)]/30 bg-[var(--intranet-accent)]/[0.08] p-5 shadow-sm transition-all">
             <div>
               <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--intranet-accent)]">
                 <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                Intranet
+                Členský intranet
               </div>
-              <p class="mt-3 font-display text-lg font-bold leading-snug">
+              <p class="mt-3 font-display text-lg font-bold leading-snug text-foreground">
                 Přihlášky a výsledky
               </p>
-              <p class="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-                Přihlaš se na závody, rezervuj soustředění nebo zkontroluj své časy a rekordy.
+              <p class="mt-1.5 text-xs leading-relaxed text-muted-foreground">
+                Přihlaš se na závody, zkontroluj si své časy, rekordy a platby příspěvků.
               </p>
             </div>
             <div class="mt-4 border-t border-[var(--intranet-accent)]/20 pt-3">
@@ -607,7 +615,7 @@
     <footer class="mt-24 border-t border-border/60 bg-card/40">
       <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
         <div class="md:col-span-2">
-          <img src="assets/logo-80-let.png" alt="TJ Bohemians Praha — oddíl plavání 80 let" width="711" height="200" loading="lazy" class="h-14 w-auto object-contain invert dark:invert-0">
+          <img src="assets/logo-80-let.png" alt="TJ Bohemians Praha — oddíl plavání 80 let" width="711" height="200" loading="lazy" class="footer-logo-img h-12 sm:h-14 w-auto object-contain">
           <p class="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground">
             Plavecký oddíl s tradicí od roku 1946. Vychováváme špičkové sportovce i začínající plavce — od kurzů přes přípravku až po reprezentaci na mistrovstvích.
           </p>
@@ -751,10 +759,39 @@
     function refreshHomePage() {
       const allNews = window.BohStore ? window.BohStore.getNews() : (window.BohData.news || []);
 
-      // 1. Dynamic News cards
+      // 1. Featured Latest News in Hero
+      if (allNews.length > 0) {
+        const topNews = allNews[0];
+        const featTitle = document.getElementById("hero-feature-title");
+        const featDate = document.getElementById("hero-feature-date");
+        const featAuthor = document.getElementById("hero-feature-author");
+        const featExcerpt = document.getElementById("hero-feature-excerpt");
+        const featLink = document.getElementById("hero-feature-link");
+        const featImg = document.getElementById("hero-feature-img");
+        const featImgBox = document.getElementById("hero-feature-img-box");
+
+        if (featTitle) featTitle.textContent = topNews.title;
+        if (featDate && topNews.date) featDate.textContent = new Date(topNews.date).toLocaleDateString("cs-CZ");
+        if (featAuthor) featAuthor.textContent = "Autor: " + (topNews.author || "TJ Bohemians Praha");
+        if (featExcerpt) featExcerpt.textContent = topNews.excerpt || "";
+        if (featLink && topNews.id) featLink.href = `aktuality.html?id=${encodeURIComponent(topNews.id)}`;
+        if (featImg && featImgBox) {
+          if (topNews.image) {
+            featImg.src = topNews.image;
+            featImg.alt = topNews.title;
+            featImgBox.style.display = "block";
+          } else {
+            featImg.src = "assets/aktuality/2240.jpg";
+            featImg.alt = "Plavecký oddíl TJ Bohemians Praha";
+            featImgBox.style.display = "block";
+          }
+        }
+      }
+
+      // 2. Dynamic News cards (show next 3 articles)
       const newsCards = document.getElementById("home-news-cards");
       if (newsCards && allNews.length > 0) {
-        const gridItems = allNews.slice(0, 3);
+        const gridItems = allNews.length > 3 ? allNews.slice(1, 4) : allNews.slice(0, 3);
         newsCards.innerHTML = gridItems.map(n => `
           <a href="aktuality.html?id=${encodeURIComponent(n.id)}" class="card-clean spotlight-card reveal hover-float group flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-card p-6 transition-all duration-300 shadow-sm">
             ${n.image ? `
@@ -762,9 +799,10 @@
                 <img src="${escapeHtml(n.image)}" alt="${escapeHtml(n.title)}" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
               </div>
             ` : ''}
-            <time class="text-xs font-bold uppercase tracking-wider text-primary">
-              ${new Date(n.date).toLocaleDateString("cs-CZ")}
-            </time>
+            <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary">
+              <time>${new Date(n.date).toLocaleDateString("cs-CZ")}</time>
+              <span class="text-muted-foreground">· ${escapeHtml(n.author || 'TJ Bohemians Praha')}</span>
+            </div>
             <h3 class="mt-2.5 font-display text-lg font-bold leading-snug transition-colors group-hover:text-primary">${escapeHtml(n.title)}</h3>
             <p class="mt-2.5 flex-1 line-clamp-3 text-sm leading-relaxed text-muted-foreground">${escapeHtml(n.excerpt || '')}</p>
             <span class="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">
@@ -774,7 +812,7 @@
         `).join("");
       }
 
-      // 2. Training Groups cards
+      // 3. Training Groups cards
       const groupsCards = document.getElementById("home-groups-cards");
       if (groupsCards && (!groupsCards.children || groupsCards.children.length === 0)) {
         groupsCards.innerHTML = window.BohData.groups.slice(0, 6).map(g => `
@@ -788,7 +826,7 @@
         `).join("");
       }
 
-      // 3. Quick dashboard event & notice sync
+      // 4. Quick dashboard event & notice sync
       if (window.BohStore) {
         const events = window.BohStore.getEvents ? window.BohStore.getEvents() : (window.BohData.events || []);
         const todayStr = new Date().toISOString().slice(0, 10);
@@ -807,17 +845,6 @@
           }
           if (linkEl && ev.id) {
             linkEl.href = `zavody.html#${encodeURIComponent(ev.id)}`;
-          }
-        }
-        if (allNews.length > 0) {
-          const firstNews = allNews[0];
-          const newsTitle = document.getElementById("dash-news-title");
-          const newsExcerpt = document.getElementById("dash-news-excerpt");
-          const dashNewsLink = document.getElementById("dash-news-card-link") || (newsTitle ? newsTitle.closest("a") : null);
-          if (newsTitle) newsTitle.textContent = firstNews.title;
-          if (newsExcerpt) newsExcerpt.textContent = firstNews.excerpt || '';
-          if (dashNewsLink && firstNews.id) {
-            dashNewsLink.href = `aktuality.html?id=${encodeURIComponent(firstNews.id)}`;
           }
         }
         const notes = window.BohStore.getParentsNotes ? window.BohStore.getParentsNotes() : (window.BohData.parentNotes || []);

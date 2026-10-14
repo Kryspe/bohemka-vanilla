@@ -118,6 +118,13 @@ async function handleApi(req, res, parsedUrl) {
   const pathname = parsedUrl.pathname.replace(/^\/api\//, "");
   const method = req.method;
 
+  // 0. config / config.js (Supabase credentials)
+  if (pathname === "config" || pathname === "config.js") {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || "https://xjvpyznywisuuykwsedd.supabase.co";
+    const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhqdnB5em55d2lzdXV5a3dzZWRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3ODc3MzMsImV4cCI6MjA5NTM2MzczM30.tL1qj2pxeB64GtNEn13Y_xzU7yd74DU-N02huw4zOaQ";
+    return sendJson(res, 200, { url, anonKey });
+  }
+
   // 1. events.php
   if (pathname === "events.php") {
     if (parsedUrl.searchParams.get("ping")) {
