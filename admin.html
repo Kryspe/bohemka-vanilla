@@ -1797,28 +1797,20 @@
         const evId = document.getElementById("export-event-select").value;
         const targetEvents = evId ? allEvents.filter(e => e.id === evId) : allEvents;
 
-        let xml = '<?xml version="1.0" encoding="UTF-8"?>
-';
-        xml += '<LENEX version="3.0">
-';
-        xml += '  <CONSTRUCTOR name="Bohemians CMS" version="2.0">
-';
-        xml += '    <CONTACT name="TJ Bohemians Praha" email="jan.srb@czechswimming.cz" />
-';
-        xml += '  </CONSTRUCTOR>
-';
-        xml += '  <MEETS>
-';
+        let xml = `<?xml version="1.0" encoding="UTF-8"?>
+<LENEX version="3.0">
+  <CONSTRUCTOR name="Bohemians CMS" version="2.0">
+    <CONTACT name="TJ Bohemians Praha" email="jan.srb@czechswimming.cz" />
+  </CONSTRUCTOR>
+  <MEETS>
+`;
 
         targetEvents.forEach(ev => {
           const roster = window.BohStore.getRosterForEvent(ev.id);
           xml += `    <MEET name="${escapeHtml(ev.name)}" city="${escapeHtml(ev.place)}" course="SCM">
-`;
-          xml += `      <CLUBS>
-`;
-          xml += `        <CLUB name="TJ Bohemians Praha" code="BOH" nation="CZE">
-`;
-          xml += `          <ATHLETES>
+      <CLUBS>
+        <CLUB name="TJ Bohemians Praha" code="BOH" nation="CZE">
+          <ATHLETES>
 `;
 
           roster.forEach((entry, idx) => {
@@ -1829,8 +1821,7 @@
             const birthdate = `${entry.year || 2010}-01-01`;
 
             xml += `            <ATHLETE athleteid="${idx + 1}" lastname="${escapeHtml(lastName)}" firstname="${escapeHtml(firstName)}" gender="${gender}" birthdate="${birthdate}">
-`;
-            xml += `              <ENTRIES>
+              <ENTRIES>
 `;
             const disciplines = Array.isArray(entry.disciplines) ? entry.disciplines : [entry.disciplines];
             disciplines.filter(Boolean).forEach(d => {
@@ -1838,25 +1829,20 @@
 `;
             });
             xml += `              </ENTRIES>
-`;
-            xml += `            </ATHLETE>
+            </ATHLETE>
 `;
           });
 
           xml += `          </ATHLETES>
-`;
-          xml += `        </CLUB>
-`;
-          xml += `      </CLUBS>
-`;
-          xml += `    </MEET>
+        </CLUB>
+      </CLUBS>
+    </MEET>
 `;
         });
 
-        xml += '  </MEETS>
-';
-        xml += '</LENEX>
-';
+        xml += `  </MEETS>
+</LENEX>
+`;
 
         const blob = new Blob([xml], { type: "application/xml;charset=utf-8;" });
         const url = URL.createObjectURL(blob);
