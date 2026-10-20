@@ -2046,6 +2046,15 @@
     renderIntranet();
     window.onSignupUpdated = renderActiveTab;
 
+    // React to unified data update broadcasts
+    window.addEventListener("boh:data-updated", () => {
+      if (typeof renderActiveTab === "function") {
+        renderActiveTab();
+      } else if (typeof renderIntranet === "function") {
+        renderIntranet();
+      }
+    });
+
     // Automatically logout when leaving intranet section (clicking outside links or closing/navigating away)
     document.addEventListener("click", (e) => {
       const link = e.target.closest("a");

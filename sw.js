@@ -16,6 +16,7 @@ const STATIC_ASSETS = [
   "css/style.css",
   "js/data.js",
   "js/store.js",
+  "js/supabase.js",
   "js/app.js",
   "assets/logo-80-let.png",
   "assets/favicon.png",

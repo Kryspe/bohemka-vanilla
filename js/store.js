@@ -45,9 +45,11 @@ function safeUrl(rawUrl, defaultFallback = "/") {
 
 function sanitizeCsv(val) {
   if (val == null) return "";
-  const str = String(val).trim();
+  const rawStr = String(val);
   // Prevent CSV Formula Injection (=, +, -, @, \t, \r, %)
-  if (/^[=+\-@\t\r%]/.test(str)) {
+  const isFormula = /^[=+\-@\t\r%]/.test(rawStr);
+  const str = rawStr.trim();
+  if (isFormula || /^[=+\-@\t\r%]/.test(str)) {
     return "'" + str;
   }
   return str;
@@ -88,12 +90,246 @@ window.BohStore = (function () {
   const ROLE_KEY = "boh-intranet-role";
   const USER_KEY = "boh-intranet-name";
   const NOTIFICATIONS_SEEN_KEY = "boh-notifications-seen-time";
+  const OFFLINE_QUEUE_KEY = "boh-offline-queue";
+
+  function isOffline() {
+    return (typeof navigator !== "undefined" && navigator.onLine === false);
+  }
 
   function getStored(key, legacyKey) {
     try {
       return localStorage.getItem(key) || (legacyKey ? localStorage.getItem(legacyKey) : null);
     } catch {
       return null;
+    }
+  }
+
+  function getOfflineQueue() {
+    try {
+      const raw = localStorage.getItem(OFFLINE_QUEUE_KEY);
+      if (!raw) return [];
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function enqueueOfflineMutation(mutation) {
+    if (!mutation || typeof mutation !== "object") return getOfflineQueue();
+    const queue = getOfflineQueue();
+    const record = {
+      id: mutation.id || ("mut-" + Date.now()),
+      action: mutation.action || "save",
+      kind: mutation.kind || "all",
+      payload: mutation.payload !== undefined ? mutation.payload : mutation,
+      timestamp: mutation.timestamp || Date.now()
+    };
+    const existingIdx = queue.findIndex(m => String(m.id) === String(record.id) && m.action === record.action);
+    if (existingIdx > -1) {
+      queue[existingIdx] = record;
+    } else {
+      queue.push(record);
+    }
+    try {
+      localStorage.setItem(OFFLINE_QUEUE_KEY, JSON.stringify(queue));
+    } catch (err) {
+      console.warn("[Bohemka Store] Failed to save offline queue to localStorage:", err);
+    }
+    return queue;
+  }
+
+  function clearOfflineQueue() {
+    try {
+      localStorage.setItem(OFFLINE_QUEUE_KEY, JSON.stringify([]));
+    } catch (err) {
+      console.warn("[Bohemka Store] Failed to clear offline queue:", err);
+    }
+  }
+
+  async function syncAdminItemToSupabase(item) {
+    if (typeof window === "undefined" || !window.KlokaniSupabase || !window.KlokaniSupabase.isConfigured()) {
+      return null;
+    }
+    try {
+      if (item.kind === "aktualita" || item.kind === "aktuality" || item.kind === "news") {
+        const perexText = item.fields?.perex || item.perex || item.excerpt || "";
+        const fullText = item.fields?.text || item.content || item.body || "";
+        const bodyArray = Array.isArray(fullText)
+          ? fullText
+          : String(fullText).split(/\n\s*\n/).map(s => s.trim()).filter(Boolean);
+
+        return await window.KlokaniSupabase.saveNews({
+          id: item.id,
+          title: item.title,
+          category: item.fields?.kategorie || item.category || "Oddíl",
+          date: item.fields?.datum || item.date || new Date().toISOString().slice(0, 10),
+          author: item.fields?.autor || item.author || "Jan Srb (hlavní trenér)",
+          excerpt: perexText,
+          lead: perexText,
+          body: bodyArray.length > 0 ? bodyArray : (perexText ? [perexText] : []),
+          content: fullText,
+          image: item.fields?.image || item.fields?.url || item.image || "",
+          image_url: item.fields?.image || item.fields?.url || item.image || ""
+        });
+      } else if (item.kind === "zavod" || item.kind === "zavody" || item.kind === "soustredeni" || item.kind === "events") {
+        const eventTitle = item.title || item.name || "";
+        const eventPlace = item.fields?.misto || item.place || item.location || "Praha";
+        const eventDate = item.fields?.datum || item.date || item.date_from || new Date().toISOString().slice(0, 10);
+        const eventDeadline = item.fields?.deadline || item.deadline || eventDate;
+        const eventType = item.fields?.typ || item.type || (item.kind === "soustredeni" ? "Soustředění" : "Pohár");
+        const disciplines = Array.isArray(item.fields?.disciplines) ? item.fields.disciplines : (Array.isArray(item.disciplines) ? item.disciplines : []);
+
+        return await window.KlokaniSupabase.saveEvent({
+          id: item.id,
+          name: eventTitle,
+          title: eventTitle,
+          place: eventPlace,
+          location: eventPlace,
+          date: eventDate,
+          date_from: eventDate,
+          date_to: eventDate,
+          deadline: eventDeadline,
+          signup_deadline: eventDeadline,
+          type: eventType,
+          event_type: eventType,
+          kind: item.kind === "soustredeni" ? "soustredeni" : "zavod",
+          disciplines: disciplines,
+          note: item.fields?.poznamka || item.note || ""
+        });
+      } else if (item.kind === "informace" || item.kind === "vzkaz" || item.kind === "pro-rodice" || item.kind === "messages") {
+        const msgText = item.fields?.text || item.fields?.popis || item.text || item.message || "";
+        const msgCat = item.fields?.typ || item.fields?.kategorie || item.type || item.category || "Upozornění trenérů";
+
+        return await window.KlokaniSupabase.saveMessage({
+          id: item.id,
+          title: item.title,
+          text: msgText,
+          message: msgText,
+          category: msgCat,
+          type: msgCat,
+          target_group: "Všichni",
+          date: item.fields?.datum || item.date || new Date().toISOString().slice(0, 10),
+          author: item.fields?.autor || item.author || "Trenérský tým"
+        });
+      }
+    } catch (err) {
+      if (!isOffline()) {
+        console.warn("[Bohemka Store] Supabase sync notice:", err);
+      }
+      return { success: false, error: err.message || String(err) };
+    }
+    return null;
+  }
+
+  async function syncDeletionToSupabase(kind, id) {
+    if (typeof window === "undefined" || !window.KlokaniSupabase || !window.KlokaniSupabase.isConfigured()) {
+      return null;
+    }
+    const k = kind || "";
+    try {
+      if (k === "aktualita" || k === "aktuality" || k === "news") {
+        return await window.KlokaniSupabase.deleteNews(id);
+      } else if (k === "zavod" || k === "zavody" || k === "soustredeni" || k === "events") {
+        return await window.KlokaniSupabase.deleteEvent(id);
+      } else if (k === "informace" || k === "vzkaz" || k === "pro-rodice" || k === "messages") {
+        return await window.KlokaniSupabase.deleteMessage(id);
+      }
+    } catch (err) {
+      if (!isOffline()) {
+        console.warn("[Bohemka Store] Supabase delete sync notice:", err);
+      }
+      return { success: false, error: err.message || String(err) };
+    }
+    return null;
+  }
+
+  async function replayMutation(record) {
+    if (!record || typeof record !== "object") return;
+    const { action, kind, payload, id } = record;
+    const sb = (typeof window !== "undefined" && window.KlokaniSupabase) || null;
+    if (!sb || !sb.isConfigured()) return;
+
+    if (action === "save") {
+      const it = payload || record;
+      const res = await syncAdminItemToSupabase(it);
+      if (res && (res.error || res.success === false)) {
+        throw new Error(res.error || "Save mutation failed");
+      }
+    } else if (action === "delete") {
+      const targetId = id || payload?.id;
+      if (!targetId) return;
+      const res = await syncDeletionToSupabase(kind, targetId);
+      if (res && (res.error || res.success === false)) {
+        throw new Error(res.error || "Delete mutation failed");
+      }
+    } else if (action === "signup") {
+      const p = payload || record;
+      const res = await sb.signupSwimmer(p);
+      if (res && (res.error || res.success === false)) {
+        throw new Error(res.error || "Signup mutation failed");
+      }
+    } else if (action === "cancel") {
+      const p = payload || record;
+      const eventId = p.eventId || p.event_id || id;
+      const swimmer = p.swimmerName || p.swimmer_name || p.swimmer;
+      const res = await sb.cancelSignup(eventId, swimmer);
+      if (res && (res.error || res.success === false)) {
+        throw new Error(res.error || "Cancel mutation failed");
+      }
+    }
+  }
+
+  let isDrainingQueue = false;
+
+  async function drainOfflineQueue() {
+    if (isDrainingQueue) return;
+    if (isOffline()) return;
+    const queue = getOfflineQueue();
+    if (!queue || queue.length === 0) return;
+
+    if (typeof window === "undefined" || !window.KlokaniSupabase || !window.KlokaniSupabase.isConfigured()) {
+      return;
+    }
+
+    isDrainingQueue = true;
+    const drainedItems = [];
+
+    try {
+      for (let i = 0; i < queue.length; i++) {
+        const item = queue[i];
+        if (isOffline()) break;
+
+        try {
+          await replayMutation(item);
+          drainedItems.push(item);
+        } catch (err) {
+          if (isOffline()) break;
+        }
+      }
+
+      if (drainedItems.length > 0) {
+        const latest = getOfflineQueue();
+        const drainedKeys = new Set(drainedItems.map(d => String(d.id) + ":" + d.action));
+        const updatedQueue = latest.filter(it => !drainedKeys.has(String(it.id) + ":" + it.action));
+        try {
+          localStorage.setItem(OFFLINE_QUEUE_KEY, JSON.stringify(updatedQueue));
+        } catch (err) {
+          console.warn("[Bohemka Store] Error updating offline queue:", err);
+        }
+        notifyDataUpdated("all", { action: "sync", count: drainedItems.length }, "sync");
+      }
+    } finally {
+      isDrainingQueue = false;
+    }
+  }
+
+  function init() {
+    if (!isOffline()) {
+      const q = getOfflineQueue();
+      if (q && q.length > 0) {
+        drainOfflineQueue();
+      }
     }
   }
 
@@ -130,12 +366,67 @@ window.BohStore = (function () {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(signups[eventId])
-      }).catch(console.error);
+      }).catch(() => {});
     }
+
+    const swimmer = getUser() || "Závodník";
+    const payload = {
+      event_id: eventId,
+      eventId: eventId,
+      swimmer_name: swimmer,
+      swimmer: swimmer,
+      disciplines: disciplines || [],
+      note: note || "",
+      notes: note || ""
+    };
+
+    if (isOffline()) {
+      enqueueOfflineMutation({
+        id: eventId + "_" + swimmer,
+        action: "signup",
+        kind: "signup",
+        payload: payload,
+        timestamp: Date.now()
+      });
+    } else if (typeof window !== "undefined" && window.KlokaniSupabase && window.KlokaniSupabase.isConfigured()) {
+      try {
+        const p = window.KlokaniSupabase.signupSwimmer(eventId, swimmer, disciplines || [], note || "");
+        if (p && typeof p.then === "function") {
+          p.then(res => {
+            if (res && (res.error || res.success === false)) {
+              enqueueOfflineMutation({
+                id: eventId + "_" + swimmer,
+                action: "signup",
+                kind: "signup",
+                payload,
+                timestamp: Date.now()
+              });
+            }
+          }).catch(() => {
+            enqueueOfflineMutation({
+              id: eventId + "_" + swimmer,
+              action: "signup",
+              kind: "signup",
+              payload,
+              timestamp: Date.now()
+            });
+          });
+        }
+      } catch (err) {
+        enqueueOfflineMutation({
+          id: eventId + "_" + swimmer,
+          action: "signup",
+          kind: "signup",
+          payload,
+          timestamp: Date.now()
+        });
+      }
+    }
+    notifyDataUpdated("signups", { eventId, disciplines, note });
     return signups;
   }
 
-  function cancelSignup(eventId) {
+  function cancelSignup(eventId, swimmerName) {
     const signups = getSignups();
     delete signups[eventId];
     localStorage.setItem(SIGNUPS_KEY, JSON.stringify(signups));
@@ -143,8 +434,60 @@ window.BohStore = (function () {
     if (hasPhpBackend) {
       fetch(`api/signups.php?id=${encodeURIComponent(eventId)}`, {
         method: "DELETE"
-      }).catch(console.error);
+      }).catch(() => {});
     }
+
+    const swimmer = swimmerName || getUser() || "Závodník";
+    const payload = {
+      eventId,
+      event_id: eventId,
+      swimmerName: swimmer,
+      swimmer_name: swimmer
+    };
+
+    if (isOffline()) {
+      enqueueOfflineMutation({
+        id: eventId + "_" + swimmer,
+        action: "cancel",
+        kind: "signup",
+        payload: payload,
+        timestamp: Date.now()
+      });
+    } else if (typeof window !== "undefined" && window.KlokaniSupabase && window.KlokaniSupabase.isConfigured()) {
+      try {
+        const p = window.KlokaniSupabase.cancelSignup(eventId, swimmer);
+        if (p && typeof p.then === "function") {
+          p.then(res => {
+            if (res && (res.error || res.success === false)) {
+              enqueueOfflineMutation({
+                id: eventId + "_" + swimmer,
+                action: "cancel",
+                kind: "signup",
+                payload,
+                timestamp: Date.now()
+              });
+            }
+          }).catch(() => {
+            enqueueOfflineMutation({
+              id: eventId + "_" + swimmer,
+              action: "cancel",
+              kind: "signup",
+              payload,
+              timestamp: Date.now()
+            });
+          });
+        }
+      } catch (err) {
+        enqueueOfflineMutation({
+          id: eventId + "_" + swimmer,
+          action: "cancel",
+          kind: "signup",
+          payload,
+          timestamp: Date.now()
+        });
+      }
+    }
+    notifyDataUpdated("signups", { eventId, swimmerName, cancelled: true });
     return signups;
   }
 
@@ -221,45 +564,50 @@ window.BohStore = (function () {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(item)
-      }).catch(console.error);
+      }).catch(() => {});
     }
 
-    // Supabase background synchronization
-    if (typeof window !== "undefined" && window.KlokaniSupabase && window.KlokaniSupabase.isConfigured()) {
+    // Offline outbox queue & Supabase background synchronization
+    if (isOffline()) {
+      enqueueOfflineMutation({
+        id: item.id,
+        action: "save",
+        kind: item.kind,
+        payload: item,
+        timestamp: Date.now()
+      });
+    } else if (typeof window !== "undefined" && window.KlokaniSupabase && window.KlokaniSupabase.isConfigured()) {
       try {
-        if (item.kind === "aktualita" || item.kind === "aktuality") {
-          window.KlokaniSupabase.saveNews({
-            id: item.id,
-            title: item.title,
-            category: item.fields?.kategorie || "Oddíl",
-            date: item.fields?.datum || new Date().toISOString().slice(0, 10),
-            author: item.fields?.autor || "Jan Srb (hlavní trenér)",
-            lead: item.fields?.perex || "",
-            content: item.fields?.text || "",
-            image_url: item.fields?.image || item.fields?.url || ""
-          });
-        } else if (item.kind === "zavod" || item.kind === "zavody" || item.kind === "soustredeni") {
-          window.KlokaniSupabase.saveEvent({
-            id: item.id,
-            title: item.title,
-            location: item.fields?.misto || "Praha",
-            date_from: item.fields?.datum || new Date().toISOString().slice(0, 10),
-            date_to: item.fields?.datum || new Date().toISOString().slice(0, 10),
-            signup_deadline: item.fields?.deadline || new Date().toISOString().slice(0, 10),
-            event_type: item.fields?.typ || (item.kind === "soustredeni" ? "Soustředění" : "Pohár"),
-            note: item.fields?.poznamka || ""
-          });
-        } else if (item.kind === "informace" || item.kind === "vzkaz" || item.kind === "pro-rodice") {
-          window.KlokaniSupabase.saveMessage({
-            id: item.id,
-            title: item.title,
-            message: item.fields?.text || item.fields?.popis || "",
-            type: item.fields?.typ || "info",
-            target_group: "Všichni"
+        const syncPromise = syncAdminItemToSupabase(item);
+        if (syncPromise && typeof syncPromise.then === "function") {
+          syncPromise.then(res => {
+            if (res && (res.error || res.success === false)) {
+              enqueueOfflineMutation({
+                id: item.id,
+                action: "save",
+                kind: item.kind,
+                payload: item,
+                timestamp: Date.now()
+              });
+            }
+          }).catch(() => {
+            enqueueOfflineMutation({
+              id: item.id,
+              action: "save",
+              kind: item.kind,
+              payload: item,
+              timestamp: Date.now()
+            });
           });
         }
       } catch (err) {
-        console.warn("[Bohemka Store] Supabase sync notice:", err);
+        enqueueOfflineMutation({
+          id: item.id,
+          action: "save",
+          kind: item.kind,
+          payload: item,
+          timestamp: Date.now()
+        });
       }
     }
 
@@ -278,7 +626,7 @@ window.BohStore = (function () {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(target)
-        }).catch(console.error);
+        }).catch(() => {});
       }
     }
     return items;
@@ -852,9 +1200,19 @@ window.BohStore = (function () {
     }
   }
 
-  function notifyDataUpdated(kind, item) {
+  function notifyDataUpdated(kind, item, action) {
     if (typeof window !== "undefined") {
-      window.dispatchEvent(new CustomEvent("boh:data-updated", { detail: { kind, item } }));
+      let act = action;
+      if (!act) {
+        if (item && (item.deleted || item.cancelled || item.removed)) {
+          act = "delete";
+        } else if (kind === "all" || (item && item.action === "sync")) {
+          act = "sync";
+        } else {
+          act = "update";
+        }
+      }
+      window.dispatchEvent(new CustomEvent("boh:data-updated", { detail: { kind, action: act, item } }));
       try {
         localStorage.setItem("boh-last-sync", Date.now().toString());
       } catch {}
@@ -927,7 +1285,31 @@ window.BohStore = (function () {
   function deleteNews(id) {
     removeAdminItem(id);
     markIdDeleted(id);
-    notifyDataUpdated("aktualita", { id, deleted: true });
+    if (isOffline()) {
+      enqueueOfflineMutation({
+        id: id,
+        action: "delete",
+        kind: "aktualita",
+        payload: { id },
+        timestamp: Date.now()
+      });
+    } else if (typeof window !== "undefined" && window.KlokaniSupabase && window.KlokaniSupabase.isConfigured()) {
+      try {
+        const p = window.KlokaniSupabase.deleteNews(id);
+        if (p && typeof p.then === "function") {
+          p.then(res => {
+            if (res && (res.error || res.success === false)) {
+              enqueueOfflineMutation({ id, action: "delete", kind: "aktualita", payload: { id }, timestamp: Date.now() });
+            }
+          }).catch(() => {
+            enqueueOfflineMutation({ id, action: "delete", kind: "aktualita", payload: { id }, timestamp: Date.now() });
+          });
+        }
+      } catch (err) {
+        enqueueOfflineMutation({ id, action: "delete", kind: "aktualita", payload: { id }, timestamp: Date.now() });
+      }
+    }
+    notifyDataUpdated("aktualita", { id, deleted: true }, "delete");
     return getNews();
   }
 
@@ -987,7 +1369,31 @@ window.BohStore = (function () {
   function deleteEvent(id) {
     removeAdminItem(id);
     markIdDeleted(id);
-    notifyDataUpdated("zavod", { id, deleted: true });
+    if (isOffline()) {
+      enqueueOfflineMutation({
+        id: id,
+        action: "delete",
+        kind: "zavod",
+        payload: { id },
+        timestamp: Date.now()
+      });
+    } else if (typeof window !== "undefined" && window.KlokaniSupabase && window.KlokaniSupabase.isConfigured()) {
+      try {
+        const p = window.KlokaniSupabase.deleteEvent(id);
+        if (p && typeof p.then === "function") {
+          p.then(res => {
+            if (res && (res.error || res.success === false)) {
+              enqueueOfflineMutation({ id, action: "delete", kind: "zavod", payload: { id }, timestamp: Date.now() });
+            }
+          }).catch(() => {
+            enqueueOfflineMutation({ id, action: "delete", kind: "zavod", payload: { id }, timestamp: Date.now() });
+          });
+        }
+      } catch (err) {
+        enqueueOfflineMutation({ id, action: "delete", kind: "zavod", payload: { id }, timestamp: Date.now() });
+      }
+    }
+    notifyDataUpdated("zavod", { id, deleted: true }, "delete");
     return getEvents();
   }
 
@@ -1043,7 +1449,31 @@ window.BohStore = (function () {
   function deleteAlert(id) {
     removeAdminItem(id);
     markIdDeleted(id);
-    notifyDataUpdated("informace", { id, deleted: true });
+    if (isOffline()) {
+      enqueueOfflineMutation({
+        id: id,
+        action: "delete",
+        kind: "informace",
+        payload: { id },
+        timestamp: Date.now()
+      });
+    } else if (typeof window !== "undefined" && window.KlokaniSupabase && window.KlokaniSupabase.isConfigured()) {
+      try {
+        const p = window.KlokaniSupabase.deleteMessage(id);
+        if (p && typeof p.then === "function") {
+          p.then(res => {
+            if (res && (res.error || res.success === false)) {
+              enqueueOfflineMutation({ id, action: "delete", kind: "informace", payload: { id }, timestamp: Date.now() });
+            }
+          }).catch(() => {
+            enqueueOfflineMutation({ id, action: "delete", kind: "informace", payload: { id }, timestamp: Date.now() });
+          });
+        }
+      } catch (err) {
+        enqueueOfflineMutation({ id, action: "delete", kind: "informace", payload: { id }, timestamp: Date.now() });
+      }
+    }
+    notifyDataUpdated("informace", { id, deleted: true }, "delete");
     return getAlerts();
   }
 
@@ -1203,22 +1633,44 @@ window.BohStore = (function () {
     });
     localStorage.setItem(COACH_ROSTERS_KEY, JSON.stringify(custom));
 
-    // Also sync to Supabase if available
-    if (typeof window !== "undefined" && window.KlokaniSupabase && window.KlokaniSupabase.isConfigured()) {
+    const swimmerPayload = {
+      event_id: eventId,
+      eventId: eventId,
+      swimmer_name: swimmerName,
+      swimmer: swimmerName,
+      category: entry.group || "ST",
+      group: entry.group || "ST",
+      disciplines: Array.isArray(entry.disciplines) ? entry.disciplines : [entry.disciplines],
+      notes: entry.note || "",
+      note: entry.note || ""
+    };
+
+    if (isOffline()) {
+      enqueueOfflineMutation({
+        id: eventId + "_" + swimmerName,
+        action: "signup",
+        kind: "signup",
+        payload: swimmerPayload,
+        timestamp: Date.now()
+      });
+    } else if (typeof window !== "undefined" && window.KlokaniSupabase && window.KlokaniSupabase.isConfigured()) {
       try {
-        window.KlokaniSupabase.signupSwimmer({
-          event_id: eventId,
-          swimmer_name: swimmerName,
-          category: entry.group || "ST",
-          disciplines: Array.isArray(entry.disciplines) ? entry.disciplines : [entry.disciplines],
-          notes: entry.note || ""
-        });
+        const p = window.KlokaniSupabase.signupSwimmer(swimmerPayload);
+        if (p && typeof p.then === "function") {
+          p.then(res => {
+            if (res && (res.error || res.success === false)) {
+              enqueueOfflineMutation({ id: eventId + "_" + swimmerName, action: "signup", kind: "signup", payload: swimmerPayload, timestamp: Date.now() });
+            }
+          }).catch(() => {
+            enqueueOfflineMutation({ id: eventId + "_" + swimmerName, action: "signup", kind: "signup", payload: swimmerPayload, timestamp: Date.now() });
+          });
+        }
       } catch (err) {
-        console.warn("[Bohemka Store] Supabase swimmer entry sync notice:", err);
+        enqueueOfflineMutation({ id: eventId + "_" + swimmerName, action: "signup", kind: "signup", payload: swimmerPayload, timestamp: Date.now() });
       }
     }
 
-    notifyDataUpdated("roster", { eventId, swimmer: swimmerName });
+    notifyDataUpdated("roster", { eventId, swimmer: swimmerName }, "create");
     return getRosterForEvent(eventId);
   }
 
@@ -1231,8 +1683,39 @@ window.BohStore = (function () {
     const me = getUser();
     if (swimmerName.toLowerCase() === me.toLowerCase()) {
       cancelSignup(eventId);
+    } else {
+      const cancelPayload = {
+        eventId,
+        event_id: eventId,
+        swimmerName,
+        swimmer_name: swimmerName
+      };
+      if (isOffline()) {
+        enqueueOfflineMutation({
+          id: eventId + "_" + swimmerName,
+          action: "cancel",
+          kind: "signup",
+          payload: cancelPayload,
+          timestamp: Date.now()
+        });
+      } else if (typeof window !== "undefined" && window.KlokaniSupabase && window.KlokaniSupabase.isConfigured()) {
+        try {
+          const p = window.KlokaniSupabase.cancelSignup(eventId, swimmerName);
+          if (p && typeof p.then === "function") {
+            p.then(res => {
+              if (res && (res.error || res.success === false)) {
+                enqueueOfflineMutation({ id: eventId + "_" + swimmerName, action: "cancel", kind: "signup", payload: cancelPayload, timestamp: Date.now() });
+              }
+            }).catch(() => {
+              enqueueOfflineMutation({ id: eventId + "_" + swimmerName, action: "cancel", kind: "signup", payload: cancelPayload, timestamp: Date.now() });
+            });
+          }
+        } catch (err) {
+          enqueueOfflineMutation({ id: eventId + "_" + swimmerName, action: "cancel", kind: "signup", payload: cancelPayload, timestamp: Date.now() });
+        }
+      }
     }
-    notifyDataUpdated("roster", { eventId, swimmerName, removed: true });
+    notifyDataUpdated("roster", { eventId, swimmerName, removed: true }, "delete");
     return getRosterForEvent(eventId);
   }
 
@@ -1348,7 +1831,12 @@ window.BohStore = (function () {
     getCustomRosters,
     getRosterForEvent,
     addSwimmerEntry,
-    removeSwimmerEntry
+    removeSwimmerEntry,
+    init,
+    getOfflineQueue,
+    enqueueOfflineMutation,
+    drainOfflineQueue,
+    clearOfflineQueue
   };
 })();
 
@@ -1356,5 +1844,18 @@ window.BohStore = (function () {
 window.KlokaniStore = window.BohStore;
 if (typeof window !== "undefined") {
   window.BohSupabase = window.KlokaniSupabase || null;
+
+  // Listen to network reconnection to drain offline outbox queue
+  window.addEventListener("online", () => {
+    if (window.BohStore && typeof window.BohStore.drainOfflineQueue === "function") {
+      window.BohStore.drainOfflineQueue();
+    }
+  });
+
+  // Check and drain any pending queue mutations upon initialization if already online
+  if (window.BohStore && typeof window.BohStore.init === "function") {
+    window.BohStore.init();
+  }
 }
+
 
