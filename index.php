@@ -24,8 +24,15 @@ if ($nearestEvent && !empty($nearestEvent['date'])) {
     $daysLeft = max(0, (int)round(($eventTimestamp - $todayTimestamp) / 86400));
 }
 
-// 3. Latest news (top 3)
-$latestNews = $pdo->query("SELECT * FROM news ORDER BY date DESC LIMIT 3")->fetchAll();
+// 3. Latest news (top 4)
+$latestNews = $pdo->query("SELECT * FROM news ORDER BY date DESC LIMIT 4")->fetchAll();
+$heroNews = !empty($latestNews) ? $latestNews[0] : null;
+$heroImg = (!empty($heroNews['image_url'])) ? $heroNews['image_url'] : 'assets/aktuality/86836.jpg';
+$heroTitle = $heroNews['title'] ?? 'Velká cena Prahy - hodnocení';
+$heroDate = !empty($heroNews['date']) ? date('j. n. Y', strtotime($heroNews['date'])) : '12. 10. 2026';
+$heroExcerpt = $heroNews['excerpt'] ?? 'Účast bohemáků byla slušná, závodní nasazení bylo dobré a padla řada osobních rekordů.';
+$heroAuthor = $heroNews['author'] ?? 'Martin Břenda';
+$heroLink = !empty($heroNews['id']) ? 'aktuality?id=' . urlencode($heroNews['id']) : 'aktuality';
 
 $pageTitle = 'Klokani — TJ Bohemians Praha | Plavecký oddíl od 1946';
 $pageDescription = 'Plavecký oddíl TJ Bohemians Praha (Klokani) — tradice od roku 1946. Závodní plavání, přípravka, kurzy, závody, rekordy a aktuality.';
@@ -41,10 +48,10 @@ require_once __DIR__ . '/includes/header.php';
   <section class="relative overflow-hidden py-4 sm:py-6 lg:py-8">
     <div class="mx-auto max-w-7xl px-4 sm:px-6">
       <div class="hero-athletic hero-athletic-bg text-white">
-        <div class="grid lg:grid-cols-12 items-stretch min-h-[480px]">
+        <div class="hero-split-grid grid lg:grid-cols-12 items-stretch min-h-[480px]">
 
           <!-- Left: Club Motto, Wave & Action Buttons -->
-          <div class="lg:col-span-7 flex flex-col justify-center p-6 sm:p-10 lg:p-12 z-10">
+          <div class="hero-split-left lg:col-span-7 flex flex-col justify-center p-6 sm:p-10 lg:p-12 z-10">
             <div class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1 text-xs font-semibold tracking-wider uppercase text-white/95 backdrop-blur-sm w-fit mb-4">
               <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
               80 let oddílu · 1946–2026 · TJ Bohemians Praha
@@ -68,29 +75,29 @@ require_once __DIR__ . '/includes/header.php';
           </div>
 
           <!-- Right: High-impact Athletic Swimming Photo & Featured Notice -->
-          <div class="lg:col-span-5 relative min-h-[320px] lg:min-h-full overflow-hidden bg-emerald-950">
-            <img src="assets/aktuality/86836.jpg" alt="Závody TJ Bohemians Praha" class="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 hover:scale-105" loading="eager">
+          <div class="hero-split-right lg:col-span-5 relative min-h-[320px] lg:min-h-full overflow-hidden bg-emerald-950">
+            <img id="hero-feature-img" src="<?= e($heroImg) ?>" alt="<?= e($heroTitle) ?>" class="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 hover:scale-105" loading="eager">
             <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-black/30 lg:bg-gradient-to-r lg:from-emerald-950/80 lg:via-transparent lg:to-black/30"></div>
 
-            <div class="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6">
-              <div class="rounded-2xl border border-white/20 bg-black/50 p-4 sm:p-5 backdrop-blur-md shadow-lg">
+            <div id="hero-feature-img-box" class="hero-feature-card">
+              <div class="hero-feature-bubble">
                 <div class="flex items-center justify-between text-xs text-emerald-300">
                   <span class="inline-flex items-center gap-1.5 font-bold uppercase tracking-wider">
                     <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
                     Aktualita z oddílu
                   </span>
-                  <time class="font-semibold text-white/80">12. 10. 2026</time>
+                  <time id="hero-feature-date" class="font-semibold text-white/80"><?= e($heroDate) ?></time>
                 </div>
-                <h3 class="mt-2 font-display text-base sm:text-lg font-bold leading-snug text-white line-clamp-1">
-                  Velká cena Prahy - hodnocení
+                <h3 id="hero-feature-title" class="mt-2 font-display text-base sm:text-lg font-bold leading-snug text-white line-clamp-1">
+                  <?= e($heroTitle) ?>
                 </h3>
-                <p class="mt-1 line-clamp-2 text-xs sm:text-sm text-white/80 leading-relaxed">
-                  Účast bohemáků byla slušná, závodní nasazení bylo dobré a padla řada osobních rekordů.
+                <p id="hero-feature-excerpt" class="mt-1 line-clamp-2 text-xs sm:text-sm text-white/80 leading-relaxed">
+                  <?= e($heroExcerpt) ?>
                 </p>
                 <div class="mt-3 flex items-center justify-between pt-2 border-t border-white/15 text-xs">
-                  <span class="text-emerald-200/90 font-medium">Autor: Martin Břenda</span>
-                  <a href="aktuality" class="font-bold text-white hover:text-emerald-300 inline-flex items-center gap-1">
-                    Číst hodnocení &rarr;
+                  <span id="hero-feature-author" class="text-emerald-200/90 font-medium">Autor: <?= e($heroAuthor) ?></span>
+                  <a id="hero-feature-link" href="<?= e($heroLink) ?>" class="font-bold text-white hover:text-emerald-300 inline-flex items-center gap-1">
+                    Číst aktualitu &rarr;
                   </a>
                 </div>
               </div>

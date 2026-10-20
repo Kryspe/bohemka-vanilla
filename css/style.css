@@ -1449,4 +1449,64 @@ html.dark .sponsor-badge:hover {
   opacity: 1;
 }
 
+/* Hero Split Grid (Rock-solid CSS fallback for missing utility classes) */
+.hero-split-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: stretch;
+  min-height: 480px;
+}
+@media (min-width: 1024px) {
+  .hero-split-grid {
+    grid-template-columns: 7fr 5fr;
+  }
+}
+.hero-split-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 10;
+}
+@media (min-width: 640px) {
+  .hero-split-left {
+    padding: 2.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .hero-split-left {
+    padding: 3rem;
+  }
+}
+.hero-split-right {
+  position: relative;
+  min-height: 320px;
+  overflow: hidden;
+  background-color: #022c14;
+}
+@media (min-width: 1024px) {
+  .hero-split-right {
+    min-height: 100%;
+  }
+}
+
+.hero-feature-card {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  right: 1.25rem;
+  z-index: 20;
+}
+.hero-feature-bubble {
+  background: rgba(4, 30, 16, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+
+
 

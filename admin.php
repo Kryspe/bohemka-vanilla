@@ -75,6 +75,60 @@ if (isset($_GET['action']) && $_GET['action'] === 'export_csv') {
     }
 }
 
+// 4. Handle LENEX XML Export (must be authenticated)
+if (isset($_GET['action']) && $_GET['action'] === 'export_lenex') {
+    requireAdmin();
+    $eventId = trim($_GET['event_id'] ?? '');
+    $evStmt = $pdo->prepare("SELECT * FROM events WHERE id = :id LIMIT 1");
+    $evStmt->execute([':id' => $eventId]);
+    $event = $evStmt->fetch();
+
+    if ($event) {
+        $entStmt = $pdo->prepare("SELECT * FROM event_entries WHERE event_id = :id ORDER BY swimmer_name ASC");
+        $entStmt->execute([':id' => $eventId]);
+        $entries = $entStmt->fetchAll();
+
+        header('Content-Type: application/xml; charset=utf-8');
+        header('Content-Disposition: attachment; filename="klokani-lenex-' . $eventId . '.xml"');
+        
+        echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+        echo '<LENEX version="3.0">' . "\n";
+        echo '  <CONSTRUCTOR name="Bohemians CMS" version="2.0">' . "\n";
+        echo '    <CONTACT name="TJ Bohemians Praha" email="jan.srb@czechswimming.cz" />' . "\n";
+        echo '  </CONSTRUCTOR>' . "\n";
+        echo '  <MEETS>' . "\n";
+        echo '    <MEET name="' . htmlspecialchars($event['name'] ?? '', ENT_QUOTES, 'UTF-8') . '" city="' . htmlspecialchars($event['place'] ?? '', ENT_QUOTES, 'UTF-8') . '" course="SCM">' . "\n";
+        echo '      <CLUBS>' . "\n";
+        echo '        <CLUB name="TJ Bohemians Praha" code="BOH" nation="CZE">' . "\n";
+        echo '          <ATHLETES>' . "\n";
+
+        $idx = 1;
+        foreach ($entries as $e) {
+            $nameParts = preg_split('/\s+/', trim($e['swimmer_name'] ?? 'Plavec'));
+            $lastName = count($nameParts) > 1 ? array_pop($nameParts) : $nameParts[0];
+            $firstName = implode(' ', $nameParts);
+            $discs = json_decode($e['disciplines_json'] ?? '[]', true) ?: [];
+
+            echo '            <ATHLETE athleteid="' . $idx . '" lastname="' . htmlspecialchars($lastName, ENT_QUOTES, 'UTF-8') . '" firstname="' . htmlspecialchars($firstName, ENT_QUOTES, 'UTF-8') . '" gender="M" birthdate="2010-01-01">' . "\n";
+            echo '              <ENTRIES>' . "\n";
+            foreach ($discs as $d) {
+                echo '                <ENTRY eventid="' . htmlspecialchars($d, ENT_QUOTES, 'UTF-8') . '" />' . "\n";
+            }
+            echo '              </ENTRIES>' . "\n";
+            echo '            </ATHLETE>' . "\n";
+            $idx++;
+        }
+
+        echo '          </ATHLETES>' . "\n";
+        echo '        </CLUB>' . "\n";
+        echo '      </CLUBS>' . "\n";
+        echo '    </MEET>' . "\n";
+        echo '  </MEETS>' . "\n";
+        echo '</LENEX>' . "\n";
+        exit;
+    }
+}
+
 // Ensure admin authentication for all subsequent POST/GET actions
 $isAdmin = isAdmin();
 
@@ -698,9 +752,16 @@ require_once __DIR__ . '/includes/header.php';
                       <span>Upravit</span>
                     </a>
                     <a href="admin?action=export_csv&event_id=<?= urlencode($ev['id']) ?>" 
-                       class="inline-flex items-center gap-1 rounded-lg border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground hover:bg-muted">
+                       class="inline-flex items-center gap-1 rounded-lg border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground hover:bg-muted"
+                       title="Exportovat soupisku do Excel / CSV">
                       <svg class="h-3.5 w-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                      <span>Export (CSV)</span>
+                      <span>CSV</span>
+                    </a>
+                    <a href="admin?action=export_lenex&event_id=<?= urlencode($ev['id']) ?>" 
+                       class="inline-flex items-center gap-1 rounded-lg border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground hover:bg-muted"
+                       title="Exportovat přihlášky do standardu LENEX 3.0 pro ČSPS">
+                      <svg class="h-3.5 w-3.5 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                      <span>LENEX</span>
                     </a>
                     <form method="post" action="admin?tab=events" onsubmit="return confirm('Opravdu smazat tento závod včetně přihlášek?');">
                       <input type="hidden" name="action" value="delete_event">
