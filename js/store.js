@@ -496,11 +496,30 @@ window.BohStore = (function () {
     return Boolean(signups[eventId]);
   }
 
+  // Helper to reject synthetic test junk artifacts from leaked test runs
+  function isJunkItem(it) {
+    if (!it || typeof it !== "object") return true;
+    const id = String(it.id || "");
+    if (id.startsWith("news-179251") || id.startsWith("event-179251")) {
+      return true;
+    }
+    return false;
+  }
+
   // 2. Admin Items
   function getAdminItems() {
     try {
       const raw = getStored(ADMIN_ITEMS_KEY);
-      if (raw) return JSON.parse(raw);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          const cleaned = parsed.filter(it => !isJunkItem(it));
+          if (cleaned.length !== parsed.length && typeof localStorage !== "undefined") {
+            try { localStorage.setItem(ADMIN_ITEMS_KEY, JSON.stringify(cleaned)); } catch {}
+          }
+          return cleaned;
+        }
+      }
     } catch {}
 
     // Initial seed items if none stored
@@ -682,8 +701,8 @@ window.BohStore = (function () {
       overridden.add(String(m.id));
       if (m.originalId) overridden.add(String(m.originalId));
     });
-    const filteredDefault = defaultNews.filter(n => !overridden.has(String(n.id)) && !deleted.includes(String(n.id)));
-    const all = [...managedNews, ...filteredDefault].filter(n => !deleted.includes(String(n.id)));
+    const filteredDefault = defaultNews.filter(n => !overridden.has(String(n.id)) && !deleted.includes(String(n.id)) && !isJunkItem(n));
+    const all = [...managedNews, ...filteredDefault].filter(n => !deleted.includes(String(n.id)) && !isJunkItem(n));
     return all.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
   }
 

@@ -200,7 +200,7 @@ export async function run() {
         tier: suite.tier,
         isLive: options.live,
         verbose: options.verbose,
-        createSandbox: (opts = {}) => createSandbox({ ...opts, live: options.live, verbose: options.verbose }),
+        createSandbox: (opts = {}) => createSandbox({ live: false, verbose: options.verbose, ...opts }),
         skip: (reason = "Skipped") => {
           throw new SkipTestError(reason);
         },
