@@ -44,65 +44,57 @@ require_once __DIR__ . '/includes/header.php';
 
 <main class="w-full min-w-0 flex-1 overflow-x-clip pb-24 lg:pb-0">
 
-  <!-- HERO SECTION (KPS Ostrava inspired athletic split hero) -->
+  <!-- HERO SECTION: NEJNOVĚJŠÍ AKTUALITA Z ODDÍLU (LEAD STORY) -->
   <section class="relative overflow-hidden py-4 sm:py-6 lg:py-8">
     <div class="mx-auto max-w-7xl px-4 sm:px-6">
-      <div class="hero-athletic hero-athletic-bg text-white">
-        <div class="hero-split-grid grid lg:grid-cols-12 items-stretch min-h-[480px]">
+      <div class="hero-athletic hero-athletic-bg text-white rounded-3xl overflow-hidden border border-emerald-500/30 p-6 sm:p-10 lg:p-12 shadow-2xl">
+        <div class="hero-news-grid <?= empty($heroImg) ? 'has-no-image' : '' ?>">
 
-          <!-- Left: Club Motto, Wave & Action Buttons -->
-          <div class="hero-split-left lg:col-span-7 flex flex-col justify-center p-6 sm:p-10 lg:p-12 z-10">
-            <div class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1 text-xs font-semibold tracking-wider uppercase text-white/95 backdrop-blur-sm w-fit mb-4">
+          <!-- Left: Lead Story Details -->
+          <div class="flex flex-col justify-center">
+            <div class="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-950/70 px-3.5 py-1 text-xs font-bold tracking-wider uppercase text-emerald-300 backdrop-blur-sm w-fit mb-4">
               <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              80 let oddílu · 1946–2026 · TJ Bohemians Praha
+              Nejnovější aktualita z oddílu
             </div>
 
-            <h1 class="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.08] text-white">
-              Jeden duch, jeden tým,<br><span class="text-emerald-300">jedno vítězství!</span>
+            <div class="flex items-center gap-3 text-xs sm:text-sm text-emerald-200/90 font-medium mb-3">
+              <time class="font-bold text-white"><?= e($heroDate) ?></time>
+              <span>·</span>
+              <span><?= e($heroAuthor) ?></span>
+            </div>
+
+            <h1 class="font-display text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.12] text-white">
+              <?= e($heroTitle) ?>
             </h1>
 
-            <div class="my-5 flex items-center">
+            <div class="my-4 flex items-center">
               <span class="wave wave--md wave--light"></span>
             </div>
 
-            <h2 class="text-lg sm:text-xl font-semibold text-emerald-100/95 leading-snug">
-              Společně k nejlepším výkonům už od roku 1946
-            </h2>
-
-            <p class="mt-3 text-sm sm:text-base text-white/80 max-w-xl leading-relaxed">
-              Jsme plavecký oddíl Klokanů. Vychováváme sportovce od dětských kurzů a přípravky až po reprezentaci na mistrovstvích republiky a Evropy. Domovské bazény: Plavecký stadion Podolí a Sokol Vinohrady.
+            <p class="text-sm sm:text-base lg:text-lg text-emerald-50/90 leading-relaxed max-w-2xl">
+              <?= e($heroExcerpt) ?>
             </p>
-          </div>
 
-          <!-- Right: High-impact Athletic Swimming Photo & Featured Notice -->
-          <div class="hero-split-right lg:col-span-5 relative min-h-[320px] lg:min-h-full overflow-hidden bg-emerald-950">
-            <img id="hero-feature-img" src="<?= e($heroImg) ?>" alt="<?= e($heroTitle) ?>" class="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 hover:scale-105" loading="eager">
-            <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-black/30 lg:bg-gradient-to-r lg:from-emerald-950/80 lg:via-transparent lg:to-black/30"></div>
-
-            <div id="hero-feature-img-box" class="hero-feature-card">
-              <div class="hero-feature-bubble">
-                <div class="flex items-center justify-between text-xs text-emerald-300">
-                  <span class="inline-flex items-center gap-1.5 font-bold uppercase tracking-wider">
-                    <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    Aktualita z oddílu
-                  </span>
-                  <time id="hero-feature-date" class="font-semibold text-white/80"><?= e($heroDate) ?></time>
-                </div>
-                <h3 id="hero-feature-title" class="mt-2 font-display text-base sm:text-lg font-bold leading-snug text-white line-clamp-1">
-                  <?= e($heroTitle) ?>
-                </h3>
-                <p id="hero-feature-excerpt" class="mt-1 line-clamp-2 text-xs sm:text-sm text-white/80 leading-relaxed">
-                  <?= e($heroExcerpt) ?>
-                </p>
-                <div class="mt-3 flex items-center justify-between pt-2 border-t border-white/15 text-xs">
-                  <span id="hero-feature-author" class="text-emerald-200/90 font-medium">Autor: <?= e($heroAuthor) ?></span>
-                  <a id="hero-feature-link" href="<?= e($heroLink) ?>" class="font-bold text-white hover:text-emerald-300 inline-flex items-center gap-1">
-                    Číst aktualitu &rarr;
-                  </a>
-                </div>
-              </div>
+            <div class="mt-6 flex flex-wrap items-center gap-4 pt-2">
+              <a href="<?= e($heroLink) ?>" class="inline-flex items-center gap-2 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-emerald-950 font-bold px-6 py-3 text-sm transition-all shadow-lg hover:shadow-emerald-400/25 active:scale-95">
+                <span>Číst celou aktualitu</span>
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+              </a>
+              <a href="aktuality" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-emerald-200 hover:text-white transition-colors">
+                <span>Všechny aktuality</span> &rarr;
+              </a>
             </div>
           </div>
+
+          <!-- Right: Photo if available -->
+          <?php if (!empty($heroImg)): ?>
+            <div>
+              <div class="hero-news-media-box group">
+                <img src="<?= e($heroImg) ?>" alt="<?= e($heroTitle) ?>" loading="eager">
+                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/60 via-transparent to-transparent pointer-events-none"></div>
+              </div>
+            </div>
+          <?php endif; ?>
 
         </div>
       </div>
@@ -342,12 +334,19 @@ require_once __DIR__ . '/includes/header.php';
 
       <div class="grid gap-6 md:grid-cols-3">
         <?php foreach ($latestNews as $n): ?>
-          <a href="aktuality?id=<?= urlencode($n['id']) ?>" class="card-clean p-5 flex flex-col h-full">
-            <?php if (!empty($n['image_url'])): ?>
-              <div class="mb-4 -mx-5 -mt-5 h-44 overflow-hidden rounded-t-xl border-b border-border bg-muted">
-                <img src="<?= e($n['image_url']) ?>" alt="<?= e($n['title']) ?>" class="h-full w-full object-cover" loading="lazy">
-              </div>
-            <?php endif; ?>
+          <a href="aktuality?id=<?= urlencode($n['id']) ?>" class="card-clean p-5 flex flex-col h-full overflow-hidden">
+            <div class="mb-4 -mx-5 -mt-5 h-44 overflow-hidden border-b border-border/40 bg-emerald-950/60 relative">
+              <?php if (!empty($n['image_url'])): ?>
+                <img src="<?= e($n['image_url']) ?>" alt="<?= e($n['title']) ?>" class="h-full w-full object-cover object-top transition-transform duration-500 hover:scale-105" loading="lazy">
+              <?php else: ?>
+                <div class="h-full w-full flex flex-col items-center justify-center p-4 bg-gradient-to-br from-emerald-950 to-emerald-900 text-center select-none">
+                  <span class="wave wave--sm wave--light mb-2"></span>
+                  <span class="text-xs font-bold uppercase tracking-wider text-emerald-300">TJ Bohemians Praha</span>
+                  <span class="text-[11px] text-emerald-100/60 mt-0.5 font-medium">Plavecký oddíl</span>
+                </div>
+              <?php endif; ?>
+            </div>
+            <div class="flex items-center gap-2 mb-2"><span class="wave wave--sm"></span></div>
             <div class="flex items-center gap-2 text-xs font-semibold text-primary">
               <time><?= date('d. m. Y', strtotime($n['date'])) ?></time>
               <span>·</span>
