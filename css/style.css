@@ -1546,6 +1546,138 @@ html.dark .sponsor-badge:hover {
   object-position: center 20%;
 }
 
+/* ==========================================================================
+   18. Utilitarian Anti-Slop Intranet System (Linear / Vercel / shadcn Inspired)
+   ========================================================================== */
+.intranet-linear {
+  background-color: #fafafa;
+  color: #09090b;
+}
+
+.dark .intranet-linear {
+  background-color: #09090b;
+  color: #f4f4f5;
+}
+
+/* Dev Role Switcher Toolbar Dock */
+.dev-role-dock {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #18181b;
+  color: #fafafa;
+  border: 1px solid #27272a;
+  border-radius: 0.5rem;
+  padding: 0.375rem 0.625rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.75rem;
+  user-select: none;
+}
+
+.dev-role-dock .role-btn {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1px solid transparent;
+}
+
+.dev-role-dock .role-btn.active {
+  background: #27272a;
+  color: #ffffff;
+  border-color: #3f3f46;
+}
+
+.dev-role-dock .role-btn:not(.active):hover {
+  color: #a1a1aa;
+}
+
+.dev-role-dock .edit-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: transparent;
+  color: #a1a1aa;
+  border: 1px solid #27272a;
+}
+
+.dev-role-dock .edit-toggle-btn.active {
+  background: #007a3d;
+  color: #ffffff;
+  border-color: #00994d;
+}
+
+/* Inline CMS Edit Mode States */
+body.intranet-edit-mode .cms-editable-block {
+  position: relative;
+  border: 1px dashed #d4d4d8 !important;
+  border-radius: 0.375rem;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+body.intranet-edit-mode .cms-editable-block:hover {
+  border-color: #007a3d !important;
+  background-color: rgba(0, 122, 61, 0.03) !important;
+}
+
+.dark body.intranet-edit-mode .cms-editable-block {
+  border-color: #3f3f46 !important;
+}
+
+.dark body.intranet-edit-mode .cms-editable-block:hover {
+  border-color: #22c55e !important;
+  background-color: rgba(34, 197, 94, 0.05) !important;
+}
+
+.cms-edit-badge {
+  display: none;
+}
+
+body.intranet-edit-mode .cms-edit-badge {
+  display: inline-flex;
+}
+
+/* Utilitarian Data Tables & Density */
+.intranet-dense-table th {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #71717a;
+  border-bottom: 1px solid #e4e4e7;
+  text-align: left;
+}
+
+.intranet-dense-table td {
+  padding: 0.625rem 0.75rem;
+  font-size: 0.8125rem;
+  border-bottom: 1px solid #f4f4f5;
+  color: #18181b;
+}
+
+.dark .intranet-dense-table th {
+  color: #a1a1aa;
+  border-bottom: 1px solid #27272a;
+}
+
+.dark .intranet-dense-table td {
+  border-bottom: 1px solid #18181b;
+  color: #f4f4f5;
+}
+
+
 
 
 

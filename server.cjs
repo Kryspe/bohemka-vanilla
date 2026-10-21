@@ -439,13 +439,13 @@ const server = http.createServer(async (req, res) => {
       return;
     }
     if (lowerPath.endsWith(".php")) {
-      const cleanTarget = pathname.replace(/\.php$/i, "") || "/";
+      const cleanTarget = (pathname.replace(/\.php$/i, "") || "/") + (parsedUrl.search || "");
       res.writeHead(301, { ...SECURITY_HEADERS, "Location": cleanTarget });
       res.end();
       return;
     }
     if (lowerPath.endsWith(".html") && lowerPath !== "/404.html") {
-      const cleanTarget = pathname.replace(/\.html$/i, "") || "/";
+      const cleanTarget = (pathname.replace(/\.html$/i, "") || "/") + (parsedUrl.search || "");
       res.writeHead(301, { ...SECURITY_HEADERS, "Location": cleanTarget });
       res.end();
       return;
