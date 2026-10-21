@@ -44,33 +44,33 @@ require_once __DIR__ . '/includes/header.php';
 <main class="w-full min-w-0 flex-1 overflow-x-clip pb-24 lg:pb-0">
 
   <!-- HERO SECTION: NEJNOVĚJŠÍ AKTUALITA Z ODDÍLU (LEAD STORY) -->
-  <section class="relative overflow-hidden py-4 sm:py-6 lg:py-8">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6">
-      <div class="hero-athletic hero-athletic-bg text-white rounded-3xl overflow-hidden border border-emerald-500/30 p-6 sm:p-10 lg:p-12 shadow-2xl">
+  <section class="relative overflow-hidden py-3 sm:py-6 lg:py-8">
+    <div class="mx-auto max-w-7xl px-3 sm:px-6">
+      <div class="hero-athletic hero-athletic-bg text-white rounded-2xl sm:rounded-3xl overflow-hidden border border-emerald-500/30 p-5 sm:p-8 lg:p-12 shadow-xl sm:shadow-2xl">
         <div class="hero-news-grid <?= empty($heroImg) ? 'has-no-image' : '' ?>">
 
           <!-- Left: Lead Story Details -->
           <div class="flex flex-col justify-start">
-            <div class="flex items-center gap-3 text-xs sm:text-sm text-emerald-200/90 font-medium mb-3">
+            <div class="flex items-center gap-3 text-xs sm:text-sm text-emerald-200/90 font-medium mb-2 sm:mb-3">
               <time class="font-bold text-white"><?= e($heroDate) ?></time>
               <span>·</span>
               <span><?= e($heroAuthor) ?></span>
             </div>
 
-            <h1 class="font-display text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.12] text-white">
+            <h1 class="font-display text-xl sm:text-3xl lg:text-5xl font-extrabold tracking-tight leading-[1.2] text-white">
               <?= e($heroTitle) ?>
             </h1>
 
-            <p class="mt-4 text-sm sm:text-base lg:text-lg text-emerald-50/90 leading-relaxed max-w-2xl">
+            <p class="mt-2.5 sm:mt-4 text-xs sm:text-base lg:text-lg text-emerald-50/90 leading-relaxed line-clamp-3 sm:line-clamp-4 lg:line-clamp-none max-w-2xl">
               <?= e($heroExcerpt) ?>
             </p>
 
-            <div class="mt-6 flex flex-wrap items-center gap-4 pt-2">
-              <a href="<?= e($heroLink) ?>" class="inline-flex items-center gap-2 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-emerald-950 font-bold px-6 py-3 text-sm transition-all shadow-lg hover:shadow-emerald-400/25 active:scale-95">
+            <div class="mt-4 sm:mt-6 flex flex-col sm:flex-row sm:items-center gap-3 pt-1 sm:pt-2">
+              <a href="<?= e($heroLink) ?>" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-emerald-950 font-bold px-5 py-3 text-sm transition-all shadow-lg hover:shadow-emerald-400/25 active:scale-95">
                 <span>Číst celou aktualitu</span>
                 <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
               </a>
-              <a href="aktuality" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-emerald-200 hover:text-white transition-colors">
+              <a href="aktuality" class="w-full sm:w-auto inline-flex items-center justify-center sm:justify-start gap-1.5 text-xs sm:text-sm font-semibold text-emerald-200 hover:text-white transition-colors py-1.5 sm:py-0">
                 <span>Všechny aktuality</span> &rarr;
               </a>
             </div>
@@ -92,10 +92,10 @@ require_once __DIR__ . '/includes/header.php';
   </section>
 
   <!-- 4 QUICK BENTO CARDS -->
-  <section class="relative z-10 mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:py-8">
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+  <section class="relative z-10 mx-auto max-w-7xl px-3 sm:px-6 py-6 sm:py-8 lg:py-10">
+    <div class="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
       <!-- Card 1: Nearest event -->
-      <a id="dash-event-link" href="zavody" class="spotlight-card reveal hover-float group flex h-full min-h-[190px] flex-col justify-between rounded-lg border border-border/70 bg-card p-5 shadow-xs hover:border-emerald-600/40 transition-all">
+      <a id="dash-event-link" href="zavody" class="spotlight-card reveal hover-float group flex h-full min-h-0 sm:min-h-[190px] flex-col justify-between rounded-lg border border-border/70 bg-card p-4 sm:p-5 shadow-xs hover:border-emerald-600/40 transition-all">
         <div>
           <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary">
             <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
@@ -120,7 +120,7 @@ require_once __DIR__ . '/includes/header.php';
       </a>
 
       <!-- Card 2: Vzkaz pro rodiče -->
-      <a href="pro-rodice" class="spotlight-card reveal hover-float group flex h-full min-h-[190px] flex-col justify-between rounded-lg border border-border/70 bg-card p-5 shadow-xs hover:border-emerald-600/40 transition-all">
+      <a href="pro-rodice" class="spotlight-card reveal hover-float group flex h-full min-h-0 sm:min-h-[190px] flex-col justify-between rounded-lg border border-border/70 bg-card p-4 sm:p-5 shadow-xs hover:border-emerald-600/40 transition-all">
         <div>
           <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary">
             <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -138,7 +138,7 @@ require_once __DIR__ . '/includes/header.php';
       </a>
 
       <!-- Card 3: Infolístek (PDF) -->
-      <a href="https://www.boh.cz/infolistek/26sprinty-listecek.pdf" target="_blank" rel="noreferrer" class="spotlight-card reveal hover-float group flex h-full min-h-[190px] flex-col justify-between rounded-lg border border-border/70 bg-card p-5 shadow-xs hover:border-emerald-600/40 transition-all">
+      <a href="https://www.boh.cz/infolistek/26sprinty-listecek.pdf" target="_blank" rel="noreferrer" class="spotlight-card reveal hover-float group flex h-full min-h-0 sm:min-h-[190px] flex-col justify-between rounded-lg border border-border/70 bg-card p-4 sm:p-5 shadow-xs hover:border-emerald-600/40 transition-all">
         <div>
           <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary">
             <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -159,7 +159,7 @@ require_once __DIR__ . '/includes/header.php';
       </a>
 
       <!-- Card 4: Intranet -->
-      <a href="intranet" class="spotlight-card reveal hover-float group flex h-full min-h-[190px] flex-col justify-between rounded-lg border border-emerald-600/30 bg-emerald-50/40 dark:bg-emerald-950/20 p-5 shadow-xs hover:border-emerald-600/60 transition-all">
+      <a href="intranet" class="spotlight-card reveal hover-float group flex h-full min-h-0 sm:min-h-[190px] flex-col justify-between rounded-lg border border-emerald-600/30 bg-emerald-50/40 dark:bg-emerald-950/20 p-4 sm:p-5 shadow-xs hover:border-emerald-600/60 transition-all">
         <div>
           <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-emerald-700 dark:text-emerald-300">
             <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>

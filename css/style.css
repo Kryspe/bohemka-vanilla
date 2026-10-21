@@ -1511,7 +1511,13 @@ html.dark .sponsor-badge:hover {
 .hero-news-grid {
   display: flex;
   flex-direction: column-reverse;
-  gap: 2rem;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .hero-news-grid {
+    gap: 1.75rem;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -1535,19 +1541,19 @@ html.dark .sponsor-badge:hover {
 
 @media (max-width: 639px) {
   .hero-news-media-col {
-    margin-top: -1.5rem;
-    margin-left: -1.5rem;
-    margin-right: -1.5rem;
-    width: calc(100% + 3rem);
+    margin-top: -1.25rem;
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+    width: calc(100% + 2.5rem);
   }
 }
 
 @media (min-width: 640px) and (max-width: 1023px) {
   .hero-news-media-col {
-    margin-top: -2.5rem;
-    margin-left: -2.5rem;
-    margin-right: -2.5rem;
-    width: calc(100% + 5rem);
+    margin-top: -2rem;
+    margin-left: -2rem;
+    margin-right: -2rem;
+    width: calc(100% + 4rem);
   }
 }
 
@@ -1574,13 +1580,24 @@ html.dark .sponsor-badge:hover {
   width: 100%;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 639px) {
   .hero-news-media-box {
     border-radius: 0;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    max-height: 280px;
+    border: none;
+    box-shadow: none;
+    aspect-ratio: 16 / 9;
+    max-height: 220px;
+    height: auto;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .hero-news-media-box {
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    aspect-ratio: 16 / 9;
+    max-height: 300px;
   }
 }
 
