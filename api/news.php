@@ -55,6 +55,12 @@ if ($method === 'POST') {
     $body = (string)($input['body'] ?? '');
     $image_url = htmlspecialchars(strip_tags(trim((string)($input['image_url'] ?? ''))), ENT_QUOTES, 'UTF-8');
 
+    if (preg_match('/negr|nigger|\badasd\b/i', "$title $author $excerpt $body")) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Inappropriate content rejected']);
+        exit;
+    }
+
     if ($pdo) {
         try {
             $stmt = $pdo->prepare("INSERT OR REPLACE INTO news (id, slug, title, author, date, excerpt, body, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");

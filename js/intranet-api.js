@@ -248,12 +248,14 @@
     // ANNOUNCEMENTS CRUD (Native PHP REST + Supabase + Fallback)
     // --------------------------------------------------------------------------
     async getAnnouncements() {
+      const badRegex = /negr|nigger|\badasd\b/i;
+      const isBad = it => it && badRegex.test(`${it.title || ''} ${it.content || ''} ${it.author || ''} ${it.category || ''}`);
       try {
         const res = await fetch("/api/messages.php");
         if (res.ok) {
           const rows = await res.json();
           if (Array.isArray(rows) && rows.length > 0) {
-            const mapped = rows.map(r => ({
+            const mapped = rows.filter(r => !badRegex.test(`${r.title || ''} ${r.text || ''} ${r.author || ''}`)).map(r => ({
               id: "ann-" + r.id,
               rawId: r.id,
               title: r.title || "Vzkaz oddílu",
@@ -268,10 +270,19 @@
           }
         }
       } catch (_) {}
-      return getStorageItem(STORAGE_KEYS.ANNOUNCEMENTS, SEED_ANNOUNCEMENTS);
+      const fallback = getStorageItem(STORAGE_KEYS.ANNOUNCEMENTS, SEED_ANNOUNCEMENTS);
+      const cleaned = Array.isArray(fallback) ? fallback.filter(a => !isBad(a)) : SEED_ANNOUNCEMENTS;
+      if (Array.isArray(fallback) && cleaned.length !== fallback.length) {
+        setStorageItem(STORAGE_KEYS.ANNOUNCEMENTS, cleaned);
+      }
+      return cleaned;
     },
 
     async createAnnouncement(payload) {
+      const badRegex = /negr|nigger|\badasd\b/i;
+      if (badRegex.test(`${payload.title || ''} ${payload.content || ''} ${payload.author || ''}`)) {
+        return { success: false, error: "Nevhodný obsah byl zamítnut" };
+      }
       const items = await this.getAnnouncements();
       const newItem = {
         id: "ann-" + Date.now(),

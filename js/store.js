@@ -496,26 +496,96 @@ window.BohStore = (function () {
     return Boolean(signups[eventId]);
   }
 
-  // Helper to reject synthetic test junk artifacts from leaked test runs
+  // Helper to reject synthetic test junk artifacts or inappropriate content
   function isJunkItem(it) {
     if (!it || typeof it !== "object") return true;
     const id = String(it.id || "");
     if (id.startsWith("news-179251") || id.startsWith("event-179251")) {
       return true;
     }
+    const badRegex = /negr|nigger|\badasd\b/i;
+    try {
+      const str = JSON.stringify(it);
+      if (badRegex.test(str)) {
+        return true;
+      }
+    } catch (_) {}
+    const title = String(it.title || (it.fields && it.fields.title) || "");
+    const perex = String(it.excerpt || it.perex || (it.fields && (it.fields.perex || it.fields.excerpt || it.fields.text)) || "");
+    const body = String(it.body || (it.fields && it.fields.text) || "");
+    const author = String(it.author || (it.fields && (it.fields.autor || it.fields.author)) || "");
+    if (badRegex.test(title) || badRegex.test(perex) || badRegex.test(body) || badRegex.test(author)) {
+      return true;
+    }
     return false;
   }
+
+  // Purge any offensive or corrupted test garbage from client storage
+  function purgeOffensiveJunkStorage() {
+    if (typeof localStorage === "undefined") return;
+    try {
+      const badRegex = /negr|nigger|\badasd\b/i;
+      const targetKeys = [
+        ADMIN_ITEMS_KEY,
+        "boh_admin_items",
+        OFFLINE_QUEUE_KEY,
+        "boh_intranet_announcements",
+        "boh-notifications",
+        "boh-news",
+        "boh-events"
+      ];
+      for (const k of targetKeys) {
+        const raw = localStorage.getItem(k);
+        if (raw && badRegex.test(raw)) {
+          try {
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed)) {
+              const cleaned = parsed.filter(item => !isJunkItem(item));
+              localStorage.setItem(k, JSON.stringify(cleaned));
+            } else {
+              localStorage.removeItem(k);
+            }
+          } catch (_) {
+            localStorage.removeItem(k);
+          }
+        }
+      }
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith("boh")) {
+          const val = localStorage.getItem(k);
+          if (val && badRegex.test(val)) {
+            try {
+              const parsed = JSON.parse(val);
+              if (Array.isArray(parsed)) {
+                const cleaned = parsed.filter(item => !isJunkItem(item));
+                localStorage.setItem(k, JSON.stringify(cleaned));
+              } else {
+                localStorage.removeItem(k);
+              }
+            } catch (_) {
+              localStorage.removeItem(k);
+            }
+          }
+        }
+      }
+    } catch (_) {}
+  }
+  purgeOffensiveJunkStorage();
 
   // 2. Admin Items
   function getAdminItems() {
     try {
-      const raw = getStored(ADMIN_ITEMS_KEY);
+      const raw = getStored(ADMIN_ITEMS_KEY, "boh_admin_items");
       if (raw) {
         const parsed = JSON.parse(raw);
         if (Array.isArray(parsed)) {
           const cleaned = parsed.filter(it => !isJunkItem(it));
           if (cleaned.length !== parsed.length && typeof localStorage !== "undefined") {
-            try { localStorage.setItem(ADMIN_ITEMS_KEY, JSON.stringify(cleaned)); } catch {}
+            try {
+              localStorage.setItem(ADMIN_ITEMS_KEY, JSON.stringify(cleaned));
+              localStorage.removeItem("boh_admin_items");
+            } catch {}
           }
           return cleaned;
         }
@@ -557,6 +627,10 @@ window.BohStore = (function () {
   }
 
   function saveAdminItem(item) {
+    if (isJunkItem(item)) {
+      console.warn("[Bohemka Store] Rejected saving junk item:", item && item.id);
+      return false;
+    }
     const items = getAdminItems();
     item.id = item.id || "item-" + Date.now();
     item.createdAt = item.createdAt || new Date().toISOString();
@@ -742,8 +816,8 @@ window.BohStore = (function () {
       overridden.add(String(m.id));
       if (m.originalId) overridden.add(String(m.originalId));
     });
-    const filteredDefault = defaultEvents.filter(e => !overridden.has(String(e.id)) && !deleted.includes(String(e.id)));
-    const all = [...managedEvents, ...filteredDefault].filter(e => !deleted.includes(String(e.id)));
+    const filteredDefault = defaultEvents.filter(e => !overridden.has(String(e.id)) && !deleted.includes(String(e.id)) && !isJunkItem(e));
+    const all = [...managedEvents, ...filteredDefault].filter(e => !deleted.includes(String(e.id)) && !isJunkItem(e));
     return all.sort((a, b) => new Date(a.date || 0) - new Date(b.date || 0));
   }
 
@@ -1253,7 +1327,7 @@ window.BohStore = (function () {
       { id: "def-alt-3", title: "V roce 2026 setkání k 80. výročí oddílu", text: "proběhlo na Hagiboru za účasti 212 členů a přátel oddílu a bylo to velkolepé.", type: "info", date: "2026-08-30" }
     ];
     const deleted = getDeletedIds();
-    return [...managedAlerts, ...defaultAlerts].filter(a => !deleted.includes(String(a.id)));
+    return [...managedAlerts, ...defaultAlerts].filter(a => !deleted.includes(String(a.id)) && !isJunkItem(a));
   }
 
   function addNews(item) {

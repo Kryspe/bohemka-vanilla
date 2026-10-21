@@ -35,6 +35,12 @@ if ($method === 'POST') {
     $date = preg_replace('/[^0-9\-.]/', '', (string)($input['date'] ?? date('d. m. Y')));
     $author = htmlspecialchars(strip_tags(trim((string)($input['author'] ?? 'Trenéři TJ Bohemians'))), ENT_QUOTES, 'UTF-8');
 
+    if (preg_match('/negr|nigger|\badasd\b/i', "$category $title $text $author")) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Inappropriate content rejected']);
+        exit;
+    }
+
     if ($pdo) {
         try {
             $stmt = $pdo->prepare("INSERT INTO parent_messages (category, title, text, date, author) VALUES (?, ?, ?, ?, ?)");

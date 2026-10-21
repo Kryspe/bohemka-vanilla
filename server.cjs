@@ -266,6 +266,9 @@ async function handleApi(req, res, parsedUrl) {
         const imageUrl = escapeHtml(String(body.image_url || body.image || "").trim()).slice(0, 300);
 
         if (!title) return sendJson(res, 400, { error: "News title is required" });
+        if (/negr|nigger|\badasd\b/i.test(`${title} ${excerpt} ${textBody} ${author}`)) {
+          return sendJson(res, 400, { error: "Inappropriate content rejected" });
+        }
 
         if (sqliteDb) {
           try {
@@ -321,6 +324,9 @@ async function handleApi(req, res, parsedUrl) {
         const author = escapeHtml(String(body.author || "Trenéři TJ Bohemians").trim()).slice(0, 100);
 
         if (!text) return sendJson(res, 400, { error: "Message content is required" });
+        if (/negr|nigger|\badasd\b/i.test(`${title} ${category} ${text} ${author}`)) {
+          return sendJson(res, 400, { error: "Inappropriate content rejected" });
+        }
 
         let newId = Date.now();
         if (sqliteDb) {
