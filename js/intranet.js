@@ -184,10 +184,16 @@
               <p class="text-xs text-zinc-500">Oficiální instrukce vedení oddílu a trenérů</p>
             </div>
             ${isEditor ? `
-              <button id="add-announcement-btn" class="inline-flex items-center gap-1.5 rounded-md bg-zinc-900 dark:bg-zinc-100 px-3 py-1.5 text-xs font-semibold text-white dark:text-zinc-900 hover:bg-zinc-800 transition-colors cursor-pointer shadow-xs">
-                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
-                <span>Nové oznámení</span>
-              </button>
+              <div class="flex items-center gap-2">
+                <button id="add-news-modal-btn" class="inline-flex items-center gap-1.5 rounded-md border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-2.5 py-1.5 text-xs font-semibold text-zinc-800 dark:text-zinc-200 hover:border-emerald-600 hover:text-emerald-600 transition-colors cursor-pointer shadow-xs">
+                  <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10l6 6v10a2 2 0 0 1-2 2z"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
+                  <span>Publikovat aktualitu</span>
+                </button>
+                <button id="add-announcement-btn" class="inline-flex items-center gap-1.5 rounded-md bg-zinc-900 dark:bg-zinc-100 px-3 py-1.5 text-xs font-semibold text-white dark:text-zinc-900 hover:bg-zinc-800 transition-colors cursor-pointer shadow-xs">
+                  <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+                  <span>Nové oznámení</span>
+                </button>
+              </div>
             ` : ''}
           </div>
 
@@ -395,6 +401,9 @@
                         Přihlásit se
                       </button>
                       ${isEditor ? `
+                        <button class="export-csps-btn p-1 text-zinc-400 hover:text-emerald-600 rounded transition-colors" data-id="${s.id}" data-name="${escapeHtml(s.name)}" title="Exportovat přihlášky pro ČSPS (.csv)">
+                          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        </button>
                         <button class="sch-delete-btn p-1 text-zinc-400 hover:text-red-600 rounded transition-colors" data-id="${s.id}" title="Smazat závod">
                           <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                         </button>
@@ -466,9 +475,15 @@
   function renderEntriesSection(myEntries, schedule) {
     return `
       <section class="space-y-4">
-        <div class="border-b border-zinc-200 dark:border-zinc-800 pb-3">
-          <h2 class="text-base font-bold text-zinc-900 dark:text-zinc-100">Moje přihlášky na závody &amp; Stav</h2>
-          <p class="text-xs text-zinc-500">Přehled přihlášených disciplín a stav schválení trenérem</p>
+        <div class="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3">
+          <div>
+            <h2 class="text-base font-bold text-zinc-900 dark:text-zinc-100">Moje přihlášky na závody &amp; Stav</h2>
+            <p class="text-xs text-zinc-500">Přehled přihlášených disciplín a stav schválení trenérem</p>
+          </div>
+          <button id="export-all-csps-btn" class="inline-flex items-center gap-1.5 rounded-md border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-1.5 text-xs font-semibold text-zinc-800 dark:text-zinc-200 hover:border-emerald-600 hover:text-emerald-600 transition-colors cursor-pointer shadow-xs">
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Export ČSPS (.csv)</span>
+          </button>
         </div>
 
         ${myEntries.length === 0 ? `
@@ -649,11 +664,48 @@
       });
     });
 
-    // 4. Create Announcement Modal
+    // 4. Create Announcement & Publish News Modals
     const addAnnBtn = document.getElementById("add-announcement-btn");
     if (addAnnBtn) {
       addAnnBtn.addEventListener("click", () => {
         openCreateAnnouncementModal();
+      });
+    }
+
+    const addNewsBtn = document.getElementById("add-news-modal-btn");
+    if (addNewsBtn) {
+      addNewsBtn.addEventListener("click", async () => {
+        const title = prompt("Zadejte titulek nové aktuality pro web Bohemians:", "");
+        if (!title || !title.trim()) return;
+        const excerpt = prompt("Krátký perex pro úvodní stránku (1-2 věty):", "");
+        const author = prompt("Jméno trenéra / autora:", "Jan Srb (hlavní trenér)");
+        const content = prompt("Podrobný text zprávy / aktuality:", "");
+
+        await window.IntranetApi.createNewsItem({
+          title: title.trim(),
+          excerpt: (excerpt || "").trim(),
+          author: (author || "Vedení oddílu").trim(),
+          content: (content || "").trim(),
+          date: new Date().toISOString().slice(0, 10)
+        });
+        alert(`Aktualita "${title}" byla úspěšně publikována na web i do databáze.`);
+        renderIntranetPortal();
+      });
+    }
+
+    // 4b. CSPS CSV Export Actions
+    main.querySelectorAll(".export-csps-btn").forEach(btn => {
+      btn.addEventListener("click", async (e) => {
+        e.stopPropagation();
+        const eventId = btn.getAttribute("data-id");
+        await window.IntranetApi.exportCspsCsv(eventId);
+      });
+    });
+
+    const exportAllCspsBtn = document.getElementById("export-all-csps-btn");
+    if (exportAllCspsBtn) {
+      exportAllCspsBtn.addEventListener("click", async () => {
+        await window.IntranetApi.exportCspsCsv();
       });
     }
 

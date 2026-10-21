@@ -59,14 +59,26 @@ if ($method === 'POST') {
         try {
             $stmt = $pdo->prepare("INSERT OR REPLACE INTO news (id, slug, title, author, date, excerpt, body, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt->execute([$id, $id, $title, $author, $date, $excerpt, $body, $image_url]);
-            echo json_encode(['success' => true, 'id' => $id]);
-            exit;
-        } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode(['error' => $e->getMessage()]);
-            exit;
-        }
+            
+            // Also mirror to admin_items
+            $fields = ['autor' => $author, 'datum' => $date, 'perex' => $excerpt, 'obsah' => $body, 'obrazek' => $image_url];
+            $stmtAdm = $pdo->prepare("INSERT OR REPLACE INTO admin_items (id, kind, status, source, title, fields_json) VALUES (?, 'aktualita', 'approved', 'intranet', ?, ?)");
+            $stmtAdm->execute([$id, $title, json_encode($fields, JSON_UNESCAPED_UNICODE)]);
+        } catch (Exception $e) {}
     }
+
+    // Sync to Supabase Cloud
+    syncToSupabase('news', [
+        'id' => $id,
+        'slug' => $id,
+        'title' => $title,
+        'author' => $author,
+        'date' => $date,
+        'excerpt' => $excerpt,
+        'body' => $body,
+        'image_url' => $image_url
+    ]);
+
     echo json_encode(['success' => true, 'id' => $id]);
     exit;
 }
@@ -77,7 +89,10 @@ if ($method === 'DELETE') {
         try {
             $stmt = $pdo->prepare("DELETE FROM news WHERE id = ?");
             $stmt->execute([$id]);
+            $stmt2 = $pdo->prepare("DELETE FROM admin_items WHERE id = ?");
+            $stmt2->execute([$id]);
         } catch (Exception $e) {}
+        syncToSupabase('news', null, 'DELETE', 'id=eq.' . urlencode($id));
     }
     echo json_encode(['success' => true]);
     exit;

@@ -133,3 +133,35 @@ function writeJsonFile($filename, $data) {
     $file = $dbDir . '/' . $base;
     @file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 }
+
+/**
+ * Native REST Synchronization to Supabase Cloud
+ */
+function syncToSupabase($table, $payload = null, $method = 'POST', $query = '') {
+    $url = getenv('SUPABASE_URL') ?: getenv('NEXT_PUBLIC_SUPABASE_URL') ?: 'https://xjvpyznywisuuykwsedd.supabase.co';
+    $key = getenv('SUPABASE_ANON_KEY') ?: getenv('NEXT_PUBLIC_SUPABASE_ANON_KEY') ?: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhqdnB5em55d2lzdXV5a3dzZWRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3ODc3MzMsImV4cCI6MjA5NTM2MzczM30.tL1qj2pxeB64GtNEn13Y_xzU7yd74DU-N02huw4zOaQ';
+
+    $endpoint = rtrim($url, '/') . '/rest/v1/' . $table . ($query ? ('?' . $query) : '');
+    $headers = [
+        'apikey: ' . $key,
+        'Authorization: Bearer ' . $key,
+        'Content-Type: application/json',
+        'Prefer: resolution=merge-duplicates,return=minimal'
+    ];
+
+    $opts = [
+        'http' => [
+            'method' => strtoupper($method),
+            'header' => implode("\r\n", $headers),
+            'timeout' => 3,
+            'ignore_errors' => true
+        ]
+    ];
+    if ($payload !== null) {
+        $opts['http']['content'] = is_string($payload) ? $payload : json_encode($payload, JSON_UNESCAPED_UNICODE);
+    }
+
+    $ctx = stream_context_create($opts);
+    return @file_get_contents($endpoint, false, $ctx);
+}
+

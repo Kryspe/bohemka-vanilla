@@ -39,16 +39,25 @@ if ($method === 'POST') {
         try {
             $stmt = $pdo->prepare("INSERT INTO parent_messages (category, title, text, date, author) VALUES (?, ?, ?, ?, ?)");
             $stmt->execute([$category, $title, $text, $date, $author]);
-            $newId = $pdo->lastInsertId();
-            echo json_encode(['success' => true, 'id' => $newId]);
-            exit;
-        } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode(['error' => $e->getMessage()]);
-            exit;
-        }
+            $newId = (int)$pdo->lastInsertId();
+
+            // Also mirror to admin_items
+            $fields = ['kategorie' => $category, 'datum' => $date, 'autor' => $author, 'text' => $text];
+            $stmtAdm = $pdo->prepare("INSERT OR REPLACE INTO admin_items (id, kind, status, source, title, fields_json) VALUES (?, 'oznameni', 'approved', 'intranet', ?, ?)");
+            $stmtAdm->execute(['msg-' . $newId, $title, json_encode($fields, JSON_UNESCAPED_UNICODE)]);
+        } catch (Exception $e) {}
     }
-    echo json_encode(['success' => true]);
+
+    // Sync to Supabase Cloud
+    syncToSupabase('parent_messages', [
+        'category' => $category,
+        'title' => $title,
+        'text' => $text,
+        'date' => $date,
+        'author' => $author
+    ]);
+
+    echo json_encode(['success' => true, 'id' => $newId ?? time()]);
     exit;
 }
 
@@ -58,7 +67,10 @@ if ($method === 'DELETE') {
         try {
             $stmt = $pdo->prepare("DELETE FROM parent_messages WHERE id = ?");
             $stmt->execute([$id]);
+            $stmt2 = $pdo->prepare("DELETE FROM admin_items WHERE id = ?");
+            $stmt2->execute(['msg-' . $id]);
         } catch (Exception $e) {}
+        syncToSupabase('parent_messages', null, 'DELETE', 'id=eq.' . $id);
     }
     echo json_encode(['success' => true]);
     exit;

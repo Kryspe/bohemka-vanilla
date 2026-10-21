@@ -199,7 +199,7 @@ require_once __DIR__ . '/includes/header.php';
         </a>
       </div>
 
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" id="home-news-cards">
         <?php foreach (array_slice($latestNews, 1, 3) as $n): ?>
           <article class="card-clean spotlight-card reveal hover-float group flex h-full flex-col overflow-hidden rounded-lg border border-border/70 bg-card p-5 sm:p-6 transition-all duration-300 shadow-xs hover:border-emerald-600/40">
             <div class="mb-4 -mx-5 -mt-5 sm:-mx-6 sm:-mt-6 h-44 overflow-hidden border-b border-border/40 bg-emerald-950/60 relative">

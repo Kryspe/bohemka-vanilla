@@ -245,15 +245,33 @@
     },
 
     // --------------------------------------------------------------------------
-    // ANNOUNCEMENTS CRUD (REST-Ready)
+    // ANNOUNCEMENTS CRUD (Native PHP REST + Supabase + Fallback)
     // --------------------------------------------------------------------------
     async getAnnouncements() {
-      await delay();
+      try {
+        const res = await fetch("/api/messages.php");
+        if (res.ok) {
+          const rows = await res.json();
+          if (Array.isArray(rows) && rows.length > 0) {
+            const mapped = rows.map(r => ({
+              id: "ann-" + r.id,
+              rawId: r.id,
+              title: r.title || "Vzkaz oddílu",
+              category: r.category || "Organizační",
+              priority: (r.category && r.category.toLowerCase().includes("důležité")) ? "high" : "normal",
+              date: r.date || (r.created_at ? r.created_at.slice(0, 10) : new Date().toISOString().slice(0, 10)),
+              author: r.author || "Vedení oddílu",
+              content: r.text || ""
+            }));
+            setStorageItem(STORAGE_KEYS.ANNOUNCEMENTS, mapped);
+            return mapped;
+          }
+        }
+      } catch (_) {}
       return getStorageItem(STORAGE_KEYS.ANNOUNCEMENTS, SEED_ANNOUNCEMENTS);
     },
 
     async createAnnouncement(payload) {
-      await delay();
       const items = await this.getAnnouncements();
       const newItem = {
         id: "ann-" + Date.now(),
@@ -267,51 +285,118 @@
       items.unshift(newItem);
       setStorageItem(STORAGE_KEYS.ANNOUNCEMENTS, items);
       dispatchUpdate("announcements", { action: "create", item: newItem });
+
+      try {
+        const res = await fetch("/api/messages.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title: newItem.title,
+            category: newItem.category,
+            text: newItem.content,
+            author: newItem.author,
+            date: newItem.date
+          })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.id) newItem.rawId = data.id;
+        }
+      } catch (_) {}
+
+      try {
+        window.dispatchEvent(new CustomEvent("boh:data-updated", { detail: { topic: "messages", action: "create" } }));
+      } catch (_) {}
+
       return newItem;
     },
 
     async updateAnnouncement(id, patch) {
-      await delay();
       const items = await this.getAnnouncements();
       const index = items.findIndex(item => String(item.id) === String(id));
       if (index === -1) throw new Error(`Announcement with id "${id}" not found`);
 
-      items[index] = {
-        ...items[index],
-        ...patch,
-        id: items[index].id // preserve ID
-      };
+      items[index] = { ...items[index], ...patch, id: items[index].id };
       setStorageItem(STORAGE_KEYS.ANNOUNCEMENTS, items);
       dispatchUpdate("announcements", { action: "update", item: items[index] });
+
+      try {
+        const rawId = items[index].rawId || String(id).replace(/^ann-/, "");
+        await fetch("/api/messages.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            id: rawId,
+            title: items[index].title,
+            category: items[index].category,
+            text: items[index].content,
+            author: items[index].author,
+            date: items[index].date
+          })
+        });
+      } catch (_) {}
+
+      try {
+        window.dispatchEvent(new CustomEvent("boh:data-updated", { detail: { topic: "messages", action: "update" } }));
+      } catch (_) {}
+
       return items[index];
     },
 
     async deleteAnnouncement(id) {
-      await delay();
       let items = await this.getAnnouncements();
+      const found = items.find(item => String(item.id) === String(id));
       items = items.filter(item => String(item.id) !== String(id));
       setStorageItem(STORAGE_KEYS.ANNOUNCEMENTS, items);
       dispatchUpdate("announcements", { action: "delete", id });
+
+      const rawId = (found && found.rawId) ? found.rawId : String(id).replace(/^ann-/, "");
+      try {
+        await fetch(`/api/messages.php?id=${encodeURIComponent(rawId)}`, { method: "DELETE" });
+      } catch (_) {}
+
+      try {
+        window.dispatchEvent(new CustomEvent("boh:data-updated", { detail: { topic: "messages", action: "delete" } }));
+      } catch (_) {}
+
       return { success: true, id };
     },
 
     // --------------------------------------------------------------------------
-    // SCHEDULE / EVENTS CRUD
+    // SCHEDULE / EVENTS CRUD (Native PHP REST + Supabase + Fallback)
     // --------------------------------------------------------------------------
     async getSchedule() {
-      await delay();
+      try {
+        const res = await fetch("/api/events.php");
+        if (res.ok) {
+          const rows = await res.json();
+          if (Array.isArray(rows) && rows.length > 0) {
+            const mapped = rows.map(r => ({
+              id: r.id || ("sch-" + Date.now()),
+              name: r.name || "Závod",
+              date: r.date || "Termín v jednání",
+              pool: r.place || "Podolí 50m",
+              category: r.type || "Všechny kategorie",
+              deadline: r.deadline || "Před závodem",
+              status: r.status || "open",
+              file: r.file || "assets/downloads/Harmonogram_treninku_podzim_2026.pdf"
+            }));
+            setStorageItem(STORAGE_KEYS.SCHEDULE, mapped);
+            return mapped;
+          }
+        }
+      } catch (_) {}
       return getStorageItem(STORAGE_KEYS.SCHEDULE, SEED_SCHEDULE);
     },
 
     async createScheduleItem(payload) {
-      await delay();
       const items = await this.getSchedule();
       const newItem = {
-        id: "sch-" + Date.now(),
+        id: payload.id || ("sch-" + Date.now()),
         name: (payload.name || "Nové závody").trim(),
         date: (payload.date || "Termín v jednání").trim(),
-        pool: (payload.pool || "Podolí 50m").trim(),
-        category: (payload.category || "Všechny kategorie").trim(),
+        pool: (payload.pool || payload.place || "Podolí 50m").trim(),
+        category: (payload.category || payload.type || "Všechny kategorie").trim(),
         deadline: (payload.deadline || "Před závodem").trim(),
         status: payload.status || "open",
         file: payload.file || "assets/downloads/Harmonogram_treninku_podzim_2026.pdf"
@@ -319,11 +404,31 @@
       items.push(newItem);
       setStorageItem(STORAGE_KEYS.SCHEDULE, items);
       dispatchUpdate("schedule", { action: "create", item: newItem });
+
+      try {
+        await fetch("/api/events.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            id: newItem.id,
+            name: newItem.name,
+            date: newItem.date,
+            place: newItem.pool,
+            deadline: newItem.deadline,
+            status: newItem.status,
+            file: newItem.file
+          })
+        });
+      } catch (_) {}
+
+      try {
+        window.dispatchEvent(new CustomEvent("boh:data-updated", { detail: { topic: "events", action: "create" } }));
+      } catch (_) {}
+
       return newItem;
     },
 
     async updateScheduleItem(id, patch) {
-      await delay();
       const items = await this.getSchedule();
       const index = items.findIndex(item => String(item.id) === String(id));
       if (index === -1) throw new Error(`Schedule item "${id}" not found`);
@@ -331,15 +436,36 @@
       items[index] = { ...items[index], ...patch, id: items[index].id };
       setStorageItem(STORAGE_KEYS.SCHEDULE, items);
       dispatchUpdate("schedule", { action: "update", item: items[index] });
+
+      try {
+        await fetch("/api/events.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(items[index])
+        });
+      } catch (_) {}
+
+      try {
+        window.dispatchEvent(new CustomEvent("boh:data-updated", { detail: { topic: "events", action: "update" } }));
+      } catch (_) {}
+
       return items[index];
     },
 
     async deleteScheduleItem(id) {
-      await delay();
       let items = await this.getSchedule();
       items = items.filter(item => String(item.id) !== String(id));
       setStorageItem(STORAGE_KEYS.SCHEDULE, items);
       dispatchUpdate("schedule", { action: "delete", id });
+
+      try {
+        await fetch(`/api/events.php?id=${encodeURIComponent(id)}`, { method: "DELETE" });
+      } catch (_) {}
+
+      try {
+        window.dispatchEvent(new CustomEvent("boh:data-updated", { detail: { topic: "events", action: "delete" } }));
+      } catch (_) {}
+
       return { success: true, id };
     },
 
@@ -408,37 +534,165 @@
     },
 
     // --------------------------------------------------------------------------
-    // MY ENTRIES (Member CRUD)
+    // MY ENTRIES (Native PHP REST + Supabase + Fallback)
     // --------------------------------------------------------------------------
     async getMyEntries() {
-      await delay();
+      try {
+        const res = await fetch("/api/entries.php");
+        if (res.ok) {
+          const rows = await res.json();
+          if (Array.isArray(rows) && rows.length > 0) {
+            const mapped = rows.map(r => ({
+              id: "ent-" + r.id,
+              rawId: r.id,
+              eventId: r.eventId || r.event_id,
+              eventName: r.eventName || r.swimmerName || "Přihláška na závod",
+              swimmerName: r.swimmerName || r.swimmer_name || "Kryštof Spejchal",
+              disciplines: Array.isArray(r.disciplines) ? r.disciplines : [r.disciplines].filter(Boolean),
+              status: r.status || "Přihlášen",
+              submittedAt: r.createdAt ? r.createdAt.slice(0, 16) : new Date().toLocaleString("cs-CZ")
+            }));
+            setStorageItem(STORAGE_KEYS.MY_ENTRIES, mapped);
+            return mapped;
+          }
+        }
+      } catch (_) {}
       return getStorageItem(STORAGE_KEYS.MY_ENTRIES, SEED_MY_ENTRIES);
     },
 
-    async submitEntry(eventId, eventName, disciplinesList) {
-      await delay();
+    async submitEntry(eventId, eventName, disciplinesList, swimmerName) {
       const entries = await this.getMyEntries();
+      const disc = Array.isArray(disciplinesList) ? disciplinesList : [disciplinesList].filter(Boolean);
       const newEntry = {
         id: "ent-" + Date.now(),
         eventId,
-        eventName,
-        disciplines: Array.isArray(disciplinesList) ? disciplinesList : [disciplinesList],
+        eventName: eventName || ("Závod " + eventId),
+        swimmerName: swimmerName || "Kryštof Spejchal",
+        disciplines: disc,
         status: "Přihlášen",
         submittedAt: new Date().toLocaleString("cs-CZ", { dateStyle: "short", timeStyle: "short" })
       };
       entries.unshift(newEntry);
       setStorageItem(STORAGE_KEYS.MY_ENTRIES, entries);
       dispatchUpdate("entries", { action: "submit", entry: newEntry });
+
+      try {
+        const res = await fetch("/api/entries.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            event_id: eventId,
+            event_name: eventName,
+            swimmer_name: newEntry.swimmerName,
+            disciplines: disc
+          })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.id) newEntry.rawId = data.id;
+        }
+      } catch (_) {}
+
+      try {
+        window.dispatchEvent(new CustomEvent("boh:data-updated", { detail: { topic: "signups", eventId, action: "create" } }));
+      } catch (_) {}
+
       return newEntry;
     },
 
     async cancelEntry(entryId) {
-      await delay();
       let entries = await this.getMyEntries();
+      const found = entries.find(e => String(e.id) === String(entryId));
       entries = entries.filter(e => String(e.id) !== String(entryId));
       setStorageItem(STORAGE_KEYS.MY_ENTRIES, entries);
       dispatchUpdate("entries", { action: "cancel", entryId });
+
+      const rawId = (found && found.rawId) ? found.rawId : String(entryId).replace(/^ent-/, "");
+      try {
+        await fetch(`/api/entries.php?id=${encodeURIComponent(rawId)}${found && found.eventId ? `&event_id=${encodeURIComponent(found.eventId)}` : ""}`, {
+          method: "DELETE"
+        });
+      } catch (_) {}
+
+      try {
+        window.dispatchEvent(new CustomEvent("boh:data-updated", { detail: { topic: "signups", action: "cancel" } }));
+      } catch (_) {}
+
       return { success: true, entryId };
+    },
+
+    // --------------------------------------------------------------------------
+    // NEWS CRUD (For Coach/Admin Publishing from Intranet)
+    // --------------------------------------------------------------------------
+    async createNewsItem(payload) {
+      const id = payload.id || ("news-" + Date.now());
+      try {
+        await fetch("/api/news.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            id,
+            title: payload.title,
+            author: payload.author || "Trenéři Bohemians",
+            date: payload.date || new Date().toISOString().slice(0, 10),
+            excerpt: payload.excerpt || "",
+            body: payload.body || payload.content || "",
+            image_url: payload.image_url || payload.image || ""
+          })
+        });
+      } catch (_) {}
+
+      try {
+        window.dispatchEvent(new CustomEvent("boh:data-updated", { detail: { topic: "news", action: "create" } }));
+      } catch (_) {}
+      return { success: true, id };
+    },
+
+    async deleteNewsItem(id) {
+      try {
+        await fetch(`/api/news.php?id=${encodeURIComponent(id)}`, { method: "DELETE" });
+      } catch (_) {}
+
+      try {
+        window.dispatchEvent(new CustomEvent("boh:data-updated", { detail: { topic: "news", action: "delete" } }));
+      } catch (_) {}
+      return { success: true, id };
+    },
+
+    // --------------------------------------------------------------------------
+    // ČSPS EXPORT UTILITY (1-Click ČSPS CSV Roster Export)
+    // --------------------------------------------------------------------------
+    async exportCspsCsv(eventId) {
+      if (typeof window !== "undefined" && window.BohStore && typeof window.BohStore.exportSignupsCsv === "function") {
+        const csvContent = window.BohStore.exportSignupsCsv(eventId);
+        if (csvContent) {
+          const blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.setAttribute("href", url);
+          link.setAttribute("download", `csps_prihlasky_${eventId || "vsechny"}_${new Date().toISOString().slice(0, 10)}.csv`);
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          return true;
+        }
+      }
+
+      const entries = await this.getMyEntries();
+      const targetEntries = eventId ? entries.filter(e => e.eventId === eventId) : entries;
+      let csv = "Oddil;Prijmeni_Jmeno;Rocnik;Zavod;Discipliny;Poznamka\r\n";
+      targetEntries.forEach(e => {
+        csv += `BOH;${e.swimmerName || "Kryštof Spejchal"};2008;${e.eventName || e.eventId};"${(e.disciplines || []).join(", ")}";"${e.status || ""}"\r\n`;
+      });
+      const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `csps_prihlasky_${eventId || "vsechny"}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      return true;
     },
 
     // --------------------------------------------------------------------------

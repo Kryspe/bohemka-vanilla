@@ -116,6 +116,28 @@ function sendJson(res, statusCode, data) {
   res.end(payload);
 }
 
+// Background Supabase Cloud Synchronizer
+async function syncSupabase(table, payload, method = "POST", query = "") {
+  try {
+    const url = (process.env.NEXT_PUBLIC_SUPABASE_URL || "https://xjvpyznywisuuykwsedd.supabase.co") + "/rest/v1/" + table + (query ? "?" + query : "");
+    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhqdnB5em55d2lzdXV5a3dzZWRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3ODc3MzMsImV4cCI6MjA5NTM2MzczM30.tL1qj2pxeB64GtNEn13Y_xzU7yd74DU-N02huw4zOaQ";
+    const headers = {
+      "apikey": key,
+      "Authorization": `Bearer ${key}`,
+      "Content-Type": "application/json",
+      "Prefer": "resolution=merge-duplicates,return=minimal"
+    };
+    const options = {
+      method: method.toUpperCase(),
+      headers
+    };
+    if (payload != null) {
+      options.body = typeof payload === "string" ? payload : JSON.stringify(payload);
+    }
+    await fetch(url, options).catch(() => {});
+  } catch (_) {}
+}
+
 // API Router
 async function handleApi(req, res, parsedUrl) {
   const pathname = parsedUrl.pathname.replace(/^\/api\//, "");
@@ -128,47 +150,97 @@ async function handleApi(req, res, parsedUrl) {
     return sendJson(res, 200, { url, anonKey });
   }
 
-  // 1. events.php
+  // 1. events.php / events
   if (pathname === "events.php" || pathname === "events") {
     if (parsedUrl.searchParams.get("ping")) {
       return sendJson(res, 200, { status: "ok" });
     }
-    if (sqliteDb) {
-      try {
-        const rows = sqliteDb.prepare("SELECT * FROM admin_items WHERE kind = 'zavod' AND status = 'approved'").all();
-        let events = rows.map(r => {
-          let fields = {};
-          try { fields = JSON.parse(r.fields_json || "{}"); } catch {}
-          return {
-            id: r.id,
-            name: r.title,
-            place: fields.misto || "",
-            date: fields.datum || "",
-            deadline: fields.deadline || "",
-            type: fields.typ || "Oddílový",
-            kind: fields.druh === "soustredeni" ? "soustredeni" : "zavod",
-            note: fields.poznamka || ""
-          };
-        });
-        if (!events.length) {
-          try {
-            const evRows = sqliteDb.prepare("SELECT id, name, place, date, deadline FROM events ORDER BY date ASC").all();
-            events = evRows.map(r => ({
+    if (method === "GET") {
+      if (sqliteDb) {
+        try {
+          const rows = sqliteDb.prepare("SELECT * FROM admin_items WHERE kind = 'zavod' AND status = 'approved'").all();
+          let events = rows.map(r => {
+            let fields = {};
+            try { fields = JSON.parse(r.fields_json || "{}"); } catch {}
+            return {
               id: r.id,
-              name: r.name,
-              place: r.place || "",
-              date: r.date || "",
-              deadline: r.deadline || "",
-              type: "Oddílový",
-              kind: "zavod",
-              note: ""
-            }));
+              name: r.title,
+              place: fields.misto || "",
+              date: fields.datum || "",
+              deadline: fields.deadline || "",
+              type: fields.typ || "Oddílový",
+              kind: fields.druh === "soustredeni" ? "soustredeni" : "zavod",
+              note: fields.poznamka || "",
+              file: fields.soubor || "assets/downloads/Harmonogram_treninku_podzim_2026.pdf"
+            };
+          });
+          if (!events.length) {
+            try {
+              const evRows = sqliteDb.prepare("SELECT id, name, place, date, deadline, status FROM events ORDER BY date ASC").all();
+              events = evRows.map(r => ({
+                id: r.id,
+                name: r.name,
+                place: r.place || "",
+                date: r.date || "",
+                deadline: r.deadline || "",
+                type: "Oddílový",
+                kind: "zavod",
+                note: "",
+                file: "assets/downloads/Harmonogram_treninku_podzim_2026.pdf"
+              }));
+            } catch (_) {}
+          }
+          return sendJson(res, 200, events);
+        } catch (e) {}
+      }
+      return sendJson(res, 200, []);
+    }
+
+    if (method === "POST" || method === "PUT") {
+      try {
+        const body = await parseJsonBody(req);
+        const id = String(body.id || `event-${Date.now()}`).replace(/[^a-zA-Z0-9_\-]/g, "").slice(0, 50);
+        const name = escapeHtml(String(body.name || "").trim()).slice(0, 200);
+        const place = escapeHtml(String(body.place || "").trim()).slice(0, 200);
+        const date = String(body.date || new Date().toISOString().slice(0, 10)).slice(0, 30);
+        const deadline = String(body.deadline || "").slice(0, 30);
+        const status = ["open", "closed", "upcoming", "completed"].includes(body.status) ? body.status : "open";
+        const file = String(body.file || "assets/downloads/Harmonogram_treninku_podzim_2026.pdf").slice(0, 255);
+
+        if (!name) return sendJson(res, 400, { error: "Event name is required" });
+
+        if (sqliteDb) {
+          try {
+            sqliteDb.prepare("INSERT OR REPLACE INTO events (id, name, place, date, deadline, status) VALUES (?, ?, ?, ?, ?, ?)").run(
+              id, name, place, date, deadline, status
+            );
+            const fieldsJson = JSON.stringify({ misto: place, datum: date, deadline, typ: "Oddílový", druh: "zavod", soubor: file });
+            sqliteDb.prepare("INSERT OR REPLACE INTO admin_items (id, kind, status, source, title, fields_json) VALUES (?, 'zavod', 'approved', 'intranet', ?, ?)").run(
+              id, name, fieldsJson
+            );
           } catch (_) {}
         }
-        return sendJson(res, 200, events);
-      } catch (e) {}
+
+        // Supabase sync
+        syncSupabase("events", { id, name, place, date, deadline, status });
+
+        return sendJson(res, 200, { success: true, id });
+      } catch (err) {
+        return sendJson(res, 400, { error: err.message });
+      }
     }
-    return sendJson(res, 200, []);
+
+    if (method === "DELETE") {
+      const id = String(parsedUrl.searchParams.get("id") || "").replace(/[^a-zA-Z0-9_\-]/g, "").slice(0, 50);
+      if (id && sqliteDb) {
+        try {
+          sqliteDb.prepare("DELETE FROM events WHERE id = ?").run(id);
+          sqliteDb.prepare("DELETE FROM admin_items WHERE id = ?").run(id);
+        } catch (_) {}
+        syncSupabase("events", null, "DELETE", "id=eq." + encodeURIComponent(id));
+      }
+      return sendJson(res, 200, { success: true });
+    }
   }
 
   // 1b. news.php / news
@@ -182,7 +254,7 @@ async function handleApi(req, res, parsedUrl) {
       }
       return sendJson(res, 200, []);
     }
-    if (method === "POST") {
+    if (method === "POST" || method === "PUT") {
       try {
         const body = await parseJsonBody(req);
         const id = String(body.id || `news-${Date.now()}`).replace(/[^a-zA-Z0-9_\-]/g, "").slice(0, 50);
@@ -191,13 +263,25 @@ async function handleApi(req, res, parsedUrl) {
         const date = String(body.date || new Date().toISOString().slice(0, 10)).slice(0, 20);
         const excerpt = escapeHtml(String(body.excerpt || "").trim()).slice(0, 500);
         const textBody = String(body.body || "").trim();
-        const imageUrl = escapeHtml(String(body.image_url || "").trim()).slice(0, 300);
+        const imageUrl = escapeHtml(String(body.image_url || body.image || "").trim()).slice(0, 300);
+
+        if (!title) return sendJson(res, 400, { error: "News title is required" });
 
         if (sqliteDb) {
-          sqliteDb.prepare("INSERT OR REPLACE INTO news (id, slug, title, author, date, excerpt, body, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?)").run(
-            id, id, title, author, date, excerpt, textBody, imageUrl
-          );
+          try {
+            sqliteDb.prepare("INSERT OR REPLACE INTO news (id, slug, title, author, date, excerpt, body, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?)").run(
+              id, id, title, author, date, excerpt, textBody, imageUrl
+            );
+            const fieldsJson = JSON.stringify({ autor: author, datum: date, perex: excerpt, obsah: textBody, obrazek: imageUrl });
+            sqliteDb.prepare("INSERT OR REPLACE INTO admin_items (id, kind, status, source, title, fields_json) VALUES (?, 'aktualita', 'approved', 'intranet', ?, ?)").run(
+              id, title, fieldsJson
+            );
+          } catch (_) {}
         }
+
+        // Supabase sync
+        syncSupabase("news", { id, slug: id, title, author, date, excerpt, body: textBody, image_url: imageUrl });
+
         return sendJson(res, 200, { success: true, id });
       } catch (err) {
         return sendJson(res, 400, { error: err.message });
@@ -208,7 +292,9 @@ async function handleApi(req, res, parsedUrl) {
       if (id && sqliteDb) {
         try {
           sqliteDb.prepare("DELETE FROM news WHERE id = ?").run(id);
+          sqliteDb.prepare("DELETE FROM admin_items WHERE id = ?").run(id);
         } catch (_) {}
+        syncSupabase("news", null, "DELETE", "id=eq." + encodeURIComponent(id));
       }
       return sendJson(res, 200, { success: true });
     }
@@ -225,21 +311,35 @@ async function handleApi(req, res, parsedUrl) {
       }
       return sendJson(res, 200, []);
     }
-    if (method === "POST") {
+    if (method === "POST" || method === "PUT") {
       try {
         const body = await parseJsonBody(req);
         const category = escapeHtml(String(body.category || "Upozornění trenérů").trim()).slice(0, 100);
         const title = escapeHtml(String(body.title || "Vzkaz oddílu").trim()).slice(0, 200);
-        const text = escapeHtml(String(body.text || "").trim()).slice(0, 1000);
+        const text = escapeHtml(String(body.text || body.content || "").trim()).slice(0, 1000);
         const date = String(body.date || new Date().toLocaleDateString("cs-CZ")).slice(0, 20);
         const author = escapeHtml(String(body.author || "Trenéři TJ Bohemians").trim()).slice(0, 100);
 
+        if (!text) return sendJson(res, 400, { error: "Message content is required" });
+
+        let newId = Date.now();
         if (sqliteDb) {
-          sqliteDb.prepare("INSERT INTO parent_messages (category, title, text, date, author) VALUES (?, ?, ?, ?, ?)").run(
-            category, title, text, date, author
-          );
+          try {
+            const info = sqliteDb.prepare("INSERT INTO parent_messages (category, title, text, date, author) VALUES (?, ?, ?, ?, ?)").run(
+              category, title, text, date, author
+            );
+            if (info && info.lastInsertRowid) newId = Number(info.lastInsertRowid);
+            const fieldsJson = JSON.stringify({ kategorie: category, datum: date, autor: author, text });
+            sqliteDb.prepare("INSERT OR REPLACE INTO admin_items (id, kind, status, source, title, fields_json) VALUES (?, 'oznameni', 'approved', 'intranet', ?, ?)").run(
+              "msg-" + newId, title, fieldsJson
+            );
+          } catch (_) {}
         }
-        return sendJson(res, 200, { success: true });
+
+        // Supabase sync
+        syncSupabase("parent_messages", { category, title, text, date, author });
+
+        return sendJson(res, 200, { success: true, id: newId });
       } catch (err) {
         return sendJson(res, 400, { error: err.message });
       }
@@ -249,9 +349,135 @@ async function handleApi(req, res, parsedUrl) {
       if (id && sqliteDb) {
         try {
           sqliteDb.prepare("DELETE FROM parent_messages WHERE id = ?").run(id);
+          sqliteDb.prepare("DELETE FROM admin_items WHERE id = ?").run("msg-" + id);
+        } catch (_) {}
+        syncSupabase("parent_messages", null, "DELETE", "id=eq." + id);
+      }
+      return sendJson(res, 200, { success: true });
+    }
+  }
+
+  // 1d. entries.php / entries / event_entries
+  if (pathname === "entries" || pathname === "entries.php" || pathname === "event_entries") {
+    if (method === "GET") {
+      const eventId = String(parsedUrl.searchParams.get("event_id") || "").replace(/[^a-zA-Z0-9_\-]/g, "").slice(0, 50);
+      if (sqliteDb) {
+        try {
+          let rows;
+          if (eventId) {
+            rows = sqliteDb.prepare("SELECT id, event_id, user_id, swimmer_name, disciplines_json, note, created_at FROM event_entries WHERE event_id = ? ORDER BY id DESC").all(eventId);
+          } else {
+            rows = sqliteDb.prepare("SELECT id, event_id, user_id, swimmer_name, disciplines_json, note, created_at FROM event_entries ORDER BY id DESC").all();
+          }
+          const out = rows.map(r => {
+            let disc = [];
+            try { disc = JSON.parse(r.disciplines_json || "[]"); } catch {}
+            return {
+              id: r.id,
+              eventId: r.event_id,
+              userId: r.user_id,
+              swimmerName: r.swimmer_name,
+              disciplines: disc,
+              note: r.note || "",
+              status: "Přihlášen",
+              createdAt: r.created_at
+            };
+          });
+          return sendJson(res, 200, out);
+        } catch (_) {}
+      }
+      return sendJson(res, 200, []);
+    }
+
+    if (method === "POST" || method === "PUT") {
+      try {
+        const body = await parseJsonBody(req);
+        const eventId = String(body.event_id || body.eventId || "").replace(/[^a-zA-Z0-9_\-]/g, "").slice(0, 50);
+        if (!eventId) return sendJson(res, 400, { error: "Event ID is required" });
+
+        const userId = parseInt(body.user_id || body.userId || 1, 10);
+        const swimmerName = escapeHtml(String(body.swimmer_name || body.swimmerName || "Kryštof Spejchal").trim()).slice(0, 100);
+        const note = escapeHtml(String(body.note || "").trim()).slice(0, 200);
+        const discArr = Array.isArray(body.disciplines) ? body.disciplines : [body.disciplines].filter(Boolean);
+        const disciplinesJson = JSON.stringify(discArr);
+
+        let newId = Date.now();
+        if (sqliteDb) {
+          try {
+            const info = sqliteDb.prepare("INSERT INTO event_entries (event_id, user_id, swimmer_name, disciplines_json, note) VALUES (?, ?, ?, ?, ?)").run(
+              eventId, userId, swimmerName, disciplinesJson, note
+            );
+            if (info && info.lastInsertRowid) newId = Number(info.lastInsertRowid);
+            sqliteDb.prepare("INSERT OR REPLACE INTO signups (event_id, disciplines, note, created_at) VALUES (?, ?, ?, ?)").run(
+              eventId, disciplinesJson, note, new Date().toISOString()
+            );
+          } catch (_) {}
+        }
+
+        // Supabase sync
+        syncSupabase("event_entries", {
+          event_id: eventId,
+          user_id: userId,
+          swimmer_name: swimmerName,
+          disciplines_json: disciplinesJson,
+          note
+        });
+
+        return sendJson(res, 200, { success: true, id: newId });
+      } catch (err) {
+        return sendJson(res, 400, { error: err.message });
+      }
+    }
+
+    if (method === "DELETE") {
+      const id = parseInt(parsedUrl.searchParams.get("id"), 10);
+      const eventId = String(parsedUrl.searchParams.get("event_id") || "").replace(/[^a-zA-Z0-9_\-]/g, "").slice(0, 50);
+      if (sqliteDb) {
+        try {
+          if (id) {
+            sqliteDb.prepare("DELETE FROM event_entries WHERE id = ?").run(id);
+            syncSupabase("event_entries", null, "DELETE", "id=eq." + id);
+          } else if (eventId) {
+            sqliteDb.prepare("DELETE FROM event_entries WHERE event_id = ?").run(eventId);
+            sqliteDb.prepare("DELETE FROM signups WHERE event_id = ?").run(eventId);
+            syncSupabase("event_entries", null, "DELETE", "event_id=eq." + encodeURIComponent(eventId));
+          }
         } catch (_) {}
       }
       return sendJson(res, 200, { success: true });
+    }
+  }
+
+  // 1e. users.php / users
+  if (pathname === "users" || pathname === "users.php") {
+    if (method === "GET") {
+      if (sqliteDb) {
+        try {
+          const rows = sqliteDb.prepare("SELECT id, username, name, role, year_of_birth, club_category, created_at FROM users ORDER BY id ASC").all();
+          if (rows.length) return sendJson(res, 200, rows);
+        } catch (_) {}
+      }
+      return sendJson(res, 200, [
+        { id: 1, username: "admin", name: "Mgr. Jan Srb", role: "super_admin", club_category: "Hlavní trenér" },
+        { id: 2, username: "plavec", name: "Kryštof Spejchal", role: "member", club_category: "Sportovní třídy ST" }
+      ]);
+    }
+    if (method === "POST" || method === "PUT") {
+      try {
+        const body = await parseJsonBody(req);
+        const username = String(body.username || "").replace(/[^a-zA-Z0-9_\-]/g, "").slice(0, 50);
+        const role = ["member", "super_admin", "coach", "parent"].includes(body.role) ? body.role : "member";
+        const name = escapeHtml(String(body.name || username).trim()).slice(0, 100);
+
+        if (sqliteDb && username) {
+          try {
+            sqliteDb.prepare("UPDATE users SET role = ?, name = ? WHERE username = ?").run(role, name, username);
+          } catch (_) {}
+        }
+        return sendJson(res, 200, { success: true, username, role });
+      } catch (err) {
+        return sendJson(res, 400, { error: err.message });
+      }
     }
   }
 
