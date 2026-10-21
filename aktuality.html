@@ -44,7 +44,7 @@
         </a>
 
         <!-- Desktop Navigation Links -->
-        <nav class="hidden items-center gap-1 xl:gap-1.5 lg:flex">
+        <nav class="hidden items-center gap-0.5 xl:gap-1 lg:flex whitespace-nowrap">
           <a href="/" class="nav-item">Úvod</a>
           <a href="aktuality" class="nav-item active">Aktuality</a>
           <a href="pro-rodice" class="nav-item">Pro rodiče</a>
@@ -305,7 +305,6 @@
               <div>
                 <p class="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-primary">Novinky ze života oddílu · 80 let Bohemians</p>
                 <h1 class="max-w-3xl font-display text-4xl font-extrabold leading-tight md:text-5xl">Aktuality</h1>
-                <div class="my-3 flex items-center"><span class="wave wave--md"></span></div>
                 <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">Hodnocení závodů, termíny soustředění, organizační informace a úspěchy našich plavců.</p>
               </div>
             </div>
@@ -332,7 +331,6 @@
                       `}
                     </div>
                     <div class="news-card-body">
-                      <div class="flex items-center gap-2 mb-2"><span class="wave wave--sm"></span></div>
                       <div class="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-primary">
                         <time>${new Date(n.date).toLocaleDateString("cs-CZ")}</time>
                         <span class="text-muted-foreground">· ${escapeHtml(n.author || 'TJ Bohemians Praha')}</span>

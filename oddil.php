@@ -36,7 +36,6 @@ require_once __DIR__ . '/includes/header.php';
           Tradice od roku 1946 · Už to spolu táhnem 80 let
         </div>
         <h1 class="font-display text-3xl font-extrabold tracking-tight sm:text-4xl text-foreground">O oddílu Bohemians</h1>
-        <div class="my-3 flex items-center"><span class="wave wave--md"></span></div>
         <p class="mt-3 text-base text-muted-foreground sm:text-lg leading-relaxed">
           Plavecký oddíl TJ Bohemians Praha slaví 80 let existence (1946–2026). Vychoval mnoho špičkových sportovců — účastníků olympijských her, mistrovství světa i Evropy. A děti učí plavat dodnes.
         </p>

@@ -82,8 +82,8 @@ $navLinks = [
           </div>
         </a>
 
-        <!-- Desktop Navigation Links -->
-        <nav class="hidden items-center gap-1 xl:gap-1.5 lg:flex">
+        <!-- Desktop Navigation Links — All 10 Canonical Items Kept Visible -->
+        <nav class="hidden items-center gap-0.5 xl:gap-1 lg:flex whitespace-nowrap">
           <?php foreach ($navLinks as $key => $link): ?>
             <a href="<?= $link['url'] ?>" class="nav-item <?= ($currentPage === $key) ? 'active' : '' ?>">
               <?= $link['label'] ?>

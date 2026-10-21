@@ -44,8 +44,8 @@
           <img src="assets/logo-80-let.png" alt="TJ Bohemians Praha — oddíl plavání 80 let" width="711" height="200" class="header-logo-img h-8 sm:h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105">
         </a>
 
-        <!-- Desktop Navigation Links -->
-        <nav class="hidden items-center gap-1 xl:gap-1.5 lg:flex">
+        <!-- Desktop Navigation Links — All 10 Canonical Items Kept Visible -->
+        <nav class="hidden items-center gap-0.5 xl:gap-1 lg:flex whitespace-nowrap">
           <a href="/" class="nav-item active">Úvod</a>
           <a href="aktuality" class="nav-item">Aktuality</a>
           <a href="pro-rodice" class="nav-item">Pro rodiče</a>
@@ -127,11 +127,7 @@
                   Velká cena Prahy - hodnocení
                 </h1>
 
-                <div class="my-4 flex items-center">
-                  <span class="wave wave--md wave--light"></span>
-                </div>
-
-                <p id="hero-feature-excerpt" class="text-sm sm:text-base lg:text-lg text-emerald-50/90 leading-relaxed max-w-2xl">
+                <p id="hero-feature-excerpt" class="mt-4 text-sm sm:text-base lg:text-lg text-emerald-50/90 leading-relaxed max-w-2xl">
                   Účast bohemáků byla slušná, závodní nasazení bylo dobré a padla řada osobních rekordů. Plavci potvrdili skvělou formu na začátku nové podzimní sezóny.
                 </p>
 
@@ -163,23 +159,23 @@
       <section class="relative z-10 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:py-10">
         <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <!-- Card 1: Nearest event -->
-          <a id="dash-event-link" href="zavody" class="spotlight-card reveal hover-float group flex h-full min-h-[200px] flex-col justify-between rounded-2xl border border-border/60 bg-card p-5 shadow-sm transition-all">
+          <a id="dash-event-link" href="zavody" class="spotlight-card reveal hover-float group flex h-full min-h-[190px] flex-col justify-between rounded-lg border border-border/70 bg-card p-5 shadow-xs hover:border-emerald-600/40 transition-all">
             <div>
               <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary">
                 <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
                 Nejbližší závod
               </div>
-              <p class="mt-3 font-display text-lg font-bold leading-snug group-hover:text-primary transition-colors" id="dash-event-title">
+              <p class="mt-2.5 font-display text-base font-bold leading-snug group-hover:text-primary transition-colors" id="dash-event-title">
                 Velká cena města Plzně
               </p>
-              <p class="mt-1.5 text-sm text-muted-foreground" id="dash-event-desc">
+              <p class="mt-1 text-xs text-muted-foreground" id="dash-event-desc">
                 3. 10. 2026 · Plzeň – Slovany
               </p>
             </div>
-            <div class="mt-4 flex items-center justify-between border-t border-border/40 pt-3">
+            <div class="mt-3.5 flex items-center justify-between border-t border-border/40 pt-2.5">
               <div class="flex items-baseline gap-1.5">
-                <span class="font-display text-3xl font-extrabold text-primary" id="dash-event-days">1</span>
-                <span class="text-xs font-medium text-muted-foreground">den do startu</span>
+                <span class="font-display text-2xl font-extrabold text-primary" id="dash-event-days">--</span>
+                <span class="text-xs font-medium text-muted-foreground">do startu</span>
               </div>
               <span class="inline-flex items-center gap-1 text-xs font-semibold text-primary group-hover:underline">
                 Detail závodu →
@@ -188,201 +184,182 @@
           </a>
 
           <!-- Card 2: Vzkaz pro rodiče -->
-          <a href="pro-rodice" class="spotlight-card reveal hover-float group flex h-full min-h-[200px] flex-col justify-between rounded-2xl border border-border/60 bg-card p-5 shadow-sm transition-all">
+          <a href="pro-rodice" class="spotlight-card reveal hover-float group flex h-full min-h-[190px] flex-col justify-between rounded-lg border border-border/70 bg-card p-5 shadow-xs hover:border-emerald-600/40 transition-all">
             <div>
               <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary">
                 <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                 Vzkaz pro rodiče
               </div>
-              <p class="mt-3 line-clamp-3 text-sm leading-relaxed text-muted-foreground" id="dash-parent-text">
+              <p class="mt-2.5 line-clamp-3 text-xs leading-relaxed text-muted-foreground" id="dash-parent-text">
                 Lékařské prohlídky pro závodní plavce je nutné odevzdat trenérům nejpozději do 15. října 2026.
               </p>
             </div>
-            <div class="mt-4 border-t border-border/40 pt-3">
-              <span class="inline-flex items-center gap-1 text-sm font-semibold text-primary">
-                Všechny vzkazy <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+            <div class="mt-3.5 border-t border-border/40 pt-2.5">
+              <span class="inline-flex items-center gap-1 text-xs font-semibold text-primary">
+                Všechny vzkazy <svg class="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
               </span>
             </div>
           </a>
 
           <!-- Card 3: Infolístky k závodům -->
-          <a href="https://www.boh.cz/infolistek/26sprinty-listecek.pdf" target="_blank" rel="noreferrer" class="spotlight-card reveal hover-float group flex h-full min-h-[200px] flex-col justify-between rounded-2xl border border-border/60 bg-card p-5 shadow-sm transition-all">
+          <a href="https://www.boh.cz/infolistek/26sprinty-listecek.pdf" target="_blank" rel="noreferrer" class="spotlight-card reveal hover-float group flex h-full min-h-[190px] flex-col justify-between rounded-lg border border-border/70 bg-card p-5 shadow-xs hover:border-emerald-600/40 transition-all">
             <div>
               <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary">
                 <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                 Infolístek (PDF)
               </div>
-              <p class="mt-3 font-display text-base font-bold leading-snug group-hover:text-primary transition-colors">
+              <p class="mt-2.5 font-display text-base font-bold leading-snug group-hover:text-primary transition-colors">
                 Plzeňské sprinty 2026
               </p>
-              <p class="mt-1.5 text-xs text-muted-foreground leading-relaxed">
+              <p class="mt-1 text-xs text-muted-foreground leading-relaxed">
                 Odjezdy, rozplavání, ubytování a instrukce pro závodníky Bohemians.
               </p>
             </div>
-            <div class="mt-4 border-t border-border/40 pt-3">
+            <div class="mt-3.5 border-t border-border/40 pt-2.5">
               <span class="inline-flex items-center gap-1 text-xs font-semibold text-primary group-hover:underline">
-                Stáhnout PDF (boh.cz) ↗
+                Stáhnout PDF ↗
               </span>
             </div>
           </a>
 
           <!-- Card 4: Intranet -->
-          <a href="intranet" class="spotlight-card reveal hover-float group flex h-full min-h-[200px] flex-col justify-between rounded-2xl border border-[var(--intranet-accent)]/30 bg-[var(--intranet-accent)]/[0.08] p-5 shadow-sm transition-all">
+          <a href="intranet" class="spotlight-card reveal hover-float group flex h-full min-h-[190px] flex-col justify-between rounded-lg border border-emerald-600/30 bg-emerald-50/40 dark:bg-emerald-950/20 p-5 shadow-xs hover:border-emerald-600/60 transition-all">
             <div>
-              <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--intranet-accent)]">
+              <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-emerald-700 dark:text-emerald-300">
                 <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 Členský intranet
               </div>
-              <p class="mt-3 font-display text-lg font-bold leading-snug text-foreground">
-                Přihlášky a výsledky
+              <p class="mt-2.5 font-display text-base font-bold leading-snug text-foreground">
+                Přihlášky &amp; Harmonogram
               </p>
-              <p class="mt-1.5 text-xs leading-relaxed text-muted-foreground">
-                Přihlaš se na závody, zkontroluj si své časy, rekordy a platby příspěvků.
+              <p class="mt-1 text-xs leading-relaxed text-muted-foreground">
+                Přihlas se na závody, zkontroluj si časy, termíny a oddílové směrnice.
               </p>
             </div>
-            <div class="mt-4 border-t border-[var(--intranet-accent)]/20 pt-3">
-              <span class="inline-flex items-center gap-1 text-sm font-semibold text-[var(--intranet-accent)]">
-                Otevřít intranet <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+            <div class="mt-3.5 border-t border-emerald-600/20 pt-2.5">
+              <span class="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300">
+                Otevřít intranet <svg class="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
               </span>
             </div>
           </a>
         </div>
       </section>
 
-      <!-- STATS COUNTER BAR -->
-      <section class="border-y border-border/60 bg-card/40">
-        <div class="mx-auto grid max-w-7xl grid-cols-2 gap-px overflow-hidden px-4 sm:px-6 md:grid-cols-4">
-          <div class="reveal flex flex-col items-center gap-2 px-4 py-10 text-center">
-            <svg class="h-7 w-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-            <span class="font-display text-4xl sm:text-5xl font-black text-foreground">80</span>
-            <span class="text-xs sm:text-sm font-semibold text-muted-foreground uppercase tracking-wider">let tradice</span>
-          </div>
-          <div class="reveal flex flex-col items-center gap-2 px-4 py-10 text-center">
-            <svg class="h-7 w-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            <span class="font-display text-4xl sm:text-5xl font-black text-foreground">7</span>
-            <span class="text-xs sm:text-sm font-semibold text-muted-foreground uppercase tracking-wider">tréninkových skupin</span>
-          </div>
-          <div class="reveal flex flex-col items-center gap-2 px-4 py-10 text-center">
-            <svg class="h-7 w-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
-            <span class="font-display text-4xl sm:text-5xl font-black text-foreground">18</span>
-            <span class="text-xs sm:text-sm font-semibold text-muted-foreground uppercase tracking-wider">medailí z MČR jun. 2026</span>
-          </div>
-          <div class="reveal flex flex-col items-center gap-2 px-4 py-10 text-center">
-            <svg class="h-7 w-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>
-            <span class="font-display text-4xl sm:text-5xl font-black text-foreground">2</span>
-            <span class="text-xs sm:text-sm font-semibold text-muted-foreground uppercase tracking-wider">domácí bazény</span>
+      <!-- STATS COUNTER BAR — Sleek Compact Horizontal Strip -->
+      <section class="border-y border-zinc-200 dark:border-zinc-800 bg-zinc-50/70 dark:bg-zinc-900/40 py-4 sm:py-5">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6">
+          <div class="grid grid-cols-2 gap-4 sm:grid-cols-4 md:divide-x md:divide-zinc-200 dark:md:divide-zinc-800">
+            <div class="flex items-center gap-3 px-2 sm:px-4 justify-start sm:justify-center">
+              <span class="font-display text-2xl sm:text-3xl font-black text-emerald-700 dark:text-emerald-400">80</span>
+              <span class="text-xs font-semibold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider leading-tight">let<br>tradice (1946)</span>
+            </div>
+            <div class="flex items-center gap-3 px-2 sm:px-4 justify-start sm:justify-center">
+              <span class="font-display text-2xl sm:text-3xl font-black text-emerald-700 dark:text-emerald-400">7</span>
+              <span class="text-xs font-semibold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider leading-tight">tréninkových<br>skupin</span>
+            </div>
+            <div class="flex items-center gap-3 px-2 sm:px-4 justify-start sm:justify-center">
+              <span class="font-display text-2xl sm:text-3xl font-black text-emerald-700 dark:text-emerald-400">18</span>
+              <span class="text-xs font-semibold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider leading-tight">medailí<br>MČR 2026</span>
+            </div>
+            <div class="flex items-center gap-3 px-2 sm:px-4 justify-start sm:justify-center">
+              <span class="font-display text-2xl sm:text-3xl font-black text-emerald-700 dark:text-emerald-400">2</span>
+              <span class="text-xs font-semibold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider leading-tight">domácí bazény<br>Podolí &amp; Vinohrady</span>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- NEWS (KPS Ostrava inspired centered Aktuality section) -->
-      <section class="py-14 sm:py-20">
+      <!-- NEWS SECTION — Articles #2, #3, #4 (Skipping Hero Lead) -->
+      <section class="py-10 sm:py-14">
         <div class="mx-auto max-w-7xl px-4 sm:px-6">
-          <div class="text-center">
-            <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-foreground">Aktuality</h2>
-            <div class="my-4 flex justify-center">
-              <span class="wave wave--md"></span>
+          <div class="flex items-end justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3 mb-8">
+            <div>
+              <p class="text-xs font-bold uppercase tracking-wider text-primary">Oddílové novinky</p>
+              <h2 class="mt-1 font-display text-2xl font-extrabold sm:text-3xl text-foreground">Aktuality ze života oddílu</h2>
             </div>
-            <p class="text-sm text-muted-foreground max-w-xl mx-auto">
-              Nejčerstvější informace ze závodů, hodnocení trenérů, rozpisy a zprávy z plaveckého dění v Bohemce.
-            </p>
-          </div>
-
-          <!-- 4 News Cards Grid -->
-          <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" id="home-news-cards"></div>
-
-          <div class="mt-10 text-center">
-            <a href="aktuality" class="inline-flex items-center gap-2 rounded-xl bg-primary px-7 py-3 text-sm font-bold text-primary-foreground shadow-sm hover:opacity-90 transition-opacity">
-              Zobrazit všechny aktuality
-              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+            <a href="aktuality" class="text-xs sm:text-sm font-semibold text-primary hover:underline flex items-center gap-1">
+              <span>Všechny aktuality</span> →
             </a>
           </div>
+
+          <!-- 3 News Cards Grid (#2, #3, #4) -->
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" id="home-news-cards"></div>
         </div>
       </section>
 
-      <!-- ZAJÍMAVOSTI Z ODDÍLU (KPS Ostrava inspired photo cards) -->
-      <section class="border-t border-border/60 bg-card/40 py-14 sm:py-20">
+      <!-- ZAJÍMAVOSTI Z ODDÍLU — Photo Highlights & Life at the Club -->
+      <section class="border-t border-border/60 bg-card/40 py-10 sm:py-14">
         <div class="mx-auto max-w-7xl px-4 sm:px-6">
-          <div class="text-center">
-            <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-foreground">Zajímavosti z oddílu</h2>
-            <div class="my-4 flex justify-center">
-              <span class="wave wave--md"></span>
+          <div class="flex items-end justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3 mb-8">
+            <div>
+              <p class="text-xs font-bold uppercase tracking-wider text-primary">Život v klubu objektivem</p>
+              <h2 class="mt-1 font-display text-2xl font-extrabold sm:text-3xl text-foreground">Zajímavosti &amp; Fotoreportáže</h2>
             </div>
-            <p class="text-sm text-muted-foreground max-w-xl mx-auto">
-              Život v klubu objektivem fotoaparátu. Reportáže ze soustředění, závodů i zákulisí tréninků v Podolí a na Vinohradech.
-            </p>
-          </div>
-
-          <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <!-- Card 1 -->
-            <article class="group flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-card shadow-sm hover:shadow-md transition-all">
-              <div class="relative aspect-[4/3] overflow-hidden bg-muted">
-                <img src="assets/foto/86071.jpg" alt="Velká cena Prahy v Podolí" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
-                <span class="absolute top-3 left-3 rounded-full bg-black/60 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-sm">Podolí 50m</span>
-              </div>
-              <div class="flex flex-1 flex-col p-5 sm:p-6">
-                <div class="flex items-center gap-2"><span class="wave wave--sm"></span></div>
-                <time class="mt-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">12. října 2026</time>
-                <h3 class="mt-2 font-display text-lg font-bold leading-snug group-hover:text-primary transition-colors">
-                  <a href="aktuality?id=velka-cena-prahy-hodnoceni-2026" class="hover:underline">Velká cena Prahy v Podolí — hodnocení trenérů</a>
-                </h3>
-                <p class="mt-2 flex-1 text-sm text-muted-foreground leading-relaxed">
-                  Starší plavci Bohemians bojovali na domácí padesátce v Podolí. Výborné nasazení, osobní rekordy a splněné limity.
-                </p>
-                <a href="aktuality?id=velka-cena-prahy-hodnoceni-2026" class="mt-4 inline-flex items-center gap-1 text-xs font-bold text-primary group-hover:underline">
-                  Číst hodnocení &rarr;
-                </a>
-              </div>
-            </article>
-
-            <!-- Card 2 -->
-            <article class="group flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-card shadow-sm hover:shadow-md transition-all">
-              <div class="relative aspect-[4/3] overflow-hidden bg-muted">
-                <img src="assets/foto/86049.jpg" alt="Podzimní soustředění a příprava" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
-                <span class="absolute top-3 left-3 rounded-full bg-black/60 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-sm">Soustředění</span>
-              </div>
-              <div class="flex flex-1 flex-col p-5 sm:p-6">
-                <div class="flex items-center gap-2"><span class="wave wave--sm"></span></div>
-                <time class="mt-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">28. září 2026</time>
-                <h3 class="mt-2 font-display text-lg font-bold leading-snug group-hover:text-primary transition-colors">
-                  <a href="foto" class="hover:underline">Podzimní kilometráž a příprava na mistrovské soutěže</a>
-                </h3>
-                <p class="mt-2 flex-1 text-sm text-muted-foreground leading-relaxed">
-                  Závodní družstva A a B absolvovala náročný objemový blok v bazénu i na suchu. Forma před podzimními poháry stoupá.
-                </p>
-                <a href="foto" class="mt-4 inline-flex items-center gap-1 text-xs font-bold text-primary group-hover:underline">
-                  Prohlédnout fotogalerii &rarr;
-                </a>
-              </div>
-            </article>
-
-            <!-- Card 3 -->
-            <article class="group flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-card shadow-sm hover:shadow-md transition-all">
-              <div class="relative aspect-[4/3] overflow-hidden bg-muted">
-                <img src="assets/foto/86050.jpg" alt="Plzeňské sprinty a Velká cena Plzně" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
-                <span class="absolute top-3 left-3 rounded-full bg-black/60 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-sm">Závody</span>
-              </div>
-              <div class="flex flex-1 flex-col p-5 sm:p-6">
-                <div class="flex items-center gap-2"><span class="wave wave--sm"></span></div>
-                <time class="mt-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">3. října 2026</time>
-                <h3 class="mt-2 font-display text-lg font-bold leading-snug group-hover:text-primary transition-colors">
-                  <a href="zavody" class="hover:underline">Velká cena města Plzně — úspěšný vstup do sezóny</a>
-                </h3>
-                <p class="mt-2 flex-1 text-sm text-muted-foreground leading-relaxed">
-                  Ve Slovanech se představila kompletní špička ČR. Bohemáci potvrdili formu finálovými starty a medailemi.
-                </p>
-                <a href="zavody" class="mt-4 inline-flex items-center gap-1 text-xs font-bold text-primary group-hover:underline">
-                  Výsledky a statistiky &rarr;
-                </a>
-              </div>
-            </article>
-          </div>
-
-          <div class="mt-10 text-center">
-            <a href="foto" class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-6 py-3 text-sm font-bold text-foreground hover:bg-muted transition-colors">
-              Zobrazit fotogalerie oddílu
-              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+            <a href="foto" class="text-xs sm:text-sm font-semibold text-primary hover:underline flex items-center gap-1">
+              <span>Všechny fotogalerie</span> →
             </a>
+          </div>
+
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- Highlight 1: Oslava 80 let -->
+            <article class="group flex flex-col overflow-hidden rounded-lg border border-border/70 bg-card shadow-xs hover:border-emerald-600/40 hover:shadow-sm transition-all">
+              <div class="relative aspect-[16/10] overflow-hidden bg-muted">
+                <img src="assets/foto/86071.jpg" alt="Oslava 80 let oddílu na Hagiboru" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                <span class="absolute top-2.5 left-2.5 rounded-md bg-black/70 px-2 py-0.5 text-[10px] font-semibold text-white uppercase tracking-wider backdrop-blur-xs">Fotoreportáž</span>
+              </div>
+              <div class="flex flex-1 flex-col p-5">
+                <time class="text-[11px] font-mono text-muted-foreground uppercase tracking-wider">14. září 2026</time>
+                <h3 class="mt-1.5 font-display text-base font-bold leading-snug group-hover:text-primary transition-colors">
+                  <a href="foto" class="hover:underline">Oslava 80 let oddílu na Hagiboru — 212 Klokanů pohromadě</a>
+                </h3>
+                <p class="mt-2 flex-1 text-xs text-muted-foreground leading-relaxed">
+                  Generace plavců, trenérů a olympioniků Bohemians oslavily 80. výročí založení klubu ve velkém stylu. Prohlédněte si oficiální galerii.
+                </p>
+                <a href="foto" class="mt-3.5 inline-flex items-center gap-1 text-xs font-semibold text-primary group-hover:underline">
+                  Zobrazit fotogalerii →
+                </a>
+              </div>
+            </article>
+
+            <!-- Highlight 2: ME masters Šamorín -->
+            <article class="group flex flex-col overflow-hidden rounded-lg border border-border/70 bg-card shadow-xs hover:border-emerald-600/40 hover:shadow-sm transition-all">
+              <div class="relative aspect-[16/10] overflow-hidden bg-muted">
+                <img src="assets/aktuality/2233.jpg" alt="Mistrovství Evropy masters Šamorín" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                <span class="absolute top-2.5 left-2.5 rounded-md bg-black/70 px-2 py-0.5 text-[10px] font-semibold text-white uppercase tracking-wider backdrop-blur-xs">Masters</span>
+              </div>
+              <div class="flex flex-1 flex-col p-5">
+                <time class="text-[11px] font-mono text-muted-foreground uppercase tracking-wider">24. srpna 2026</time>
+                <h3 class="mt-1.5 font-display text-base font-bold leading-snug group-hover:text-primary transition-colors">
+                  <a href="aktuality?id=me-masters-samorin-2026" class="hover:underline">16 medailí a český rekord na Mistrovství Evropy masters</a>
+                </h3>
+                <p class="mt-2 flex-1 text-xs text-muted-foreground leading-relaxed">
+                  Jedenáct Klokanů vybojovalo v Šamoríně 16 medailí a rekord šampionátu. Úspěchy veteránských reprezentantů Bohemians.
+                </p>
+                <a href="aktuality?id=me-masters-samorin-2026" class="mt-3.5 inline-flex items-center gap-1 text-xs font-semibold text-primary group-hover:underline">
+                  Číst reportáž →
+                </a>
+              </div>
+            </article>
+
+            <!-- Highlight 3: Soustředění Jiřetín -->
+            <article class="group flex flex-col overflow-hidden rounded-lg border border-border/70 bg-card shadow-xs hover:border-emerald-600/40 hover:shadow-sm transition-all">
+              <div class="relative aspect-[16/10] overflow-hidden bg-muted">
+                <img src="assets/aktuality/2234.jpg" alt="Přípravné soustředění Jiřetín" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                <span class="absolute top-2.5 left-2.5 rounded-md bg-black/70 px-2 py-0.5 text-[10px] font-semibold text-white uppercase tracking-wider backdrop-blur-xs">Soustředění</span>
+              </div>
+              <div class="flex flex-1 flex-col p-5">
+                <time class="text-[11px] font-mono text-muted-foreground uppercase tracking-wider">28. srpna 2026</time>
+                <h3 class="mt-1.5 font-display text-base font-bold leading-snug group-hover:text-primary transition-colors">
+                  <a href="aktuality?id=soustredeni-jiretin-hodnoceni-2026" class="hover:underline">Letní přípravné soustředění Jiřetín — chata v Jizerských horách</a>
+                </h3>
+                <p class="mt-2 flex-1 text-xs text-muted-foreground leading-relaxed">
+                  23 plavců od přípravky po nejvyšší skupiny zahájilo novou sezónu v Jizerkách. Bodované soutěže, otevřená voda i paddleboardy.
+                </p>
+                <a href="aktuality?id=soustredeni-jiretin-hodnoceni-2026" class="mt-3.5 inline-flex items-center gap-1 text-xs font-semibold text-primary group-hover:underline">
+                  Číst hodnocení trenérů →
+                </a>
+              </div>
+            </article>
           </div>
         </div>
       </section>
@@ -403,13 +380,13 @@
           <div class="grid gap-6 lg:grid-cols-12">
             <!-- Left: Aktuální zprávy od trenérů -->
             <div class="lg:col-span-7 space-y-4">
-              <div class="card-clean rounded-2xl border border-border/70 bg-card p-5 sm:p-6 flex items-start gap-4 shadow-sm">
-                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary">
+              <div class="card-clean rounded-lg border border-border/70 bg-card p-5 sm:p-6 flex items-start gap-4 shadow-xs hover:border-emerald-600/40 transition-colors">
+                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/15 text-primary">
                   <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
                 </div>
                 <div>
                   <div class="flex items-center gap-2 text-xs font-semibold text-primary">
-                    <span>12. 10. 2026</span>
+                    <span class="font-mono">12. 10. 2026</span>
                     <span>·</span>
                     <span class="text-muted-foreground">Jan Srb</span>
                   </div>
@@ -423,13 +400,13 @@
                 </div>
               </div>
 
-              <div class="card-clean rounded-2xl border border-border/70 bg-card p-5 sm:p-6 flex items-start gap-4 shadow-sm">
-                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary">
+              <div class="card-clean rounded-lg border border-border/70 bg-card p-5 sm:p-6 flex items-start gap-4 shadow-xs hover:border-emerald-600/40 transition-colors">
+                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/15 text-primary">
                   <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
                 </div>
                 <div>
                   <div class="flex items-center gap-2 text-xs font-semibold text-primary">
-                    <span>10. 10. 2026</span>
+                    <span class="font-mono">10. 10. 2026</span>
                     <span>·</span>
                     <span class="text-muted-foreground">Soňa Nováková</span>
                   </div>
@@ -446,7 +423,7 @@
 
             <!-- Right: Infolístky na závody s přímými PDF odkazy z boh.cz -->
             <div class="lg:col-span-5">
-              <div class="card-clean rounded-2xl border border-border/70 bg-card p-5 sm:p-6 h-full flex flex-col justify-between shadow-sm">
+              <div class="card-clean rounded-lg border border-border/70 bg-card p-5 sm:p-6 h-full flex flex-col justify-between shadow-xs hover:border-emerald-600/40 transition-colors">
                 <div>
                   <div class="flex items-center justify-between border-b border-border/60 pb-3">
                     <h3 class="font-display text-base font-bold text-foreground flex items-center gap-2">
@@ -680,10 +657,7 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6">
           <div class="text-center">
             <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-foreground">Podporují nás</h2>
-            <div class="my-4 flex justify-center">
-              <span class="wave wave--md"></span>
-            </div>
-            <p class="text-xs sm:text-sm text-muted-foreground max-w-md mx-auto">
+            <p class="mt-3 text-xs sm:text-sm text-muted-foreground max-w-md mx-auto">
               Děkujeme našim partnerům a institucím za dlouhodobou podporu plaveckého oddílu TJ Bohemians Praha.
             </p>
           </div>
@@ -892,31 +866,29 @@
         }
       }
 
-      // 2. Dynamic News cards (uniform card headers: photo or athletic club crest)
+      // 2. Dynamic News cards (#2, #3, #4 — skipping lead hero article)
       const newsCards = document.getElementById("home-news-cards");
-      if (newsCards && allNews.length > 0) {
-        const gridItems = allNews.slice(0, 4);
+      if (newsCards && allNews.length > 1) {
+        const gridItems = allNews.slice(1, 4);
         newsCards.innerHTML = gridItems.map(n => `
-          <article class="card-clean spotlight-card reveal hover-float group flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-card p-5 sm:p-6 transition-all duration-300 shadow-sm">
+          <article class="card-clean spotlight-card reveal hover-float group flex h-full flex-col overflow-hidden rounded-lg border border-border/70 bg-card p-5 sm:p-6 transition-all duration-300 shadow-xs hover:border-emerald-600/40">
             <div class="mb-4 -mx-5 -mt-5 sm:-mx-6 sm:-mt-6 h-44 overflow-hidden border-b border-border/40 bg-emerald-950/60 relative">
               ${n.image ? `
-                <img src="${escapeHtml(n.image)}" alt="${escapeHtml(n.title)}" class="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'h-full w-full flex flex-col items-center justify-center p-4 bg-gradient-to-br from-emerald-950 to-emerald-900\\'><span class=\\'wave wave--sm wave--light mb-2\\'></span><span class=\\'text-xs font-bold uppercase tracking-wider text-emerald-300\\'>TJ Bohemians Praha</span></div>';">
+                <img src="${escapeHtml(n.image)}" alt="${escapeHtml(n.title)}" class="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'h-full w-full flex flex-col items-center justify-center p-4 bg-gradient-to-br from-emerald-950 to-emerald-900\\'><span class=\\'text-xs font-bold uppercase tracking-wider text-emerald-300\\'>TJ Bohemians Praha</span></div>';">
               ` : `
                 <div class="h-full w-full flex flex-col items-center justify-center p-4 bg-gradient-to-br from-emerald-950 to-emerald-900 text-center select-none">
-                  <span class="wave wave--sm wave--light mb-2"></span>
                   <span class="text-xs font-bold uppercase tracking-wider text-emerald-300">TJ Bohemians Praha</span>
                   <span class="text-[11px] text-emerald-100/60 mt-0.5 font-medium">Plavecký oddíl</span>
                 </div>
               `}
             </div>
-            <div class="flex items-center gap-2 mb-2"><span class="wave wave--sm"></span></div>
-            <a href="aktuality?id=${encodeURIComponent(n.id)}" class="block font-display text-base font-bold leading-snug transition-colors group-hover:text-primary">
+            <time class="text-xs font-semibold uppercase tracking-wider text-muted-foreground font-mono">${n.date ? new Date(n.date).toLocaleDateString("cs-CZ") : ""}</time>
+            <a href="aktuality?id=${encodeURIComponent(n.id)}" class="mt-1.5 block font-display text-base font-bold leading-snug transition-colors group-hover:text-primary">
               ${escapeHtml(n.title)}
             </a>
-            <time class="mt-2 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">${n.date ? new Date(n.date).toLocaleDateString("cs-CZ") : ""}</time>
-            <p class="mt-2 flex-1 line-clamp-3 text-sm leading-relaxed text-muted-foreground">${escapeHtml(n.excerpt || '')}</p>
+            <p class="mt-2 flex-1 line-clamp-3 text-xs leading-relaxed text-muted-foreground">${escapeHtml(n.excerpt || '')}</p>
             <a href="aktuality?id=${encodeURIComponent(n.id)}" class="mt-4 inline-flex items-center gap-1 text-xs font-bold text-primary group-hover:underline">
-              Číst více &rarr;
+              Číst aktualitu &rarr;
             </a>
           </article>
         `).join("");
@@ -926,12 +898,12 @@
       const groupsCards = document.getElementById("home-groups-cards");
       if (groupsCards && (!groupsCards.children || groupsCards.children.length === 0)) {
         groupsCards.innerHTML = window.BohData.groups.slice(0, 6).map(g => `
-          <div class="spotlight-card reveal hover-float rounded-3xl border border-border/60 bg-card/60 p-6 transition-all duration-300">
-            <span class="inline-block rounded-full bg-primary/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
+          <div class="spotlight-card reveal hover-float rounded-lg border border-border/60 bg-card/60 p-5 transition-all duration-300">
+            <span class="inline-block rounded-md bg-primary/15 px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider text-primary">
               ${g.code}
             </span>
-            <h3 class="mt-4 font-display text-lg font-bold">${g.name}</h3>
-            <p class="mt-2 text-sm leading-relaxed text-muted-foreground">${g.description}</p>
+            <h3 class="mt-3 font-display text-base font-bold">${g.name}</h3>
+            <p class="mt-1.5 text-xs leading-relaxed text-muted-foreground">${g.description}</p>
           </div>
         `).join("");
       }
@@ -948,10 +920,26 @@
           const daysEl = document.getElementById("dash-event-days");
           const linkEl = document.getElementById("dash-event-link");
           if (titleEl) titleEl.textContent = ev.name;
-          if (descEl) descEl.textContent = `${ev.date ? new Date(ev.date).toLocaleDateString('cs-CZ') : '3. 10. 2026'} · ${ev.place}`;
+          if (descEl) descEl.textContent = `${ev.date ? new Date(ev.date).toLocaleDateString('cs-CZ') : 'Termín v jednání'} · ${ev.place || 'Bazén'}`;
           if (daysEl && ev.date) {
-            const diff = Math.ceil((new Date(ev.date) - new Date()) / (1000 * 60 * 60 * 24));
-            daysEl.textContent = diff > 0 ? diff : 0;
+            const evDate = new Date(ev.date);
+            const now = new Date();
+            evDate.setHours(0, 0, 0, 0);
+            now.setHours(0, 0, 0, 0);
+            const diffDays = Math.ceil((evDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+            if (diffDays > 0) {
+              daysEl.textContent = diffDays;
+              const lbl = daysEl.nextElementSibling;
+              if (lbl) lbl.textContent = diffDays === 1 ? "den do startu" : ((diffDays >= 2 && diffDays <= 4) ? "dny do startu" : "dní do startu");
+            } else if (diffDays === 0) {
+              daysEl.textContent = "Dnes";
+              const lbl = daysEl.nextElementSibling;
+              if (lbl) lbl.textContent = "závodní den";
+            } else {
+              daysEl.textContent = "✓";
+              const lbl = daysEl.nextElementSibling;
+              if (lbl) lbl.textContent = "odplaváno";
+            }
           }
           if (linkEl && ev.id) {
             linkEl.href = `zavody#${encodeURIComponent(ev.id)}`;

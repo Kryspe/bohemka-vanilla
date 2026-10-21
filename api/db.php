@@ -22,7 +22,7 @@ if (!file_exists($dbDir . '/.htaccess')) {
 if (!file_exists($dbDir . '/index.html')) {
     @file_put_contents($dbDir . '/index.html', "");
 }
-$sqliteFile = $dbDir . '/boh.sqlite';
+$sqliteFile = file_exists($dbDir . '/bohemka.sqlite') ? ($dbDir . '/bohemka.sqlite') : ($dbDir . '/boh.sqlite');
 
 function getDb() {
     global $sqliteFile;

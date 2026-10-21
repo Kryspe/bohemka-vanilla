@@ -11,7 +11,9 @@ let sqliteDb = null;
 
 try {
   const { DatabaseSync } = require("node:sqlite");
-  const dbPath = path.join(__dirname, "data", "boh.sqlite");
+  const primaryDb = path.join(__dirname, "data", "bohemka.sqlite");
+  const fallbackDb = path.join(__dirname, "data", "boh.sqlite");
+  const dbPath = fs.existsSync(primaryDb) ? primaryDb : fallbackDb;
   if (fs.existsSync(dbPath)) {
     sqliteDb = new DatabaseSync(dbPath);
   }
@@ -127,14 +129,14 @@ async function handleApi(req, res, parsedUrl) {
   }
 
   // 1. events.php
-  if (pathname === "events.php") {
+  if (pathname === "events.php" || pathname === "events") {
     if (parsedUrl.searchParams.get("ping")) {
       return sendJson(res, 200, { status: "ok" });
     }
     if (sqliteDb) {
       try {
         const rows = sqliteDb.prepare("SELECT * FROM admin_items WHERE kind = 'zavod' AND status = 'approved'").all();
-        const events = rows.map(r => {
+        let events = rows.map(r => {
           let fields = {};
           try { fields = JSON.parse(r.fields_json || "{}"); } catch {}
           return {
@@ -148,10 +150,109 @@ async function handleApi(req, res, parsedUrl) {
             note: fields.poznamka || ""
           };
         });
+        if (!events.length) {
+          try {
+            const evRows = sqliteDb.prepare("SELECT id, name, place, date, deadline FROM events ORDER BY date ASC").all();
+            events = evRows.map(r => ({
+              id: r.id,
+              name: r.name,
+              place: r.place || "",
+              date: r.date || "",
+              deadline: r.deadline || "",
+              type: "Oddílový",
+              kind: "zavod",
+              note: ""
+            }));
+          } catch (_) {}
+        }
         return sendJson(res, 200, events);
       } catch (e) {}
     }
     return sendJson(res, 200, []);
+  }
+
+  // 1b. news.php / news
+  if (pathname === "news" || pathname === "news.php") {
+    if (method === "GET") {
+      if (sqliteDb) {
+        try {
+          const rows = sqliteDb.prepare("SELECT id, slug, title, author, date, excerpt, body, image_url, created_at FROM news ORDER BY date DESC").all();
+          return sendJson(res, 200, rows);
+        } catch (_) {}
+      }
+      return sendJson(res, 200, []);
+    }
+    if (method === "POST") {
+      try {
+        const body = await parseJsonBody(req);
+        const id = String(body.id || `news-${Date.now()}`).replace(/[^a-zA-Z0-9_\-]/g, "").slice(0, 50);
+        const title = escapeHtml(String(body.title || "").trim()).slice(0, 200);
+        const author = escapeHtml(String(body.author || "Vedení oddílu").trim()).slice(0, 100);
+        const date = String(body.date || new Date().toISOString().slice(0, 10)).slice(0, 20);
+        const excerpt = escapeHtml(String(body.excerpt || "").trim()).slice(0, 500);
+        const textBody = String(body.body || "").trim();
+        const imageUrl = escapeHtml(String(body.image_url || "").trim()).slice(0, 300);
+
+        if (sqliteDb) {
+          sqliteDb.prepare("INSERT OR REPLACE INTO news (id, slug, title, author, date, excerpt, body, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?)").run(
+            id, id, title, author, date, excerpt, textBody, imageUrl
+          );
+        }
+        return sendJson(res, 200, { success: true, id });
+      } catch (err) {
+        return sendJson(res, 400, { error: err.message });
+      }
+    }
+    if (method === "DELETE") {
+      const id = String(parsedUrl.searchParams.get("id") || "").replace(/[^a-zA-Z0-9_\-]/g, "").slice(0, 50);
+      if (id && sqliteDb) {
+        try {
+          sqliteDb.prepare("DELETE FROM news WHERE id = ?").run(id);
+        } catch (_) {}
+      }
+      return sendJson(res, 200, { success: true });
+    }
+  }
+
+  // 1c. messages.php / messages
+  if (pathname === "messages" || pathname === "messages.php") {
+    if (method === "GET") {
+      if (sqliteDb) {
+        try {
+          const rows = sqliteDb.prepare("SELECT id, category, title, text, date, author, created_at FROM parent_messages ORDER BY id DESC").all();
+          return sendJson(res, 200, rows);
+        } catch (_) {}
+      }
+      return sendJson(res, 200, []);
+    }
+    if (method === "POST") {
+      try {
+        const body = await parseJsonBody(req);
+        const category = escapeHtml(String(body.category || "Upozornění trenérů").trim()).slice(0, 100);
+        const title = escapeHtml(String(body.title || "Vzkaz oddílu").trim()).slice(0, 200);
+        const text = escapeHtml(String(body.text || "").trim()).slice(0, 1000);
+        const date = String(body.date || new Date().toLocaleDateString("cs-CZ")).slice(0, 20);
+        const author = escapeHtml(String(body.author || "Trenéři TJ Bohemians").trim()).slice(0, 100);
+
+        if (sqliteDb) {
+          sqliteDb.prepare("INSERT INTO parent_messages (category, title, text, date, author) VALUES (?, ?, ?, ?, ?)").run(
+            category, title, text, date, author
+          );
+        }
+        return sendJson(res, 200, { success: true });
+      } catch (err) {
+        return sendJson(res, 400, { error: err.message });
+      }
+    }
+    if (method === "DELETE") {
+      const id = parseInt(parsedUrl.searchParams.get("id"), 10);
+      if (id && sqliteDb) {
+        try {
+          sqliteDb.prepare("DELETE FROM parent_messages WHERE id = ?").run(id);
+        } catch (_) {}
+      }
+      return sendJson(res, 200, { success: true });
+    }
   }
 
   // 2. search.php
