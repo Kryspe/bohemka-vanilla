@@ -50,7 +50,7 @@ require_once __DIR__ . '/includes/header.php';
         <div class="hero-news-grid <?= empty($heroImg) ? 'has-no-image' : '' ?>">
 
           <!-- Left: Lead Story Details -->
-          <div class="flex flex-col justify-center">
+          <div class="flex flex-col justify-start">
             <div class="flex items-center gap-3 text-xs sm:text-sm text-emerald-200/90 font-medium mb-3">
               <time class="font-bold text-white"><?= e($heroDate) ?></time>
               <span>·</span>
@@ -78,10 +78,10 @@ require_once __DIR__ . '/includes/header.php';
 
           <!-- Right: Photo if available -->
           <?php if (!empty($heroImg)): ?>
-            <div>
+            <div id="hero-news-media" class="hero-news-media-col">
               <div class="hero-news-media-box group">
                 <img src="<?= e($heroImg) ?>" alt="<?= e($heroTitle) ?>" loading="eager">
-                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/60 via-transparent to-transparent pointer-events-none"></div>
+                <div class="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-emerald-950/80 via-transparent to-transparent pointer-events-none"></div>
               </div>
             </div>
           <?php endif; ?>
