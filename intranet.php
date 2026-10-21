@@ -138,7 +138,7 @@ $currentPage = 'intranet';
 require_once __DIR__ . '/includes/header.php';
 ?>
 
-<main class="w-full min-w-0 flex-1 overflow-x-clip pb-24 lg:pb-0" id="intranet-main">
+<main class="w-full min-w-0 flex-1 overflow-x-clip pb-24 lg:pb-0">
 
 <?php if (!$user): ?>
   <!-- LOGIN SCREEN -->
@@ -460,8 +460,5 @@ require_once __DIR__ . '/includes/header.php';
 <?php endif; ?>
 
 </main>
-
-<script src="js/intranet-api.js"></script>
-<script src="js/intranet.js"></script>
 
 <?php require_once __DIR__ . '/includes/footer.php'; ?>
