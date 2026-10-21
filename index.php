@@ -51,11 +51,6 @@ require_once __DIR__ . '/includes/header.php';
 
           <!-- Left: Lead Story Details -->
           <div class="flex flex-col justify-center">
-            <div class="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-950/70 px-3.5 py-1 text-xs font-bold tracking-wider uppercase text-emerald-300 backdrop-blur-sm w-fit mb-4">
-              <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              Nejnovější aktualita z oddílu
-            </div>
-
             <div class="flex items-center gap-3 text-xs sm:text-sm text-emerald-200/90 font-medium mb-3">
               <time class="font-bold text-white"><?= e($heroDate) ?></time>
               <span>·</span>
