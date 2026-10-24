@@ -31,7 +31,7 @@ require_once __DIR__ . '/includes/header.php';
         </div>
         <h1 class="font-display text-3xl font-extrabold tracking-tight sm:text-4xl text-foreground">Fotogalerie</h1>
         <p class="mt-3 text-base text-muted-foreground sm:text-lg leading-relaxed">
-          Momentky ze závodů, oslav 80 let oddílu, soustředění a oddílového života Klokanů.
+          Kliknutím na fotografii otevřete náhled.
         </p>
       </div>
     </div>

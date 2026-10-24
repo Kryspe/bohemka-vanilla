@@ -37,64 +37,50 @@ require_once __DIR__ . '/includes/header.php';
 
 <main class="w-full min-w-0 flex-1 overflow-x-clip pb-24 lg:pb-0">
 
-  <!-- HERO SECTION (KPS Ostrava inspired athletic split hero) -->
+  <!-- HERO SECTION: NEJNOVĚJŠÍ AKTUALITA Z ODDÍLU (LEAD STORY) -->
   <section class="relative overflow-hidden py-4 sm:py-6 lg:py-8">
     <div class="mx-auto max-w-7xl px-4 sm:px-6">
       <div class="hero-athletic hero-athletic-bg text-white">
-        <div class="grid lg:grid-cols-12 items-stretch min-h-[480px]">
+        <div class="grid lg:grid-cols-12 items-stretch min-h-[380px] sm:min-h-[420px]">
 
-          <!-- Left: Club Motto, Wave & Action Buttons -->
-          <div class="lg:col-span-7 flex flex-col justify-center p-6 sm:p-10 lg:p-12 z-10">
-            <div class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1 text-xs font-semibold tracking-wider uppercase text-white/95 backdrop-blur-sm w-fit mb-4">
-              <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              80 let oddílu · 1946–2026 · TJ Bohemians Praha
+          <!-- Left: Lead Story / Aktualita z oddílu -->
+          <div class="lg:col-span-7 flex flex-col justify-between p-6 sm:p-8 lg:p-10 z-10">
+            <div>
+              <div class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1 text-xs font-semibold tracking-wider uppercase text-emerald-300 backdrop-blur-sm w-fit mb-3">
+                <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                Aktualita z oddílu
+              </div>
+
+              <div class="flex items-center gap-2.5 text-xs sm:text-sm text-emerald-200/90 font-medium mb-3">
+                <time class="font-bold text-white">12. 10. 2026</time>
+                <span>·</span>
+                <span>Autor: Martin Břenda</span>
+              </div>
+
+              <h1 class="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-[1.2] text-white">
+                Velká cena Prahy - hodnocení
+              </h1>
+
+              <p class="mt-3.5 text-sm sm:text-base text-white/90 leading-relaxed line-clamp-3 sm:line-clamp-4 max-w-2xl">
+                Účast bohemáků byla slušná, závodní nasazení bylo dobré a padla řada osobních rekordů. Plavci potvrdili skvělou formu na začátku nové podzimní sezóny.
+              </p>
             </div>
 
-            <h1 class="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.08] text-white">
-              Jeden duch, jeden tým,<br><span class="text-emerald-300">jedno vítězství!</span>
-            </h1>
-
-            <div class="my-5 flex items-center">
-              <span class="wave wave--md wave--light"></span>
+            <div class="mt-6 flex flex-wrap items-center gap-3.5 pt-2">
+              <a href="aktuality?id=velka-cena-prahy-hodnoceni-2026" class="inline-flex items-center gap-2 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-emerald-950 font-bold px-5 py-3 text-sm transition-all shadow-lg hover:shadow-emerald-400/25 active:scale-95">
+                <span>Číst hodnocení</span>
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+              </a>
+              <a href="aktuality" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-emerald-200 hover:text-white transition-colors py-2 px-3">
+                <span>Všechny aktuality</span> &rarr;
+              </a>
             </div>
-
-            <h2 class="text-lg sm:text-xl font-semibold text-emerald-100/95 leading-snug">
-              Společně k nejlepším výkonům už od roku 1946
-            </h2>
-
-            <p class="mt-3 text-sm sm:text-base text-white/80 max-w-xl leading-relaxed">
-              Jsme plavecký oddíl Klokanů. Vychováváme sportovce od dětských kurzů a přípravky až po reprezentaci na mistrovstvích republiky a Evropy. Domovské bazény: Plavecký stadion Podolí a Sokol Vinohrady.
-            </p>
           </div>
 
-          <!-- Right: High-impact Athletic Swimming Photo & Featured Notice -->
-          <div class="lg:col-span-5 relative min-h-[320px] lg:min-h-full overflow-hidden bg-emerald-950">
-            <img src="assets/aktuality/86836.jpg" alt="Závody TJ Bohemians Praha" class="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 hover:scale-105" loading="eager">
-            <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/30 to-black/30 lg:bg-gradient-to-r lg:from-emerald-950/80 lg:via-transparent lg:to-black/30"></div>
-
-            <div class="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6">
-              <div class="rounded-2xl border border-white/20 bg-black/50 p-4 sm:p-5 backdrop-blur-md shadow-lg">
-                <div class="flex items-center justify-between text-xs text-emerald-300">
-                  <span class="inline-flex items-center gap-1.5 font-bold uppercase tracking-wider">
-                    <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    Aktualita z oddílu
-                  </span>
-                  <time class="font-semibold text-white/80">12. 10. 2026</time>
-                </div>
-                <h3 class="mt-2 font-display text-base sm:text-lg font-bold leading-snug text-white line-clamp-1">
-                  Velká cena Prahy - hodnocení
-                </h3>
-                <p class="mt-1 line-clamp-2 text-xs sm:text-sm text-white/80 leading-relaxed">
-                  Účast bohemáků byla slušná, závodní nasazení bylo dobré a padla řada osobních rekordů.
-                </p>
-                <div class="mt-3 flex items-center justify-between pt-2 border-t border-white/15 text-xs">
-                  <span class="text-emerald-200/90 font-medium">Autor: Martin Břenda</span>
-                  <a href="aktuality" class="font-bold text-white hover:text-emerald-300 inline-flex items-center gap-1">
-                    Číst hodnocení &rarr;
-                  </a>
-                </div>
-              </div>
-            </div>
+          <!-- Right: High-impact Athletic Swimming Photo -->
+          <div class="lg:col-span-5 relative min-h-[260px] sm:min-h-[320px] lg:min-h-full overflow-hidden bg-emerald-950">
+            <img src="assets/aktuality/86836.jpg" alt="Velká cena Prahy - hodnocení" class="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 hover:scale-105" loading="eager">
+            <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/70 via-transparent to-transparent lg:bg-gradient-to-r lg:from-emerald-950/80 lg:via-transparent lg:to-transparent pointer-events-none"></div>
           </div>
 
         </div>
