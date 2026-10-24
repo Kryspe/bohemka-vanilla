@@ -24,17 +24,6 @@
       .replace(/'/g, "&#039;");
   }
 
-  function escapeLenexXml(str) {
-    if (str == null) return "";
-    return String(str)
-      .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g, "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }
-
   // ============================================================================
   // MAIN RENDER CONTROLLER
   // ============================================================================
@@ -152,9 +141,6 @@
             <button class="intranet-tab-btn px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${activeTab === 'entries' ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 font-semibold' : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-900'}" data-tab="entries">
               Moje přihlášky (${myEntries.length})
             </button>
-            <button class="intranet-tab-btn px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${activeTab === 'payments' ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 font-semibold' : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-900'}" data-tab="payments">
-              Platby &amp; QR
-            </button>
           </div>
         </div>
 
@@ -186,9 +172,6 @@
     }
     if (activeTab === "entries") {
       return renderEntriesSection(myEntries, schedule);
-    }
-    if (activeTab === "payments") {
-      return renderPaymentsSection();
     }
     // Default: 'overview' (Dense 2-Column Dashboard)
     return `
@@ -257,38 +240,6 @@
                 </li>
               `).join("")}
             </ul>
-          </div>
-
-          <!-- QR Payment Card (ČSOB & VS 214) -->
-          <div class="rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-4 shadow-xs" id="intranet-qr-payment-card">
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-xs font-bold uppercase tracking-wider text-zinc-500">Členské příspěvky</span>
-              <span class="rounded bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 dark:text-emerald-300">VS 214</span>
-            </div>
-            <div class="flex flex-col items-center text-center">
-              <div class="overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white p-2 shadow-inner">
-                <img src="assets/QR_plavani214.jpg" alt="QR kód pro platbu příspěvků TJ Bohemians Praha VS 214" width="140" height="140" class="h-32 w-32 object-contain">
-              </div>
-              <p class="mt-2 text-[11px] text-zinc-500">Naskenujte v mobilním bankovnictví (ČSOB / SPAYD)</p>
-            </div>
-            <div class="mt-3 divide-y divide-zinc-100 dark:divide-zinc-800 text-xs">
-              <div class="py-1.5 flex justify-between items-center">
-                <span class="text-zinc-500">Účet:</span>
-                <span class="font-mono font-bold text-zinc-900 dark:text-zinc-100">351416278/0300</span>
-              </div>
-              <div class="py-1.5 flex justify-between items-center">
-                <span class="text-zinc-500">IBAN:</span>
-                <span class="font-mono text-[10px] font-semibold text-zinc-900 dark:text-zinc-100 select-all">CZ3603000000000351416278</span>
-              </div>
-              <div class="py-1.5 flex justify-between items-center">
-                <span class="text-zinc-500">Variabilní symbol:</span>
-                <span class="rounded bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 font-mono font-bold text-emerald-600 dark:text-emerald-400">214</span>
-              </div>
-            </div>
-            <div class="mt-2.5 pt-2 border-t border-zinc-100 dark:border-zinc-800 flex justify-between items-center">
-              <span class="text-[10px] text-zinc-400">Podzim: do 15. 10.</span>
-              <a href="#" class="switch-tab-link text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline" data-target="payments">Podrobnosti plateb →</a>
-            </div>
           </div>
 
           <!-- Coaches Contacts -->
@@ -453,9 +404,6 @@
                         <button class="export-csps-btn p-1 text-zinc-400 hover:text-emerald-600 rounded transition-colors" data-id="${s.id}" data-name="${escapeHtml(s.name)}" title="Exportovat přihlášky pro ČSPS (.csv)">
                           <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                         </button>
-                        <button class="export-lenex-btn p-1 text-zinc-400 hover:text-emerald-600 rounded transition-colors" data-id="${s.id}" data-name="${escapeHtml(s.name)}" title="Exportovat Lenex 3.0 (XML)">
-                          <svg class="h-3.5 w-3.5 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-                        </button>
                         <button class="sch-delete-btn p-1 text-zinc-400 hover:text-red-600 rounded transition-colors" data-id="${s.id}" title="Smazat závod">
                           <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                         </button>
@@ -532,16 +480,10 @@
             <h2 class="text-base font-bold text-zinc-900 dark:text-zinc-100">Moje přihlášky na závody &amp; Stav</h2>
             <p class="text-xs text-zinc-500">Přehled přihlášených disciplín a stav schválení trenérem</p>
           </div>
-          <div class="flex items-center gap-2">
-            <button id="export-all-csps-btn" class="inline-flex items-center gap-1.5 rounded-md border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-1.5 text-xs font-semibold text-zinc-800 dark:text-zinc-200 hover:border-emerald-600 hover:text-emerald-600 transition-colors cursor-pointer shadow-xs">
-              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              <span>Export ČSPS (.csv)</span>
-            </button>
-            <button id="export-lenex-btn" class="inline-flex items-center gap-1.5 rounded-md border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-1.5 text-xs font-semibold text-zinc-800 dark:text-zinc-200 hover:border-emerald-600 hover:text-emerald-600 transition-colors cursor-pointer shadow-xs">
-              <svg class="h-3.5 w-3.5 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-              <span>Export Lenex 3.0 (.xml)</span>
-            </button>
-          </div>
+          <button id="export-all-csps-btn" class="inline-flex items-center gap-1.5 rounded-md border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-1.5 text-xs font-semibold text-zinc-800 dark:text-zinc-200 hover:border-emerald-600 hover:text-emerald-600 transition-colors cursor-pointer shadow-xs">
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Export ČSPS (.csv)</span>
+          </button>
         </div>
 
         ${myEntries.length === 0 ? `
@@ -767,22 +709,6 @@
       });
     }
 
-    // 4c. Lenex 3.0 XML Export Actions
-    main.querySelectorAll(".export-lenex-btn").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const eventId = btn.getAttribute("data-id");
-        exportLenexXml(eventId);
-      });
-    });
-
-    const exportLenexBtn = document.getElementById("export-lenex-btn");
-    if (exportLenexBtn) {
-      exportLenexBtn.addEventListener("click", () => {
-        exportLenexXml();
-      });
-    }
-
     // 5. Schedule Actions
     const addSchBtn = document.getElementById("add-schedule-btn");
     if (addSchBtn) {
@@ -804,10 +730,16 @@
 
     // 6. Register for Event (Member Action)
     main.querySelectorAll(".register-event-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
+      btn.addEventListener("click", async () => {
         const eventId = btn.getAttribute("data-id");
         const eventName = btn.getAttribute("data-name");
-        openSignupDisciplineModal(eventId, eventName);
+        const disciplines = prompt(`Zadejte disciplíny pro závod "${eventName}" (např. 50 VZ, 100 VZ):`, "50 VZ, 100 VZ");
+        if (disciplines) {
+          const list = disciplines.split(",").map(d => d.trim()).filter(Boolean);
+          await window.IntranetApi.submitEntry(eventId, eventName, list);
+          activeTab = "entries";
+          renderIntranetPortal();
+        }
       });
     });
 
@@ -1048,265 +980,6 @@
   }
 
   // ============================================================================
-  // PAYMENTS & QR SECTION RENDERER
-  // ============================================================================
-  function renderPaymentsSection() {
-    return `
-      <section class="space-y-6">
-        <div class="border-b border-zinc-200 dark:border-zinc-800 pb-3">
-          <div class="flex items-center gap-2 mb-1">
-            <span class="rounded bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 dark:text-emerald-300">
-              Členské příspěvky 2026/27
-            </span>
-            <span class="rounded bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 font-mono text-[11px] font-bold text-zinc-700 dark:text-zinc-300">
-              VS 214
-            </span>
-          </div>
-          <h2 class="text-base font-bold text-zinc-900 dark:text-zinc-100">Oddílové příspěvky &amp; QR Platba (ČSOB)</h2>
-          <p class="text-xs text-zinc-500">Oficiální platební údaje pro bezhotovostní převod a okamžitou mobilní platbu</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
-          <!-- Left: Bank Details (7 cols) -->
-          <div class="md:col-span-7 space-y-4">
-            <div class="rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-5 shadow-xs space-y-3.5">
-              <h3 class="text-sm font-bold text-zinc-900 dark:text-zinc-100 border-b border-zinc-100 dark:border-zinc-800 pb-2">
-                Bankovní spojení oddílu
-              </h3>
-              
-              <div class="space-y-3 text-xs">
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between py-1 border-b border-zinc-100 dark:border-zinc-800/60">
-                  <span class="text-zinc-500">Číslo bankovního účtu:</span>
-                  <strong class="font-mono text-sm text-zinc-900 dark:text-zinc-100">351416278/0300 (ČSOB)</strong>
-                </div>
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between py-1 border-b border-zinc-100 dark:border-zinc-800/60">
-                  <span class="text-zinc-500">Mezinárodní formát IBAN:</span>
-                  <span class="font-mono text-xs font-bold text-zinc-900 dark:text-zinc-100 select-all">CZ3603000000000351416278</span>
-                </div>
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between py-1 border-b border-zinc-100 dark:border-zinc-800/60">
-                  <span class="text-zinc-500">BIC / SWIFT kód:</span>
-                  <span class="font-mono text-zinc-700 dark:text-zinc-300">CEKOCZPP</span>
-                </div>
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between py-1 border-b border-zinc-100 dark:border-zinc-800/60">
-                  <span class="text-zinc-500">Variabilní symbol (VS):</span>
-                  <span class="rounded bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 font-mono font-bold text-emerald-700 dark:text-emerald-300">214</span>
-                </div>
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between py-1 border-b border-zinc-100 dark:border-zinc-800/60">
-                  <span class="text-zinc-500">Specifický symbol (SS):</span>
-                  <span class="font-mono text-zinc-700 dark:text-zinc-300">dle skupiny (101 ST · 102 ODA · 104 Přípravka)</span>
-                </div>
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between py-1">
-                  <span class="text-zinc-500">Zpráva pro příjemce:</span>
-                  <span class="font-mono text-zinc-800 dark:text-zinc-200 font-semibold">plavání [Jméno plavce]</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="rounded-lg border border-amber-200 dark:border-amber-900/40 bg-amber-50/50 dark:bg-amber-950/20 p-4 text-xs text-amber-900 dark:text-amber-200 leading-relaxed">
-              <strong>Termíny úhrady příspěvků:</strong> na podzimní pololetí do <strong>15. října</strong>, na jarní pololetí do <strong>15. února</strong>. Potvrzení o zaplacení pro zdravotní pojišťovny na příspěvek na sportovní činnost dětí vystavuje hospodářka oddílu na vyžádání.
-            </div>
-          </div>
-
-          <!-- Right: Official QR Code (5 cols) -->
-          <div class="md:col-span-5 flex flex-col items-center rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-6 text-center shadow-xs">
-            <span class="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-500">ČSOB SPAYD Platba</span>
-            <div class="overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white p-3 shadow-inner">
-              <img src="assets/QR_plavani214.jpg" alt="QR kód pro platbu příspěvků TJ Bohemians Praha VS 214" width="200" height="200" class="h-48 w-48 object-contain">
-            </div>
-            <div class="mt-3">
-              <span class="font-mono text-sm font-bold text-zinc-900 dark:text-zinc-100">VS 214</span>
-              <p class="text-[11px] text-zinc-500 mt-1 max-w-xs">Naskenujte v aplikaci mobilního bankovnictví libovolné banky pro okamžité načtení platebního příkazu.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-    `;
-  }
-
-  // ============================================================================
-  // INTERACTIVE DISCIPLINE SELECTION MODAL
-  // ============================================================================
-  function openSignupDisciplineModal(eventId, eventName) {
-    const modalContainer = document.getElementById("cms-modal-container");
-    if (!modalContainer) return;
-
-    const officialDisciplines = (window.BohData && window.BohData.disciplines) || [
-      { code: "50 VZ", label: "50 m volný způsob", stroke: "Volný způsob" },
-      { code: "100 VZ", label: "100 m volný způsob", stroke: "Volný způsob" },
-      { code: "200 VZ", label: "200 m volný způsob", stroke: "Volný způsob" },
-      { code: "400 VZ", label: "400 m volný způsob", stroke: "Volný způsob" },
-      { code: "800 VZ", label: "800 m volný způsob", stroke: "Volný způsob" },
-      { code: "1500 VZ", label: "1500 m volný způsob", stroke: "Volný způsob" },
-      { code: "50 Z", label: "50 m znak", stroke: "Znak" },
-      { code: "100 Z", label: "100 m znak", stroke: "Znak" },
-      { code: "200 Z", label: "200 m znak", stroke: "Znak" },
-      { code: "50 P", label: "50 m prsa", stroke: "Prsa" },
-      { code: "100 P", label: "100 m prsa", stroke: "Prsa" },
-      { code: "200 P", label: "200 m prsa", stroke: "Prsa" },
-      { code: "50 M", label: "50 m motýlek", stroke: "Motýlek" },
-      { code: "100 M", label: "100 m motýlek", stroke: "Motýlek" },
-      { code: "200 M", label: "200 m motýlek", stroke: "Motýlek" },
-      { code: "100 PZ", label: "100 m polohový závod", stroke: "Polohový" },
-      { code: "200 PZ", label: "200 m polohový závod", stroke: "Polohový" },
-      { code: "400 PZ", label: "400 m polohový závod", stroke: "Polohový" }
-    ];
-
-    let selected = [];
-
-    modalContainer.innerHTML = `
-      <div class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-        <div class="w-full max-w-lg rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-6 shadow-xl text-xs space-y-4 max-h-[90vh] overflow-y-auto">
-          <div class="flex items-start justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
-            <div>
-              <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-700 dark:text-emerald-300">
-                Přihláška na závody
-              </span>
-              <h3 class="mt-1 text-sm font-bold text-zinc-900 dark:text-zinc-100">${escapeHtml(eventName)}</h3>
-            </div>
-            <button id="modal-disc-close" class="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200">✕</button>
-          </div>
-
-          <div>
-            <label class="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">Jméno plavce</label>
-            <input type="text" id="intranet-swimmer-name" value="${escapeHtml(currentAuth.userName || 'Kryštof Spejchal')}" class="w-full rounded border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-3 py-1.5 text-xs text-zinc-900 dark:text-zinc-100">
-          </div>
-
-          <div>
-            <div class="flex items-center justify-between mb-2">
-              <label class="block font-semibold uppercase tracking-wider text-[11px] text-zinc-500">Výběr disciplín (18 oficiálních ČSPS)</label>
-              <span id="selected-disc-count" class="text-[11px] font-mono text-zinc-400">0 vybráno</span>
-            </div>
-            <div class="flex flex-wrap gap-2" id="signup-disc-pills">
-              ${officialDisciplines.map(d => `
-                <button type="button" data-disc="${d.code}" class="rounded-full border border-zinc-300 dark:border-zinc-700 px-3 py-1.5 text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:border-zinc-400 dark:hover:border-zinc-600 transition-all duration-150 cursor-pointer active:scale-95">
-                  ${d.code}
-                </button>
-              `).join("")}
-            </div>
-          </div>
-
-          <div>
-            <label class="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">Poznámka pro trenéry (nepovinné)</label>
-            <textarea id="intranet-signup-note" rows="2" class="w-full rounded border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-3 py-1.5 text-xs text-zinc-900 dark:text-zinc-100" placeholder="Např. pouze dopolední blok, vlastní odvoz..."></textarea>
-          </div>
-
-          <div class="flex items-center justify-between pt-3 border-t border-zinc-100 dark:border-zinc-800">
-            <button id="modal-disc-cancel" class="px-3 py-1.5 rounded border border-zinc-300 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300">Zrušit</button>
-            <button id="modal-disc-submit" disabled class="px-4 py-1.5 rounded bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold transition-all shadow-xs cursor-pointer">
-              Potvrdit přihlášku
-            </button>
-          </div>
-        </div>
-      </div>
-    `;
-
-    const pills = modalContainer.querySelectorAll("#signup-disc-pills button");
-    const submitBtn = document.getElementById("modal-disc-submit");
-    const countSpan = document.getElementById("selected-disc-count");
-
-    pills.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const disc = btn.getAttribute("data-disc");
-        const idx = selected.indexOf(disc);
-        if (idx > -1) {
-          selected.splice(idx, 1);
-          btn.className = "rounded-full border border-zinc-300 dark:border-zinc-700 px-3 py-1.5 text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:border-zinc-400 dark:hover:border-zinc-600 transition-all duration-150 cursor-pointer active:scale-95";
-        } else {
-          selected.push(disc);
-          btn.className = "rounded-full border border-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 font-semibold shadow-xs px-3 py-1.5 text-xs transition-all duration-150 cursor-pointer active:scale-95";
-        }
-        countSpan.textContent = `${selected.length} vybráno`;
-        submitBtn.disabled = selected.length === 0;
-      });
-    });
-
-    document.getElementById("modal-disc-close")?.addEventListener("click", () => modalContainer.innerHTML = "");
-    document.getElementById("modal-disc-cancel")?.addEventListener("click", () => modalContainer.innerHTML = "");
-    submitBtn.addEventListener("click", async () => {
-      const swimmerName = document.getElementById("intranet-swimmer-name").value || currentAuth.userName;
-      const note = document.getElementById("intranet-signup-note").value || "";
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Ukládám...";
-
-      await window.IntranetApi.submitEntry(eventId, eventName, selected, swimmerName);
-      if (window.BohStore && typeof window.BohStore.saveSignup === "function") {
-        window.BohStore.saveSignup(eventId, selected, note);
-      }
-      modalContainer.innerHTML = "";
-      activeTab = "entries";
-      renderIntranetPortal();
-    });
-  }
-
-  // ============================================================================
-  // LENEX 3.0 XML GENERATOR
-  // ============================================================================
-  function exportLenexXml(eventId) {
-    const storeObj = window.BohStore || window.KlokaniStore;
-    const dataObj = window.BohData || window.KlokaniData;
-    const allEvents = storeObj ? storeObj.getEvents() : ((dataObj && dataObj.events) || []);
-    let targetEvents = eventId ? allEvents.filter(e => e.id === eventId) : allEvents;
-
-    if (targetEvents.length === 0 && eventId) {
-      targetEvents = [{ id: eventId, name: eventId, place: "Praha", course: "SCM" }];
-    } else if (targetEvents.length === 0) {
-      targetEvents = [{ id: "bohemians-meet", name: "Závody TJ Bohemians Praha", place: "Praha", course: "SCM" }];
-    }
-
-    let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<LENEX version="3.0">\n  <CONSTRUCTOR name="Bohemians CMS" version="2.0">\n    <CONTACT name="TJ Bohemians Praha" email="jan.srb@czechswimming.cz" />\n  </CONSTRUCTOR>\n  <MEETS>\n`;
-
-    targetEvents.forEach(ev => {
-      let roster = storeObj ? storeObj.getRosterForEvent(ev.id) : [];
-      if ((!roster || roster.length === 0) && window.IntranetApi) {
-        try {
-          const myEntries = JSON.parse(localStorage.getItem("boh_intranet_my_entries") || "[]");
-          const evEntries = myEntries.filter(e => e.eventId === ev.id || !eventId);
-          if (evEntries.length > 0) {
-            roster = evEntries.map(e => ({
-              swimmer: e.swimmerName || "Kryštof Spejchal",
-              gender: "M",
-              year: "2010",
-              disciplines: e.disciplines || []
-            }));
-          }
-        } catch (_) {}
-      }
-
-      xml += `    <MEET name="${escapeLenexXml(ev.name)}" city="${escapeLenexXml(ev.place || 'Praha')}" course="SCM">\n      <CLUBS>\n        <CLUB name="TJ Bohemians Praha" code="BOH" nation="CZE">\n          <ATHLETES>\n`;
-
-      roster.forEach((entry, idx) => {
-        const parts = (entry.swimmer || "Plavec").split(" ");
-        const lastName = parts.length > 1 ? parts.slice(1).join(" ") : parts[0];
-        const firstName = parts.length > 1 ? parts[0] : "";
-        const gender = (entry.gender === "Z" || entry.gender === "F") ? "F" : "M";
-        const birthdate = `${entry.year || 2010}-01-01`;
-
-        xml += `            <ATHLETE athleteid="${idx + 1}" lastname="${escapeLenexXml(lastName)}" firstname="${escapeLenexXml(firstName)}" gender="${gender}" birthdate="${birthdate}">\n              <ENTRIES>\n`;
-        const disciplines = Array.isArray(entry.disciplines) ? entry.disciplines : [entry.disciplines];
-        disciplines.filter(Boolean).forEach(d => {
-          xml += `                <ENTRY eventid="${escapeLenexXml(d)}" />\n`;
-        });
-        xml += `              </ENTRIES>\n            </ATHLETE>\n`;
-      });
-
-      xml += `          </ATHLETES>\n        </CLUB>\n      </CLUBS>\n    </MEET>\n`;
-    });
-
-    xml += `  </MEETS>\n</LENEX>\n`;
-
-    const blob = new Blob([xml], { type: "application/xml;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `bohemians_lenex_prihlasky_${Date.now()}.xml`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    return xml;
-  }
-
-  // ============================================================================
   // INITIALIZATION
   // ============================================================================
   if (document.readyState === "loading") {
@@ -1328,8 +1001,4 @@
   });
 
   window.renderIntranetPortal = renderIntranetPortal;
-  window.exportLenexXml = exportLenexXml;
-  if (window.IntranetApi && !window.IntranetApi.exportLenexXml) {
-    window.IntranetApi.exportLenexXml = exportLenexXml;
-  }
 })();
