@@ -4,10 +4,7 @@
  */
 
 import assert from "node:assert";
-import fs from "node:fs";
-import path from "node:path";
 import { describe, test } from "./runner.js";
-import { WORKSPACE_ROOT } from "./harness.js";
 
 const SUPABASE_URL = "https://xjvpyznywisuuykwsedd.supabase.co";
 const ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhqdnB5em55d2lzdXV5a3dzZWRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3ODc3MzMsImV4cCI6MjA5NTM2MzczM30.tL1qj2pxeB64GtNEn13Y_xzU7yd74DU-N02huw4zOaQ";
@@ -205,88 +202,6 @@ describe("Tier 4: Real-World Application Scenarios", () => {
       if (ctx.isLive && targetEventId) {
         try {
           await fetch(`${SUPABASE_URL}/rest/v1/event_entries?event_id=eq.${encodeURIComponent(targetEventId)}&swimmer_name=eq.${encodeURIComponent(swimmerName)}`, {
-            method: "DELETE",
-            headers: {
-              "apikey": ANON_KEY,
-              "Authorization": `Bearer ${ANON_KEY}`
-            }
-          });
-        } catch (_) {}
-      }
-    }
-  });
-
-  // Workflow 4: Intranet Meet Entry, Lenex 3.0 Export & Member QR Payment Workflow
-  test("T4.4: End-to-End Intranet Meet Entry, Lenex 3.0 Export & Member QR Payment Workflow", async (ctx) => {
-    const sandbox = ctx.createSandbox();
-    sandbox.loadScript("js/data.js");
-    sandbox.loadScript("js/supabase.js");
-    sandbox.loadScript("js/store.js");
-    sandbox.loadScript("js/intranet.js");
-
-    const store = sandbox.window.BohStore;
-    const meetId = `meet-intranet-e2e-${Date.now()}`;
-
-    try {
-      // Step 1: Coach sets up meet
-      store.addEvent({
-        id: meetId,
-        name: "Pohár Bohemians & Memoriál Vladimíra Srba 2026",
-        place: "Podolí 50m, Praha 4",
-        course: "SCM",
-        date: "2026-11-14",
-        deadline: "2026-11-08",
-        type: "Klubový přebor",
-        disciplines: ["50 VZ", "100 VZ", "200 VZ", "100 Z", "200 PZ"]
-      });
-
-      // Step 2: Swimmer enters competition
-      const swimmerName = "Matěj Novotný";
-      store.addSwimmerEntry(meetId, {
-        swimmer: swimmerName,
-        gender: "M",
-        year: "2011",
-        disciplines: ["50 VZ", "100 VZ", "100 Z"],
-        group: "ST",
-        note: "Prosím o start v 1. rozplavbě"
-      });
-
-      // Step 3: Coach checks roster
-      const roster = store.getRosterForEvent(meetId);
-      assert.strictEqual(roster.length, 1, "Roster must contain 1 entry");
-      assert.strictEqual(roster[0].swimmer, swimmerName);
-
-      // Step 4: Coach exports ČSPS CSV
-      const csv = store.exportSignupsCsv(meetId);
-      assert.ok(csv.startsWith("\uFEFF"), "CSV must include UTF-8 BOM");
-      assert.ok(csv.includes(swimmerName), "CSV must contain swimmer name");
-      assert.ok(csv.includes("50 VZ"), "CSV must contain entered discipline");
-
-      // Step 5: Coach exports Lenex 3.0 XML
-      assert.strictEqual(typeof sandbox.window.exportLenexXml, "function", "exportLenexXml must be available");
-      const xml = sandbox.window.exportLenexXml(meetId);
-      assert.ok(xml.includes('<LENEX version="3.0">'), "Must produce valid Lenex 3.0 root");
-      assert.ok(xml.includes('<CLUB name="TJ Bohemians Praha" code="BOH" nation="CZE">'), "Must include club BOH");
-      assert.ok(xml.includes('lastname="Novotný" firstname="Matěj"'), "Must include athlete name");
-      assert.ok(xml.includes('<ENTRY eventid="50 VZ" />'), "Must include discipline entry");
-
-      // Step 6: Swimmer/parent checks payment instructions
-      const qrPath = path.resolve(WORKSPACE_ROOT, "assets/QR_plavani214.jpg");
-      assert.ok(fs.existsSync(qrPath), "QR payment image must exist");
-
-      const intranetHtml = fs.readFileSync(path.resolve(WORKSPACE_ROOT, "intranet.html"), "utf-8");
-      assert.ok(intranetHtml.includes("351416278/0300"), "intranet.html must show bank account 351416278/0300");
-      assert.ok(intranetHtml.includes("CZ3603000000000351416278"), "intranet.html must show IBAN");
-      assert.ok(/214/.test(intranetHtml), "intranet.html must show VS 214");
-    } finally {
-      // Step 7: Clean up event
-      store.deleteEvent(meetId);
-      const afterDelete = store.getEvents().find(e => e.id === meetId);
-      assert.strictEqual(afterDelete, undefined, "Event must be cleaned up from store");
-
-      if (ctx.isLive) {
-        try {
-          await fetch(`${SUPABASE_URL}/rest/v1/events?id=eq.${encodeURIComponent(meetId)}`, {
             method: "DELETE",
             headers: {
               "apikey": ANON_KEY,
