@@ -174,12 +174,30 @@
     }
   ];
 
+  function sanitizeCsv(val) {
+    if (typeof window !== "undefined" && typeof window.sanitizeCsv === "function") {
+      return window.sanitizeCsv(val);
+    }
+    if (val == null) return "";
+    const rawStr = String(val);
+    const isFormula = /^[=+\-@\t\r%]/.test(rawStr);
+    const str = rawStr.trim();
+    if (isFormula || /^[=+\-@\t\r%]/.test(str)) {
+      return "'" + str;
+    }
+    return str;
+  }
+
   // Helper storage functions
   function getStorageItem(key, fallback) {
     try {
       const val = localStorage.getItem(key);
       if (val === null) return fallback;
-      return JSON.parse(val);
+      const parsed = JSON.parse(val);
+      if (parsed === null || parsed === undefined) return fallback;
+      if (Array.isArray(fallback) && !Array.isArray(parsed)) return fallback;
+      if (fallback && typeof fallback === "object" && !Array.isArray(fallback) && (typeof parsed !== "object" || Array.isArray(parsed))) return fallback;
+      return parsed;
     } catch (_) {
       return fallback;
     }
@@ -574,11 +592,22 @@
     async submitEntry(eventId, eventName, disciplinesList, swimmerName) {
       const entries = await this.getMyEntries();
       const disc = Array.isArray(disciplinesList) ? disciplinesList : [disciplinesList].filter(Boolean);
+      const sName = swimmerName || "Kryštof Spejchal";
+
+      const existingIndex = entries.findIndex(e => String(e.eventId) === String(eventId) && String(e.swimmerName).toLowerCase() === String(sName).toLowerCase());
+      if (existingIndex >= 0) {
+        entries[existingIndex].disciplines = disc;
+        if (eventName) entries[existingIndex].eventName = eventName;
+        setStorageItem(STORAGE_KEYS.MY_ENTRIES, entries);
+        dispatchUpdate("entries", { action: "update", entry: entries[existingIndex] });
+        return entries[existingIndex];
+      }
+
       const newEntry = {
         id: "ent-" + Date.now(),
         eventId,
         eventName: eventName || ("Závod " + eventId),
-        swimmerName: swimmerName || "Kryštof Spejchal",
+        swimmerName: sName,
         disciplines: disc,
         status: "Přihlášen",
         submittedAt: new Date().toLocaleString("cs-CZ", { dateStyle: "short", timeStyle: "short" })
@@ -693,7 +722,11 @@
       const targetEntries = eventId ? entries.filter(e => e.eventId === eventId) : entries;
       let csv = "Oddil;Prijmeni_Jmeno;Rocnik;Zavod;Discipliny;Poznamka\r\n";
       targetEntries.forEach(e => {
-        csv += `BOH;${e.swimmerName || "Kryštof Spejchal"};2008;${e.eventName || e.eventId};"${(e.disciplines || []).join(", ")}";"${e.status || ""}"\r\n`;
+        const swimmer = sanitizeCsv(e.swimmerName || "Kryštof Spejchal");
+        const eventN = sanitizeCsv(e.eventName || e.eventId);
+        const disciplines = sanitizeCsv((e.disciplines || []).join(", "));
+        const status = sanitizeCsv(e.status || "");
+        csv += `BOH;${swimmer};2008;${eventN};"${disciplines}";"${status}"\r\n`;
       });
       const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
       const url = URL.createObjectURL(blob);

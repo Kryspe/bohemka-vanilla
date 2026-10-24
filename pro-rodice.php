@@ -126,7 +126,7 @@ require_once __DIR__ . '/includes/header.php';
             </div>
             <h3 class="font-display text-base font-bold text-foreground">Členské příspěvky</h3>
             <p class="mt-2 text-xs text-muted-foreground leading-relaxed">
-              Platby členských příspěvků na účet TJ Bohemians Praha: <strong>123456789/0300 (ČSOB)</strong>. Variabilní symbol: rodné číslo plavce bez lomítka.
+              Platby členských příspěvků na účet TJ Bohemians Praha: <strong>351416278/0300 (ČSOB)</strong>. Variabilní symbol: <strong>214</strong>, do zprávy uveďte jméno plavce.
             </p>
           </div>
           <div class="mt-5 pt-3 border-t border-border">
@@ -156,6 +156,64 @@ require_once __DIR__ . '/includes/header.php';
       </div>
     </div>
 
+    <!-- DEDICATED QR PAYMENT CARD (ČSOB & VS 214) -->
+    <div class="card-clean p-6 sm:p-8 border border-primary/30" id="qr-payment-section">
+      <div class="flex flex-col md:flex-row items-center gap-8 justify-between">
+        <div class="flex-1 space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-3 py-0.5 text-xs font-semibold text-primary">
+              ČSOB · SPAYD Platba
+            </span>
+            <span class="rounded-md bg-muted px-2 py-0.5 font-mono text-xs font-bold text-foreground">
+              VS 214
+            </span>
+          </div>
+          <h2 class="font-display text-2xl font-extrabold text-foreground">
+            Platba oddílových příspěvků
+          </h2>
+          <p class="text-sm leading-relaxed text-muted-foreground">
+            Oddílové příspěvky se hradí pololetně: na podzimní pololetí do <strong>15. října</strong>, na jarní pololetí do <strong>15. února</strong>. Pro rychlou úhradu využijte QR kód nebo níže uvedené platební údaje.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
+            <div class="rounded-xl border border-border/70 bg-background/60 p-3">
+              <span class="text-muted-foreground block text-[11px]">Číslo bankovního účtu:</span>
+              <strong class="font-mono text-sm text-foreground">351416278/0300</strong>
+              <span class="text-[11px] text-muted-foreground block">Československá obchodní banka (ČSOB)</span>
+            </div>
+            <div class="rounded-xl border border-border/70 bg-background/60 p-3">
+              <span class="text-muted-foreground block text-[11px]">Mezinárodní IBAN:</span>
+              <strong class="font-mono text-xs text-foreground select-all">CZ3603000000000351416278</strong>
+              <span class="text-[11px] text-muted-foreground block">BIC / SWIFT: CEKOCZPP</span>
+            </div>
+            <div class="rounded-xl border border-border/70 bg-background/60 p-3">
+              <span class="text-muted-foreground block text-[11px]">Variabilní symbol (VS):</span>
+              <span class="font-mono font-bold text-sm text-primary">214</span>
+              <span class="text-[11px] text-muted-foreground block">Oddílový identifikátor plavání Bohemians</span>
+            </div>
+            <div class="rounded-xl border border-border/70 bg-background/60 p-3">
+              <span class="text-muted-foreground block text-[11px]">Zpráva pro příjemce:</span>
+              <strong class="font-mono text-xs text-foreground">Plavání [Jméno plavce]</strong>
+              <span class="text-[11px] text-muted-foreground block">Uveďte jméno dítěte pro spárování</span>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-primary/20 bg-primary/5 p-3.5 text-xs text-muted-foreground leading-relaxed">
+            Potvrzení o zaplacení pro zdravotní pojišťovny na příspěvek na sportovní činnost dětí vystavuje hospodářka oddílu na vyžádání.
+          </div>
+        </div>
+
+        <!-- QR Code Box -->
+        <div class="shrink-0 flex flex-col items-center rounded-2xl border border-border/70 bg-background/80 p-5 text-center shadow-inner">
+          <span class="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">QR platba ČSOB</span>
+          <div class="overflow-hidden rounded-xl border border-border bg-white p-2.5 shadow-sm">
+            <img src="assets/QR_plavani214.jpg" alt="QR kód pro platbu příspěvků TJ Bohemians Praha VS 214" width="180" height="180" class="h-44 w-44 object-contain">
+          </div>
+          <p class="mt-2.5 font-mono text-xs font-bold text-foreground">VS 214</p>
+          <p class="mt-0.5 text-[0.7rem] text-muted-foreground">Naskenujte v mobilním bankovnictví</p>
+        </div>
+      </div>
+    </div>
   </section>
 
 </main>

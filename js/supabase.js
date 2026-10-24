@@ -274,9 +274,13 @@
         body: item,
         prefer: "resolution=merge-duplicates,return=representation"
       });
-      if (res.error) warnIfOnline("[Bohemka Supabase] saveNews error:", res.error);
+      if (res && res.error) {
+        warnIfOnline("[Bohemka Supabase] saveNews error:", res.error);
+        return { success: false, error: res.error, status: res.status };
+      }
     } catch (err) {
       warnIfOnline("[Bohemka Supabase] saveNews network error:", err);
+      return { success: false, error: err.message || err };
     }
     return { success: true, item, ...item };
   }
@@ -290,9 +294,14 @@
     }
 
     try {
-      await restRequest("/news?id=eq." + encodeURIComponent(id), { method: "DELETE" });
+      const res = await restRequest("/news?id=eq." + encodeURIComponent(id), { method: "DELETE" });
+      if (res && res.error) {
+        warnIfOnline("[Bohemka Supabase] deleteNews error:", res.error);
+        return { success: false, error: res.error, status: res.status };
+      }
     } catch (err) {
       warnIfOnline("[Bohemka Supabase] deleteNews error:", err);
+      return { success: false, error: err.message || err };
     }
     return { success: true };
   }
@@ -379,13 +388,18 @@
     }
 
     try {
-      await restRequest("/events", {
+      const res = await restRequest("/events", {
         method: "POST",
         body: item,
         prefer: "resolution=merge-duplicates,return=representation"
       });
+      if (res && res.error) {
+        warnIfOnline("[Bohemka Supabase] saveEvent error:", res.error);
+        return { success: false, error: res.error, status: res.status };
+      }
     } catch (err) {
       warnIfOnline("[Bohemka Supabase] saveEvent error:", err);
+      return { success: false, error: err.message || err };
     }
     return { success: true, item, ...item };
   }
@@ -399,9 +413,14 @@
     }
 
     try {
-      await restRequest("/events?id=eq." + encodeURIComponent(id), { method: "DELETE" });
+      const res = await restRequest("/events?id=eq." + encodeURIComponent(id), { method: "DELETE" });
+      if (res && res.error) {
+        warnIfOnline("[Bohemka Supabase] deleteEvent error:", res.error);
+        return { success: false, error: res.error, status: res.status };
+      }
     } catch (err) {
       warnIfOnline("[Bohemka Supabase] deleteEvent error:", err);
+      return { success: false, error: err.message || err };
     }
     return { success: true };
   }
@@ -509,11 +528,16 @@
         body: payload
       });
 
+      if (res && res.error) {
+        warnIfOnline("[Bohemka Supabase] signupSwimmer remote error:", res.error);
+        return { success: false, error: res.error, status: res.status };
+      }
+
       const entry = (res.data && Array.isArray(res.data)) ? res.data[0] : (res.data || payload);
       return { success: true, entry, ...(typeof entry === "object" ? entry : {}) };
     } catch (err) {
       warnIfOnline("[Bohemka Supabase] signupSwimmer remote error:", err);
-      return { success: true, entry: payload, ...payload };
+      return { success: false, error: err.message || err };
     }
   }
 
@@ -537,9 +561,14 @@
       } else {
         filter = `/event_entries?event_id=eq.${encodeURIComponent(eventIdOrId)}`;
       }
-      await restRequest(filter, { method: "DELETE" });
+      const res = await restRequest(filter, { method: "DELETE" });
+      if (res && res.error) {
+        warnIfOnline("[Bohemka Supabase] cancelSignup remote error:", res.error);
+        return { success: false, error: res.error, status: res.status };
+      }
     } catch (err) {
       warnIfOnline("[Bohemka Supabase] cancelSignup remote error:", err);
+      return { success: false, error: err.message || err };
     }
     return { success: true };
   }
@@ -588,19 +617,28 @@
         body: payload,
         prefer: "resolution=merge-duplicates,return=representation"
       });
+      if (res && res.error) {
+        warnIfOnline("[Bohemka Supabase] saveMessage remote error:", res.error);
+        return { success: false, error: res.error, status: res.status };
+      }
       const item = (res.data && Array.isArray(res.data)) ? res.data[0] : (res.data || payload);
       return { success: true, item, ...item };
     } catch (err) {
       warnIfOnline("[Bohemka Supabase] saveMessage remote error:", err);
-      return { success: true, item: payload, ...payload };
+      return { success: false, error: err.message || err };
     }
   }
 
   async function deleteMessage(id) {
     try {
-      await restRequest("/parent_messages?id=eq." + encodeURIComponent(id), { method: "DELETE" });
+      const res = await restRequest("/parent_messages?id=eq." + encodeURIComponent(id), { method: "DELETE" });
+      if (res && res.error) {
+        warnIfOnline("[Bohemka Supabase] deleteMessage error:", res.error);
+        return { success: false, error: res.error, status: res.status };
+      }
     } catch (err) {
       warnIfOnline("[Bohemka Supabase] deleteMessage error:", err);
+      return { success: false, error: err.message || err };
     }
     return { success: true };
   }

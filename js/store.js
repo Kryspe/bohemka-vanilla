@@ -58,11 +58,22 @@ function sanitizeCsv(val) {
 function escapeXml(val) {
   if (val == null) return "";
   return String(val)
+    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g, "")
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&apos;");
+}
+
+function escapeJsArg(str) {
+  if (str == null) return "";
+  return String(str)
+    .replace(/\\/g, "\\\\")
+    .replace(/'/g, "\\'")
+    .replace(/"/g, "&quot;")
+    .replace(/\r/g, "\\r")
+    .replace(/\n/g, "\\n");
 }
 
 function safeObject(obj) {
@@ -77,11 +88,12 @@ function safeObject(obj) {
 }
 
 // Expose globally for all templates and modules
-window.BohSecurity = { escapeHtml, safeUrl, sanitizeCsv, escapeXml, safeObject };
+window.BohSecurity = { escapeHtml, safeUrl, sanitizeCsv, escapeXml, escapeJsArg, safeObject };
 window.escapeHtml = escapeHtml;
 window.safeUrl = safeUrl;
 window.sanitizeCsv = sanitizeCsv;
 window.escapeXml = escapeXml;
+window.escapeJsArg = escapeJsArg;
 
 window.BohStore = (function () {
   const SIGNUPS_KEY = "boh-signups";
@@ -197,7 +209,7 @@ window.BohStore = (function () {
           disciplines: disciplines,
           note: item.fields?.poznamka || item.note || ""
         });
-      } else if (item.kind === "informace" || item.kind === "vzkaz" || item.kind === "pro-rodice" || item.kind === "messages") {
+      } else if (item.kind === "informace" || item.kind === "vzkaz" || item.kind === "pro-rodice" || item.kind === "messages" || item.kind === "oznameni") {
         const msgText = item.fields?.text || item.fields?.popis || item.text || item.message || "";
         const msgCat = item.fields?.typ || item.fields?.kategorie || item.type || item.category || "Upozornění trenérů";
 
@@ -345,7 +357,9 @@ window.BohStore = (function () {
   function getSignups() {
     try {
       const raw = getStored(SIGNUPS_KEY);
-      return raw ? JSON.parse(raw) : {};
+      if (!raw) return {};
+      const parsed = JSON.parse(raw);
+      return (parsed && typeof parsed === "object" && !Array.isArray(parsed)) ? parsed : {};
     } catch {
       return {};
     }
@@ -730,7 +744,9 @@ window.BohStore = (function () {
   function getDeletedIds() {
     try {
       const raw = localStorage.getItem(DELETED_IDS_KEY);
-      return raw ? JSON.parse(raw) : [];
+      if (!raw) return [];
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed : [];
     } catch {
       return [];
     }
@@ -850,7 +866,7 @@ window.BohStore = (function () {
   function getParentsNotes() {
     const dataObj = window.BohData || window.KlokaniData;
     const defaultNotes = (dataObj && dataObj.parentsNotes) ? [...dataObj.parentsNotes] : [];
-    const approved = getAdminItems().filter(i => i.status === "approved" && (i.kind === "informace" || i.kind === "vzkaz" || i.kind === "pro-rodice" || i.kind === "aktivita"));
+    const approved = getAdminItems().filter(i => i.status === "approved" && (i.kind === "informace" || i.kind === "vzkaz" || i.kind === "pro-rodice" || i.kind === "aktivita" || i.kind === "oznameni"));
     const managedNotes = approved.map(i => {
       const txt = (i.fields && (i.fields.text || i.fields.popis)) || i.title;
       return {
@@ -999,7 +1015,8 @@ window.BohStore = (function () {
         localStorage.setItem(CUSTOM_NOTIFS_KEY, JSON.stringify(def));
         return def;
       }
-      return JSON.parse(raw);
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed : getDefaultNotifications();
     } catch {
       return getDefaultNotifications();
     }
@@ -1313,7 +1330,7 @@ window.BohStore = (function () {
   }
 
   function getAlerts() {
-    const approved = getAdminItems().filter(i => i.status === "approved" && (i.kind === "informace" || i.kind === "vzkaz" || i.kind === "pro-rodice" || i.kind === "aktivita"));
+    const approved = getAdminItems().filter(i => i.status === "approved" && (i.kind === "informace" || i.kind === "vzkaz" || i.kind === "pro-rodice" || i.kind === "aktivita" || i.kind === "oznameni"));
     const managedAlerts = approved.map(i => ({
       id: i.id,
       title: i.title,
@@ -1676,7 +1693,9 @@ window.BohStore = (function () {
   function getCustomRosters() {
     try {
       const raw = localStorage.getItem(COACH_ROSTERS_KEY);
-      return raw ? JSON.parse(raw) : {};
+      if (!raw) return {};
+      const parsed = JSON.parse(raw);
+      return (parsed && typeof parsed === "object" && !Array.isArray(parsed)) ? parsed : {};
     } catch {
       return {};
     }

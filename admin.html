@@ -247,6 +247,27 @@
   <script src="js/animations.js"></script>
   <script src="js/app.js"></script>
   <script>
+    const escapeJsArg = window.escapeJsArg || function (str) {
+      if (str == null) return "";
+      return String(str)
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'")
+        .replace(/"/g, "&quot;")
+        .replace(/\r/g, "\\r")
+        .replace(/\n/g, "\\n");
+    };
+
+    function escapeLenexXml(str) {
+      if (str == null) return "";
+      return String(str)
+        .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g, "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
     // =========================================================================
     // BOHEMIANS CMS — ADMIN & TRENÉRSKÝ DASHBOARD (VANILLA JS)
     // =========================================================================
@@ -860,7 +881,7 @@
                     <button type="button" onclick="editingNewsId='${n.id}'; renderAdmin(); window.scrollTo({top:0, behavior:'smooth'});" class="rounded-xl border border-border px-3 py-1.5 text-xs font-semibold text-foreground hover:border-emerald-600">
                       Upravit
                     </button>
-                    <button type="button" onclick="if(confirm('Opravdu chcete smazat aktualitu &quot;${escapeHtml(n.title)}&quot;?')){ window.BohStore.deleteNews('${n.id}'); showToast('Aktualita byla smazána.'); renderAdmin(); }" class="rounded-xl border border-destructive/30 bg-destructive/10 px-3 py-1.5 text-xs font-semibold text-destructive hover:bg-destructive/20">
+                    <button type="button" onclick="if(confirm('Opravdu chcete smazat aktualitu &quot;${escapeJsArg(n.title)}&quot;?')){ window.BohStore.deleteNews('${escapeJsArg(n.id)}'); showToast('Aktualita byla smazána.'); renderAdmin(); }" class="rounded-xl border border-destructive/30 bg-destructive/10 px-3 py-1.5 text-xs font-semibold text-destructive hover:bg-destructive/20">
                       Smazat
                     </button>
                   </div>
@@ -1008,7 +1029,7 @@
                     <button type="button" onclick="editingDownloadId='${d.id}'; renderAdmin(); window.scrollTo({top:0, behavior:'smooth'});" class="rounded-xl border border-border px-3 py-1.5 text-xs font-semibold text-foreground hover:border-emerald-600">
                       Upravit
                     </button>
-                    <button type="button" onclick="if(confirm('Smazat dokument &quot;${escapeHtml(d.title)}&quot;?')){ window.BohStore.deleteDownload('${d.id}'); showToast('Dokument byl smazán.'); renderAdmin(); }" class="rounded-xl border border-destructive/30 bg-destructive/10 px-3 py-1.5 text-xs font-semibold text-destructive hover:bg-destructive/20">
+                    <button type="button" onclick="if(confirm('Smazat dokument &quot;${escapeJsArg(d.title)}&quot;?')){ window.BohStore.deleteDownload('${escapeJsArg(d.id)}'); showToast('Dokument byl smazán.'); renderAdmin(); }" class="rounded-xl border border-destructive/30 bg-destructive/10 px-3 py-1.5 text-xs font-semibold text-destructive hover:bg-destructive/20">
                       Smazat
                     </button>
                   </div>
@@ -1180,16 +1201,16 @@
                         <span>+ Přihlásit plavce</span>
                       </button>
 
-                      <button type="button" onclick="window.BohStore.exportSignupsCsv('${ev.id}'); showToast('Soupiska pro závod &quot;${escapeHtml(ev.name)}&quot; byla stažena v CSV.');" class="inline-flex items-center gap-1.5 rounded-xl border border-border bg-background px-3 py-1.5 text-xs font-semibold text-foreground hover:border-emerald-600 transition cursor-pointer" title="Stáhnout soupisku ČSPS (CSV)">
+                      <button type="button" onclick="window.BohStore.exportSignupsCsv('${escapeJsArg(ev.id)}'); showToast('Soupiska pro závod &quot;${escapeJsArg(ev.name)}&quot; byla stažena v CSV.');" class="inline-flex items-center gap-1.5 rounded-xl border border-border bg-background px-3 py-1.5 text-xs font-semibold text-foreground hover:border-emerald-600 transition cursor-pointer" title="Stáhnout soupisku ČSPS (CSV)">
                         <svg class="h-3.5 w-3.5 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                         <span>CSV</span>
                       </button>
 
-                      <button type="button" onclick="editingEventId='${ev.id}'; renderAdmin(); window.scrollTo({top:0, behavior:'smooth'});" class="rounded-xl border border-border bg-background px-2.5 py-1.5 text-xs font-semibold text-foreground hover:border-emerald-600 transition" title="Upravit závod">
+                      <button type="button" onclick="editingEventId='${escapeJsArg(ev.id)}'; renderAdmin(); window.scrollTo({top:0, behavior:'smooth'});" class="rounded-xl border border-border bg-background px-2.5 py-1.5 text-xs font-semibold text-foreground hover:border-emerald-600 transition" title="Upravit závod">
                         <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
                       </button>
 
-                      <button type="button" onclick="if(confirm('Opravdu chcete smazat závod &quot;${escapeHtml(ev.name)}&quot;?')){ window.BohStore.deleteEvent('${ev.id}'); showToast('Závod byl smazán.'); renderAdmin(); }" class="rounded-xl border border-destructive/30 bg-destructive/10 px-2.5 py-1.5 text-xs font-semibold text-destructive hover:bg-destructive/20 transition" title="Smazat závod">
+                      <button type="button" onclick="if(confirm('Opravdu chcete smazat závod &quot;${escapeJsArg(ev.name)}&quot;?')){ window.BohStore.deleteEvent('${escapeJsArg(ev.id)}'); showToast('Závod byl smazán.'); renderAdmin(); }" class="rounded-xl border border-destructive/30 bg-destructive/10 px-2.5 py-1.5 text-xs font-semibold text-destructive hover:bg-destructive/20 transition" title="Smazat závod">
                         <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18m-2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                       </button>
                     </div>
@@ -1229,7 +1250,7 @@
 
                               <button
                                 type="button"
-                                onclick="if(confirm('Odhlásit závodníka ${escapeHtml(r.swimmer)} z tohoto závodu?')){ window.BohStore.removeSwimmerEntry('${ev.id}', '${escapeHtml(r.swimmer)}'); showToast('Plavec ${escapeHtml(r.swimmer)} byl odhlášen.'); renderAdmin(); }"
+                                onclick="if(confirm('Odhlásit závodníka ${escapeJsArg(r.swimmer)} z tohoto závodu?')){ window.BohStore.removeSwimmerEntry('${escapeJsArg(ev.id)}', '${escapeJsArg(r.swimmer)}'); showToast('Plavec ${escapeJsArg(r.swimmer)} byl odhlášen.'); renderAdmin(); }"
                                 class="rounded-lg p-1 text-muted-foreground hover:bg-destructive/15 hover:text-destructive transition cursor-pointer"
                                 title="Odhlásit závodníka"
                               >
@@ -1807,7 +1828,7 @@
 
         targetEvents.forEach(ev => {
           const roster = window.BohStore.getRosterForEvent(ev.id);
-          xml += `    <MEET name="${escapeHtml(ev.name)}" city="${escapeHtml(ev.place)}" course="SCM">
+          xml += `    <MEET name="${escapeLenexXml(ev.name)}" city="${escapeLenexXml(ev.place)}" course="SCM">
       <CLUBS>
         <CLUB name="TJ Bohemians Praha" code="BOH" nation="CZE">
           <ATHLETES>
@@ -1820,12 +1841,12 @@
             const gender = (entry.gender === "Z" || entry.gender === "F") ? "F" : "M";
             const birthdate = `${entry.year || 2010}-01-01`;
 
-            xml += `            <ATHLETE athleteid="${idx + 1}" lastname="${escapeHtml(lastName)}" firstname="${escapeHtml(firstName)}" gender="${gender}" birthdate="${birthdate}">
+            xml += `            <ATHLETE athleteid="${idx + 1}" lastname="${escapeLenexXml(lastName)}" firstname="${escapeLenexXml(firstName)}" gender="${gender}" birthdate="${birthdate}">
               <ENTRIES>
 `;
             const disciplines = Array.isArray(entry.disciplines) ? entry.disciplines : [entry.disciplines];
             disciplines.filter(Boolean).forEach(d => {
-              xml += `                <ENTRY eventid="${escapeHtml(d)}" />
+              xml += `                <ENTRY eventid="${escapeLenexXml(d)}" />
 `;
             });
             xml += `              </ENTRIES>

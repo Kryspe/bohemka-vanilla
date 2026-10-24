@@ -282,6 +282,16 @@
   <script src="js/animations.js"></script>
   <script src="js/app.js"></script>
   <script>
+    const escapeJsArg = window.escapeJsArg || function (str) {
+      if (str == null) return "";
+      return String(str)
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'")
+        .replace(/"/g, "&quot;")
+        .replace(/\r/g, "\\r")
+        .replace(/\n/g, "\\n");
+    };
+
     function renderEventsList() {
       const container = document.getElementById("events-grid");
       if (!container) return;
@@ -355,7 +365,7 @@
               <button
                 type="button"
                 ${closed ? 'disabled' : ''}
-                onclick="openSignUpDialog('${e.id}')"
+                onclick="openSignUpDialog('${escapeJsArg(e.id)}')"
                 class="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold transition-all active:scale-95 shrink-0 ${btnClass}"
               >
                 ${btnContent}

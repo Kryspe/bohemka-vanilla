@@ -39,7 +39,7 @@ if ($method === 'GET') {
     exit;
 }
 
-if ($method === 'POST') {
+if ($method === 'POST' || $method === 'PUT') {
     $input = json_decode(file_get_contents('php://input'), true);
     if (!$input || empty($input['title'])) {
         http_response_code(400);

@@ -447,16 +447,23 @@
       if (window.initScrollReveal) setTimeout(window.initScrollReveal, 40);
     }
 
-    function triggerDownload(id) {
+    function triggerDownload(idOrItem) {
       const allItems = window.BohStore ? window.BohStore.getDownloads() : (window.BohData.downloads || []);
-      const item = allItems.find(i => i.id === id);
+      const item = (typeof idOrItem === "object" && idOrItem !== null) ? idOrItem : allItems.find(i => i.id === idOrItem);
       if (!item) return;
 
-      const targetUrl = item.officialUrl || (item.fileName.startsWith("http") ? item.fileName : ("https://www.boh.cz/download/" + item.fileName));
+      const fileName = item.fileName || item.file || "";
+      const targetUrl = fileName.startsWith("http://") || fileName.startsWith("https://")
+        ? fileName
+        : (fileName.startsWith("/assets/downloads/")
+          ? fileName
+          : (fileName.startsWith("assets/downloads/")
+            ? ("/" + fileName)
+            : `/assets/downloads/${fileName}`));
       window.open(targetUrl, "_blank", "noopener,noreferrer");
 
       if (typeof showToast === "function") {
-        showToast(`Otevírám dokument ${item.fileName} z boh.cz…`);
+        showToast(`Otevírám dokument ${item.fileName}…`);
       }
     }
 
