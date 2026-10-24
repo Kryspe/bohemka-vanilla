@@ -29,3 +29,11 @@
      3. **Co bychom měli udělat dál** (backlog, doporučení)
      4. **Předávací protokol** (aby šlo v konverzaci pokračovat v jakémkoliv jiném účtu nebo relaci)
 
+6. **Zlatý standard Intranetu (Oficiální záchytný bod):**
+   - Aktuální podoba členského intranetu v `intranet.html` (označena gitem jako `intranet-gold-standard`, commit `2b808fe`) je **závazným a nedotknutelným záchytným bodem**.
+   - **ZÁKAZ:** Nikdy nenahrazovat tento intranet generickými SaaS dashboardy, rozbitými modálními okny ani plovoucími gizmy.
+   - **Vždy striktně zachovat:**
+     - Režim **Plavec / Rodič** se záložkami: *Přihlášky na závody*, *Rezervace na akce*, *Moje výsledky*, *Platby příspěvků* (s QR kódem VS 214) a *Nastavení účtu*.
+     - Režim **Trenér / Správce** se záložkami: *Závody & CSV přihlášky* (1-click export do ČSPS CSV soupisky), *Aktuality oddílu*, *Aktivita & Upozornění*, *Fotogalerie*, *Ke stažení (PDF)* a *Profil trenéra*.
+     - Autentickou zelenobílou identitu Bohemians, karty s přehlednou typografií a 100% stabilitu rozvržení.
+
