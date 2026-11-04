@@ -19,7 +19,7 @@
   <link rel="manifest" href="assets/manifest.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="css/style.css">
   <script>
     try {
@@ -104,17 +104,21 @@
 
       <!-- PAGE HEADER -->
       <section class="relative overflow-hidden border-b border-border/60 bg-card/30">
-        <div class="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-24">
+        <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-primary/10 blur-3xl"></div>
+        <div class="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
           <div>
-            <p class="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-primary">Momentky z historie oddílu · 80 let tradice</p>
-            <h1 class="max-w-3xl font-display text-4xl font-extrabold leading-tight md:text-5xl">Fotogalerie</h1>
-            <p class="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">Kliknutím na fotografii otevřete náhled.</p>
+            <span class="section-eyebrow">Momentky z historie oddílu · 80 let tradice</span>
+            <h1 class="max-w-3xl section-title md:text-5xl">Fotogalerie</h1>
+            <div class="section-divider">
+              <span class="wave wave--md"></span>
+            </div>
+            <p class="section-desc max-w-2xl text-lg">Reportáže a momentky ze závodů, soustředění a oddílového života TJ Bohemians Praha.</p>
           </div>
         </div>
       </section>
 
       <!-- PHOTOS GRID -->
-      <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+      <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
         <div id="photos-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <!-- Populated by JS -->
         </div>
