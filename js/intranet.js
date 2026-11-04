@@ -215,9 +215,9 @@
               <div class="border-l-2 border-emerald-500 pl-3 py-0.5">
                 <h4 class="text-sm font-bold text-zinc-900 dark:text-zinc-100">${escapeHtml(schedule[0].name)}</h4>
                 <div class="mt-1 text-xs text-zinc-500 space-y-0.5">
-                  <p>📅 Datum: <span class="font-medium text-zinc-700 dark:text-zinc-300">${escapeHtml(schedule[0].date)}</span></p>
-                  <p>🏊 Bazén: <span class="font-medium text-zinc-700 dark:text-zinc-300">${escapeHtml(schedule[0].pool)}</span></p>
-                  <p>⏳ Uzávěrka: <span class="font-semibold text-amber-600 dark:text-amber-400">${escapeHtml(schedule[0].deadline)}</span></p>
+                  <p>Datum: <span class="font-medium text-zinc-700 dark:text-zinc-300">${escapeHtml(schedule[0].date)}</span></p>
+                  <p>Bazén: <span class="font-medium text-zinc-700 dark:text-zinc-300">${escapeHtml(schedule[0].pool)}</span></p>
+                  <p>Uzávěrka: <span class="font-semibold text-amber-600 dark:text-amber-400">${escapeHtml(schedule[0].deadline)}</span></p>
                 </div>
               </div>
             ` : '<p class="text-xs text-zinc-500">Žádné nadcházející závody.</p>'}
@@ -284,7 +284,7 @@
     if (isEditing) {
       return `
         <div class="rounded-lg border-2 border-emerald-500 bg-white dark:bg-zinc-950 p-4 shadow-sm" id="edit-ann-${ann.id}">
-          <div class="text-xs font-bold text-emerald-600 dark:text-emerald-400 mb-2 uppercase tracking-wide">✏️ Upravit oznámení (Super Admin)</div>
+          <div class="text-xs font-bold text-emerald-600 dark:text-emerald-400 mb-2 uppercase tracking-wide">Upravit oznámení (Super Admin)</div>
           <div class="space-y-3">
             <div>
               <label class="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1">Nadpis</label>
