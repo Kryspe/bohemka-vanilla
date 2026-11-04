@@ -197,12 +197,29 @@ function highlightActiveNav() {
   const currentPage = normalizePageName(window.location.pathname);
 
   // Desktop Header Nav
+  let matchedDesktop = false;
   document.querySelectorAll("header nav a.nav-item").forEach(link => {
     const href = link.getAttribute("href");
     if (!href) return;
     const targetPage = normalizePageName(href);
     if (targetPage === currentPage) {
       link.classList.add("active");
+      matchedDesktop = true;
+    } else {
+      link.classList.remove("active");
+    }
+  });
+
+  // Desktop Dropdown Links Highlight
+  document.querySelectorAll(".nav-dropdown-link").forEach(link => {
+    const href = link.getAttribute("href");
+    if (!href) return;
+    const targetPage = normalizePageName(href);
+    if (targetPage === currentPage) {
+      link.classList.add("active");
+      const trigger = link.closest(".nav-dropdown-wrapper")?.querySelector(".nav-dropdown-trigger");
+      if (trigger) trigger.classList.add("active");
+      matchedDesktop = true;
     } else {
       link.classList.remove("active");
     }
@@ -290,7 +307,32 @@ function initMobileNav() {
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && !drawerOverlay.classList.contains("hidden")) closeDrawer(e);
     });
+
+    if (window.location.hash === "#menu" || window.location.hash === "#drawer") {
+      openDrawer();
+    }
   }
+
+  // Desktop Dropdown Toggle Handler (for click/keyboard)
+  document.querySelectorAll(".nav-dropdown-trigger").forEach(trigger => {
+    trigger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const wrapper = trigger.closest(".nav-dropdown-wrapper");
+      if (wrapper) {
+        const isOpen = wrapper.classList.toggle("is-open");
+        trigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      }
+    });
+  });
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".nav-dropdown-wrapper")) {
+      document.querySelectorAll(".nav-dropdown-wrapper.is-open").forEach(w => {
+        w.classList.remove("is-open");
+        const btn = w.querySelector(".nav-dropdown-trigger");
+        if (btn) btn.setAttribute("aria-expanded", "false");
+      });
+    }
+  });
 }
 
 // 6. Global Search Modal (Artificial-Analysis-style clean dialog)
