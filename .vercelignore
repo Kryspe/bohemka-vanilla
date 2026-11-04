@@ -1,0 +1,4 @@
+*.php
+api/*.php
+data/*.sqlite*
+scripts/
