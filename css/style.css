@@ -1405,23 +1405,101 @@ html.dark .wave:not(.wave--light) {
 /* Athletic Club Split Hero (KPS Ostrava style) */
 .hero-athletic {
   position: relative;
-  border-radius: 1.75rem;
+  border-radius: 1.5rem;
   overflow: hidden;
-  box-shadow: 0 12px 36px -12px rgba(0, 122, 61, 0.25);
+  border: 1px solid rgba(0, 186, 96, 0.28);
+  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.04);
 }
 
 @media (min-width: 1024px) {
   .hero-athletic {
-    border-radius: 2.25rem;
+    border-radius: 1.75rem;
   }
 }
 
 .hero-athletic-bg {
-  background: linear-gradient(135deg, #053b1b 0%, #007a3d 60%, #005a2b 100%);
+  background: linear-gradient(135deg, #072615 0%, #0a331c 50%, #062112 100%);
+}
+
+html.bohemka .hero-athletic-bg {
+  background: linear-gradient(135deg, #072716 0%, #0c3d22 55%, #082816 100%);
+  border-color: rgba(0, 186, 96, 0.28);
 }
 
 html.dark .hero-athletic-bg {
   background: linear-gradient(135deg, #021a0c 0%, #063d1d 60%, #042913 100%);
+}
+
+.hero-athletic-grid {
+  display: grid !important;
+  grid-template-columns: 1fr;
+  min-height: 380px;
+}
+
+@media (min-width: 1024px) {
+  .hero-athletic-grid {
+    grid-template-columns: 7fr 5fr !important;
+    min-height: 420px;
+  }
+}
+
+.hero-athletic-content {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  padding: 1.75rem !important;
+  z-index: 10;
+  position: relative;
+}
+
+@media (min-width: 640px) {
+  .hero-athletic-content {
+    padding: 2.25rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-athletic-content {
+    padding: 2.75rem !important;
+  }
+}
+
+.hero-athletic-media,
+#hero-feature-img-box {
+  position: relative !important;
+  min-height: 260px !important;
+  width: 100% !important;
+  overflow: hidden !important;
+  background-color: #03170c !important;
+}
+
+@media (min-width: 640px) {
+  .hero-athletic-media,
+  #hero-feature-img-box {
+    min-height: 320px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-athletic-media,
+  #hero-feature-img-box {
+    min-height: 100% !important;
+    height: 100% !important;
+  }
+}
+
+#hero-feature-img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.hero-athletic:hover #hero-feature-img {
+  transform: scale(1.04) !important;
 }
 
 /* Sponsor logo strip hover */

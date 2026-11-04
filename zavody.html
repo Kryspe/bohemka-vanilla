@@ -134,7 +134,180 @@
         </div>
 
         <div id="events-grid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <!-- Populated by JS -->
+          <!-- Card 1 -->
+          <div class="card-clean spotlight-card reveal hover-float group flex h-full flex-col rounded-3xl border border-border bg-card p-6 shadow-sm transition-all duration-300">
+            <div class="flex items-start justify-between gap-3">
+              <span class="rounded-full px-2.5 py-1 text-xs font-semibold bg-secondary text-secondary-foreground">Krajský</span>
+              <span class="shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold bg-primary/12 text-primary">Otevřeno</span>
+            </div>
+            <h3 class="mt-4 font-display text-lg font-bold leading-snug text-foreground group-hover:text-primary transition-colors">Podzimní Krajský přebor na dlouhé tratě</h3>
+            <div class="mt-3 space-y-1.5 text-xs text-muted-foreground">
+              <div class="flex items-center gap-2">
+                <svg class="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                Praha – Radlice
+              </div>
+              <div class="flex items-center gap-2">
+                <svg class="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+                7. 11. 2026
+              </div>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-1.5">
+              <span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">800 K</span>
+              <span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">1500 K</span>
+              <span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">400 PZ</span>
+            </div>
+            <div class="mt-auto flex flex-wrap items-center justify-between gap-2 border-t border-border/50 pt-4">
+              <span class="text-xs text-muted-foreground shrink-0 leading-tight">Uzávěrka: <b class="text-foreground font-semibold">30. 10. 2026</b></span>
+              <button type="button" onclick="openSignUpDialog('podzimni-kp-dlouhe-trate-2026')" class="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold transition-all active:scale-95 shrink-0 bg-primary text-primary-foreground hover:scale-[1.03] hover:shadow-[var(--glow-aqua)]">Přihlásit se</button>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="card-clean spotlight-card reveal hover-float group flex h-full flex-col rounded-3xl border border-border bg-card p-6 shadow-sm transition-all duration-300">
+            <div class="flex items-start justify-between gap-3">
+              <span class="rounded-full px-2.5 py-1 text-xs font-semibold bg-secondary text-secondary-foreground">Krajský</span>
+              <span class="shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold bg-primary/12 text-primary">Otevřeno</span>
+            </div>
+            <h3 class="mt-4 font-display text-lg font-bold leading-snug text-foreground group-hover:text-primary transition-colors">Podzimní Krajský přebor žactva 2017 a mladší</h3>
+            <div class="mt-3 space-y-1.5 text-xs text-muted-foreground">
+              <div class="flex items-center gap-2">
+                <svg class="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                Praha – Radlice
+              </div>
+              <div class="flex items-center gap-2">
+                <svg class="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+                7. 11. 2026
+              </div>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-1.5">
+              <span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">50 K</span>
+              <span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">50 Z</span>
+              <span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">50 P</span>
+              <span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">50 M</span>
+            </div>
+            <div class="mt-auto flex flex-wrap items-center justify-between gap-2 border-t border-border/50 pt-4">
+              <span class="text-xs text-muted-foreground shrink-0 leading-tight">Uzávěrka: <b class="text-foreground font-semibold">30. 10. 2026</b></span>
+              <button type="button" onclick="openSignUpDialog('podzimni-kp-2017-mladsi-2026')" class="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold transition-all active:scale-95 shrink-0 bg-primary text-primary-foreground hover:scale-[1.03] hover:shadow-[var(--glow-aqua)]">Přihlásit se</button>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="card-clean spotlight-card reveal hover-float group flex h-full flex-col rounded-3xl border border-border bg-card p-6 shadow-sm transition-all duration-300">
+            <div class="flex items-start justify-between gap-3">
+              <span class="rounded-full px-2.5 py-1 text-xs font-semibold bg-primary/15 text-primary">Masters</span>
+              <span class="shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold bg-muted text-muted-foreground">Uzavřeno</span>
+            </div>
+            <h3 class="mt-4 font-display text-lg font-bold leading-snug text-foreground group-hover:text-primary transition-colors">Zimní mezinárodní MČR masters – XXVI. Korunní cup</h3>
+            <div class="mt-3 space-y-1.5 text-xs text-muted-foreground">
+              <div class="flex items-center gap-2">
+                <svg class="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                Česká Lípa
+              </div>
+              <div class="flex items-center gap-2">
+                <svg class="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+                7. 11. 2026
+              </div>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-1.5">
+              <span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">50 K</span>
+              <span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">100 K</span>
+              <span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">50 P</span>
+              <span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">100 PZ</span>
+            </div>
+            <div class="mt-auto flex flex-wrap items-center justify-between gap-2 border-t border-border/50 pt-4">
+              <span class="text-xs text-muted-foreground shrink-0 leading-tight">Uzávěrka: <b class="text-foreground font-semibold">21. 10. 2026</b></span>
+              <button type="button" disabled class="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold shrink-0 cursor-not-allowed bg-muted text-muted-foreground">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                Uzavřeno
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="card-clean spotlight-card reveal hover-float group flex h-full flex-col rounded-3xl border border-border bg-card p-6 shadow-sm transition-all duration-300">
+            <div class="flex items-start justify-between gap-3">
+              <span class="rounded-full px-2.5 py-1 text-xs font-semibold bg-secondary text-secondary-foreground">Krajský</span>
+              <span class="shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold bg-primary/12 text-primary">Otevřeno</span>
+            </div>
+            <h3 class="mt-4 font-display text-lg font-bold leading-snug text-foreground group-hover:text-primary transition-colors">Zimní přebor Prahy a Středočeského kraje</h3>
+            <div class="mt-3 space-y-1.5 text-xs text-muted-foreground">
+              <div class="flex items-center gap-2">
+                <svg class="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                Praha – Vinohrady
+              </div>
+              <div class="flex items-center gap-2">
+                <svg class="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+                13. 11. 2026
+              </div>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-1.5">
+              <span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">100 K</span>
+              <span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">200 K</span>
+              <span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">100 Z</span>
+              <span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">200 PZ</span>
+            </div>
+            <div class="mt-auto flex flex-wrap items-center justify-between gap-2 border-t border-border/50 pt-4">
+              <span class="text-xs text-muted-foreground shrink-0 leading-tight">Uzávěrka: <b class="text-foreground font-semibold">4. 11. 2026</b></span>
+              <button type="button" onclick="openSignUpDialog('zimni-prebor-prahy-2026')" class="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold transition-all active:scale-95 shrink-0 bg-primary text-primary-foreground hover:scale-[1.03] hover:shadow-[var(--glow-aqua)]">Přihlásit se</button>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="card-clean spotlight-card reveal hover-float group flex h-full flex-col rounded-3xl border border-border bg-card p-6 shadow-sm transition-all duration-300">
+            <div class="flex items-start justify-between gap-3">
+              <span class="rounded-full px-2.5 py-1 text-xs font-semibold bg-coral/20 text-coral">MČR</span>
+              <span class="shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold bg-primary/12 text-primary">Otevřeno</span>
+            </div>
+            <h3 class="mt-4 font-display text-lg font-bold leading-snug text-foreground group-hover:text-primary transition-colors">Zimní Mistrovství ČR 2026 OPEN</h3>
+            <div class="mt-3 space-y-1.5 text-xs text-muted-foreground">
+              <div class="flex items-center gap-2">
+                <svg class="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                Plzeň – Slovany 25m
+              </div>
+              <div class="flex items-center gap-2">
+                <svg class="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+                17. 12. 2026
+              </div>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-1.5">
+              <span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">50 K</span>
+              <span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">100 K</span>
+              <span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">200 K</span>
+              <span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">100 M</span>
+            </div>
+            <div class="mt-auto flex flex-wrap items-center justify-between gap-2 border-t border-border/50 pt-4">
+              <span class="text-xs text-muted-foreground shrink-0 leading-tight">Uzávěrka: <b class="text-foreground font-semibold">8. 12. 2026</b></span>
+              <button type="button" onclick="openSignUpDialog('zimni-mcr-2026')" class="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold transition-all active:scale-95 shrink-0 bg-primary text-primary-foreground hover:scale-[1.03] hover:shadow-[var(--glow-aqua)]">Přihlásit se</button>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="card-clean spotlight-card reveal hover-float group flex h-full flex-col rounded-3xl border border-border bg-card p-6 shadow-sm transition-all duration-300">
+            <div class="flex items-start justify-between gap-3">
+              <span class="rounded-full px-2.5 py-1 text-xs font-semibold bg-primary/15 text-primary">Soustředění</span>
+              <span class="shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold bg-primary/12 text-primary">Otevřeno</span>
+            </div>
+            <h3 class="mt-4 font-display text-lg font-bold leading-snug text-foreground group-hover:text-primary transition-colors">Zimní běžkařské soustředění 2027</h3>
+            <div class="mt-3 space-y-1.5 text-xs text-muted-foreground">
+              <div class="flex items-center gap-2">
+                <svg class="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                Jizerské hory – Bedřichov
+              </div>
+              <div class="flex items-center gap-2">
+                <svg class="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+                24. 1. 2027
+              </div>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-1.5">
+              <span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">Běžky</span>
+              <span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">Suchá příprava</span>
+              <span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">Regenerace</span>
+            </div>
+            <div class="mt-auto flex flex-wrap items-center justify-between gap-2 border-t border-border/50 pt-4">
+              <span class="text-xs text-muted-foreground shrink-0 leading-tight">Uzávěrka: <b class="text-foreground font-semibold">15. 1. 2027</b></span>
+              <button type="button" onclick="openSignUpDialog('zimni-bezkarske-soustredeni-2027')" class="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold transition-all active:scale-95 shrink-0 bg-primary text-primary-foreground hover:scale-[1.03] hover:shadow-[var(--glow-aqua)]">Přihlásit se</button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -293,87 +466,102 @@
     };
 
     function renderEventsList() {
-      const container = document.getElementById("events-grid");
-      if (!container) return;
+      try {
+        const container = document.getElementById("events-grid");
+        if (!container) return;
 
-      const events = (window.BohStore ? window.BohStore.getEvents() : (window.BohData.events || []))
-        .filter(e => daysUntil(e.date) >= -1)
-        .sort((a, b) => a.date.localeCompare(b.date));
+        const rawEvents = (window.BohStore ? window.BohStore.getEvents() : (window.BohData.events || []));
+        const events = rawEvents
+          .filter(e => (typeof daysUntil === "function" ? daysUntil(e.date) >= -1 : true))
+          .sort((a, b) => a.date.localeCompare(b.date));
 
-      container.innerHTML = events.map(e => {
-        const closed = isClosed(e);
-        const signed = window.BohStore.isSignedUp(e.id);
-        const statusState = closed ? "uzavreno" : signed ? "prihlaseno" : "otevreno";
-        const statusMap = {
-          otevreno: { label: "Otevřeno", cls: "bg-primary/12 text-primary" },
-          prihlaseno: { label: "Přihlášeno", cls: "bg-emerald-500/15 text-emerald-500" },
-          uzavreno: { label: "Uzavřeno", cls: "bg-muted text-muted-foreground" }
-        };
-        const st = statusMap[statusState];
-        const typeCls = typeStyles[e.type] || "bg-primary/15 text-primary";
-
-        let discHtml = "";
-        if (e.disciplines && e.disciplines.length > 0) {
-          discHtml = `<div class="mt-4 flex flex-wrap gap-1.5">` +
-            e.disciplines.slice(0, 6).map(d => `<span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">${escapeHtml(d)}</span>`).join("") +
-            (e.disciplines.length > 6 ? `<span class="rounded-md bg-muted px-2 py-0.5 text-xs text-muted-foreground">+${e.disciplines.length - 6}</span>` : "") +
-            `</div>`;
+        if (events.length === 0) {
+          container.innerHTML = `<div class="col-span-full p-8 text-center text-muted-foreground border border-dashed border-border rounded-2xl">Žádné nadcházející závody (raw count: ${rawEvents.length}).</div>`;
+          return;
         }
 
-        const btnClass = closed
-          ? "cursor-not-allowed bg-muted text-muted-foreground"
-          : signed
-            ? "bg-primary/15 text-primary hover:bg-primary/25"
-            : "bg-primary text-primary-foreground hover:scale-[1.03] hover:shadow-[var(--glow-aqua)]";
+        container.innerHTML = events.map(e => {
+          const closed = typeof isClosed === "function" ? isClosed(e) : false;
+          const signed = window.BohStore && typeof window.BohStore.isSignedUp === "function" ? window.BohStore.isSignedUp(e.id) : false;
+          const statusState = closed ? "uzavreno" : signed ? "prihlaseno" : "otevreno";
+          const statusMap = {
+            otevreno: { label: "Otevřeno", cls: "bg-primary/12 text-primary" },
+            prihlaseno: { label: "Přihlášeno", cls: "bg-emerald-500/15 text-emerald-500" },
+            uzavreno: { label: "Uzavřeno", cls: "bg-muted text-muted-foreground" }
+          };
+          const st = statusMap[statusState];
+          const localTypeStyles = (typeof typeStyles !== "undefined" ? typeStyles : {})[e.type] || "bg-primary/15 text-primary";
+          const typeCls = localTypeStyles;
 
-        const btnContent = closed
-          ? `<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> Uzavřeno`
-          : signed
-            ? `<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="16 10 11 15 8 12"/></svg> Upravit přihlášku`
-            : "Přihlásit se";
+          let discHtml = "";
+          if (e.disciplines && e.disciplines.length > 0) {
+            discHtml = `<div class="mt-4 flex flex-wrap gap-1.5">` +
+              e.disciplines.slice(0, 6).map(d => `<span class="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">${escapeHtml(d)}</span>`).join("") +
+              (e.disciplines.length > 6 ? `<span class="rounded-md bg-muted px-2 py-0.5 text-xs text-muted-foreground">+${e.disciplines.length - 6}</span>` : "") +
+              `</div>`;
+          }
 
-        return `
-          <div class="reveal hover-float group flex h-full flex-col rounded-3xl border border-border bg-card p-6 shadow-sm transition-all duration-300">
-            <div class="flex items-start justify-between gap-3">
-              <span class="rounded-full px-2.5 py-1 text-xs font-semibold ${typeCls}">
-                ${escapeHtml(e.type)}
-              </span>
-              <span class="shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold ${st.cls}">
-                ${escapeHtml(st.label)}
-              </span>
-            </div>
+          const btnClass = closed
+            ? "cursor-not-allowed bg-muted text-muted-foreground"
+            : signed
+              ? "bg-primary/15 text-primary hover:bg-primary/25"
+              : "bg-primary text-primary-foreground hover:scale-[1.03] hover:shadow-[var(--glow-aqua)]";
 
-            <h3 class="mt-4 font-display text-lg font-bold leading-snug text-foreground group-hover:text-primary transition-colors">${escapeHtml(e.name)}</h3>
+          const btnContent = closed
+            ? `<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> Uzavřeno`
+            : signed
+              ? `<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="16 10 11 15 8 12"/></svg> Upravit přihlášku`
+              : "Přihlásit se";
 
-            <div class="mt-3 space-y-1.5 text-xs text-muted-foreground">
-              <div class="flex items-center gap-2">
-                <svg class="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                ${escapeHtml(e.place)}
+          const formattedDeadline = typeof formatCzDate === "function" ? formatCzDate(e.deadline) : (e.deadline || "");
+          const formattedDate = typeof formatCzDate === "function" ? formatCzDate(e.date) : (e.date || "");
+
+          return `
+            <div class="reveal hover-float group flex h-full flex-col rounded-3xl border border-border bg-card p-6 shadow-sm transition-all duration-300">
+              <div class="flex items-start justify-between gap-3">
+                <span class="rounded-full px-2.5 py-1 text-xs font-semibold ${typeCls}">
+                  ${escapeHtml(e.type)}
+                </span>
+                <span class="shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold ${st.cls}">
+                  ${escapeHtml(st.label)}
+                </span>
               </div>
-              <div class="flex items-center gap-2">
-                <svg class="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
-                ${formatCzDate(e.date)}
+
+              <h3 class="mt-4 font-display text-lg font-bold leading-snug text-foreground group-hover:text-primary transition-colors">${escapeHtml(e.name)}</h3>
+
+              <div class="mt-3 space-y-1.5 text-xs text-muted-foreground">
+                <div class="flex items-center gap-2">
+                  <svg class="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                  ${escapeHtml(e.place)}
+                </div>
+                <div class="flex items-center gap-2">
+                  <svg class="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+                  ${formattedDate}
+                </div>
+              </div>
+
+              ${discHtml}
+
+              <div class="mt-auto flex flex-wrap items-center justify-between gap-2 border-t border-border/50 pt-4">
+                <span class="text-xs text-muted-foreground shrink-0 leading-tight">
+                  Uzávěrka: <b class="text-foreground font-semibold">${formattedDeadline}</b>
+                </span>
+                <button
+                  type="button"
+                  ${closed ? 'disabled' : ''}
+                  onclick="openSignUpDialog('${escapeJsArg(e.id)}')"
+                  class="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold transition-all active:scale-95 shrink-0 ${btnClass}"
+                >
+                  ${btnContent}
+                </button>
               </div>
             </div>
-
-            ${discHtml}
-
-            <div class="mt-auto flex flex-wrap items-center justify-between gap-2 border-t border-border/50 pt-4">
-              <span class="text-xs text-muted-foreground shrink-0 leading-tight">
-                Uzávěrka: <b class="text-foreground font-semibold">${formatCzDate(e.deadline)}</b>
-              </span>
-              <button
-                type="button"
-                ${closed ? 'disabled' : ''}
-                onclick="openSignUpDialog('${escapeJsArg(e.id)}')"
-                class="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold transition-all active:scale-95 shrink-0 ${btnClass}"
-              >
-                ${btnContent}
-              </button>
-            </div>
-          </div>
-        `;
-      }).join("");
+          `;
+        }).join("");
+      } catch (err) {
+        const container = document.getElementById("events-grid");
+        if (container) container.innerHTML = `<div class="col-span-full p-4 text-red-500">Chyba vykreslení: ${escapeHtml(err.message)}</div>`;
+      }
     }
 
     function updateAndRevealEvents() {

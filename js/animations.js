@@ -47,10 +47,14 @@
       return;
     }
 
-    // Mark elements as hidden (ready for animation)
+    // Mark elements as hidden (ready for animation) ONLY if below the fold
     revealEls.forEach(function (el) {
-      // Don't hide if already visible (e.g. above the fold)
-      if (!el.classList.contains('boh-anim-visible')) {
+      var rect = el.getBoundingClientRect();
+      var inViewport = rect.top < (window.innerHeight || document.documentElement.clientHeight) && rect.bottom > 0;
+      if (inViewport) {
+        el.classList.add('boh-anim-visible');
+        el.classList.remove('boh-anim-hidden');
+      } else if (!el.classList.contains('boh-anim-visible')) {
         el.classList.add('boh-anim-hidden');
       }
     });
