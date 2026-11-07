@@ -40,7 +40,7 @@
         </a>
 
         <!-- Desktop Navigation Links -->
-        <nav class="hidden items-center gap-1 xl:gap-2 lg:flex">
+        <nav class="hidden lg:flex items-center justify-center gap-1 xl:gap-2 flex-1 mx-4 xl:mx-8" aria-label="Hlavní navigace">
           <a href="/" class="nav-item active">Úvod</a>
           <a href="aktuality" class="nav-item">Aktuality</a>
           <a href="zavody" class="nav-item">Závody</a>
@@ -73,8 +73,10 @@
               </a>
             </div>
           </div>
+        </nav>
 
-          <div class="ml-2 flex items-center gap-2 border-l border-border/60 pl-3">
+        <!-- Desktop Action Buttons (Intranet, Search, Bell, Theme) -->
+        <div class="hidden lg:flex items-center gap-2 shrink-0">
             <a href="intranet" class="inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-1.5 text-xs font-bold text-primary-foreground shadow-xs hover:opacity-90 transition-opacity">
               <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
               <span>Intranet</span>
@@ -99,7 +101,8 @@
 
             <button type="button" class="theme-toggle-btn relative inline-flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:bg-card hover:text-foreground" aria-label="Přepnout motiv" title="Přepnout motiv"></button>
           </div>
-        </nav>
+        </div>
+
         <!-- Mobile Header Icons -->
         <div class="flex items-center gap-1.5 lg:hidden">
           <button type="button" class="site-search-btn relative inline-flex h-9 w-9 items-center justify-center rounded-full bg-secondary/60 border border-border/50 text-muted-foreground hover:bg-card hover:text-foreground touch-target-44 transition-all" aria-label="Interní vyhledávání">
