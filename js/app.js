@@ -227,41 +227,51 @@ function highlightActiveNav() {
 
   // Mobile Bottom Tab Bar (Edge-to-Edge)
   const bottomNav = document.getElementById("bottom-nav");
+  const drawerContent = document.getElementById("drawer-content");
+  const isDrawerOpen = drawerContent && !drawerContent.classList.contains("translate-y-full");
+
   if (bottomNav) {
     const dockItems = bottomNav.querySelectorAll(".mobile-tab-item, .fomo-dock-item");
-    let matchedDock = false;
-    dockItems.forEach(item => {
-      const href = item.getAttribute("href") || item.getAttribute("data-path");
-      if (href) {
-        const targetPage = normalizePageName(href);
-        if (targetPage === currentPage) {
-          item.classList.add("active");
-          matchedDock = true;
+    const moreBtn = document.getElementById("bottom-nav-more");
+
+    if (isDrawerOpen) {
+      dockItems.forEach(item => item.classList.remove("active"));
+      if (moreBtn) moreBtn.classList.add("active");
+    } else {
+      let matchedDock = false;
+      dockItems.forEach(item => {
+        const href = item.getAttribute("href") || item.getAttribute("data-path");
+        if (href) {
+          const targetPage = normalizePageName(href);
+          if (targetPage === currentPage) {
+            item.classList.add("active");
+            matchedDock = true;
+          } else {
+            item.classList.remove("active");
+          }
         } else {
           item.classList.remove("active");
         }
-      } else {
-        item.classList.remove("active");
-      }
-    });
+      });
 
-    // If current page is one of the drawer sections, mark the 'Více' button as active
-    if (!matchedDock) {
-      const moreBtn = document.getElementById("bottom-nav-more");
-      if (moreBtn) moreBtn.classList.add("active");
+      // If current page is one of the drawer sections, mark the 'Více' button as active
+      if (!matchedDock && moreBtn) {
+        moreBtn.classList.add("active");
+      }
     }
   }
 
   // Drawer Links Highlight
   const drawer = document.getElementById("drawer-content");
   if (drawer) {
-    drawer.querySelectorAll("a").forEach(a => {
-      const href = a.getAttribute("href");
+    drawer.querySelectorAll("a, .mobile-drawer-btn").forEach(a => {
+      const href = a.getAttribute("href") || a.getAttribute("data-drawer-link");
       if (!href) return;
       const targetPage = normalizePageName(href);
       if (targetPage === currentPage) {
-        a.classList.add("border-primary", "bg-primary/15", "text-primary");
-        a.classList.remove("border-border/60", "bg-background/70", "text-foreground");
+        a.classList.add("active");
+      } else {
+        a.classList.remove("active");
       }
     });
   }
@@ -273,20 +283,46 @@ function initMobileNav() {
   const drawerContent = document.getElementById("drawer-content");
   const moreBtn = document.getElementById("bottom-nav-more");
   const drawerCloseBtn = document.getElementById("drawer-close-btn");
+  let lastFocusedElement = null;
 
   if (moreBtn && drawerOverlay && drawerContent) {
+    const getFocusable = () => {
+      return Array.from(drawerContent.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'))
+        .filter(el => !el.hasAttribute('disabled') && el.offsetParent !== null);
+    };
+
     const openDrawer = (e) => {
       if (e) { e.preventDefault(); e.stopPropagation(); }
+      lastFocusedElement = document.activeElement;
       drawerOverlay.classList.remove("hidden");
       drawerContent.classList.remove("translate-y-full");
+      drawerContent.setAttribute("aria-hidden", "false");
+      if (moreBtn) {
+        document.querySelectorAll("#bottom-nav .mobile-tab-item").forEach(item => item.classList.remove("active"));
+        moreBtn.classList.add("active");
+      }
       document.body.style.overflow = "hidden";
+      setTimeout(() => {
+        const focusable = getFocusable();
+        if (drawerCloseBtn) {
+          drawerCloseBtn.focus();
+        } else if (focusable.length > 0) {
+          focusable[0].focus();
+        }
+      }, 50);
     };
 
     const closeDrawer = (e) => {
       if (e) { e.preventDefault(); e.stopPropagation(); }
       drawerOverlay.classList.add("hidden");
       drawerContent.classList.add("translate-y-full");
+      drawerContent.setAttribute("aria-hidden", "true");
       document.body.style.overflow = "";
+      highlightActiveNav();
+      if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+        lastFocusedElement.focus();
+        lastFocusedElement = null;
+      }
     };
 
     const toggleDrawer = (e) => {
@@ -304,8 +340,28 @@ function initMobileNav() {
     drawerOverlay.addEventListener("click", closeDrawer);
     if (drawerCloseBtn) drawerCloseBtn.addEventListener("click", closeDrawer);
     drawerContent.querySelectorAll("a").forEach(a => a.addEventListener("click", closeDrawer));
+
+    // Keyboard Tab Trap & Escape handling
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !drawerOverlay.classList.contains("hidden")) closeDrawer(e);
+      if (drawerContent && !drawerContent.classList.contains("translate-y-full")) {
+        if (e.key === "Escape") {
+          closeDrawer(e);
+          return;
+        }
+        if (e.key === "Tab") {
+          const focusable = getFocusable();
+          if (focusable.length === 0) return;
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
     });
 
     if (window.location.hash === "#menu" || window.location.hash === "#drawer") {
@@ -1180,8 +1236,8 @@ function initSignUpModal() {
     modal.setAttribute("data-modal-overlay", "true");
     modal.innerHTML = `
       <div class="fixed inset-0 bg-black/70 backdrop-blur-md modal-overlay-bg"></div>
-      <div class="relative w-full max-w-lg rounded-3xl border border-primary/30 bg-card p-6 sm:p-8 shadow-[var(--shadow-elevated)] backdrop-blur-2xl z-10 max-h-[90vh] overflow-y-auto">
-        <div class="flex items-start justify-between gap-4 border-b border-border/40 pb-4">
+      <div class="relative w-full max-w-lg rounded-3xl border border-primary/30 bg-card p-6 sm:p-8 shadow-[var(--shadow-elevated)] backdrop-blur-2xl z-10 max-h-[90vh] overflow-hidden flex flex-col">
+        <div class="flex items-start justify-between gap-4 border-b border-border/40 pb-4 shrink-0">
           <div>
             <span class="inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-3 py-0.5 text-xs font-semibold text-primary">
               Přihláška na závody
@@ -1194,7 +1250,7 @@ function initSignUpModal() {
           </button>
         </div>
 
-        <form id="signup-form" class="mt-5 space-y-5">
+        <form id="signup-form" class="mt-5 space-y-5 overflow-y-auto flex-1 pr-1">
           <div id="signup-disciplines-container"></div>
 
           <div>

@@ -10,9 +10,9 @@
   --radius-card: 1rem;
   --radius-callout: 1.5rem;
 
-  /* Typography Scale & Families (Swimming Club Identity: Athletic & Highly Readable) */
-  --font-heading: "Barlow Semi Condensed", "Sora", system-ui, -apple-system, sans-serif;
-  --font-body: "Source Sans 3", "Manrope", system-ui, -apple-system, sans-serif;
+  /* Typography Scale & Families (Swimming Club Identity: Sora & Manrope) */
+  --font-heading: "Sora", sans-serif;
+  --font-body: "Manrope", sans-serif;
   --font-display: var(--font-heading);
   --font-sans: var(--font-body);
 
@@ -243,19 +243,19 @@ h1, h2, h3, h4, h5, h6, .font-display {
 }
 
 h1 {
-  font-weight: 800;
-  line-height: 1.1;
+  font-weight: 700;
+  line-height: 1.15;
   letter-spacing: -0.02em;
 }
 
 h2 {
-  font-weight: 800;
-  line-height: 1.15;
+  font-weight: 600;
+  line-height: 1.2;
   letter-spacing: -0.015em;
 }
 
 h3 {
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.25;
   letter-spacing: -0.01em;
 }
@@ -506,7 +506,7 @@ body > div {
 .spotlight-card::before {
   content: "";
   position: absolute;
-  inset: -1px;
+  inset: 0;
   border-radius: inherit;
   background: radial-gradient(
     400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
@@ -959,18 +959,18 @@ html.bohemka .notif-header-banner {
     right: 0 !important;
     width: 100% !important;
     height: calc(3.85rem + env(safe-area-inset-bottom, 0px)) !important;
-    padding: 0.3rem 0.5rem calc(0.3rem + env(safe-area-inset-bottom, 0px)) 0.5rem !important;
+    padding: 0.35rem 0.65rem calc(0.35rem + env(safe-area-inset-bottom, 0px)) 0.65rem !important;
     margin: 0 !important;
-    z-index: 50 !important;
-    background: rgba(7, 30, 18, 0.96) !important;
+    z-index: 100 !important;
+    background: rgba(5, 19, 11, 0.96) !important;
     backdrop-filter: blur(20px) !important;
     -webkit-backdrop-filter: blur(20px) !important;
-    border-top: 1px solid rgba(0, 186, 96, 0.28) !important;
+    border-top: 1px solid rgba(0, 186, 96, 0.24) !important;
     border-radius: 0 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: space-around !important;
-    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.45) !important;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.5) !important;
     transform: none !important;
     opacity: 1 !important;
     pointer-events: auto !important;
@@ -981,14 +981,14 @@ html.bohemka .notif-header-banner {
   html:not(.bohemka):not(.dark) #bottom-nav {
     background: rgba(255, 255, 255, 0.98) !important;
     border-top: 1px solid rgba(0, 104, 55, 0.16) !important;
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06) !important;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08) !important;
   }
 
   html.dark .mobile-bottom-nav,
   html.dark .fomo-bottom-dock,
   html.dark #bottom-nav {
-    background: rgba(14, 20, 27, 0.98) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background: rgba(5, 19, 11, 0.96) !important;
+    border-top: 1px solid rgba(0, 186, 96, 0.24) !important;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5) !important;
   }
 }
@@ -1000,18 +1000,21 @@ html.bohemka .notif-header-banner {
   flex: 1;
   flex-direction: column;
   height: 100%;
-  padding: 0.2rem 0.1rem;
+  max-width: 5.5rem;
+  padding: 0.25rem 0.2rem;
   align-items: center;
   justify-content: center;
-  gap: 2px;
-  color: #85b89c;
-  font-size: 0.68rem;
+  gap: 3px;
+  color: #7aa38f;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
   font-weight: 500;
   text-decoration: none;
   background: transparent;
-  border: none;
+  border: 1px solid transparent;
+  border-radius: 9999px;
   box-shadow: none;
-  transition: color 0.15s ease;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
@@ -1020,48 +1023,51 @@ html.bohemka .notif-header-banner {
 
 .mobile-tab-item svg,
 .fomo-dock-item svg {
-  width: 1.35rem;
-  height: 1.35rem;
+  width: 1.25rem;
+  height: 1.25rem;
   stroke-width: 2;
   transition: transform 0.15s ease, color 0.15s ease;
   flex-shrink: 0;
 }
 
+/* Active Dock Item: Restrained emerald capsule matching reference */
 .mobile-tab-item.active,
 .fomo-dock-item.active {
-  color: #00ba60 !important;
-  font-weight: 700 !important;
-  background: transparent !important;
-  box-shadow: none !important;
+  color: #00bb7f !important;
+  font-weight: 600 !important;
+  background: rgba(0, 186, 96, 0.16) !important;
+  border-color: rgba(0, 186, 96, 0.32) !important;
+  box-shadow: 0 2px 10px rgba(0, 186, 96, 0.12) !important;
 }
 
 .mobile-tab-item.active svg,
 .fomo-dock-item.active svg {
-  color: #00ba60 !important;
+  color: #00bb7f !important;
+  stroke-width: 2.25;
 }
 
-html:not(.bohemka):not(.dark) .mobile-tab-item,
-html:not(.bohemka):not(.dark) .fomo-dock-item {
+html:not(.bohemka):not(.dark) .mobile-tab-item {
   color: #64748b;
 }
 
 html:not(.bohemka):not(.dark) .mobile-tab-item.active,
 html:not(.bohemka):not(.dark) .fomo-dock-item.active {
-  color: #007a3d !important;
+  color: #006640 !important;
+  background: rgba(0, 104, 55, 0.1) !important;
+  border-color: rgba(0, 104, 55, 0.25) !important;
 }
 
 html:not(.bohemka):not(.dark) .mobile-tab-item.active svg,
 html:not(.bohemka):not(.dark) .fomo-dock-item.active svg {
-  color: #007a3d !important;
+  color: #006640 !important;
 }
 
-/* Mobile Drawer Bottom Sheet (All Sections) */
-.translate-y-full {
-  transform: translateY(100%) !important;
-}
-
+/* Mobile Drawer Bottom Sheet (Secondary Navigation) */
 #drawer-overlay {
-  z-index: 998 !important;
+  z-index: 90 !important;
+  background: rgba(0, 0, 0, 0.65) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
   transition: opacity 0.25s ease;
 }
 
@@ -1078,21 +1084,96 @@ html:not(.bohemka):not(.dark) .fomo-dock-item.active svg {
 }
 
 .mobile-drawer-sheet,
-.fomo-drawer-sheet {
-  z-index: 999 !important;
-  background: color-mix(in oklab, var(--card) 98%, transparent);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
-  border-top: 1px solid color-mix(in oklab, var(--border) 80%, rgba(255, 255, 255, 0.2));
-  box-shadow: 0 -20px 50px -10px rgba(0, 0, 0, 0.7);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
-  will-change: transform;
+.fomo-drawer-sheet,
+#drawer-content {
+  position: fixed !important;
+  bottom: calc(3.85rem + env(safe-area-inset-bottom, 0px)) !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 95 !important;
+  background: #05130b !important;
+  border-top: 1px solid rgba(0, 186, 96, 0.28) !important;
+  border-left: 1px solid rgba(0, 186, 96, 0.28) !important;
+  border-right: 1px solid rgba(0, 186, 96, 0.28) !important;
+  border-bottom: none !important;
+  border-radius: 1.5rem 1.5rem 0 0 !important;
+  overflow: hidden !important;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  isolation: isolate;
+  box-shadow: 0 -16px 40px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(0, 186, 96, 0.1) inset !important;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease !important;
+  will-change: transform, opacity;
 }
 
 #drawer-content.translate-y-full {
-  transform: translateY(100%) !important;
+  transform: translateY(calc(100% + 2rem)) !important;
+  opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
+}
+
+#drawer-content:not(.translate-y-full) {
+  transform: translateY(0%) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+html:not(.bohemka):not(.dark) .mobile-drawer-sheet,
+html:not(.bohemka):not(.dark) #drawer-content {
+  background: #ffffff !important;
+  border-top: 1px solid rgba(0, 104, 55, 0.2) !important;
+  border-left: 1px solid rgba(0, 104, 55, 0.2) !important;
+  border-right: 1px solid rgba(0, 104, 55, 0.2) !important;
+  box-shadow: 0 -16px 40px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 104, 55, 0.08) inset !important;
+}
+
+/* 2-Column Secondary Navigation Pill Buttons */
+.mobile-drawer-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 48px !important;
+  padding: 0.75rem 1rem !important;
+  border-radius: 9999px !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.9375rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  letter-spacing: -0.01em !important;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  user-select: none !important;
+  touch-action: manipulation !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.mobile-drawer-btn:active {
+  transform: scale(0.97) !important;
+  background: rgba(0, 186, 96, 0.18) !important;
+  border-color: rgba(0, 186, 96, 0.45) !important;
+}
+
+.mobile-drawer-btn.active {
+  background: rgba(0, 186, 96, 0.2) !important;
+  border-color: rgba(0, 186, 96, 0.5) !important;
+  color: #00bb7f !important;
+  font-weight: 700 !important;
+}
+
+html:not(.bohemka):not(.dark) .mobile-drawer-btn {
+  background: #f1f5f3 !important;
+  border: 1px solid rgba(0, 104, 55, 0.15) !important;
+  color: #0f172a !important;
+}
+
+html:not(.bohemka):not(.dark) .mobile-drawer-btn.active {
+  background: rgba(0, 104, 55, 0.12) !important;
+  border-color: rgba(0, 104, 55, 0.4) !important;
+  color: #006640 !important;
 }
 
 #drawer-content:not(.translate-y-full) {
@@ -1198,6 +1279,11 @@ html:not(.bohemka):not(.dark) .fomo-dock-item.active svg {
 /* Ensure flex parents give min-width: 0 to truncating text elements */
 .min-w-0 {
   min-width: 0 !important;
+}
+
+/* Grid Column Spanning */
+.col-span-2 {
+  grid-column: span 2 / span 2 !important;
 }
 
 /* Navigation item styling — Compact Utilitarian Single-Row Desktop Nav */
@@ -1423,11 +1509,18 @@ html.bohemka footer {
 }
 
 html.bohemka .mobile-drawer-sheet,
-html.bohemka .fomo-drawer-sheet {
-  background: #092014 !important;
-  border-top: 1px solid rgba(0, 186, 96, 0.35) !important;
+html.bohemka .fomo-drawer-sheet,
+html.bohemka #drawer-content {
+  background: #05130b !important;
+  border-top: 1px solid rgba(0, 186, 96, 0.28) !important;
+  border-left: 1px solid rgba(0, 186, 96, 0.28) !important;
+  border-right: 1px solid rgba(0, 186, 96, 0.28) !important;
+  border-bottom: none !important;
   border-radius: 1.5rem 1.5rem 0 0 !important;
-  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6) !important;
+  overflow: hidden !important;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  isolation: isolate;
+  box-shadow: 0 -16px 40px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(0, 186, 96, 0.1) inset !important;
 }
 
 /* 13. Concentric Border Radii & Rounded Padding System */
@@ -1672,7 +1765,10 @@ html.dark .wave:not(.wave--light) {
   border-radius: 1.5rem;
   overflow: hidden;
   border: 1px solid rgba(0, 186, 96, 0.28);
-  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  mask-image: radial-gradient(white, black);
+  isolation: isolate;
 }
 
 @media (min-width: 1024px) {
@@ -2091,6 +2187,121 @@ body.intranet-edit-mode .cms-edit-badge {
 .dark .intranet-dense-table td {
   border-bottom: 1px solid #18181b;
   color: #f4f4f5;
+}
+
+/* ============================================================================
+   ESSENTIAL SPACING & LAYOUT UTILITIES (Vanilla CSS Architecture)
+   Provides first-class implementations for standard utility classes
+   used by mobile cards, drawer sheets, headers, and flex/grid layouts.
+   ============================================================================ */
+
+/* Gap Utilities */
+.gap-0\.5 { gap: 0.125rem !important; }
+.gap-1 { gap: 0.25rem !important; }
+.gap-1\.5 { gap: 0.375rem !important; }
+.gap-2 { gap: 0.5rem !important; }
+.gap-2\.5 { gap: 0.625rem !important; }
+.gap-3 { gap: 0.75rem !important; }
+.gap-3\.5 { gap: 0.875rem !important; }
+.gap-4 { gap: 1rem !important; }
+.gap-5 { gap: 1.25rem !important; }
+.gap-6 { gap: 1.5rem !important; }
+.gap-8 { gap: 2rem !important; }
+.gap-x-4 { column-gap: 1rem !important; }
+
+/* Grid Utilities */
+.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)) !important; }
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+.grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+.col-span-1 { grid-column: span 1 / span 1 !important; }
+.col-span-2 { grid-column: span 2 / span 2 !important; }
+.col-span-full { grid-column: 1 / -1 !important; }
+
+/* Dimensions */
+.h-1 { height: 0.25rem !important; }
+.h-1\.5 { height: 0.375rem !important; }
+.h-2 { height: 0.5rem !important; }
+.h-2\.5 { height: 0.625rem !important; }
+.h-3\.5 { height: 0.875rem !important; }
+.h-4 { height: 1rem !important; }
+.h-5 { height: 1.25rem !important; }
+.h-6 { height: 1.5rem !important; }
+.h-8 { height: 2rem !important; }
+.h-9 { height: 2.25rem !important; }
+.h-10 { height: 2.5rem !important; }
+.h-11 { height: 2.75rem !important; }
+.h-12 { height: 3rem !important; }
+
+.w-1 { width: 0.25rem !important; }
+.w-1\.5 { width: 0.375rem !important; }
+.w-2 { width: 0.5rem !important; }
+.w-2\.5 { width: 0.625rem !important; }
+.w-3\.5 { width: 0.875rem !important; }
+.w-4 { width: 1rem !important; }
+.w-5 { width: 1.25rem !important; }
+.w-6 { width: 1.5rem !important; }
+.w-8 { width: 2rem !important; }
+.w-9 { width: 2.25rem !important; }
+.w-10 { width: 2.5rem !important; }
+.w-11 { width: 2.75rem !important; }
+.w-12 { width: 3rem !important; }
+
+/* Touch Target Minimums */
+.touch-target-44 {
+  min-height: 44px !important;
+  min-width: 44px !important;
+}
+
+/* Padding & Margins */
+.p-1\.5 { padding: 0.375rem !important; }
+.p-2\.5 { padding: 0.625rem !important; }
+.p-3\.5 { padding: 0.875rem !important; }
+.px-2\.5 { padding-left: 0.625rem !important; padding-right: 0.625rem !important; }
+.px-3\.5 { padding-left: 0.875rem !important; padding-right: 0.875rem !important; }
+.py-0\.5 { padding-top: 0.125rem !important; padding-bottom: 0.125rem !important; }
+.py-1\.5 { padding-top: 0.375rem !important; padding-bottom: 0.375rem !important; }
+.py-2\.5 { padding-top: 0.625rem !important; padding-bottom: 0.625rem !important; }
+.py-3\.5 { padding-top: 0.875rem !important; padding-bottom: 0.875rem !important; }
+
+.mt-0\.5 { margin-top: 0.125rem !important; }
+.mt-1\.5 { margin-top: 0.375rem !important; }
+.mt-2\.5 { margin-top: 0.625rem !important; }
+.mt-3\.5 { margin-top: 0.875rem !important; }
+.mb-1\.5 { margin-bottom: 0.375rem !important; }
+.mb-2\.5 { margin-bottom: 0.625rem !important; }
+
+/* Space-y Stacking Utilities */
+.space-y-1\.5 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.375rem !important; }
+.space-y-2\.5 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.625rem !important; }
+.space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 1rem !important; }
+
+/* Micro-Typography */
+.text-\[10px\] { font-size: 10px !important; line-height: 14px !important; }
+.text-\[11px\] { font-size: 11px !important; line-height: 15px !important; }
+.text-\[12px\] { font-size: 12px !important; line-height: 16px !important; }
+.text-\[13px\] { font-size: 13px !important; line-height: 18px !important; }
+
+/* Interactive feedback */
+.active\:scale-95:active { transform: scale(0.95) !important; }
+.active\:scale-98:active { transform: scale(0.98) !important; }
+
+/* Responsive sm/md/lg extensions */
+@media (min-width: 640px) {
+  .sm\:h-10 { height: 2.5rem !important; }
+  .sm\:w-10 { width: 2.5rem !important; }
+  .sm\:h-11 { height: 2.75rem !important; }
+  .sm\:w-11 { width: 2.75rem !important; }
+  .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .sm\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  .sm\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+  .sm\:gap-4 { gap: 1rem !important; }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)) !important; }
+  .lg\:col-span-5 { grid-column: span 5 / span 5 !important; }
+  .lg\:col-span-7 { grid-column: span 7 / span 7 !important; }
 }
 
 

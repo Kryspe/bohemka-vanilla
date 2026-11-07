@@ -20,7 +20,7 @@
   <link rel="manifest" href="assets/manifest.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="css/style.css">
   <script>
     try {
@@ -175,8 +175,8 @@
 
     <!-- MOBILE DRAWER (BOTTOM SHEET) -->
     <div id="drawer-overlay" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-md lg:hidden hidden transition-opacity"></div>
-    <div id="drawer-content" class="mobile-drawer-sheet fixed inset-x-0 bottom-0 z-50 rounded-t-2xl pb-[calc(2.5rem+env(safe-area-inset-bottom))] lg:hidden translate-y-full transition-transform duration-300 max-h-[85vh] overflow-y-auto">
-      <div class="sticky top-0 z-10 bg-inherit pt-3 pb-2.5 px-6 flex items-center justify-between border-b border-border/40">
+    <div id="drawer-content" class="mobile-drawer-sheet fixed inset-x-0 bottom-0 z-50 rounded-t-2xl lg:hidden translate-y-full transition-transform duration-300 max-h-[85vh] flex flex-col overflow-hidden">
+      <div class="sticky top-0 z-10 bg-inherit pt-3 pb-2.5 px-6 flex items-center justify-between border-b border-border/40 rounded-t-2xl shrink-0">
         <div class="flex items-center gap-2.5">
           <div class="h-1.5 w-10 rounded-full bg-border/80"></div>
           <span class="text-xs font-bold uppercase tracking-wider text-primary">Všechny sekce</span>
@@ -185,7 +185,7 @@
           <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
         </button>
       </div>
-      <div class="grid grid-cols-2 gap-2.5 p-4 sm:p-6">
+      <div class="grid grid-cols-2 gap-2.5 p-4 sm:p-6 overflow-y-auto flex-1 pb-[calc(2.5rem+env(safe-area-inset-bottom))]">
         <a href="pro-rodice" class="flex flex-col gap-1 rounded-2xl border border-border/60 bg-background/70 p-3.5 transition-all hover:border-primary/50 active:scale-95">
           <span class="text-sm font-bold text-foreground">Pro rodiče</span>
           <span class="text-xs text-muted-foreground">Lékařské prohlídky a vzkazy</span>
