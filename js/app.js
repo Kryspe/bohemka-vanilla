@@ -1353,6 +1353,10 @@ function openSignUpDialog(eventId, accent = "primary") {
   const allEvents = storeObj ? storeObj.getEvents() : ((dataObj && dataObj.events) || []);
   const event = allEvents.find(ev => ev.id === eventId);
   if (!event) return;
+  if (typeof isClosed === "function" && isClosed(event)) {
+    if (typeof showToast === "function") showToast("Přihlášky na tuto akci jsou již uzavřeny.", "error");
+    return;
+  }
 
   activeEventForSignup = event;
   const modal = document.getElementById("signup-modal");

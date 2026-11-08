@@ -516,30 +516,60 @@
       if (window.initScrollReveal) setTimeout(window.initScrollReveal, 40);
     }
 
-    // 1. Swimmer Races
+    function isEventClosed(event) {
+      if (!event) return true;
+      if (typeof isClosed === "function") return isClosed(event);
+      if (!event.deadline) return false;
+      const target = new Date(event.deadline + "T23:59:59").getTime();
+      return target - Date.now() < 0;
+    }
+
+    // 1. Swimmer Races (skrýt uzavřené položky v sekci plavce)
     function renderSwimmerRacesTab(container) {
       const allEvents = (window.BohStore ? window.BohStore.getEvents() : (window.BohData.events || []));
-      const races = allEvents.filter(e => e.kind === "zavod");
+      const races = allEvents.filter(e => e.kind === "zavod" && !isEventClosed(e));
       container.innerHTML = `
         <div class="rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
-          <h2 class="mb-5 font-display text-xl font-bold">Přihlášky na závody</h2>
-          <div class="grid gap-4 sm:grid-cols-2">
-            ${races.map(e => renderEventCard(e)).join("")}
+          <div class="flex items-center justify-between mb-5">
+            <h2 class="font-display text-xl font-bold">Přihlášky na závody</h2>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[var(--intranet-accent)]/15 text-[var(--intranet-accent)]">
+              ${races.length} ${races.length === 1 ? 'otevřený závod' : races.length >= 2 && races.length <= 4 ? 'otevřené závody' : 'otevřených závodů'}
+            </span>
           </div>
+          ${races.length === 0 ? `
+            <div class="rounded-xl border border-dashed border-border/80 p-8 text-center text-sm text-muted-foreground">
+              Aktuálně nejsou otevřeny žádné přihlášky na závody. Všechny probíhající uzávěrky již vypršely.
+            </div>
+          ` : `
+            <div class="grid gap-4 sm:grid-cols-2">
+              ${races.map(e => renderEventCard(e)).join("")}
+            </div>
+          `}
         </div>
       `;
     }
 
-    // 2. Swimmer Camps
+    // 2. Swimmer Camps (skrýt uzavřené položky v sekci plavce)
     function renderSwimmerCampsTab(container) {
       const allEvents = (window.BohStore ? window.BohStore.getEvents() : (window.BohData.events || []));
-      const camps = allEvents.filter(e => e.kind === "soustredeni");
+      const camps = allEvents.filter(e => e.kind === "soustredeni" && !isEventClosed(e));
       container.innerHTML = `
         <div class="rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
-          <h2 class="mb-5 font-display text-xl font-bold">Rezervace na akce (tábory, soustředění)</h2>
-          <div class="grid gap-4 sm:grid-cols-2">
-            ${camps.map(e => renderEventCard(e)).join("")}
+          <div class="flex items-center justify-between mb-5">
+            <h2 class="font-display text-xl font-bold">Rezervace na akce (tábory, soustředění)</h2>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[var(--intranet-accent)]/15 text-[var(--intranet-accent)]">
+              ${camps.length} ${camps.length === 1 ? 'otevřená akce' : camps.length >= 2 && camps.length <= 4 ? 'otevřené akce' : 'otevřených akcí'}
+            </span>
           </div>
+          ${camps.length === 0 ? `
+            <div class="rounded-xl border border-dashed border-border/80 p-8 text-center text-sm text-muted-foreground">
+              Aktuálně nejsou otevřeny žádné rezervace na akce ani soustředění.
+            </div>
+          ` : `
+            <div class="grid gap-4 sm:grid-cols-2">
+              ${camps.map(e => renderEventCard(e)).join("")}
+            </div>
+          `}
         </div>
       `;
     }

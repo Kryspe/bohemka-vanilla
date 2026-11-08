@@ -381,7 +381,7 @@
               </tr>
             </thead>
             <tbody>
-              ${schedule.map(s => `
+              ${schedule.filter(s => isEditor || s.status !== 'closed').map(s => `
                 <tr class="cms-editable-block hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors">
                   <td class="font-bold text-zinc-900 dark:text-zinc-100">
                     ${escapeHtml(s.name)}
