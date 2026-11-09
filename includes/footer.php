@@ -16,7 +16,7 @@
           <div class="mt-4 flex items-center gap-4 text-xs text-muted-foreground">
             <span>IČO: 00539121</span>
             <span>·</span>
-            <span>Účet: 123456789/0300 (ČSOB)</span>
+            <span>Účet: 351416278/0300 (ČSOB)</span>
           </div>
         </div>
 

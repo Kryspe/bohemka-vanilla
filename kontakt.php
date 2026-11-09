@@ -133,7 +133,7 @@ require_once __DIR__ . '/includes/header.php';
           <strong class="text-foreground">IČO:</strong> 00539121
         </div>
         <div>
-          <strong class="text-foreground">Bankovní účet:</strong> 123456789/0300 (ČSOB)
+          <strong class="text-foreground">Bankovní účet:</strong> 351416278/0300 (ČSOB)
         </div>
       </div>
     </div>

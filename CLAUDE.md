@@ -99,7 +99,7 @@ git push bohemka-vanilla-backup main
 
 - **ČSPS CSV Export:** Středník (`;`), UTF-8 s BOM (`\uFEFF`), sloupce: `"Závod";"Datum";"Místo";"Jméno plavce";"Ročník";"Pohlaví";"Kategorie/Skupina";"Přihlášené disciplíny";"Poznámka / Odhláška"`, sanitizace `'` proti CSV injection.
 - **Lenex 3.0 Export:** XML standard ČSPS (`<LENEX version="3.0">`), sanitizace řídicích znaků XML 1.0.
-- **SPAYD QR Platba:** Účet ČSOB `123456789/0300`, variabilní symbol `214`, obrázek `assets/QR_plavani214.jpg`.
+- **SPAYD QR Platba:** Účet ČSOB `351416278/0300`, variabilní symbol `214`, obrázek `assets/QR_plavani214.jpg`.
 - **Mobilní navigace (9 položek v menu):**
   1. Aktuality (`aktuality`)
   2. Pro rodiče (`pro-rodice`)

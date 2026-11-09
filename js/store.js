@@ -967,7 +967,7 @@ window.BohStore = (function () {
       {
         id: "notif_payment_1",
         title: "Platba oddílových příspěvků na 1. pololetí",
-        subtitle: "Prosíme o úhradu oddílových příspěvků na účet 123456789/0300 (ČSOB) do 15. 10. Jako VS uveďte rodné číslo plavce.",
+        subtitle: "Prosíme o úhradu oddílových příspěvků na účet 351416278/0300 (ČSOB) do 15. 10. Jako VS uveďte rodné číslo plavce.",
         type: "payment",
         url: "pro-rodice",
         createdAt: new Date().toISOString(),
