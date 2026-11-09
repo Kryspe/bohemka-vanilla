@@ -1389,7 +1389,7 @@ window.BohData = {
       "dateEnd": "2026-11-01"
     },
     {
-      "id": "podzimni-kp-dlouhe-trate-2026",
+      "id": "podzimni-kp-2017-mladsi-2026",
       "name": "Podzimní Krajský přebor žactva 2017 a mladší",
       "place": "Praha - Zelený pruh",
       "date": "2026-11-07",
@@ -1558,7 +1558,7 @@ window.BohData = {
       "dateEnd": "2026-11-29"
     },
     {
-      "id": "zimni-pohar-cr-desetiletych-cechy-2026",
+      "id": "zimni-pohar-cr-jedenactiletych-cechy-2026",
       "name": "Zimní pohár ČR jedenáctiletých – Čechy",
       "place": "možná P-Radlice",
       "date": "2026-12-05",
@@ -1580,7 +1580,7 @@ window.BohData = {
       "disciplines": []
     },
     {
-      "id": "zimni-mistrovstvi-cr-ml-zactva-2014-2026",
+      "id": "zimni-mistrovstvi-cr-st-zactva-2012-2026",
       "name": "Zimní mistrovství ČR st. žactva (2012)",
       "place": "Znojmo",
       "date": "2026-12-12",
@@ -1592,7 +1592,7 @@ window.BohData = {
       "dateEnd": "2026-12-13"
     },
     {
-      "id": "zimni-mistrovstvi-cr-ml-zactva-2014-2026",
+      "id": "zimni-mistrovstvi-cr-st-zactva-2013-2026",
       "name": "Zimní mistrovství ČR st. žactva (2013)",
       "place": "Mladá Boleslav",
       "date": "2026-12-12",

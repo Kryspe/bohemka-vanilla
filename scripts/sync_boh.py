@@ -158,10 +158,27 @@ CODES = {"50 VZ", "100 VZ", "200 VZ", "400 VZ", "800 VZ", "1500 VZ", "50 Z", "10
          "50 M", "100 M", "200 M", "100 PZ", "200 PZ", "400 PZ"}
 
 
+def match_old(old_events, used_ids, name, date):
+    """Najde drivejsi zaznam (kvuli stabilnim ID): presna shoda nazvu, jinak nejpodobnejsi nazev ve stejny den.
+    Kazde ID se prirazuje nejvyse jednou."""
+    import difflib
+    cands = [o for o in old_events if o["date"] == date and o["id"] not in used_ids]
+    for o in cands:
+        if slug(o["name"]) == slug(name):
+            return o
+    best, score = None, 0.0
+    for o in cands:
+        r = difflib.SequenceMatcher(None, slug(o["name"]), slug(name)).ratio()
+        if r > score:
+            best, score = o, r
+    return best if best and score >= 0.75 else {}
+
+
 def sync_events(js, old_events, since):
     s = get(BASE + "/zavody/")
     rows = re.findall(r"page=souhrn&amp;zavod=(\d+)'>(.*?)</a></td><td[^>]*>(\d+\. \d+\. \d{4})", s)
     out = []
+    used_ids = set()
     for i, name, d in rows:
         name = html.unescape(name).strip()
         date = iso(d)
@@ -186,7 +203,9 @@ def sync_events(js, old_events, since):
         mm = re.findall(r"\d+\. \d+\. \d{4}", dates)
         kind = "soustredeni" if "soustředění" in name.lower() else "zavod"
         tp = "Soustředění" if kind == "soustredeni" else next((x for k, x in (("mistrovství", "Mistrovství"), ("přebor", "Přebor"), ("pohár", "Pohár"), ("cena", "Pohár"), ("veteran", "Veteráni")) if k in name.lower()), "Závod")
-        prev = next((o for o in old_events if o["date"] == date and slug(o["name"])[:12] == slug(name)[:12]), None) or {}
+        prev = match_old(old_events, used_ids, name, date)
+        if prev.get("id"):
+            used_ids.add(prev["id"])
         ev = {"id": prev.get("id") or slug(name) + "-" + date[:4], "name": name, "place": place or prev.get("place") or "dle propozic na boh.cz",
               "date": date, "deadline": deadline, "type": prev.get("type") or tp, "kind": kind,
               "note": note or prev.get("note") or "Údaje převzaty z oficiálního kalendáře boh.cz", "disciplines": ds}
@@ -194,6 +213,14 @@ def sync_events(js, old_events, since):
             ev["dateEnd"] = iso(mm[1])
         out.append(ev)
         time.sleep(0.2)
+    seen = set()
+    for e in out:
+        base = e["id"]
+        n = 2
+        while e["id"] in seen:
+            e["id"] = "%s-%d" % (base, n)
+            n += 1
+        seen.add(e["id"])
     out.sort(key=lambda e: e["date"])
     print("zavody:", len(out))
     return replace_section(js, "events", "records", out)
