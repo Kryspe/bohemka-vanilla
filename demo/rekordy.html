@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oddílové rekordy | TJ Bohemians Praha</title>
+<meta name="description" content="Oddílové rekordy plaveckého oddílu TJ Bohemians Praha podle kategorií, pohlaví a délky bazénu.">
+<meta name="theme-color" content="#06371c">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="stylesheet" href="/demo/css/demo.css">
+<script defer src="/demo/js/demo.js"></script>
+</head>
+<body data-page="rekordy">
+<a class="skip" href="#obsah">Přeskočit na obsah</a>
+<header class="site-header">
+  <div class="head-inner">
+    <a class="logo" href="/demo/" aria-label="TJ Bohemians Praha, oddíl plavání - úvod"><img src="/assets/logo8.png" alt="TJ Bohemians Praha, oddíl plavání, 1946-2026" width="228" height="64"></a>
+    <div class="head-links">
+      <a href="https://www.boh.cz/">Původní web boh.cz</a>
+      <a href="https://www.facebook.com/boh.cz/" rel="noopener">Facebook</a>
+      <a href="mailto:jan.srb@czechswimming.cz">jan.srb@czechswimming.cz</a>
+    </div>
+  </div>
+  <nav class="menu" aria-label="Hlavní menu">
+    <ul>
+      <li><a href="/demo/">Aktuality</a></li>
+      <li><a href="/demo/vzkazy">Pro rodiče</a></li>
+      <li><a href="/demo/oddil">Oddíl</a></li>
+      <li><a href="/demo/zavody">Závody</a></li>
+      <li><a href="/demo/rekordy" aria-current="page">Rekordy</a></li>
+      <li><a href="/demo/statistika">Statistika</a></li>
+      <li><a href="/demo/foto">Foto</a></li>
+      <li><a href="/demo/stahovani">Ke stažení</a></li>
+      <li><a href="https://www.boh.cz/index.php?page=login">Intranet</a></li>
+    </ul>
+  </nav>
+</header>
+<div class="page">
+<main id="obsah" class="main">
+<h1>Rekordy</h1>
+<noscript><p class="note">Tato stránka potřebuje JavaScript. Aktuální informace najdete na <a href="https://www.boh.cz/">boh.cz</a>.</p></noscript>
+<div id="rec-wrap">
+  <div class="tools">
+    <div>
+      <label for="rec-cat">Kategorie</label>
+      <select id="rec-cat"></select>
+    </div>
+    <div>
+      <span style="display:block;font-size:13px;color:#5a665f;margin-bottom:2px">Pohlaví</span>
+      <div class="tabs" id="rec-g" style="margin:0">
+        <button type="button" data-v="M" aria-pressed="true">Muži</button>
+        <button type="button" data-v="Z" aria-pressed="false">Ženy</button>
+      </div>
+    </div>
+    <div>
+      <span style="display:block;font-size:13px;color:#5a665f;margin-bottom:2px">Bazén</span>
+      <div class="tabs" id="rec-p" style="margin:0">
+        <button type="button" data-v="50" aria-pressed="true">50 m</button>
+        <button type="button" data-v="25" aria-pressed="false">25 m</button>
+      </div>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table class="stack">
+      <thead><tr><th>Disciplína</th><th class="num">Čas</th><th>Jméno</th><th>Datum</th><th>Místo</th></tr></thead>
+      <tbody id="rec-body"></tbody>
+    </table>
+  </div>
+  <p class="empty" id="rec-empty" hidden>Pro tento výběr nejsou rekordy zapsány.</p>
+  <p class="meta" style="margin-top:14px">VZ volný způsob, Z znak, P prsa, M motýlek, PZ polohový závod. Zdroj: oddílové rekordy na boh.cz.</p>
+</div>
+</main>
+<aside id="aside" class="aside" aria-label="Postranní panel"></aside>
+</div>
+<footer class="site-footer">
+  <div class="foot-inner">
+    <span>&copy; 2007&ndash;2026 TJ Bohemians Praha, oddíl plavání</span>
+    <span>Demo nového vzhledu. Obsah pochází z <a href="https://www.boh.cz/">boh.cz</a>.</span>
+  </div>
+</footer>
+</body>
+</html>

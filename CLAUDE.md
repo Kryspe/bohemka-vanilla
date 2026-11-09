@@ -18,6 +18,11 @@ python3 scripts/sync_boh.py            # aktuality (+fotky), ke stazeni, rekordy
 - Ručně se udržují `parentsNotes`, `galleries` a `stats`. Týdenní GitHub Action: `.github/workflows/sync-boh.yml`.
 - Fotky se validují (musí jít o JPEG/PNG), jinak boh.cz vrací HTML chybovou stránku.
 
+### Demo nového vzhledu (`/demo/`)
+- Samostatný web v čistém HTML, CSS a JS, **bez Tailwindu**, bez externích fontů a knihoven. Stejná struktura a menu jako boh.cz (Aktuality, Pro rodiče, Oddíl, Závody, Rekordy, Statistika, Foto, Ke stažení, Intranet), aby uživatelé nic nehledali.
+- Zdroj: `demo/data/*.json` (malé soubory, každá stránka načítá jen svůj). Generují se: `python3 scripts/build_demo_data.py` (stahuje boh.cz, čistí HTML přes seznam povolených značek) a `python3 scripts/build_demo_pages.py` (stránky z jedné šablony).
+- Intranet a přihlášky v demu vedou na původní boh.cz. Stávající web (`/`, `/intranet`, Tailwind) zůstává beze změny.
+
 ### Běžné vývojářské příkazy
 
 ```bash
