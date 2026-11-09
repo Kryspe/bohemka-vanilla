@@ -899,7 +899,8 @@
             featImg.alt = topNews.title;
             featImgBox.style.display = "block";
           } else {
-            featImg.src = "assets/aktuality/86836.jpg";
+            const withImg = allNews.find(n => n.image);
+            featImg.src = withImg ? withImg.image : "assets/aktuality/86836.jpg";
             featImg.alt = "Plavecký oddíl TJ Bohemians Praha";
             featImgBox.style.display = "block";
           }

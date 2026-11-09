@@ -11,6 +11,13 @@ Tento soubor slouží jako primární instrukce a kontext pro práci v **Claude 
 - **Produkční URL:** [https://boh2-eight.vercel.app/](https://boh2-eight.vercel.app/) (Vercel Hobby, 100% zdarma).
 - **Cloud Databáze:** Supabase (`https://xjvpyznywisuuykwsedd.supabase.co`) s nativním REST klientem v `js/supabase.js` a automatickým offline fallbackem na `localStorage` a `js/data.js`.
 
+### Synchronizace obsahu z boh.cz
+```bash
+python3 scripts/sync_boh.py            # aktuality (+fotky), ke stazeni, rekordy, zavody -> js/data.js + includes/seed_data.json
+```
+- Ručně se udržují `parentsNotes`, `galleries` a `stats`. Týdenní GitHub Action: `.github/workflows/sync-boh.yml`.
+- Fotky se validují (musí jít o JPEG/PNG), jinak boh.cz vrací HTML chybovou stránku.
+
 ### Běžné vývojářské příkazy
 
 ```bash

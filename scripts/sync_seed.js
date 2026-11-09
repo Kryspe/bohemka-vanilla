@@ -1,0 +1,10 @@
+const fs=require('fs');const P=require('path').resolve(__dirname,'..')+'/';
+global.window={};eval(fs.readFileSync(P+'js/data.js','utf8'));const d=window.BohData;
+const seed=JSON.parse(fs.readFileSync(P+'includes/seed_data.json','utf8'));
+const cz=iso=>{const [y,m,dd]=iso.split('-');return `${+dd}. ${+m}. ${y}`};
+seed.news=d.news.map(n=>({id:n.id,title:n.title,author:n.author,date:n.date,excerpt:n.excerpt,body:n.body,image_url:n.image,category:'Aktuality'}));
+seed.events=d.events.map(e=>({id:e.id,name:e.name,place:e.place,date:e.date,deadline:e.deadline,type:e.type,kind:e.kind,note:e.note,disciplines:e.disciplines}));
+seed.parentsNotes=d.parentsNotes;
+seed.downloads=d.downloads.map(x=>({id:x.id.replace('boh-dl-','dl-'),title:x.title,category:x.category,filename:x.fileName.split('/').pop(),size:x.fileSize,date:cz(x.updatedAt),officialUrl:x.fileName,description:x.description}));
+fs.writeFileSync(P+'includes/seed_data.json',JSON.stringify(seed,null,2)+'\n');
+console.log(seed.news.length,seed.events.length,seed.downloads.length);
