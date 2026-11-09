@@ -31,6 +31,7 @@ function bootstrapApp() {
   initScrollReveal();
   initSpotlightCards();
   initServiceWorker();
+  initSmallImageGuard();
   checkIntranetAutoLogout();
 }
 
@@ -1491,6 +1492,19 @@ window.safeUrl = safeUrl;
 window.sanitizeCsv = sanitizeCsv;
 window.escapeXml = escapeXml;
 window.BohSecurity = { escapeHtml, safeUrl, sanitizeCsv, escapeXml };
+
+// 14. Small image guard: fotky z boh.cz bez velke verze maji jen 180 px.
+// Nerozmazavat je roztazenim na celou sirku karty, zobrazit je nezkreslene (CSS .img-small).
+function initSmallImageGuard() {
+  function mark(img) {
+    if (!img || img.tagName !== "IMG" || !img.naturalWidth) return;
+    if (img.naturalWidth < 400 && img.closest("article, #hero-feature-img-box, .news-card")) {
+      img.classList.add("img-small");
+    }
+  }
+  document.addEventListener("load", (e) => mark(e.target), true);
+  document.querySelectorAll("img").forEach((img) => { if (img.complete) mark(img); });
+}
 
 // 13. PWA Offline Service Worker Registration
 function initServiceWorker() {

@@ -18,6 +18,10 @@ python3 scripts/sync_boh.py            # aktuality (+fotky), ke stazeni, rekordy
 - Ručně se udržují `parentsNotes`, `galleries` a `stats`. Týdenní GitHub Action: `.github/workflows/sync-boh.yml`.
 - Fotky se validují (musí jít o JPEG/PNG), jinak boh.cz vrací HTML chybovou stránku.
 
+- **Živý web bere obsah z Supabase, ne z `js/data.js`.** `js/supabase.js` po načtení stránky přepíše aktuality, závody a vzkazy řádky z cloudové DB. Po `sync_boh.py` proto spusť `python3 scripts/push_content_supabase.py` (dry run) a potom `--apply`, jinak se změny na Vercelu neprojeví.
+- **Service worker (`sw.js`) je network-first** (v4). Nikdy nevracet zpět cache-first, návštěvníci by viděli staré verze.
+- **Responzivní mřížky:** základní `.grid-cols-N` na konci `css/style.css` jsou `!important`, proto tam musí být i všechny varianty `sm:/md:/lg:grid-cols-*` a `col-span-*`. Při použití nové varianty ji doplnit do bloku "Responsive extensions".
+
 ### Demo nového vzhledu (`/demo/`)
 - Samostatný web v čistém HTML, CSS a JS, **bez Tailwindu**, bez externích fontů a knihoven. Stejná struktura a menu jako boh.cz (Aktuality, Pro rodiče, Oddíl, Závody, Rekordy, Statistika, Foto, Ke stažení, Intranet), aby uživatelé nic nehledali.
 - Zdroj: `demo/data/*.json` (malé soubory, každá stránka načítá jen svůj). Generují se: `python3 scripts/build_demo_data.py` (stahuje boh.cz, čistí HTML přes seznam povolených značek) a `python3 scripts/build_demo_pages.py` (stránky z jedné šablony).

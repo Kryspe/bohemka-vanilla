@@ -1866,27 +1866,23 @@ html.dark .hero-athletic-bg {
 
 /* Sponsor logo strip hover */
 .sponsor-badge {
-  filter: grayscale(100%);
-  opacity: 0.65;
-  transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+  transition: transform 0.2s ease;
+}
+.sponsor-badge:hover { transform: translateY(-2px); }
+
+/* Loga partneru jsou barevna a casto maji vlastni pozadi: vzdy na bile desce, bez inverze filtrem. */
+.sponsor-badge img {
+  background: #ffffff;
+  padding: 8px 14px;
+  border-radius: 10px;
+  box-sizing: content-box;
 }
 
-.sponsor-badge:hover {
-  filter: grayscale(0%);
-  opacity: 1;
-  transform: translateY(-2px);
-}
-
-html.bohemka .sponsor-badge,
-html.dark .sponsor-badge {
-  filter: brightness(0) invert(1);
-  opacity: 0.7;
-}
-
-html.bohemka .sponsor-badge:hover,
-html.dark .sponsor-badge:hover {
-  filter: none;
-  opacity: 1;
+/* Male fotky (180 px) se nesmi roztahovat a kroutit na celou sirku karty. */
+img.img-small {
+  object-fit: contain !important;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 12px;
 }
 
 /* Hero Split Grid (Rock-solid CSS fallback for missing utility classes) */
@@ -2288,7 +2284,9 @@ body.intranet-edit-mode .cms-edit-badge {
 .active\:scale-95:active { transform: scale(0.95) !important; }
 .active\:scale-98:active { transform: scale(0.98) !important; }
 
-/* Responsive sm/md/lg extensions */
+/* Responsive extensions.
+   Zakladni .grid-cols-N vyse jsou !important a bez techto variant by prebijely responzivni tridy
+   (md:grid-cols-4, lg:grid-cols-3 ...). Poradi musi zustat vzestupne: sm, md, lg. */
 @media (min-width: 640px) {
   .sm\:h-10 { height: 2.5rem !important; }
   .sm\:w-10 { width: 2.5rem !important; }
@@ -2298,18 +2296,28 @@ body.intranet-edit-mode .cms-edit-badge {
   .sm\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
   .sm\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
   .sm\:gap-4 { gap: 1rem !important; }
+  .sm\:col-span-2 { grid-column: span 2 / span 2 !important; }
+}
+
+@media (min-width: 768px) {
+  .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  .md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+  .md\:col-span-2 { grid-column: span 2 / span 2 !important; }
 }
 
 @media (min-width: 1024px) {
+  .lg\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+  .lg\:grid-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; }
   .lg\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)) !important; }
+  .lg\:col-span-4 { grid-column: span 4 / span 4 !important; }
   .lg\:col-span-5 { grid-column: span 5 / span 5 !important; }
+  .lg\:col-span-6 { grid-column: span 6 / span 6 !important; }
   .lg\:col-span-7 { grid-column: span 7 / span 7 !important; }
+  .lg\:col-span-8 { grid-column: span 8 / span 8 !important; }
 }
-
-
-
-
-
 
 /* 1-Column Athletic Mobile Navigation Row (9 Destination System) */
 .mobile-drawer-row {

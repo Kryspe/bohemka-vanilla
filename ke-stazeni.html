@@ -204,6 +204,8 @@
           <!-- Populated dynamically -->
         </div>
 
+        <div id="downloads-more" class="mt-10 text-center hidden"><button type="button" onclick="showMoreDownloads()" class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-6 py-3 text-sm font-bold text-foreground hover:border-primary/60 transition-colors">Zobrazit další dokumenty</button></div>
+
         <div id="downloads-empty" class="hidden rounded-3xl border border-dashed border-border/70 bg-card/30 p-12 text-center text-sm text-muted-foreground">
           Nebyly nalezeny žádné dokumenty odpovídající zadaným kritériím.
         </div>
@@ -411,6 +413,7 @@
   <script src="js/animations.js"></script>
   <script src="js/app.js"></script>
   <script>
+    let visibleCount = 24;
     let currentCat = "Vše";
     let searchQuery = "";
     let activePreview = null;
@@ -438,7 +441,8 @@
       }
 
       empty.classList.add("hidden");
-      grid.innerHTML = filtered.map(item => `
+      const shown = filtered.slice(0, visibleCount);
+      grid.innerHTML = shown.map(item => `
         <div class="reveal hover-float group flex flex-col justify-between rounded-3xl border ${item.important ? 'border-primary/50 bg-card' : 'border-border bg-card'} p-6 shadow-sm transition-all duration-300">
           <div>
             <div class="flex items-start justify-between gap-3">
@@ -486,8 +490,16 @@
           </div>
         </div>
       `).join("");
+      const more = document.getElementById("downloads-more");
+      if (more) {
+        more.classList.toggle("hidden", filtered.length <= visibleCount);
+        const btn = more.querySelector("button");
+        if (btn) btn.textContent = "Zobrazit další dokumenty (" + (filtered.length - visibleCount) + ")";
+      }
       if (window.initScrollReveal) setTimeout(window.initScrollReveal, 40);
     }
+
+    function showMoreDownloads() { visibleCount += 24; renderDownloads(); }
 
     function triggerDownload(idOrItem) {
       const allItems = window.BohStore ? window.BohStore.getDownloads() : (window.BohData.downloads || []);
@@ -533,6 +545,7 @@
     // Event Bindings
     document.querySelectorAll("#downloads-cat-filters button").forEach(btn => {
       btn.addEventListener("click", () => {
+        visibleCount = 24;
         currentCat = btn.getAttribute("data-cat");
         document.querySelectorAll("#downloads-cat-filters button").forEach(b => {
           if (b === btn) {
@@ -548,6 +561,7 @@
     const searchInput = document.getElementById("downloads-search-input");
     if (searchInput) {
       searchInput.addEventListener("input", (e) => {
+        visibleCount = 24;
         searchQuery = e.target.value;
         renderDownloads();
       });

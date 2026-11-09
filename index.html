@@ -654,11 +654,6 @@
             <a href="https://praha.eu" target="_blank" rel="noreferrer" class="sponsor-badge flex items-center justify-center p-2" title="Hlavní město Praha">
               <img src="assets/sponsors/praha.png" alt="Hlavní město Praha" class="h-10 sm:h-12 w-auto object-contain">
             </a>
-            <a href="https://nsa.gov.cz" target="_blank" rel="noreferrer" class="sponsor-badge flex items-center justify-center p-2" title="Národní sportovní agentura (NSA)">
-              <div class="flex items-center gap-2 border border-border/80 rounded-xl px-4 py-2 bg-card">
-                <span class="font-display font-extrabold text-xs sm:text-sm tracking-wider text-foreground">NÁRODNÍ SPORTOVNÍ AGENTURA</span>
-              </div>
-            </a>
             <a href="https://www.bohemians.cz" target="_blank" rel="noreferrer" class="sponsor-badge flex items-center justify-center p-2" title="Tělovýchovná jednota Bohemians Praha">
               <div class="flex items-center gap-2.5">
                 <img src="assets/bohemka_badge.png" alt="TJ Bohemians Praha" class="h-9 sm:h-10 w-auto object-contain">
@@ -898,9 +893,17 @@
             featImg.src = topNews.image;
             featImg.alt = topNews.title;
             featImgBox.style.display = "block";
+            // Pokud ma aktualita jen malou fotku (180 px) nebo logo, hero ukaze ostrou fotografii oddilu.
+            const probe = new Image();
+            probe.onload = () => {
+              if (probe.naturalWidth < 600) {
+                featImg.src = "assets/aktuality/86836.jpg";
+                featImg.alt = "Plavecký oddíl TJ Bohemians Praha";
+              }
+            };
+            probe.src = topNews.image;
           } else {
-            const withImg = allNews.find(n => n.image);
-            featImg.src = withImg ? withImg.image : "assets/aktuality/86836.jpg";
+            featImg.src = "assets/aktuality/86836.jpg";
             featImg.alt = "Plavecký oddíl TJ Bohemians Praha";
             featImgBox.style.display = "block";
           }
