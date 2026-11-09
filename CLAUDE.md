@@ -22,6 +22,11 @@ python3 scripts/sync_boh.py            # aktuality (+fotky), ke stazeni, rekordy
 - **Service worker (`sw.js`) je network-first** (v4). Nikdy nevracet zpět cache-first, návštěvníci by viděli staré verze.
 - **Responzivní mřížky:** základní `.grid-cols-N` na konci `css/style.css` jsou `!important`, proto tam musí být i všechny varianty `sm:/md:/lg:grid-cols-*` a `col-span-*`. Při použití nové varianty ji doplnit do bloku "Responsive extensions".
 
+### Nový design v PHP (`novy-design/`)
+- Koncept moderního webu pro ukázku trenérovi a pozdější nasazení na oficiální stránku. Čisté PHP + CSS + JS, bez Tailwindu. Návod: `novy-design/README.md`.
+- Statický náhled pro Vercel: `bash novy-design/build.sh` (výstup `novy-design-nahled/`, URL `/novy-design-nahled/`). Po změně šablon vždy spustit a commitnout.
+- `php` na tomto stroji je Docker wrapper: server spouštět na `0.0.0.0`, proměnné prostředí se do kontejneru nepředávají (předpona adres se předává argumentem).
+
 ### Demo nového vzhledu (`/demo/`)
 - Samostatný web v čistém HTML, CSS a JS, **bez Tailwindu**, bez externích fontů a knihoven. Stejná struktura a menu jako boh.cz (Aktuality, Pro rodiče, Oddíl, Závody, Rekordy, Statistika, Foto, Ke stažení, Intranet), aby uživatelé nic nehledali.
 - Zdroj: `demo/data/*.json` (malé soubory, každá stránka načítá jen svůj). Generují se: `python3 scripts/build_demo_data.py` (stahuje boh.cz, čistí HTML přes seznam povolených značek) a `python3 scripts/build_demo_pages.py` (stránky z jedné šablony).
