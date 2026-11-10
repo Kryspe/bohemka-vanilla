@@ -13,7 +13,7 @@ Tento soubor slouží jako primární instrukce a kontext pro práci v **Claude 
 
 ### Synchronizace obsahu z boh.cz
 ```bash
-python3 scripts/sync_boh.py            # aktuality (+fotky), ke stazeni, rekordy, zavody -> js/data.js + includes/seed_data.json
+python3 scripts/sync_boh.py            # oznameni, aktuality (+fotky), ke stazeni, rekordy, zavody -> js/data.js + includes/seed_data.json
 ```
 - Ručně se udržují `parentsNotes`, `galleries` a `stats`. Týdenní GitHub Action: `.github/workflows/sync-boh.yml`.
 - Fotky se validují (musí jít o JPEG/PNG), jinak boh.cz vrací HTML chybovou stránku.
@@ -22,15 +22,14 @@ python3 scripts/sync_boh.py            # aktuality (+fotky), ke stazeni, rekordy
 - **Service worker (`sw.js`) je network-first** (v4). Nikdy nevracet zpět cache-first, návštěvníci by viděli staré verze.
 - **Responzivní mřížky:** základní `.grid-cols-N` na konci `css/style.css` jsou `!important`, proto tam musí být i všechny varianty `sm:/md:/lg:grid-cols-*` a `col-span-*`. Při použití nové varianty ji doplnit do bloku "Responsive extensions".
 
-### Nový design v PHP (`novy-design/`)
-- Koncept moderního webu pro ukázku trenérovi a pozdější nasazení na oficiální stránku. Čisté PHP + CSS + JS, bez Tailwindu. Návod: `novy-design/README.md`.
-- Statický náhled pro Vercel: `bash novy-design/build.sh` (výstup `novy-design-nahled/`, URL `/novy-design-nahled/`). Po změně šablon vždy spustit a commitnout.
-- `php` na tomto stroji je Docker wrapper: server spouštět na `0.0.0.0`, proměnné prostředí se do kontejneru nepředávají (předpona adres se předává argumentem).
-
-### Demo nového vzhledu (`/demo/`)
-- Samostatný web v čistém HTML, CSS a JS, **bez Tailwindu**, bez externích fontů a knihoven. Stejná struktura a menu jako boh.cz (Aktuality, Pro rodiče, Oddíl, Závody, Rekordy, Statistika, Foto, Ke stažení, Intranet), aby uživatelé nic nehledali.
-- Zdroj: `demo/data/*.json` (malé soubory, každá stránka načítá jen svůj). Generují se: `python3 scripts/build_demo_data.py` (stahuje boh.cz, čistí HTML přes seznam povolených značek) a `python3 scripts/build_demo_pages.py` (stránky z jedné šablony).
-- Intranet a přihlášky v demu vedou na původní boh.cz. Stávající web (`/`, `/intranet`, Tailwind) zůstává beze změny.
+### Design (celý web je nový design)
+- Jedna vrstva vzhledu: `css/design.css` (načítá se po `css/style.css`) + `js/design.js` (animace). Žádné demo ani samostatné složky s jiným designem; vše se upravuje přímo v rootu.
+- **Palette:** tmavě zelená `#031a0e` až `#0a5c2e` (hlavička, patička, hero, úvodní pásy podstránek), světlý obsah `#f4f8f5` s bílými kartami, akcent mint `#3bdc86`, primární zelená `#0f7a3c`. Tokeny (`--background`, `--primary` ...) jsou v `:root` v `css/design.css`; tmavé části se označují třídou `.theme-dark` (nebo jsou vyjmenované v `design.css`).
+- **Jediné téma.** Přepínač světlý/tmavý byl odstraněn (`initTheme` v `js/app.js` jen odstraní staré třídy). Na `<html>` nesmí být třídy `dark` ani `bohemka`.
+- **Společná kostra:** hlavička (`.d-site-header`) a patička (`.d-site-footer`) jsou v každé HTML stránce stejné, menu má stejné položky a pořadí jako boh.cz. Úvodní pás podstránky = první `<section class="page-hero ...">` v `<main>`.
+- **Komponenty úvodu** mají předponu `d-` (`d-hero`, `d-card`, `d-alerts` ...), aby se nekřížily s Tailwind třídami. Úvod se vykresluje skriptem v `index.html` z `BohStore` (data.js + Supabase).
+- **Animace:** `.d-reveal` (zjevení při rolování), `data-count` (počítání čísel), světlo v hero. Vše se vypne při `prefers-reduced-motion`. Žádné zvětšování obrázků při najetí.
+- Při přidání nové HTML stránky zkopírovat hlavičku, patičku a odkazy na `assets/fonts/fonts.css`, `css/style.css`, `css/design.css` a `js/design.js` z existující stránky.
 
 ### Běžné vývojářské příkazy
 
@@ -68,9 +67,9 @@ git push bohemka-vanilla-backup main
 4. **Čisté adresy (Clean URLs):**
    - Na webu se nepoužívají přípony `.html` ani `.php` (např. `/`, `/aktuality`, `/zavody`, `/pro-rodice`, `/oddil`, `/rekordy`, `/statistika`, `/foto`, `/ke-stazeni`, `/kontakt`, `/intranet`, `/admin`).
 5. **Typografie & Designový systém:**
-   - **Nadpisy a display text:** `Sora`, sans-serif (`font-display`, `font-bold / font-extrabold`).
-   - **Text a navigace:** `Manrope`, sans-serif (`font-sans`, `font-body`).
-   - **Klubové barvy:** Sytá smaragdová zeleň Bohemians (`#00ba60`, `#072615`, `#007a3d`).
+   - **Nadpisy a display text:** `Sora` (self-hosted v `assets/fonts/`, `font-display`, `font-extrabold`).
+   - **Text a navigace:** `Manrope` (self-hosted, `font-sans`, `font-body`). Žádné externí fonty.
+   - **Klubové barvy:** tmavě zelená `#031a0e`/`#0a5c2e`, primární `#0f7a3c`, akcent mint `#3bdc86` (viz `css/design.css`).
    - **Mobilní odsazení:** Mezi horní lištou a kartami udržovat kompaktní rozestup (cca 8 px na mobilu), nepoužívat obří vertikální mezery (`py-14` bylo nahrazeno za `py-8 sm:py-20` na podstránkách).
 6. **Zlatý standard Intranetu (`intranet-gold-standard`):**
    - Režim **Plavec / Rodič:** Přihlášky na závody, Rezervace na akce, Moje výsledky, Platby příspěvků (s QR kódem VS 214) a Nastavení účtu.

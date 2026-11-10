@@ -130,20 +130,71 @@ window.BohData = {
     { year: "2026", text: "TJ Bohemians slaví 80 let! Velké setkání 212 Klokanů na Hagiboru a týmový bronz v Českém poháru v dálkovém plavání." }
   ],
 
+  alerts: [
+    {
+      "id": "boh-alert-1",
+      "title": "Sobotní trénink v Podolí",
+      "text": "v listopadu NENÍ. Stále někde závodíme. A v jedinou volnou sobotu je v Podolí zavřeno.",
+      "type": "upozorneni",
+      "date": "2026-11-10"
+    },
+    {
+      "id": "boh-alert-2",
+      "title": "Úterý 17.11.",
+      "text": "KURZY, přípravka a ODB na Vinohradech neplavou.",
+      "type": "upozorneni",
+      "date": "2026-11-10"
+    },
+    {
+      "id": "boh-alert-3",
+      "title": "V roce 2026 se uskutečnilo setkání při 80. výročí oddílu",
+      "text": "a bylo to velkolepé :-)",
+      "type": "upozorneni",
+      "date": "2026-11-10"
+    }
+  ],
+
   news: [
     {
-      "id": "zimni-mezinarodni-mistrovstvi-cr-v-plavani-masters-a-korunni-cup-hodno-2026-11-09",
-      "title": "Zimní mezinárodní mistrovství ČR v plavání masters a Korunní Cup - hodnocení",
+      "id": "z-mcr-masters-vezeme-spoustu-medaili-a-nove-ceske-rekordy-2026-11-09",
+      "title": "Z MČR Masters vezeme spoustu medailí a nové české rekordy!",
       "date": "2026-11-09",
       "author": "Jan Srb",
-      "image": "",
-      "excerpt": "připravujeme... fotky od Leška v menu Foto. Vezeme spousty medailí. Čekáme na kompletní oficiální výsledky. A české rekordy masters: Jarka Votrubová 200P, Vendulka Majerová 100Z, 200Z a 100K, Juraj Bránik 100Z a 200Z.. V soutěží družstve zvítězila SlPl a...",
+      "image": "assets/aktuality/2248.jpg",
+      "excerpt": "Mistrovství České republiky Masters nám přineslo pořádnou medailovou nadílku! Naši plavci se rozhodně neztratili a kromě řady mistrovských titulů se postarali také o několik nových českých rekordů.",
       "body": [
-        "připravujeme...",
-        "fotky od Leška v menu Foto.",
-        "Vezeme spousty medailí. Čekáme na kompletní oficiální výsledky.",
-        "A české rekordy masters: Jarka Votrubová 200P, Vendulka Majerová 100Z, 200Z a 100K, Juraj Bránik 100Z a 200Z..",
-        "V soutěží družstve zvítězila SlPl a Bohemka skončila pátá."
+        "Mistrovství České republiky Masters nám přineslo pořádnou medailovou nadílku! Naši plavci se rozhodně neztratili a kromě řady mistrovských titulů se postarali také o několik nových českých rekordů.",
+        "O rekordní zápisy se postarali:",
+        "- Jarka Votrubová – 200 P",
+        "- Vendulka Majerová – 100 Z, 200 Z a 100 K",
+        "- Juraj Bránik – 100 Z a 200 Z",
+        "V soutěži družstev zvítězila SlPl a Bohemka obsadila pěkné 5. místo.",
+        "Naši mistrovští medailisté:",
+        "- Vendulka Majerová – 1. místo: 100 K, 100 Z, 100 PZ, 200 Z; 2. místo: 50 K, 50 Z",
+        "- Jaroslava Votrubová – 1. místo: 50 P, 100 P, 200 P, 100 M",
+        "- Juraj Bránik – 1. místo: 50 K, 50 Z, 100 Z, 200 Z",
+        "- Václav Břicháček – 1. místo: 50 P, 100 P, 100 PZ",
+        "- Marcela Šťastná – 1. místo: 50 P, 50 Z, 100 Z",
+        "- Ivana Felgrová – 1. místo: 50 M, 200 PZ; 2. místo: 50 P, 100 M",
+        "- Ivo Tyburec – 1. místo: 200 P; 2. místo: 50 P, 100 P",
+        "- Kateřina Augustová – 1. místo: 400 K; 2. místo: 200 K",
+        "- Jan Škoch – 2. místo: 100 K, 200 K; 3. místo: 400 K",
+        "- Olga Brožová – 2. místo: 50 Z, 200 Z",
+        "- Ladislav Smelik – 2. místo: 50 K, 100 K",
+        "- Alžběta Majchráková – 2. místo: 100 K; 3. místo: 200 K, 50 Z, 50 K",
+        "- Pavel Kušnier – 3. místo: 100 M",
+        "- štafety:",
+        "-- 4x50K ženy: 1. Majchráková, Brožová, Majerová, Augustová",
+        "-- 4x50K mix: 1. Kušnier, Felgrová, Votrubová, Bránik",
+        "-- 4x50PŠ mix: 1. Majchráková, Votrubová, Tyburec, Smelik",
+        "-- 4x50PŠ mix: 1. Šťastná, Břicháček, Bránik, Felgrová",
+        "-- 4x50K mix: 2. Majchráková, Smelik, Augustová, Škoch",
+        "-- 4x50PŠ muži: 2. Bránik, Tyburec, Kušnier, Smelik",
+        "-- 4x50PŠ mix: 2. Brožová, Augustová, Kušnier, Škoch",
+        "Všem našim plavcům moc gratulujeme! Skvělá reprezentace oddílu, spousta medailí a k tomu české rekordy. Masters prostě vědí, jak na to!",
+        "Fotky od Leška najdete v menu Foto.",
+        "A dlouho odpočívat nebudeme. Už za tři týdny nás čekají další závody Masters, tentokrát u nás na Vinohradech. Tak neváhejte a hlaste se!",
+        "Klokani, do toho!"
       ]
     },
     {
@@ -151,11 +202,22 @@ window.BohData = {
       "title": "Podzimní Krajský přebor žactva 2017 a mladší - hodnocení",
       "date": "2026-11-08",
       "author": "Kateřina Holubová",
-      "image": "",
-      "excerpt": "připravujeme... výsledky v menu Závody",
+      "image": "assets/aktuality/2247.jpg",
+      "excerpt": "V sobotu se konal Krajský přebor nejmladších závodníků Prahy na bazéně Zelený Pruh.",
       "body": [
-        "připravujeme...",
-        "výsledky v menu Závody"
+        "V sobotu se konal Krajský přebor nejmladších závodníků Prahy na bazéně Zelený Pruh.",
+        "Bohemáci byli vidět i slyšet a předvedli super výkony. Někteří si vyzkoušeli poprvé start na 25m kraulem, znakem a prsama.",
+        "Všechny děti plavaly osobáky a někteří vybojovaly i medaile.",
+        "Nejlépe si vedli:",
+        "Matěj Vrchlabský, který si vyplaval 4 zlaté medaile na 50VZ, 50M, 100VZ,100PZ.",
+        "Zora Babínková 3 zlaté medaile na 25 Z,P,K.",
+        "Kincl František stříbro na 50P a bronz na 50K.",
+        "Luckij Tichon bronz na 100PZ.",
+        "Majdloch Robert zlato na 50P a bronz na 100P.",
+        "Marešová Maruška bronz na 100PZ.",
+        "Plavci si vyzkoušeli i štafety, kdy ve složení Žofka Pračke, Maruška Marešová, Robert Majdloch a Matěj Vrchlabský vybojovali 3. místo jak v polohové, tak i v kraulové štafetě!",
+        "Děti se podporovaly a fandily navzájem a díky tomu byla na bazéně skvělá atmosféra! Děkujeme všem za reprezentaci oddílu!",
+        "Výsledky v menu Závody."
       ]
     },
     {
@@ -1358,6 +1420,18 @@ window.BohData = {
       "dateEnd": "2026-10-22"
     },
     {
+      "id": "drop-test-nohy-2026",
+      "name": "Drop test nohy",
+      "place": "Praha - V inohrady",
+      "date": "2026-10-22",
+      "deadline": "2026-11-10",
+      "type": "Závod",
+      "kind": "zavod",
+      "note": "celostátní test NOHY",
+      "disciplines": [],
+      "dateEnd": "2026-11-10"
+    },
+    {
       "id": "grand-prix-brno-2026",
       "name": "Grand Prix Brno",
       "place": "Brno - Lužánky",
@@ -1687,6 +1761,17 @@ window.BohData = {
       "type": "Oddílový",
       "kind": "zavod",
       "note": "tradiční již 57. půlročník",
+      "disciplines": []
+    },
+    {
+      "id": "krajska-liga-2027",
+      "name": "Krajská liga",
+      "place": "Praha - Radlice",
+      "date": "2027-01-23",
+      "deadline": "2027-01-23",
+      "type": "Závod",
+      "kind": "zavod",
+      "note": "týmová soutěž",
       "disciplines": []
     },
     {
@@ -8561,11 +8646,11 @@ window.BohData = {
       "event": "50 M",
       "gender": "Muži",
       "pool": "25m",
-      "time": "00:43,99",
+      "time": "00:43,64",
       "holder": "Matěj Vrchlabský",
       "year": "2026",
-      "date": "18. 06. 2026",
-      "place": "Praha - Vinohrady",
+      "date": "07. 11. 2026",
+      "place": "Praha - Zelený pruh",
       "category": "Žactvo 9 let"
     },
     {
@@ -8649,11 +8734,11 @@ window.BohData = {
       "event": "50 VZ",
       "gender": "Muži",
       "pool": "25m",
-      "time": "00:36,65",
+      "time": "00:35,32",
       "holder": "Matěj Vrchlabský",
       "year": "2026",
-      "date": "08. 05. 2026",
-      "place": "Praha - Radlice",
+      "date": "07. 11. 2026",
+      "place": "Praha - Zelený pruh",
       "category": "Žactvo 9 let"
     },
     {
@@ -8704,11 +8789,11 @@ window.BohData = {
       "event": "100 PZ",
       "gender": "Muži",
       "pool": "25m",
-      "time": "01:32,40",
+      "time": "01:30,32",
       "holder": "Matěj Vrchlabský",
       "year": "2026",
-      "date": "10. 10. 2026",
-      "place": "Praha - Radlice",
+      "date": "07. 11. 2026",
+      "place": "Praha - Zelený pruh",
       "category": "Žactvo 9 let"
     },
     {

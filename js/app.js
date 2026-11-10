@@ -67,42 +67,13 @@ function checkIntranetAutoLogout() {
   }
 }
 
-// 1. 3-Way Theme Toggle (Bohemka Club -> Dark -> Light)
+// 1. Motiv webu: jediný (nový design). Přepínač motivů byl odstraněn, staré hodnoty z localStorage se ignorují.
 function initTheme() {
-  const THEME_KEY = "boh-theme";
-  let theme = localStorage.getItem(THEME_KEY);
-
-  if (!theme || (theme !== "dark" && theme !== "bohemka" && theme !== "light")) {
-    theme = "bohemka";
-  }
-
-  applyTheme(theme);
-
-  document.querySelectorAll(".theme-toggle-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      let currentTheme = localStorage.getItem(THEME_KEY) || "bohemka";
-      let nextTheme = "dark";
-      if (currentTheme === "bohemka") nextTheme = "dark";
-      else if (currentTheme === "dark") nextTheme = "light";
-      else nextTheme = "bohemka";
-
-      localStorage.setItem(THEME_KEY, nextTheme);
-      applyTheme(nextTheme);
-    });
-  });
+  applyTheme("light");
 }
 
 function applyTheme(theme) {
-  const root = document.documentElement;
-  root.classList.remove("dark", "bohemka");
-
-  if (theme === "bohemka") {
-    root.classList.add("bohemka");
-  } else if (theme === "dark") {
-    root.classList.add("dark");
-  }
-
-  updateThemeIcons(theme);
+  document.documentElement.classList.remove("dark", "bohemka");
   updateThemeMeta(theme);
 }
 
@@ -114,11 +85,9 @@ function updateThemeMeta(theme) {
     document.head.appendChild(meta);
   }
   const colorMap = {
-    bohemka: "#007a3d",
-    dark: "#080d12",
-    light: "#fafcfd"
+    light: "#031a0e"
   };
-  meta.setAttribute("content", colorMap[theme] || "#080d12");
+  meta.setAttribute("content", colorMap[theme] || "#031a0e");
 }
 
 function updateThemeIcons(theme) {

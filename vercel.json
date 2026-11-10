@@ -76,24 +76,6 @@
       ]
     },
     {
-      "source": "/demo/data/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=600, stale-while-revalidate=86400"
-        }
-      ]
-    },
-    {
-      "source": "/demo/(css|js|img)/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600, stale-while-revalidate=604800"
-        }
-      ]
-    },
-    {
       "source": "/sw.js",
       "headers": [
         {
@@ -103,11 +85,11 @@
       ]
     },
     {
-      "source": "/novy-design-nahled/assets/(.*)",
+      "source": "/assets/fonts/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "public, max-age=86400, stale-while-revalidate=604800"
+          "value": "public, max-age=31536000, immutable"
         }
       ]
     }

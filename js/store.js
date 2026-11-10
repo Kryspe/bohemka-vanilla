@@ -1338,11 +1338,10 @@ window.BohStore = (function () {
       type: (i.fields && (i.fields.type || i.fields.typ)) || "upozorneni",
       date: (i.fields && (i.fields.datum || i.fields.date)) || i.createdAt.slice(0, 10)
     }));
-    const defaultAlerts = [
-      { id: "def-alt-1", title: "Sobotní trénink v Podolí", text: "v září již NENÍ.", type: "upozorneni", date: "2026-09-15" },
-      { id: "def-alt-2", title: "Nábor do závodní přípravky (6–12 let)", text: "byl UKONČEN pro vyčerpání kapacity oddílu.", type: "dulezite", date: "2026-09-01" },
-      { id: "def-alt-3", title: "V roce 2026 setkání k 80. výročí oddílu", text: "proběhlo na Hagiboru za účasti 212 členů a přátel oddílu a bylo to velkolepé.", type: "info", date: "2026-08-30" }
-    ];
+    const dataObj = window.BohData || window.KlokaniData;
+    const defaultAlerts = (dataObj && Array.isArray(dataObj.alerts) && dataObj.alerts.length) ? dataObj.alerts.map((a, i) => ({
+      id: a.id || ("def-alt-" + (i + 1)), title: a.title, text: a.text, type: a.type || "upozorneni", date: a.date || "2026-11-09"
+    })) : [];
     const deleted = getDeletedIds();
     return [...managedAlerts, ...defaultAlerts].filter(a => !deleted.includes(String(a.id)) && !isJunkItem(a));
   }

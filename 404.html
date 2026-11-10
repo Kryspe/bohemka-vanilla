@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs" class="bohemka">
+<html lang="cs">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -8,24 +8,16 @@
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/icon-192.png">
   <link rel="manifest" href="assets/manifest.webmanifest">
-  <meta name="theme-color" content="#007a3d">
+  <meta name="theme-color" content="#031a0e">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap">
+  <link rel="preload" href="assets/fonts/sora-latin-4fa0aa.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
   <link rel="stylesheet" href="css/style.css">
-  <script>
-    try {
-      var t = localStorage.getItem('boh-theme') || 'bohemka';
-      document.documentElement.classList.remove('dark', 'bohemka');
-      if (t === 'bohemka') document.documentElement.classList.add('bohemka');
-      else if (t === 'dark') document.documentElement.classList.add('dark');
-      var m = document.querySelector('meta[name="theme-color"]');
-      if (m) m.setAttribute('content', t === 'bohemka' ? '#007a3d' : (t === 'dark' ? '#080d12' : '#fafcfd'));
-    } catch(e) {}
-  </script>
+  <link rel="stylesheet" href="css/design.css">
+  <script defer src="js/design.js"></script>
+  <script>document.documentElement.classList.remove('dark','bohemka');document.documentElement.classList.add('d-js');</script>
 </head>
 <body class="bg-background text-foreground antialiased min-h-screen flex flex-col selection:bg-primary/20 selection:text-primary">
 
@@ -33,84 +25,26 @@
   <div class="relative flex min-h-screen flex-col">
 
     <!-- SITE HEADER -->
-    <header class="sticky top-0 z-50 w-full site-header transition-colors">
-      <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5 sm:px-6">
-        <a href="/" class="group flex items-center shrink-0 gap-3">
-          <img src="assets/logo-80-let.png" alt="TJ Bohemians Praha — oddíl plavání 80 let" width="711" height="200" class="header-logo-img h-8 sm:h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105">
-        </a>
-
-        <!-- Desktop Navigation Links -->
-        <nav class="hidden lg:flex items-center justify-center gap-1 xl:gap-2 flex-1 mx-4 xl:mx-8" aria-label="Hlavní navigace">
-          <a href="/" class="nav-item active">Úvod</a>
-          <a href="aktuality" class="nav-item">Aktuality</a>
-          <a href="zavody" class="nav-item">Závody</a>
-          <a href="pro-rodice" class="nav-item">Pro rodiče</a>
-          <a href="oddil" class="nav-item">Oddíl</a>
-          <a href="kontakt" class="nav-item">Kontakt</a>
-
-          <!-- Dropdown "Více" for secondary items -->
-          <div class="nav-dropdown-wrapper">
-            <button type="button" class="nav-item nav-dropdown-trigger inline-flex items-center gap-1" aria-expanded="false" aria-haspopup="true">
-              <span>Více</span>
-              <svg class="h-3.5 w-3.5 opacity-60 dropdown-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
-            </button>
-            <div class="nav-dropdown-menu">
-              <a href="rekordy" class="nav-dropdown-link">
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
-                <span>Oddílové rekordy</span>
-              </a>
-              <a href="statistika" class="nav-dropdown-link">
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-                <span>Statistika a výkony</span>
-              </a>
-              <a href="ke-stazeni" class="nav-dropdown-link">
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                <span>Ke stažení (směrnice)</span>
-              </a>
-              <a href="foto" class="nav-dropdown-link">
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
-                <span>Fotogalerie</span>
-              </a>
-            </div>
-          </div>
+    <header class="d-site-header" id="site-header">
+      <div class="d-wrap d-header-in">
+        <a class="d-brand" href="/" aria-label="TJ Bohemians Praha, oddíl plavání - úvod"><img src="assets/logo8.png" alt="TJ Bohemians Praha, oddíl plavání, 1946-2026" width="178" height="50"></a>
+        <nav class="d-main-nav" aria-label="Hlavní navigace">
+        <ul>
+          <li><a href="aktuality">Aktuality</a></li>
+          <li><a href="pro-rodice">Pro rodiče</a></li>
+          <li><a href="oddil">Oddíl</a></li>
+          <li><a href="zavody">Závody</a></li>
+          <li><a href="rekordy">Rekordy</a></li>
+          <li><a href="statistika">Statistika</a></li>
+          <li><a href="foto">Foto</a></li>
+          <li><a href="ke-stazeni">Ke stažení</a></li>
+        </ul>
         </nav>
-
-        <!-- Desktop Action Buttons (Intranet, Search, Bell, Theme) -->
-        <div class="hidden lg:flex items-center gap-2 shrink-0">
-            <a href="intranet" class="inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-1.5 text-xs font-bold text-primary-foreground shadow-xs hover:opacity-90 transition-opacity">
-              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              <span>Intranet</span>
-            </a>
-
-            <button type="button" class="site-search-btn relative inline-flex items-center gap-2 rounded-full border border-border/80 bg-card px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-all duration-200 hover:border-primary/60 hover:text-foreground hover:bg-card" aria-label="Interní vyhledávání" title="Interní vyhledávání (⌘K / Ctrl+K)">
-              <svg class="h-3.5 w-3.5 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-              <kbd class="hidden xl:inline-flex items-center rounded border border-border bg-background px-1 py-0.5 text-[10px] font-mono font-semibold text-muted-foreground">⌘K</kbd>
-            </button>
-
-            <button type="button" class="notification-bell-btn relative inline-flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:bg-card hover:text-foreground" aria-label="Oznámení" title="Oznámení">
-              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-              <span class="notification-unread-dot absolute right-1 top-1 h-2 w-2 rounded-full bg-coral hidden"></span>
-            </button>
-
-            <a href="https://www.instagram.com/bohemka_plavani" target="_blank" rel="noopener noreferrer" class="hidden xl:inline-flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:bg-card hover:text-foreground" aria-label="Instagram" title="Jsme na Instagramu (@bohemka_plavani)">
-              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-            </a>
-            <a href="https://www.facebook.com/bohplavani" target="_blank" rel="noopener noreferrer" class="hidden xl:inline-flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:bg-card hover:text-foreground" aria-label="Facebook" title="Jsme na Facebooku">
-              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-            </a>
-
-            <button type="button" class="theme-toggle-btn relative inline-flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:bg-card hover:text-foreground" aria-label="Přepnout motiv" title="Přepnout motiv"></button>
-        </div>
-
-        <!-- Mobile Header Icons -->
-        <div class="flex items-center gap-1.5 lg:hidden">
-          <button type="button" class="site-search-btn relative inline-flex h-9 w-9 items-center justify-center rounded-full bg-secondary/60 border border-border/50 text-muted-foreground hover:bg-card hover:text-foreground touch-target-44 transition-all" aria-label="Interní vyhledávání">
-            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          </button>
-          <button type="button" class="theme-toggle-btn relative inline-flex h-9 w-9 items-center justify-center rounded-full bg-secondary/60 border border-border/50 text-muted-foreground hover:bg-card hover:text-foreground touch-target-44 transition-all" aria-label="Přepnout motiv"></button>
-          <button type="button" class="mobile-drawer-trigger relative inline-flex h-9 w-9 items-center justify-center rounded-full bg-secondary/60 border border-border/50 text-muted-foreground hover:bg-card hover:text-foreground touch-target-44 transition-all" aria-label="Otevřít menu sekcí oddílu" title="Všechny sekce">
-            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-          </button>
+        <div class="d-header-tools">
+          <button type="button" class="d-icon-btn site-search-btn" aria-label="Hledat na webu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
+          <button type="button" class="d-icon-btn d-bell notification-bell-btn" aria-label="Oznámení"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="notification-unread-dot hidden"></span></button>
+          <a class="d-pill d-pill-bright d-header-cta" href="intranet">Intranet</a>
+          <button type="button" class="d-icon-btn d-drawer-btn mobile-drawer-trigger" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg></button>
         </div>
       </div>
     </header>
@@ -196,35 +130,40 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="border-t border-border/60 bg-card/40">
-      <div class="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-4">
-        <div class="md:col-span-2">
-          <img src="assets/logo-80-let.png" alt="TJ Bohemians Praha" width="711" height="200" loading="lazy" class="h-10 w-auto object-contain invert dark:invert-0">
-          <p class="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
-            Plavecký oddíl s tradicí od roku 1946. Vychováváme špičkové sportovce i začínající plavce — od kurzů přes přípravku až po reprezentaci.
-          </p>
+    <footer class="d-site-footer">
+      <div class="d-wrap d-foot-grid">
+        <div>
+          <img src="assets/logo8.png" alt="TJ Bohemians Praha, oddíl plavání" width="178" height="50" loading="lazy">
+          <p class="d-foot-note">Plavecký oddíl TJ Bohemians Praha. Závodní plavání, přípravka a kurzy plavání v Praze od roku 1946.</p>
         </div>
         <div>
-          <h3 class="mb-3 text-sm font-semibold uppercase tracking-wider text-foreground">Sekce</h3>
-          <ul class="space-y-2 text-sm text-muted-foreground">
-            <li><a href="aktuality" class="hover:text-primary">Aktuality</a></li>
-            <li><a href="oddil" class="hover:text-primary">O oddílu</a></li>
-            <li><a href="zavody" class="hover:text-primary">Závody</a></li>
-            <li><a href="rekordy" class="hover:text-primary">Rekordy</a></li>
-            <li><a href="ke-stazeni" class="hover:text-primary">Ke stažení</a></li>
+          <h2>Menu</h2>
+          <ul>
+            <li><a href="aktuality">Aktuality</a></li>
+            <li><a href="pro-rodice">Pro rodiče</a></li>
+            <li><a href="oddil">Oddíl</a></li>
+            <li><a href="zavody">Závody</a></li>
+            <li><a href="rekordy">Rekordy</a></li>
+            <li><a href="statistika">Statistika</a></li>
+            <li><a href="foto">Foto</a></li>
+            <li><a href="ke-stazeni">Ke stažení</a></li>
+            <li><a href="intranet">Intranet</a></li>
           </ul>
         </div>
         <div>
-          <h3 class="mb-3 text-sm font-semibold uppercase tracking-wider text-foreground">Kontakt</h3>
-          <ul class="space-y-2 text-sm text-muted-foreground">
-            <li><a href="mailto:jan.srb@czechswimming.cz" class="hover:text-primary">jan.srb@czechswimming.cz</a></li>
-            <li><a href="https://www.instagram.com/bohemka_plavani" target="_blank" rel="noopener noreferrer" class="hover:text-primary">Instagram @bohemka_plavani</a></li>
-            <li class="pt-2 text-xs">Bazény: Podolí &amp; Sokol Vinohrady, Praha</li>
+          <h2>Kontakt</h2>
+          <ul>
+            <li><a href="mailto:jan.srb@czechswimming.cz">jan.srb@czechswimming.cz</a></li>
+            <li><a href="kontakt">Kontakty a bazény</a></li>
+            <li><a href="https://www.facebook.com/bohplavani" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+            <li><a href="https://www.instagram.com/bohemka_plavani" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="https://www.boh.cz" target="_blank" rel="noopener noreferrer">Původní web boh.cz</a></li>
+            <li class="d-foot-small">IČO: 00539121 &middot; ČSOB: 351416278/0300</li>
           </ul>
         </div>
       </div>
-      <div class="border-t border-border/60 py-6 text-center text-xs text-muted-foreground">
-        © 1946–2026 TJ Bohemians Praha — oddíl plavání. 80 let zelenobílé tradice.
+      <div class="d-wrap d-foot-bottom">
+        <span>&copy; 1946&ndash;2026 TJ Bohemians Praha, oddíl plavání. 80 let zelenobílé tradice.</span>
       </div>
     </footer>
     <!-- MOBILE BOTTOM NAVIGATION (Anchored Edge-to-Edge Tab Bar) -->

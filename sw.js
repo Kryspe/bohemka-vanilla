@@ -1,7 +1,7 @@
 // TJ Bohemians Praha (Offline Service Worker)
 // v4: network-first. Navstevnik vzdy dostane aktualni verzi z webu,
 // cache slouzi jen jako zaloha, kdyz je zarizeni offline.
-const CACHE_NAME = "boh-cache-v4";
+const CACHE_NAME = "boh-cache-v5";
 
 const STATIC_ASSETS = [
   "/",
@@ -16,6 +16,9 @@ const STATIC_ASSETS = [
   "/kontakt",
   "/intranet",
   "/css/style.css",
+  "/css/design.css",
+  "/js/design.js",
+  "/assets/fonts/fonts.css",
   "/js/data.js",
   "/js/store.js",
   "/js/supabase.js",

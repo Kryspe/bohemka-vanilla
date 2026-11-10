@@ -2,7 +2,7 @@
 """
 Synchronizace obsahu z oficialniho webu https://www.boh.cz do js/data.js a includes/seed_data.json.
 
-Aktualizuje: aktuality (+ fotky), ke stazeni, rekordy, zavody (z detailu zavodu).
+Aktualizuje: oznameni, aktuality (+ fotky), ke stazeni, rekordy, zavody (z detailu zavodu).
 Neaktualizuje (rucne): parentsNotes, galleries, stats.
 
 Pouziti:  python3 scripts/sync_boh.py [--since 2026-01-01]
@@ -109,6 +109,23 @@ def sync_news(js, since):
     items.sort(key=lambda x: x["date"], reverse=True)
     print("aktuality:", len(items))
     return replace_section(js, "news", "events", items)
+
+
+def sync_alerts(js):
+    """Zelená oznámení z pravého sloupce úvodní stránky boh.cz (Sobotní trénink v Podolí apod.)."""
+    h = get(BASE + "/")
+    items = []
+    for m in re.finditer(r"<div class='alertBox(?:1)?'><span class='title'>(.*?)</span><p>(.*?)</p></div>", h, re.S):
+        title = html.unescape(re.sub(r"<[^>]+>", "", m.group(1))).strip()
+        text = re.sub(r"<br\s*/?>", " ", m.group(2))
+        text = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", "", text))).strip()
+        items.append({"id": "boh-alert-%d" % (len(items) + 1), "title": title, "text": text, "type": "upozorneni",
+                      "date": __import__("datetime").date.today().isoformat()})
+    print("oznameni:", len(items))
+    if "  alerts: [" not in js:
+        i = js.index("  news: [")
+        return js[:i] + "  alerts: []," + "\n\n" + js[i:] if not items else replace_section(js[:i] + "  alerts: [],\n\n" + js[i:], "alerts", "news", items)
+    return replace_section(js, "alerts", "news", items)
 
 
 def sync_downloads(js):
@@ -233,6 +250,7 @@ def main():
     a = ap.parse_args()
     js = open(DATA, encoding="utf-8").read()
     old = load_data()
+    js = sync_alerts(js)
     js = sync_news(js, a.since)
     js = sync_downloads(js)
     js = sync_records(js)
