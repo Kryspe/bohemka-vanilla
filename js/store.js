@@ -863,6 +863,14 @@ window.BohStore = (function () {
     return [...managedDownloads, ...filteredDefault].filter(d => !deleted.includes(String(d.id)));
   }
 
+  // Titulek vzkazu: část před dvojtečkou ("Infolístek na ... (9. 11. 2026)"), jinak zkrácení na hranici slova.
+  function noteTitle(txt) {
+    const t = String(txt || "").replace(/\s+/g, " ").trim();
+    const head = t.split(": ")[0];
+    if (head.length > 0 && head.length <= 110) return head;
+    return t.length <= 90 ? t : t.slice(0, 89).replace(/\s+\S*$/, "") + "…";
+  }
+
   function getParentsNotes() {
     const dataObj = window.BohData || window.KlokaniData;
     const defaultNotes = (dataObj && dataObj.parentsNotes) ? [...dataObj.parentsNotes] : [];
@@ -888,7 +896,7 @@ window.BohStore = (function () {
     const formattedDefault = defaultNotes.map((n, idx) => {
       const id = `def-note-${idx}`;
       const txt = typeof n === "string" ? n : (n.text || n.title || "");
-      const title = typeof n === "string" ? n.slice(0, 50) : (n.title || txt.slice(0, 50));
+      const title = (typeof n !== "string" && n.title) ? n.title : noteTitle(txt);
       return {
         id,
         originalId: id,

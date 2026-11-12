@@ -22,14 +22,15 @@ python3 scripts/sync_boh.py            # oznameni, aktuality (+fotky), ke stazen
 - **Service worker (`sw.js`) je network-first** (v4). Nikdy nevracet zpět cache-first, návštěvníci by viděli staré verze.
 - **Responzivní mřížky:** základní `.grid-cols-N` na konci `css/style.css` jsou `!important`, proto tam musí být i všechny varianty `sm:/md:/lg:grid-cols-*` a `col-span-*`. Při použití nové varianty ji doplnit do bloku "Responsive extensions".
 
-### Design (celý web je nový design)
-- Jedna vrstva vzhledu: `css/design.css` (načítá se po `css/style.css`) + `js/design.js` (animace). Žádné demo ani samostatné složky s jiným designem; vše se upravuje přímo v rootu.
-- **Palette:** tmavě zelená `#031a0e` až `#0a5c2e` (hlavička, patička, hero, úvodní pásy podstránek), světlý obsah `#f4f8f5` s bílými kartami, akcent mint `#3bdc86`, primární zelená `#0f7a3c`. Tokeny (`--background`, `--primary` ...) jsou v `:root` v `css/design.css`; tmavé části se označují třídou `.theme-dark` (nebo jsou vyjmenované v `design.css`).
-- **Jediné téma.** Přepínač světlý/tmavý byl odstraněn (`initTheme` v `js/app.js` jen odstraní staré třídy). Na `<html>` nesmí být třídy `dark` ani `bohemka`.
-- **Společná kostra:** hlavička (`.d-site-header`) a patička (`.d-site-footer`) jsou v každé HTML stránce stejné, menu má stejné položky a pořadí jako boh.cz. Úvodní pás podstránky = první `<section class="page-hero ...">` v `<main>`.
-- **Komponenty úvodu** mají předponu `d-` (`d-hero`, `d-card`, `d-alerts` ...), aby se nekřížily s Tailwind třídami. Úvod se vykresluje skriptem v `index.html` z `BohStore` (data.js + Supabase).
-- **Animace:** `.d-reveal` (zjevení při rolování), `data-count` (počítání čísel), světlo v hero. Vše se vypne při `prefers-reduced-motion`. Žádné zvětšování obrázků při najetí.
-- Při přidání nové HTML stránky zkopírovat hlavičku, patičku a odkazy na `assets/fonts/fonts.css`, `css/style.css`, `css/design.css` a `js/design.js` z existující stránky.
+### Design (celý web)
+- Jedna vrstva vzhledu: `css/design.css` (po `css/style.css`) + `js/design.js`. Žádné demo ani samostatné složky; vše se upravuje přímo v rootu.
+- **Koncept:** jazyk plavecké soutěže. Klubová zelená `#0a6a34` jako plocha (hlavička, úvodní pásy), bílá `#fbfcfa` jako dlaždice, inkoust `#0d1f15` (patička, časomíra), linky `#d5dfd8`, **jediný akcent jantarová `#ffb81c`** (světelná tabule časomíry: odpočet, hlavní tlačítko, aktivní položka menu). Dělicí linky jako plovací dráhy (kotouče, `--lane-on-paper` / `--lane-on-green`).
+- **Pravidla vzhledu (proti šablonovitosti):** žádné verzálkové štítky nad nadpisy (`.section-eyebrow` je skrytý), žádné zvýrazněné jedno slovo v nadpisu, žádné číslování 01/02 u věcí, které nejsou pořadí, žádné šipky za odkazy, žádné přechody a záře, skoro pravoúhlé rohy (4 až 8 px). Obsah jako startovní listiny a rozpisy (řádky s linkami), ne karty se stíny.
+- **Pohyb:** jediný, časomíra na úvodu jednou odpočítá k počtu dní do závodu (`window.dBoard`). Vypíná se při `prefers-reduced-motion`.
+- **Jediné téma.** Přepínač motivů odstraněn; na `<html>` nesmí být `dark` ani `bohemka`. Tokeny (`--background`, `--primary` ...) jsou v `:root` v `css/design.css`, zelené plochy je přepisují (`.theme-dark`, `.d-site-header`, `.page-hero`, `.h-intro`, `.h-board`, `.d-site-footer`).
+- **Kostra:** hlavička `.d-site-header`, patička `.d-site-footer`, stejné menu jako boh.cz na všech stránkách. Úvodní pás podstránky = první `<section class="page-hero ...">` v `<main>`. Úvod (`index.html`) má komponenty `h-` a vykresluje se z `BohStore`.
+- **Pozor na globální názvy:** inline skripty stránek nesmí znovu deklarovat `const/let` názvy, které už definují `js/*.js` (např. `escapeJsArg` ze `store.js`), jinak celý skript stránky spadne.
+- Nová HTML stránka: zkopírovat hlavičku, patičku a odkazy na `assets/fonts/fonts.css`, `css/style.css`, `css/design.css`, `js/design.js` z existující stránky.
 
 ### Běžné vývojářské příkazy
 
@@ -69,7 +70,7 @@ git push bohemka-vanilla-backup main
 5. **Typografie & Designový systém:**
    - **Nadpisy a display text:** `Sora` (self-hosted v `assets/fonts/`, `font-display`, `font-extrabold`).
    - **Text a navigace:** `Manrope` (self-hosted, `font-sans`, `font-body`). Žádné externí fonty.
-   - **Klubové barvy:** tmavě zelená `#031a0e`/`#0a5c2e`, primární `#0f7a3c`, akcent mint `#3bdc86` (viz `css/design.css`).
+   - **Klubové barvy:** klubová zelená `#0a6a34`, inkoust `#0d1f15`, bílá `#fbfcfa`, jediný akcent jantarová `#ffb81c` (viz `css/design.css`).
    - **Mobilní odsazení:** Mezi horní lištou a kartami udržovat kompaktní rozestup (cca 8 px na mobilu), nepoužívat obří vertikální mezery (`py-14` bylo nahrazeno za `py-8 sm:py-20` na podstránkách).
 6. **Zlatý standard Intranetu (`intranet-gold-standard`):**
    - Režim **Plavec / Rodič:** Přihlášky na závody, Rezervace na akce, Moje výsledky, Platby příspěvků (s QR kódem VS 214) a Nastavení účtu.

@@ -57,129 +57,109 @@
     <!-- MAIN CONTENT -->
     <main class="w-full min-w-0 flex-1 pb-24 lg:pb-0" id="obsah">
 
-      <!-- HERO -->
-      <section class="d-hero">
-        <div class="d-hero-glow" aria-hidden="true"></div>
-        <div class="d-hero-beam" aria-hidden="true"></div>
-        <div class="d-wrap d-hero-grid">
-          <div class="d-hero-copy">
-            <p class="d-eyebrow">Plavecký oddíl &middot; Praha &middot; od roku 1946</p>
-            <h1 class="d-hero-title"><span class="d-line"><span>Už to spolu</span></span> <span class="d-line"><span>táhneme <em>80&nbsp;let</em>.</span></span></h1>
-            <p class="d-hero-lead">Závodní plavání, přípravka a kurzy plavání v Praze. Trénujeme v Podolí a na Vinohradech.</p>
-            <div class="d-hero-actions">
-              <a class="d-pill d-pill-bright" href="zavody">Nejbližší závody</a>
-              <a class="d-pill d-pill-ghost" href="pro-rodice">Pro rodiče</a>
-            </div>
-          </div>
-          <aside class="d-next-card" id="home-next" aria-label="Nejbližší závod"></aside>
-        </div>
-        <svg class="d-wave-edge d-wave-light" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40 C 240 90 480 -10 720 40 S 1200 90 1440 40 V80 H0Z"/></svg>
-      </section>
-
-      <!-- OZNÁMENÍ -->
-      <section class="d-alerts-sec" aria-label="Důležitá oznámení">
-        <div class="d-wrap"><div class="d-alerts" id="home-alerts"></div></div>
-      </section>
-
-      <!-- AKTUALITY -->
-      <section class="d-section">
-        <div class="d-wrap">
-          <header class="d-sec-head">
-            <div>
-              <p class="d-eyebrow dark">Aktuality</p>
-              <h2>Co je nového v oddíle</h2>
-            </div>
-            <a class="d-pill d-pill-line" href="aktuality">Všechny aktuality &rarr;</a>
-          </header>
-          <div id="home-feature"></div>
-          <div class="d-cards" id="home-cards"></div>
-        </div>
-      </section>
-
-      <!-- PRO RODIČE A ČLENY -->
-      <section class="d-section d-tinted">
-        <div class="d-wrap">
-          <header class="d-sec-head">
-            <div>
-              <p class="d-eyebrow dark">Pro rodiče a členy</p>
-              <h2>Vše na jednom místě</h2>
-            </div>
-          </header>
-          <div class="d-trio">
-            <div class="d-panel d-reveal">
-              <h3>Vzkazy pro rodiče</h3>
-              <ul class="d-plain" id="home-notes"></ul>
-              <a class="d-more" href="pro-rodice">Všechny vzkazy <span aria-hidden="true">&rarr;</span></a>
-            </div>
-            <div class="d-panel d-reveal" style="--d:80ms">
-              <h3>Novinky ke stažení</h3>
-              <ul class="d-plain" id="home-downloads"></ul>
-              <a class="d-more" href="ke-stazeni">Všechny dokumenty <span aria-hidden="true">&rarr;</span></a>
-            </div>
-            <div class="d-panel d-reveal" style="--d:160ms">
-              <h3>Poslední fotky</h3>
-              <div class="d-mini-gal" id="home-gallery"></div>
-              <a class="d-more" href="foto">Fotogalerie <span aria-hidden="true">&rarr;</span></a>
+      <section class="h-intro">
+        <div class="d-wrap h-intro-grid">
+          <h1 class="h-title">Už to spolu táhneme 80&nbsp;let.</h1>
+          <div>
+            <p class="h-lead">Plavecký oddíl TJ Bohemians Praha. Závodní plavání, přípravka a kurzy plavání pro děti. Trénujeme v Podolí a na Vinohradech.</p>
+            <div class="h-actions">
+              <a class="btn btn-amber" href="zavody">Kalendář závodů</a>
+              <a class="btn btn-ghost" href="pro-rodice">Informace pro rodiče</a>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ZÁVODY -->
-      <section class="d-section">
+      <figure class="h-photo">
+        <img src="assets/aktuality/2240.jpg" alt="Společná fotografie členů a přátel oddílu na oslavě 80 let na Hagiboru" width="1400" height="377">
+        <figcaption>Oslava 80 let oddílu na Hagiboru, září 2026. Přišlo 212 Klokanů.</figcaption>
+      </figure>
+
+      <section class="h-board" id="home-next" aria-label="Nejbližší závod" hidden>
+        <div class="d-wrap h-board-in"></div>
+      </section>
+
+      <section class="h-sec" id="home-notices-sec" aria-labelledby="h-notices">
         <div class="d-wrap">
-          <header class="d-sec-head">
-            <div>
-              <p class="d-eyebrow dark">Závody</p>
-              <h2>Nadcházející závody</h2>
-            </div>
-            <a class="d-pill d-pill-line" href="zavody">Celý kalendář &rarr;</a>
-          </header>
-          <div class="d-race-list" id="home-races"></div>
+          <div class="h-sec-head"><h2 id="h-notices">Oznámení</h2></div>
+          <ul class="h-notices" id="home-notices"></ul>
         </div>
       </section>
 
-      <!-- ČÍSLA -->
-      <section class="d-section d-stats-sec">
+      <section class="h-sec" aria-labelledby="h-news">
         <div class="d-wrap">
-          <div class="d-stats">
-            <div class="d-stat d-reveal"><strong data-count="1946">1946</strong><span>rok založení oddílu</span></div>
-            <div class="d-stat d-reveal" style="--d:80ms"><strong data-count="80">80</strong><span>let tradice</span></div>
-            <div class="d-stat d-reveal" style="--d:160ms"><strong data-count="7">7</strong><span>tréninkových skupin</span></div>
-            <div class="d-stat d-reveal" style="--d:240ms"><strong data-count="2">2</strong><span>domácí bazény: Podolí a Vinohrady</span></div>
+          <div class="h-sec-head">
+            <h2 id="h-news">Aktuality</h2>
+            <a class="text-link" href="aktuality">Všechny aktuality</a>
+          </div>
+          <ol class="h-list" id="home-news"></ol>
+        </div>
+      </section>
+
+      <hr class="lane" aria-hidden="true">
+
+      <section class="h-sec" aria-labelledby="h-races">
+        <div class="d-wrap">
+          <div class="h-sec-head">
+            <h2 id="h-races">Nadcházející závody</h2>
+            <a class="text-link" href="zavody">Celý kalendář</a>
+          </div>
+          <table class="h-table">
+            <thead><tr><th>Datum</th><th>Závod</th><th>Místo</th><th>Přihlášky do</th><th><span class="sr-only">Akce</span></th></tr></thead>
+            <tbody id="home-races"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="h-sec" aria-labelledby="h-parents">
+        <div class="d-wrap">
+          <div class="h-sec-head"><h2 id="h-parents">Pro rodiče a členy</h2></div>
+          <div class="h-cols">
+            <div>
+              <h3>Vzkazy trenérů</h3>
+              <ul id="home-notes"></ul>
+              <a class="text-link" href="pro-rodice">Všechny vzkazy</a>
+            </div>
+            <div>
+              <h3>Nové dokumenty</h3>
+              <ul id="home-downloads"></ul>
+              <a class="text-link" href="ke-stazeni">Ke stažení</a>
+            </div>
+            <div>
+              <h3>Fotky</h3>
+              <div class="h-photos" id="home-gallery"></div>
+              <a class="text-link" href="foto">Fotogalerie</a>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- SKUPINY -->
-      <section class="d-section">
+      <hr class="lane" aria-hidden="true">
+
+      <section class="h-sec" aria-labelledby="h-path">
         <div class="d-wrap">
-          <header class="d-sec-head">
-            <div>
-              <p class="d-eyebrow dark">Oddíl</p>
-              <h2>Cesta od kurzů po reprezentaci</h2>
-            </div>
-            <a class="d-pill d-pill-line" href="oddil">Struktura oddílu &rarr;</a>
-          </header>
-          <div class="d-groups">
-            <a class="d-group d-reveal" href="oddil"><span class="d-group-no">01</span><h3>Kurzy plavání</h3><p>Základní plavání pro děti na samostatném webu kurzy.boh.cz.</p></a>
-            <a class="d-group d-reveal" style="--d:60ms" href="oddil"><span class="d-group-no">02</span><h3>Přípravka</h3><p>Pro nadějnější plavce z kurzů a pro ty, kteří chtějí závodit.</p></a>
-            <a class="d-group d-reveal" style="--d:120ms" href="oddil"><span class="d-group-no">03</span><h3>ODB</h3><p>Pro plavce, kteří chtějí trénovat 2x týdně a být připraveni i na závody.</p></a>
-            <a class="d-group d-reveal" style="--d:180ms" href="oddil"><span class="d-group-no">04</span><h3>ST (eSTéčko)</h3><p>Dříve sportovní třídy. Závodní plavci staršího žactva a juniorů.</p></a>
-            <a class="d-group d-reveal" href="oddil"><span class="d-group-no">05</span><h3>Výběrové družstvo</h3><p>Trénink pro nejnadějnější plavce a medailisty MČR.</p></a>
-            <a class="d-group d-reveal" style="--d:60ms" href="oddil"><span class="d-group-no">06</span><h3>ODA</h3><p>Pokračování pro plavce juniory a starší po skupině ST.</p></a>
-            <a class="d-group d-reveal" style="--d:120ms" href="oddil"><span class="d-group-no">07</span><h3>Veteráni</h3><p>Bývalí plavci starší 25 let, kteří se účastní především závodů.</p></a>
+          <div class="h-sec-head">
+            <h2 id="h-path">Od kurzů po reprezentaci</h2>
+            <a class="text-link" href="oddil">Struktura oddílu</a>
           </div>
+          <dl class="h-path">
+            <div><dt>Kurzy plavání</dt><dd>Základní plavání pro děti, úterý a čtvrtek na Vinohradech. Přihlášky na kurzy.boh.cz.</dd></div>
+            <div><dt>Přípravka</dt><dd>Pro nadějnější plavce z kurzů a pro ty, kteří chtějí závodit.</dd></div>
+            <div><dt>ODB</dt><dd>Trénink dvakrát týdně, s možností startovat na závodech.</dd></div>
+            <div><dt>eSTéčko (ST)</dt><dd>Dříve sportovní třídy. Závodní plavci staršího žactva a juniorů, 7 až 10 tréninků týdně.</dd></div>
+            <div><dt>Oddílové družstvo (ODA)</dt><dd>Pokračování pro juniory a starší po skupině ST, 10 tréninků týdně.</dd></div>
+            <div><dt>Výběrové družstvo</dt><dd>Nejnadějnější plavci, studenti sportovního gymnázia Přípotoční a medailisté MČR.</dd></div>
+            <div><dt>Veteráni</dt><dd>Bývalí plavci starší 25 let, kteří se účastní především závodů.</dd></div>
+          </dl>
         </div>
       </section>
 
-      <!-- PARTNEŘI -->
-      <section class="d-section d-sponsors">
+      <section class="h-sec" aria-labelledby="h-partners">
         <div class="d-wrap">
-          <h2 class="d-center d-reveal">Podporují nás</h2>
-          <div class="d-sponsor-row d-reveal">
-            <a href="https://www.praha.eu/" target="_blank" rel="noopener noreferrer"><img src="assets/sponsors/praha.png" alt="Hlavní město Praha" height="64" loading="lazy"></a>
-            <a href="https://www.czechswimming.cz/" target="_blank" rel="noopener noreferrer"><img src="assets/sponsors/svaz.png" alt="Český svaz plaveckých sportů" height="64" loading="lazy"></a>
+          <div class="h-sec-head"><h2 id="h-partners">Podporují nás</h2></div>
+          <div class="h-partners">
+            <a href="https://www.praha.eu/" target="_blank" rel="noopener noreferrer"><img src="assets/sponsors/praha.png" alt="Hlavní město Praha" height="56" loading="lazy"></a>
+            <a href="https://www.czechswimming.cz/" target="_blank" rel="noopener noreferrer"><img src="assets/sponsors/svaz.png" alt="Český svaz plaveckých sportů" height="56" loading="lazy"></a>
           </div>
         </div>
       </section>
@@ -379,7 +359,7 @@
   <script src="js/animations.js"></script>
   <script src="js/app.js"></script>
   <script>
-    /* Úvodní stránka: data z BohStore (data.js + Supabase + položky z intranetu). Veškerý text přes escapeHtml. */
+    /* Úvodní stránka: data z BohStore (data.js + Supabase + položky z intranetu). Text vždy přes escapeHtml. */
     function renderHome() {
       const S = window.BohStore;
       const D = window.BohData || {};
@@ -389,72 +369,67 @@
       const now = new Date();
       const today = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
       const fmt = (iso) => { const p = String(iso || "").split("-"); return p.length === 3 ? (+p[2]) + ". " + (+p[1]) + ". " + p[0] : ""; };
-      const months = ["led", "úno", "bře", "dub", "kvě", "čvn", "čvc", "srp", "zář", "říj", "lis", "pro"];
-      const short = (t, n) => { t = String(t || "").replace(/\s+/g, " ").trim(); return t.length > n ? t.slice(0, n - 1).replace(/\s+\S*$/, "") + "..." : t; };
-      const textOf = (n) => short(n.excerpt || (Array.isArray(n.body) ? n.body.join(" ") : n.body) || "", 170);
-      const downloadUrl = (d) => {
-        const f = d.fileName || d.file || "";
-        return /^https?:\/\//.test(f) ? f : "assets/downloads/" + f;
-      };
+      const short = (t, n) => { t = String(t || "").replace(/\s+/g, " ").trim(); return t.length > n ? t.slice(0, n - 1).replace(/\s+\S*$/, "") + "…" : t; };
+      const textOf = (n) => n.excerpt || (Array.isArray(n.body) ? n.body.join(" ") : n.body) || "";
+      const docUrl = (d) => { const f = d.fileName || d.file || ""; return /^https?:\/\//.test(f) ? f : "assets/downloads/" + f; };
+      const days = (iso) => Math.max(0, Math.round((new Date(iso + "T00:00:00") - new Date(now.getFullYear(), now.getMonth(), now.getDate())) / 86400000));
 
-      // nejbližší závod
-      const upcoming = events.filter(e => e.kind !== "soustredeni" && (!e.date || e.date >= today)).sort((a, b) => String(a.date).localeCompare(String(b.date)));
+      const upcoming = events.filter(e => e.kind !== "soustredeni" && e.date && e.date >= today).sort((a, b) => a.date.localeCompare(b.date));
+
+      // časomíra: nejbližší závod
+      const board = document.getElementById("home-next");
       const next = upcoming[0];
-      const nextBox = document.getElementById("home-next");
-      if (nextBox) {
-        if (next) {
-          const days = Math.max(0, Math.round((new Date(next.date + "T00:00:00") - new Date(now.getFullYear(), now.getMonth(), now.getDate())) / 86400000));
-          const unit = days === 1 ? "den" : (days >= 2 && days <= 4 ? "dny" : "dní");
-          nextBox.innerHTML =
-            '<p class="d-eyebrow">Nejbližší závod</p>' +
-            '<h2>' + esc(next.name) + '</h2>' +
-            '<p class="d-next-meta">' + esc(fmt(next.date)) + (next.place ? ' &middot; ' + esc(next.place) : '') + (next.deadline ? ' &middot; přihlášky do ' + esc(fmt(next.deadline)) : '') + '</p>' +
-            '<div class="d-next-count"><strong>' + days + '</strong><span>' + unit + ' do startu</span></div>' +
-            '<div class="d-next-links"><a href="intranet">Přihlásit se</a><a href="zavody#' + encodeURIComponent(next.id) + '">Detail závodu</a></div>';
-          nextBox.hidden = false;
-        } else {
-          nextBox.hidden = true;
-        }
+      if (board && next) {
+        const d = days(next.date);
+        const unit = d === 0 ? "dnes" : (d === 1 ? "den" : (d >= 2 && d <= 4 ? "dny" : "dní"));
+        const closed = next.deadline && next.deadline < today;
+        board.querySelector(".h-board-in").innerHTML =
+          '<div><p class="h-board-label">Nejbližší závod</p><h2>' + esc(next.name) + '</h2>' +
+          '<p class="h-board-meta">' + esc(fmt(next.date)) + (next.place ? ', ' + esc(next.place) : '') +
+          (next.deadline ? (closed ? '. Přihlášky jsou uzavřené.' : '. Přihlášky do ' + esc(fmt(next.deadline)) + '.') : '') + '</p></div>' +
+          '<div class="h-clock" aria-label="Do startu zbývá ' + d + ' ' + unit + '"><strong data-board="' + d + '">' + String(d).padStart(2, "0") + '</strong><span>' + (d === 0 ? "start je dnes" : unit + " do startu") + '</span></div>' +
+          '<div class="h-board-actions">' + (closed ? '' : '<a class="btn btn-amber" href="intranet">Přihlásit plavce</a>') +
+          '<a class="btn btn-ghost" href="zavody#' + encodeURIComponent(next.id) + '">Detail závodu</a></div>';
+        board.hidden = false;
+        if (window.dBoard) window.dBoard(board.querySelector("[data-board]"));
+      } else if (board) {
+        board.hidden = true;
       }
 
       // oznámení
       const alerts = (S && S.getAlerts ? S.getAlerts() : []).slice(0, 3);
-      const alertsBox = document.getElementById("home-alerts");
-      if (alertsBox) {
-        alertsBox.innerHTML = alerts.map((a, i) =>
-          '<article class="d-alert d-reveal" style="--d:' + (i * 80) + 'ms"><h3>' + esc(a.title) + '</h3><p>' + esc(a.text || "") + '</p></article>').join("");
-        alertsBox.parentElement.parentElement.hidden = alerts.length === 0;
+      const notices = document.getElementById("home-notices");
+      if (notices) notices.innerHTML = alerts.map(a => '<li><strong>' + esc(a.title) + '</strong><p>' + esc(a.text || "") + '</p></li>').join("");
+      const noticesSec = document.getElementById("home-notices-sec");
+      if (noticesSec) noticesSec.hidden = alerts.length === 0;
+
+      // aktuality jako startovní listina
+      const list = document.getElementById("home-news");
+      if (list) {
+        list.innerHTML = news.slice(0, 6).map((n, i) => {
+          const href = "aktuality?id=" + encodeURIComponent(n.id);
+          return '<li class="h-row' + (i === 0 ? ' is-lead' : '') + '">' +
+            '<time datetime="' + esc(n.date) + '">' + esc(fmt(n.date)) + '</time>' +
+            '<div><h3><a href="' + href + '">' + esc(n.title) + '</a></h3>' +
+            '<p>' + esc(short(textOf(n), i === 0 ? 300 : 170)) + '</p>' +
+            '<p class="h-by">' + esc(n.author || "TJ Bohemians Praha") + '</p></div>' +
+            (n.image ? '<a href="' + href + '" tabindex="-1" aria-hidden="true"><img src="' + esc(n.image) + '" alt="" loading="lazy"></a>' : '<span></span>') +
+            '</li>';
+        }).join("");
       }
 
-      // aktuality
-      const feature = news[0];
-      const featBox = document.getElementById("home-feature");
-      if (featBox && feature) {
-        const href = "aktuality?id=" + encodeURIComponent(feature.id);
-        featBox.innerHTML =
-          '<article class="d-feature d-reveal">' +
-            (feature.image ? '<a class="d-feature-img" href="' + href + '" tabindex="-1" aria-hidden="true"><img src="' + esc(feature.image) + '" alt=""></a>' : '') +
-            '<div class="d-feature-body">' +
-              '<p class="d-meta">' + esc(fmt(feature.date)) + ' &middot; ' + esc(feature.author || "TJ Bohemians Praha") + '</p>' +
-              '<h3><a href="' + href + '">' + esc(feature.title) + '</a></h3>' +
-              '<p>' + esc(short(textOf(feature), 320)) + '</p>' +
-              '<a class="d-more" href="' + href + '">Číst celé <span aria-hidden="true">&rarr;</span></a>' +
-            '</div></article>';
-      }
-      const cardsBox = document.getElementById("home-cards");
-      if (cardsBox) {
-        cardsBox.innerHTML = news.slice(1, 7).map((n, i) => {
-          const href = "aktuality?id=" + encodeURIComponent(n.id);
-          const img = n.image ? esc(n.image) : "";
-          return '<article class="d-card d-reveal' + (img ? '' : ' d-text-only') + '" style="--d:' + ((i % 3) * 80) + 'ms">' +
-            (img ? '<a class="d-card-img" href="' + href + '" tabindex="-1" aria-hidden="true"><img src="' + img + '" alt="" loading="lazy"></a>' : '') +
-            '<div class="d-card-body">' +
-              (img ? '<a class="d-card-thumb" href="' + href + '" tabindex="-1" aria-hidden="true"><img src="' + img + '" alt="" loading="lazy"></a>' : '') +
-              '<p class="d-meta">' + esc(fmt(n.date)) + '</p>' +
-              '<h3><a href="' + href + '">' + esc(n.title) + '</a></h3>' +
-              '<p class="d-excerpt">' + esc(short(textOf(n), 150)) + '</p>' +
-            '</div></article>';
-        }).join("");
+      // rozpis závodů
+      const races = document.getElementById("home-races");
+      if (races) {
+        races.innerHTML = upcoming.slice(0, 6).map((e, i) => {
+          const closed = e.deadline && e.deadline < today;
+          return '<tr' + (i === 0 ? ' class="is-next"' : '') + '>' +
+            '<td class="h-num">' + esc(fmt(e.date)) + '</td>' +
+            '<td><a href="zavody#' + encodeURIComponent(e.id) + '">' + esc(e.name) + '</a></td>' +
+            '<td>' + esc(e.place || "") + '</td>' +
+            '<td class="h-num">' + (e.deadline ? esc(fmt(e.deadline)) : '') + '</td>' +
+            '<td>' + (closed ? '<span class="h-closed">Uzavřeno</span>' : '<a class="text-link" href="intranet">Přihlásit</a>') + '</td></tr>';
+        }).join("") || '<tr><td colspan="5">Nové termíny závodů zveřejníme v kalendáři.</td></tr>';
       }
 
       // vzkazy, dokumenty, fotky
@@ -469,34 +444,11 @@
       const docs = (S ? S.getDownloads() : (D.downloads || [])).slice().sort((a, b) => String(b.updatedAt).localeCompare(String(a.updatedAt))).slice(0, 3);
       const docsBox = document.getElementById("home-downloads");
       if (docsBox) docsBox.innerHTML = docs.map(d =>
-        '<li><a href="' + esc(downloadUrl(d)) + '" target="_blank" rel="noopener noreferrer">' + esc(d.title) + '</a><small>' + esc(fmt(d.updatedAt)) + (d.fileSize ? ' &middot; ' + esc(d.fileSize) : '') + '</small></li>').join("");
+        '<li><a href="' + esc(docUrl(d)) + '" target="_blank" rel="noopener noreferrer">' + esc(d.title) + '</a><small>' + esc(fmt(d.updatedAt)) + (d.fileSize ? ', ' + esc(d.fileSize) : '') + '</small></li>').join("");
 
-      const photos = (S ? S.getPhotos() : (D.galleries || [])).filter(p => p.url).slice(0, 2);
+      const photos = (S ? S.getPhotos() : (D.galleries || [])).filter(p => p.url).slice(0, 4);
       const galBox = document.getElementById("home-gallery");
-      if (galBox) galBox.innerHTML = photos.map(p =>
-        '<a href="foto"><img src="' + esc(p.url) + '" alt="" loading="lazy"><span>' + esc(short(p.title || p.caption || "", 60)) + '</span></a>').join("");
-
-      // závody
-      const racesBox = document.getElementById("home-races");
-      if (racesBox) {
-        racesBox.innerHTML = upcoming.slice(0, 6).map((e, i) =>
-          '<article class="d-race d-reveal" style="--d:' + ((i % 3) * 60) + 'ms">' +
-            '<div class="d-race-date"><strong>' + (+String(e.date).slice(8, 10)) + '</strong><span>' + months[(+String(e.date).slice(5, 7)) - 1] + '</span></div>' +
-            '<div class="d-race-main"><h3><a href="zavody#' + encodeURIComponent(e.id) + '">' + esc(e.name) + '</a></h3><p>' + (e.deadline ? 'Přihlášky do ' + esc(fmt(e.deadline)) : esc(e.place || "")) + '</p></div>' +
-            '<div class="d-race-links"><a href="intranet">Přihlásit se</a></div></article>').join("");
-        if (!upcoming.length) racesBox.innerHTML = '<p class="d-empty">Nadcházející závody budou brzy doplněny.</p>';
-      }
-
-      // malé fotky aktualit se nesmí roztahovat: karta přejde na malý náhled vedle textu
-      document.querySelectorAll(".d-card-img img, .d-feature-img img").forEach(img => {
-        const mark = () => {
-          if (img.naturalWidth && img.naturalWidth < 700) img.closest(".d-card, .d-feature").classList.add("is-small");
-        };
-        if (img.complete) mark(); else img.addEventListener("load", mark, { once: true });
-      });
-
-      if (window.dReveal) window.dReveal();
-      if (window.dCounters) window.dCounters();
+      if (galBox) galBox.innerHTML = photos.map(p => '<a href="foto"><img src="' + esc(p.url) + '" alt="' + esc(p.caption || p.title || "") + '" loading="lazy"></a>').join("");
     }
 
     renderHome();
