@@ -73,7 +73,7 @@
 
       <!-- PHOTOS GRID -->
       <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-20">
-        <div id="photos-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div id="photos-grid">
           <!-- Populated by JS -->
         </div>
 
@@ -351,23 +351,33 @@
       galleryPhotos = (window.BohStore ? window.BohStore.getPhotos() : null) || (window.BohData && window.BohData.galleries) || defaultPhotos;
       const container = document.getElementById("photos-grid");
       if (container) {
-        container.innerHTML = galleryPhotos.map((photo, index) => `
-          <figure class="spotlight-card reveal hover-float group cursor-pointer overflow-hidden rounded-2xl border border-border/60 bg-card/50 shadow-[var(--shadow-elevated)] backdrop-blur-sm transition-all duration-300" onclick="openPhotoModal(${index})">
-            <div class="relative overflow-hidden aspect-[4/3] bg-background/60">
-              <img src="${photo.url}" alt="${photo.title}" loading="lazy" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
-              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-end p-4">
-                <span class="text-xs font-semibold text-white inline-flex items-center gap-1.5">
-                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6m0-6-7 7M9 21H3v-6m0 6 7-7"/></svg>
-                  Zvětšit
-                </span>
-              </div>
+        // kontaktní arch: fotky seskupené podle alba, náhledy ve skutečné velikosti (nerozmazané)
+        const albums = [];
+        galleryPhotos.forEach((photo, index) => {
+          const last = albums[albums.length - 1];
+          if (last && last.title === photo.title) last.items.push({ photo, index });
+          else albums.push({ title: photo.title, items: [{ photo, index }] });
+        });
+        container.innerHTML = albums.map(album => {
+          const m = /\/fotky\/(\d+)\//.exec(album.items[0].photo.url || "");
+          return `
+          <section class="g-album">
+            <div class="g-album-head">
+              <h2>${escapeHtml(album.title)}</h2>
+              ${m ? `<a class="text-link" href="https://www.boh.cz/galerie/${m[1]}/" target="_blank" rel="noopener noreferrer">Celá galerie na boh.cz</a>` : ''}
             </div>
-            <figcaption class="p-4">
-              <p class="font-display font-semibold text-foreground sm:text-base group-hover:text-primary transition-colors">${photo.title}</p>
-              <p class="mt-1 text-xs text-muted-foreground">${photo.caption || ''}</p>
-            </figcaption>
-          </figure>
-        `).join("");
+            <div class="g-sheet">
+              ${album.items.map(({ photo, index }) => `
+                <figure class="g-tile">
+                  <button type="button" onclick="openPhotoModal(${index})" aria-label="Zvětšit fotografii: ${escapeHtml(photo.caption || photo.title)}">
+                    <img src="${escapeHtml(photo.url)}" alt="" loading="lazy">
+                  </button>
+                  ${photo.caption && photo.caption !== album.title ? `<figcaption>${escapeHtml(photo.caption)}</figcaption>` : ''}
+                </figure>
+              `).join("")}
+            </div>
+          </section>`;
+        }).join("");
       }
       if (window.initSpotlightCards) window.initSpotlightCards();
       if (window.initScrollReveal) setTimeout(window.initScrollReveal, 40);
@@ -385,7 +395,8 @@
     window.openPhotoModal = function(index) {
       const p = galleryPhotos[index];
       if (!p || !modal) return;
-      modalImg.src = p.url;
+      // náhledy z boh.cz jsou malé (small/NAZEV_small.jpg); ve zvětšení načteme plnou fotku
+      modalImg.src = String(p.url).replace(/\/small\/([^\/]+)_small\.(jpe?g|png)$/i, "/$1.$2");
       modalImg.alt = p.title;
       modalTitle.textContent = p.title;
       modalCaption.textContent = p.caption || '';

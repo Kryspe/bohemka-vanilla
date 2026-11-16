@@ -90,7 +90,7 @@
           </button>
         </div>
 
-        <div id="events-grid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div id="events-grid" class="s-list">
           <!-- Card 1 -->
           <div class="card-clean spotlight-card reveal hover-float group flex h-full flex-col rounded-3xl border border-border bg-card p-6 shadow-sm transition-all duration-300">
             <div class="flex items-start justify-between gap-3">
@@ -516,45 +516,26 @@
           const formattedDeadline = typeof formatCzDate === "function" ? formatCzDate(e.deadline) : (e.deadline || "");
           const formattedDate = typeof formatCzDate === "function" ? formatCzDate(e.date) : (e.date || "");
 
+          const discText = (e.disciplines && e.disciplines.length)
+            ? e.disciplines.slice(0, 8).map(d => escapeHtml(d)).join(", ") + (e.disciplines.length > 8 ? " a " + (e.disciplines.length - 8) + " dalších" : "")
+            : "";
+          const action = closed
+            ? ""
+            : `<button type="button" onclick="openSignUpDialog('${escapeJsArg(e.id)}')" class="btn btn-sm ${signed ? 'btn-line' : 'btn-amber'}">${signed ? 'Upravit přihlášku' : 'Přihlásit se'}</button>`;
+
           return `
-            <div class="reveal hover-float group flex h-full flex-col rounded-3xl border border-border bg-card p-6 shadow-sm transition-all duration-300">
-              <div class="flex items-start justify-between gap-3">
-                <span class="rounded-full px-2.5 py-1 text-xs font-semibold ${typeCls}">
-                  ${escapeHtml(e.type)}
-                </span>
-                <span class="shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold ${st.cls}">
-                  ${escapeHtml(st.label)}
-                </span>
+            <div class="s-row s-race${closed ? ' is-closed' : ''}" id="${escapeHtml(e.id)}">
+              <div class="s-date">${formattedDate}</div>
+              <div>
+                <h3>${escapeHtml(e.name)}</h3>
+                <p class="s-meta">${escapeHtml(e.place || "")}${e.type ? ", " + escapeHtml(e.type) : ""}</p>
+                ${discText ? `<p class="s-meta">Disciplíny: ${discText}</p>` : ""}
               </div>
-
-              <h3 class="mt-4 font-display text-lg font-bold leading-snug text-foreground group-hover:text-primary transition-colors">${escapeHtml(e.name)}</h3>
-
-              <div class="mt-3 space-y-1.5 text-xs text-muted-foreground">
-                <div class="flex items-center gap-2">
-                  <svg class="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                  ${escapeHtml(e.place)}
-                </div>
-                <div class="flex items-center gap-2">
-                  <svg class="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
-                  ${formattedDate}
-                </div>
+              <div>
+                <p class="s-meta s-first">Přihlášky do <b class="s-num">${formattedDeadline}</b></p>
+                <p class="s-state is-${statusState}">${escapeHtml(st.label)}</p>
               </div>
-
-              ${discHtml}
-
-              <div class="mt-auto flex flex-wrap items-center justify-between gap-2 border-t border-border/50 pt-4">
-                <span class="text-xs text-muted-foreground shrink-0 leading-tight">
-                  Uzávěrka: <b class="text-foreground font-semibold">${formattedDeadline}</b>
-                </span>
-                <button
-                  type="button"
-                  ${closed ? 'disabled' : ''}
-                  onclick="openSignUpDialog('${escapeJsArg(e.id)}')"
-                  class="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold transition-all active:scale-95 shrink-0 ${btnClass}"
-                >
-                  ${btnContent}
-                </button>
-              </div>
+              <div class="s-actions">${action}</div>
             </div>
           `;
         }).join("");

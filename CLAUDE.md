@@ -29,6 +29,7 @@ python3 scripts/sync_boh.py            # oznameni, aktuality (+fotky), ke stazen
 - **Pohyb:** jediný, časomíra na úvodu jednou odpočítá k počtu dní do závodu (`window.dBoard`). Vypíná se při `prefers-reduced-motion`.
 - **Jediné téma.** Přepínač motivů odstraněn; na `<html>` nesmí být `dark` ani `bohemka`. Tokeny (`--background`, `--primary` ...) jsou v `:root` v `css/design.css`, zelené plochy je přepisují (`.theme-dark`, `.d-site-header`, `.page-hero`, `.h-intro`, `.h-board`, `.d-site-footer`).
 - **Kostra:** hlavička `.d-site-header`, patička `.d-site-footer`, stejné menu jako boh.cz na všech stránkách. Úvodní pás podstránky = první `<section class="page-hero ...">` v `<main>`. Úvod (`index.html`) má komponenty `h-` a vykresluje se z `BohStore`.
+- **Podstránky:** obsah se vykresluje jako řádky s linkami, ne karty: `.s-list` + `.s-row` (`.s-race` závody, `.s-doc` dokumenty, `.s-note` vzkazy), aktuality `.h-list` + `.h-row`, fotogalerie jako kontaktní arch podle alb (`.g-album`, `.g-sheet`, `.g-tile`; náhledy malé, plná fotka se načte až ve zvětšení). Tlačítka `.btn .btn-amber / .btn-line / .btn-sm`, textové odkazy `.text-link`.
 - **Pozor na globální názvy:** inline skripty stránek nesmí znovu deklarovat `const/let` názvy, které už definují `js/*.js` (např. `escapeJsArg` ze `store.js`), jinak celý skript stránky spadne.
 - Nová HTML stránka: zkopírovat hlavičku, patičku a odkazy na `assets/fonts/fonts.css`, `css/style.css`, `css/design.css`, `js/design.js` z existující stránky.
 

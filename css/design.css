@@ -252,3 +252,67 @@ main .rounded-2xl, main .rounded-3xl, main .rounded-\[2rem\] { border-radius: 8p
 
 /* plochý pás podstránek: bez starých dekorativních září */
 .page-hero > .pointer-events-none.absolute { display: none; }
+
+/* ---------- podstránky: řádky s linkami místo karet (startovní listiny a rozpisy) ---------- */
+.s-list { display: block; border-top: 3px solid var(--club); margin: 0; padding: 0; list-style: none; }
+.s-row { display: grid; gap: 8px 24px; padding: 18px 0; border-bottom: 1px solid var(--line); align-items: start; }
+.s-row h3 { font: 700 1.15rem/1.3 var(--head); margin: 0; color: var(--ink); letter-spacing: -.01em; }
+.s-meta { color: var(--d-muted); font-size: .93rem; line-height: 1.5; margin: 4px 0 0; }
+.s-meta.s-first { margin-top: 0; }
+.s-date { font: 700 1rem/1.4 var(--body); font-variant-numeric: tabular-nums; color: var(--club); }
+.s-num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.s-race { grid-template-columns: 7.5rem minmax(0, 1fr) 12rem 10.5rem; }
+.s-doc { grid-template-columns: minmax(0, 1fr) 11rem 5.5rem 6.5rem auto; align-items: center; }
+.s-note { grid-template-columns: 7.5rem minmax(0, 1fr); }
+.s-note .s-meta { max-width: 75ch; font-size: 1rem; color: var(--ink); }
+.s-state { font-weight: 700; margin: 2px 0 0; font-size: .93rem; }
+.s-state.is-otevreno, .s-state.is-prihlaseno { color: var(--club); }
+.s-state.is-uzavreno { color: var(--d-muted); }
+.s-row.is-closed h3 { color: var(--d-muted); }
+.s-row.is-important { box-shadow: inset 4px 0 0 var(--amber); padding-left: 14px; }
+.s-actions { display: flex; gap: 14px; align-items: center; justify-content: flex-end; flex-wrap: wrap; }
+.btn-sm { padding: .62em .95em; font-size: .88rem; }
+.s-link-btn { background: none; border: 0; padding: 0; font: 700 .9rem/1 var(--body); color: var(--club); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+.s-link-btn:hover { color: var(--ink); }
+.s-empty { padding: 24px 0; color: var(--d-muted); border-top: 3px solid var(--club); }
+.h-row h2 { font: 700 1.2rem/1.3 var(--head); margin: 0 0 6px; }
+.h-row h2 a { color: var(--ink); text-decoration: none; }
+.h-row h2 a:hover { color: var(--club); text-decoration: underline; text-underline-offset: 4px; }
+
+/* detail aktuality: čistý článek bez karty */
+.s-article { max-width: 46rem; }
+.s-article-img { margin: 28px 0; }
+.s-article-img img { max-width: 100%; height: auto; border-radius: 4px; display: block; }
+img.img-small { width: auto !important; height: auto !important; max-width: 100%; object-fit: contain !important; }
+
+@media (max-width: 820px) {
+  .s-race, .s-doc { grid-template-columns: 1fr; gap: 6px; }
+  .s-actions { justify-content: flex-start; margin-top: 6px; }
+  .s-note { grid-template-columns: 1fr; gap: 2px; }
+}
+
+/* zbylé staré bloky na podstránkách: bez stínů, se střídmými rohy; filtry jako záložky, ne pilulky */
+main .rounded-2xl, main .rounded-3xl, main .rounded-xl { box-shadow: none !important; }
+main button.rounded-full, main a.rounded-full, main span.rounded-full, main input.rounded-full { border-radius: 4px; }
+main .backdrop-blur-sm, main .backdrop-blur { backdrop-filter: none; -webkit-backdrop-filter: none; }
+
+/* fotogalerie: kontaktní arch podle alb */
+.g-album { padding: 28px 0 8px; border-top: 3px solid var(--club); }
+.g-album + .g-album { margin-top: 28px; }
+.g-album-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+.g-album-head h2 { font: 700 1.3rem/1.3 var(--head); margin: 0; color: var(--ink); }
+.g-sheet { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 16px 12px; }
+.g-tile { margin: 0; }
+.g-tile button { display: block; width: 100%; padding: 0; border: 0; background: var(--tile); cursor: zoom-in; border-radius: 4px; overflow: hidden; }
+.g-tile img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block; }
+.g-tile button:hover img { opacity: .88; }
+.g-tile figcaption { font-size: .85rem; line-height: 1.35; color: var(--d-muted); margin-top: 6px; }
+
+/* čísla v tabulkách: tabulkové číslice místo strojového písma */
+main .font-mono { font-family: var(--body); font-variant-numeric: tabular-nums; }
+.page-hero { margin-bottom: 28px; }
+
+/* zbylé šablonovité prvky na podstránkách */
+main .bg-gradient-aqua { background: var(--club) !important; color: #fff !important; }
+main .uppercase { text-transform: none; letter-spacing: 0; }
+.page-hero + section { padding-top: 2.5rem !important; }
