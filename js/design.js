@@ -27,3 +27,50 @@
     requestAnimationFrame(step);
   };
 })();
+
+/* Pohyb v duchu oceněných webů: odkrývání při rolování, jemný paralax fotek. Vypíná se při prefers-reduced-motion. */
+(function () {
+  "use strict";
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var SEL = ".h-sec-head, .h-row, .h-notices li, .h-table, .h-cols > div, .h-path > div, .h-partners, .s-row, .s-list > *, .page-hero h1, .page-hero p, .g-album, .h-hist-text, .h-board-in, .d-foot-grid";
+  var io = "IntersectionObserver" in window ? new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } });
+  }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 }) : null;
+  function mark() {
+    if (!io) return;
+    document.querySelectorAll(SEL).forEach(function (el) {
+      if (el.dataset.rv) return;
+      el.dataset.rv = "1";
+      var sibs = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
+      el.style.setProperty("--d", Math.min(sibs, 5) * 0.07 + "s");
+      el.classList.add("rv");
+      io.observe(el);
+    });
+  }
+  var t;
+  function later() { clearTimeout(t); t = setTimeout(mark, 60); }
+  document.addEventListener("DOMContentLoaded", mark);
+  if (document.readyState !== "loading") mark();
+  var main = document.querySelector("main");
+  if (main && window.MutationObserver) new MutationObserver(later).observe(main, { childList: true, subtree: true });
+
+  // paralax: úvodní fotka a rozházené fotky v historii
+  var hero = document.querySelector(".h-hero-img");
+  var snaps = Array.prototype.slice.call(document.querySelectorAll(".h-snap"));
+  var ticking = false;
+  function frame() {
+    ticking = false;
+    var y = window.scrollY, vh = window.innerHeight;
+    if (hero && y < vh * 1.2) hero.style.setProperty("--hp", (y * 0.22).toFixed(1) + "px");
+    if (snaps.length && window.innerWidth >= 1024) {
+      snaps.forEach(function (el, i) {
+        var r = el.parentElement.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > vh + 200) return;
+        var k = (r.top + r.height / 2 - vh / 2) / vh;
+        el.style.setProperty("--py", (k * (i % 2 ? -70 : 50)).toFixed(1) + "px");
+      });
+    }
+  }
+  window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }, { passive: true });
+  frame();
+})();

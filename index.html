@@ -66,10 +66,10 @@
       <section class="h-hero" aria-label="Úvod">
         <img class="h-hero-img" src="assets/aktuality/2231.jpg" alt="Michal Judickij při plaveckém závodě na mistrovství Evropy v Paříži" width="1400" height="934" fetchpriority="high">
         <div class="d-wrap h-hero-in">
-          <h1 class="h-title">Už to spolu táhneme 80&nbsp;let.</h1>
+          <h1 class="h-title"><span class="sm">Už to</span> spolu táhneme 80&nbsp;let</h1>
           <p class="h-lead">Plavecký oddíl TJ Bohemians Praha. Závodní plavání, přípravka a kurzy plavání pro děti. Trénujeme v Podolí a na Vinohradech.</p>
           <div class="h-actions">
-            <a class="btn btn-light" href="zavody">Kalendář závodů</a>
+            <a class="btn btn-light btn-go" href="zavody">Kalendář závodů</a>
             <a class="btn btn-ghost" href="pro-rodice">Informace pro rodiče</a>
           </div>
         </div>
@@ -98,17 +98,29 @@
 
 
       <section class="h-history" aria-labelledby="h-hist">
-        <div class="d-wrap h-hist-grid">
+        <div class="h-collage">
+          <img class="h-snap s1" src="assets/aktuality/2191.jpg" alt="Členové oddílu TJ Bohemians Praha na závodech" loading="lazy" decoding="async">
+          <img class="h-snap s2" src="assets/aktuality/2201.jpg" alt="Členové oddílu TJ Bohemians Praha na závodech" loading="lazy" decoding="async">
+          <img class="h-snap s3" src="assets/aktuality/2218.jpg" alt="Členové oddílu TJ Bohemians Praha na závodech" loading="lazy" decoding="async">
+          <img class="h-snap s4" src="assets/aktuality/2216.jpg" alt="Členové oddílu TJ Bohemians Praha na závodech" loading="lazy" decoding="async">
+          <img class="h-snap s5" src="assets/aktuality/2227.jpg" alt="Členové oddílu TJ Bohemians Praha na závodech" loading="lazy" decoding="async">
+          <img class="h-snap s6" src="assets/aktuality/2238.jpg" alt="Členové oddílu TJ Bohemians Praha na závodech" loading="lazy" decoding="async">
+          <img class="h-snap s7" src="assets/aktuality/2224.jpg" alt="Členové oddílu TJ Bohemians Praha na závodech" loading="lazy" decoding="async">
+          <img class="h-snap s8" src="assets/aktuality/2233.jpg" alt="Členové oddílu TJ Bohemians Praha na závodech" loading="lazy" decoding="async">
           <div class="h-hist-text">
-            <h2 id="h-hist">Od roku 1946</h2>
+            <h2 id="h-hist"><span class="sm">80 let</span> plavání v Praze</h2>
             <p>Oddíl založil v roce 1946 Jaroslav Šíma, který se od počátku věnoval výchově cvičitelů a výuce plavání.</p>
             <p>V roce 1959 se Lída Kottková stala v Turíně akademickou mistryní světa na 400 m volný způsob.</p>
             <p>V září 2026 se na oslavě 80. výročí na Hagiboru sešlo 212 Klokanů.</p>
-            <a class="btn btn-light" href="oddil">Historie oddílu</a>
+            <a class="btn btn-light btn-go" href="oddil">Historie oddílu</a>
           </div>
-          <figure class="h-hist-photo">
-            <img src="assets/aktuality/2240.jpg" alt="Společná fotografie členů a přátel oddílu na oslavě 80 let na Hagiboru" width="1400" height="377" loading="lazy">
-          </figure>
+        </div>
+      </section>
+
+      <section class="h-rail" aria-label="Fotografie z oddílového života">
+        <p class="h-marquee" aria-hidden="true"><span>TJ Bohemians Praha &nbsp;&middot;&nbsp; plavání &nbsp;&middot;&nbsp; 1946 &ndash; 2026 &nbsp;&middot;&nbsp; </span><span>TJ Bohemians Praha &nbsp;&middot;&nbsp; plavání &nbsp;&middot;&nbsp; 1946 &ndash; 2026 &nbsp;&middot;&nbsp; </span></p>
+        <div class="h-strip">
+          <div class="h-strip-track"><img src="assets/aktuality/2211.jpg" alt="Plavci TJ Bohemians Praha" loading="lazy" decoding="async"><img src="assets/aktuality/2213.jpg" alt="Plavci TJ Bohemians Praha" loading="lazy" decoding="async"><img src="assets/aktuality/2221.jpg" alt="Plavci TJ Bohemians Praha" loading="lazy" decoding="async"><img src="assets/aktuality/2229.jpg" alt="Plavci TJ Bohemians Praha" loading="lazy" decoding="async"><img src="assets/aktuality/2234.jpg" alt="Plavci TJ Bohemians Praha" loading="lazy" decoding="async"><img src="assets/aktuality/2237.jpg" alt="Plavci TJ Bohemians Praha" loading="lazy" decoding="async"><img src="assets/aktuality/2200.jpg" alt="Plavci TJ Bohemians Praha" loading="lazy" decoding="async"><img src="assets/aktuality/2242.jpg" alt="Plavci TJ Bohemians Praha" loading="lazy" decoding="async"><img src="assets/aktuality/2248.jpg" alt="Plavci TJ Bohemians Praha" loading="lazy" decoding="async"><img src="assets/aktuality/2204.jpg" alt="Plavci TJ Bohemians Praha" loading="lazy" decoding="async"><img src="assets/aktuality/2211.jpg" alt="" loading="lazy" decoding="async"><img src="assets/aktuality/2213.jpg" alt="" loading="lazy" decoding="async"><img src="assets/aktuality/2221.jpg" alt="" loading="lazy" decoding="async"><img src="assets/aktuality/2229.jpg" alt="" loading="lazy" decoding="async"><img src="assets/aktuality/2234.jpg" alt="" loading="lazy" decoding="async"><img src="assets/aktuality/2237.jpg" alt="" loading="lazy" decoding="async"><img src="assets/aktuality/2200.jpg" alt="" loading="lazy" decoding="async"><img src="assets/aktuality/2242.jpg" alt="" loading="lazy" decoding="async"><img src="assets/aktuality/2248.jpg" alt="" loading="lazy" decoding="async"><img src="assets/aktuality/2204.jpg" alt="" loading="lazy" decoding="async"></div>
         </div>
       </section>
 
@@ -401,7 +413,7 @@
           '<p class="h-board-meta">' + esc(fmt(next.date)) + (next.place ? ', ' + esc(next.place) : '') +
           (next.deadline ? (closed ? '. Přihlášky jsou uzavřené.' : '. Přihlášky do ' + esc(fmt(next.deadline)) + '.') : '') + '</p></div>' +
           '<div class="h-clock" aria-label="Do startu zbývá ' + d + ' ' + unit + '"><strong data-board="' + d + '">' + String(d).padStart(2, "0") + '</strong><span>' + (d === 0 ? "start je dnes" : unit + " do startu") + '</span></div>' +
-          '<div class="h-board-actions">' + (closed ? '' : '<a class="btn btn-light" href="intranet">Přihlásit plavce</a>') +
+          '<div class="h-board-actions">' + (closed ? '' : '<a class="btn btn-light btn-go" href="intranet">Přihlásit plavce</a>') +
           '<a class="btn btn-ghost" href="zavody#' + encodeURIComponent(next.id) + '">Detail závodu</a></div>';
         board.hidden = false;
         if (window.dBoard) window.dBoard(board.querySelector("[data-board]"));

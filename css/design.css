@@ -136,19 +136,11 @@ main .rounded-2xl, main .rounded-3xl, main .rounded-\[2rem\] { border-radius: 8p
 .h-hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; }
 .h-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(8, 31, 21, .88) 0%, rgba(8, 31, 21, .35) 45%, rgba(8, 31, 21, .15) 100%); }
 .h-hero-in { position: relative; z-index: 1; padding: 140px 0 64px; }
-.h-title { font: 500 clamp(2.6rem, 6vw, 5.2rem)/1.02 var(--head); letter-spacing: -.035em; color: #fff; margin: 0 0 20px; max-width: 14ch; }
+.h-title { margin: 0 0 20px; color: #fff; }
 .h-lead { font-size: 1.15rem; line-height: 1.55; color: rgba(255, 255, 255, .92); max-width: 46ch; margin: 0 0 28px; }
 .h-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .h-actions .btn { border-radius: 999px; }
 
-/* tmavý pás s historií */
-.h-history { background: var(--forest); padding: 80px 0; }
-.h-hist-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 56px; align-items: center; }
-.h-history h2 { font: 500 clamp(2rem, 4vw, 3.2rem)/1.05 var(--head); letter-spacing: -.03em; color: #fff; margin: 0 0 20px; }
-.h-history p { color: rgba(255, 255, 255, .86); margin: 0 0 14px; max-width: 46ch; }
-.h-history .btn { margin-top: 10px; border-radius: 999px; }
-.h-hist-photo { margin: 0; }
-.h-hist-photo img { width: 100%; height: auto; display: block; border-radius: 8px; }
 
 /* ---------- časomíra: nejbližší závod ---------- */
 .h-board { --background: #081f15; background: var(--forest-deep); padding: 22px 0; }
@@ -231,7 +223,6 @@ main .rounded-2xl, main .rounded-3xl, main .rounded-\[2rem\] { border-radius: 8p
   .d-header-in { grid-template-columns: auto 1fr; height: 68px; }
   .d-brand { justify-self: start; }
   .d-header-tools { background: transparent; padding: 0; }
-  .h-hist-grid { grid-template-columns: 1fr; gap: 28px; }
   .h-board-in { grid-template-columns: 1fr auto; }
   .h-board-actions { grid-column: 1 / -1; }
   .h-notices, .h-cols { grid-template-columns: 1fr; }
@@ -244,7 +235,6 @@ main .rounded-2xl, main .rounded-3xl, main .rounded-\[2rem\] { border-radius: 8p
   .d-wrap { width: min(1160px, 100% - 32px); }
   .h-hero { min-height: 78vh; }
   .h-hero-in { padding: 110px 0 40px; }
-  .h-history { padding: 56px 0; }
   .h-sec { padding: 48px 0; }
   .h-row { grid-template-columns: 1fr; gap: 6px; }
   .h-row img, .h-row.is-lead img { width: 100%; height: auto; aspect-ratio: 16 / 9; order: -1; }
@@ -420,4 +410,74 @@ main:focus { outline: none; }
 @media (max-width: 1023px) {
   main a[class*="hover:text-primary"] { display: inline-block; padding-block: 10px; }
   .s-links a { display: inline-block; padding: 10px 8px; min-width: 44px; }
+}
+
+/* ================= 2.40: jazyk oceněných webů (Delta Cafés, Resn): velká úsporná typografie, fotky, pohyb ================= */
+:root { --display: "Barlow Condensed", "Arial Narrow", Impact, sans-serif; --mint: #dfece4; }
+.h-title, .page-hero h1, .page-hero .section-title, .h-sec h2, .h-history h2, .h-board h2, .h-marquee {
+  font-family: var(--display); font-weight: 500; text-transform: uppercase; letter-spacing: .005em; line-height: .95;
+}
+.page-hero h1, .page-hero .section-title { margin-bottom: 18px; }
+.sm { font-size: .5em; letter-spacing: .02em; vertical-align: .12em; }
+.h-title { font-size: clamp(3.2rem, 7.6vw, 7.2rem); max-width: 17ch; color: var(--mint); }
+.h-hero-in { padding-bottom: 64px; }
+.h-hero { min-height: min(92vh, 820px); }
+.page-hero h1, .page-hero .section-title { font-size: clamp(3.2rem, 7.5vw, 6.4rem); color: var(--mint); letter-spacing: .005em; }
+.h-sec h2 { font-size: clamp(2.6rem, 5.2vw, 4.4rem); }
+.h-board h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--mint); }
+.h-board h2, .h-sec h2 { line-height: 1; }
+.h-sec-head h2 { margin: 0; }
+
+/* tlačítko: pilulka a samostatný kruh se šipkou */
+.btn-go { padding: .32em .32em .32em 1.5em; gap: 1.1em; border-radius: 999px; font-size: .95rem; }
+.btn-go::after { content: ""; flex: none; width: 2.5em; height: 2.5em; border-radius: 50%; background: var(--forest) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / 50% no-repeat; transition: transform .25s; }
+.btn-go:hover::after { transform: translateX(3px); }
+
+/* tmavý pás s historií: fotky rozházené kolem nadpisu */
+.h-history { background: var(--forest); padding: 0; overflow: hidden; }
+.h-collage { position: relative; width: min(1500px, 100%); min-height: 880px; margin-inline: auto; display: grid; place-items: center; padding: 90px 0; }
+.h-hist-text { position: relative; z-index: 2; width: min(520px, 34%); text-align: center; }
+.h-history h2 { font-size: clamp(3rem, 6vw, 5.4rem); color: var(--mint); margin: 0 0 22px; }
+.h-history p { color: rgba(255, 255, 255, .84); margin: 0 auto 12px; max-width: 42ch; }
+.h-history .btn { margin-top: 16px; }
+.h-snap { position: absolute; z-index: 1; width: 17%; height: auto; border: 6px solid #eef4f0; border-radius: 8px; background: #eef4f0; box-shadow: 0 10px 30px rgba(0, 0, 0, .35); rotate: var(--r, 0deg); translate: 0 var(--py, 0px); will-change: translate; }
+.s1 { left: 2%; top: 5%; --r: -5deg; } .s2 { left: 16%; top: 34%; width: 16%; --r: 4deg; } .s3 { left: 1%; top: 62%; width: 18%; --r: -3deg; } .s4 { left: 20%; top: 74%; width: 15%; --r: 5deg; }
+.s5 { right: 2%; top: 5%; --r: 5deg; } .s6 { right: 16%; top: 34%; width: 16%; --r: -4deg; } .s7 { right: 1%; top: 62%; width: 18%; --r: 3deg; } .s8 { right: 20%; top: 74%; width: 15%; --r: -6deg; }
+
+/* obrysový nápis a pás fotek */
+.h-rail { background: var(--forest); padding-bottom: 72px; overflow: hidden; }
+.h-marquee { display: flex; width: max-content; margin: 0 0 40px; font-size: clamp(5rem, 14vw, 12rem); font-weight: 600; color: transparent; -webkit-text-stroke: 1.5px rgba(223, 236, 228, .55); white-space: nowrap; animation: hMarq 50s linear infinite; }
+.h-marquee span { padding-right: .2em; }
+.h-strip { overflow: hidden; }
+.h-strip-track { display: flex; gap: 16px; width: max-content; padding-left: 16px; animation: hMarq 90s linear infinite; }
+.h-strip:hover .h-strip-track, .h-rail:hover .h-marquee { animation-play-state: paused; }
+.h-strip-track img { height: clamp(220px, 26vw, 340px); width: auto; border-radius: 10px; display: block; background: #0a251a; }
+@keyframes hMarq { to { transform: translateX(-50%); } }
+
+/* pohyb: úvod naběhne jednou, sekce se odkrývají při rolování */
+.h-hero-img { translate: 0 var(--hp, 0px); animation: hZoom 2.4s cubic-bezier(.2, .7, .2, 1) both; will-change: translate; }
+.h-title, .h-lead, .h-actions { animation: hUp 1s cubic-bezier(.2, .7, .2, 1) both; }
+.h-lead { animation-delay: .15s; } .h-actions { animation-delay: .3s; }
+@keyframes hUp { from { opacity: 0; translate: 0 36px; } }
+@keyframes hZoom { from { scale: 1.14; } to { scale: 1.04; } }
+.rv { opacity: 0; translate: 0 32px; transition: opacity .9s cubic-bezier(.2, .7, .2, 1), translate .9s cubic-bezier(.2, .7, .2, 1); transition-delay: var(--d, 0s); }
+.rv.is-in { opacity: 1; translate: 0 0; }
+@media (prefers-reduced-motion: reduce) {
+  .h-marquee, .h-strip-track, .h-hero-img, .h-title, .h-lead, .h-actions { animation: none; }
+  .h-strip { overflow-x: auto; }
+  .rv { opacity: 1; translate: none; transition: none; }
+  .h-snap, .h-hero-img { translate: none; }
+}
+
+@media (max-width: 1023px) {
+  .h-collage { min-height: 0; display: flex; flex-direction: column; padding: 64px 20px; gap: 36px; }
+  .h-hist-text { width: 100%; max-width: 560px; }
+  .h-collage .h-snap { position: static; width: auto; }
+  .h-collage { }
+  .h-snap { display: block; }
+}
+@media (max-width: 1023px) {
+  .h-collage { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; }
+  .h-hist-text { grid-column: 1 / -1; margin-bottom: 18px; }
+  .h-snap { width: 100% !important; box-shadow: none; }
 }
