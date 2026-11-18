@@ -3,6 +3,13 @@
   "use strict";
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  var hdr = document.getElementById("site-header");
+  if (hdr) {
+    var onScroll = function () { hdr.classList.toggle("d-scrolled", window.scrollY > 40); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  }
+
   window.dBoard = function (el) {
     if (!el || el.dataset.done) return;
     el.dataset.done = "1";

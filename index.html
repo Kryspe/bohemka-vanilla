@@ -24,7 +24,7 @@
   <script defer src="js/design.js"></script>
   <script>document.documentElement.classList.remove('dark','bohemka');document.documentElement.classList.add('d-js');</script>
 </head>
-<body class="bg-background text-foreground font-sans antialiased overflow-x-hidden min-h-[100dvh]">
+<body class="is-home bg-background text-foreground font-sans antialiased overflow-x-hidden min-h-[100dvh]">
   <a class="skip" href="#obsah">Přeskočit na obsah</a>
 
   <div class="flex min-h-screen flex-col">
@@ -32,25 +32,30 @@
 
     <!-- SITE HEADER -->
     <header class="d-site-header" id="site-header">
-      <div class="d-wrap d-header-in">
-        <a class="d-brand" href="/" aria-label="TJ Bohemians Praha, oddíl plavání - úvod"><img src="assets/logo8.png" alt="TJ Bohemians Praha, oddíl plavání, 1946-2026" width="178" height="50"></a>
-        <nav class="d-main-nav" aria-label="Hlavní navigace">
-        <ul>
-          <li><a href="aktuality">Aktuality</a></li>
-          <li><a href="pro-rodice">Pro rodiče</a></li>
-          <li><a href="oddil">Oddíl</a></li>
-          <li><a href="zavody">Závody</a></li>
-          <li><a href="rekordy">Rekordy</a></li>
-          <li><a href="statistika">Statistika</a></li>
-          <li><a href="foto">Foto</a></li>
-          <li><a href="ke-stazeni">Ke stažení</a></li>
-        </ul>
+      <div class="d-header-in">
+        <nav class="d-nav d-nav-left" aria-label="Hlavní navigace">
+          <ul>
+            <li><a href="aktuality">Aktuality</a></li>
+            <li><a href="pro-rodice">Pro rodiče</a></li>
+            <li><a href="oddil">Oddíl</a></li>
+            <li><a href="zavody">Závody</a></li>
+          </ul>
         </nav>
-        <div class="d-header-tools">
-          <button type="button" class="d-icon-btn site-search-btn" aria-label="Hledat na webu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
-          <button type="button" class="d-icon-btn d-bell notification-bell-btn" aria-label="Oznámení"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="notification-unread-dot hidden"></span></button>
-          <a class="d-pill d-pill-bright d-header-cta" href="intranet">Intranet</a>
-          <button type="button" class="d-icon-btn d-drawer-btn mobile-drawer-trigger" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg></button>
+        <a class="d-brand" href="/" aria-label="TJ Bohemians Praha, oddíl plavání - úvod"><img src="assets/logo8.png" alt="TJ Bohemians Praha, oddíl plavání, 1946-2026" width="178" height="50"></a>
+        <div class="d-right">
+          <nav class="d-nav d-nav-right" aria-label="Další sekce">
+            <ul>
+            <li><a href="rekordy">Rekordy</a></li>
+            <li><a href="statistika">Statistika</a></li>
+            <li><a href="foto">Foto</a></li>
+            <li><a href="ke-stazeni">Ke stažení</a></li>
+            </ul>
+          </nav>
+          <div class="d-header-tools">
+            <button type="button" class="d-icon-btn site-search-btn" aria-label="Hledat na webu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.35-4.35"/></svg></button>
+            <button type="button" class="d-icon-btn d-bell notification-bell-btn" aria-label="Oznámení"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="notification-unread-dot hidden"></span></button>
+            <a class="d-header-cta" href="intranet">Intranet</a>
+          </div>
         </div>
       </div>
     </header>
@@ -58,23 +63,17 @@
     <!-- MAIN CONTENT -->
     <main class="w-full min-w-0 flex-1 pb-24 lg:pb-0" id="obsah" tabindex="-1">
 
-      <section class="h-intro">
-        <div class="d-wrap h-intro-grid">
+      <section class="h-hero" aria-label="Úvod">
+        <img class="h-hero-img" src="assets/aktuality/2231.jpg" alt="Michal Judickij při plaveckém závodě na mistrovství Evropy v Paříži" width="1400" height="934" fetchpriority="high">
+        <div class="d-wrap h-hero-in">
           <h1 class="h-title">Už to spolu táhneme 80&nbsp;let.</h1>
-          <div>
-            <p class="h-lead">Plavecký oddíl TJ Bohemians Praha. Závodní plavání, přípravka a kurzy plavání pro děti. Trénujeme v Podolí a na Vinohradech.</p>
-            <div class="h-actions">
-              <a class="btn btn-amber" href="zavody">Kalendář závodů</a>
-              <a class="btn btn-ghost" href="pro-rodice">Informace pro rodiče</a>
-            </div>
+          <p class="h-lead">Plavecký oddíl TJ Bohemians Praha. Závodní plavání, přípravka a kurzy plavání pro děti. Trénujeme v Podolí a na Vinohradech.</p>
+          <div class="h-actions">
+            <a class="btn btn-light" href="zavody">Kalendář závodů</a>
+            <a class="btn btn-ghost" href="pro-rodice">Informace pro rodiče</a>
           </div>
         </div>
       </section>
-
-      <figure class="h-photo">
-        <img src="assets/aktuality/2240.jpg" alt="Společná fotografie členů a přátel oddílu na oslavě 80 let na Hagiboru" width="1400" height="377">
-        <figcaption>Oslava 80 let oddílu na Hagiboru, září 2026. Přišlo 212 Klokanů.</figcaption>
-      </figure>
 
       <section class="h-board" id="home-next" aria-label="Nejbližší závod" hidden>
         <div class="d-wrap h-board-in"></div>
@@ -97,7 +96,21 @@
         </div>
       </section>
 
-      <hr class="lane" aria-hidden="true">
+
+      <section class="h-history" aria-labelledby="h-hist">
+        <div class="d-wrap h-hist-grid">
+          <div class="h-hist-text">
+            <h2 id="h-hist">Od roku 1946</h2>
+            <p>Oddíl založil v roce 1946 Jaroslav Šíma, který se od počátku věnoval výchově cvičitelů a výuce plavání.</p>
+            <p>V roce 1959 se Lída Kottková stala v Turíně akademickou mistryní světa na 400 m volný způsob.</p>
+            <p>V září 2026 se na oslavě 80. výročí na Hagiboru sešlo 212 Klokanů.</p>
+            <a class="btn btn-light" href="oddil">Historie oddílu</a>
+          </div>
+          <figure class="h-hist-photo">
+            <img src="assets/aktuality/2240.jpg" alt="Společná fotografie členů a přátel oddílu na oslavě 80 let na Hagiboru" width="1400" height="377" loading="lazy">
+          </figure>
+        </div>
+      </section>
 
       <section class="h-sec" aria-labelledby="h-races">
         <div class="d-wrap">
@@ -135,7 +148,6 @@
         </div>
       </section>
 
-      <hr class="lane" aria-hidden="true">
 
       <section class="h-sec" aria-labelledby="h-path">
         <div class="d-wrap">
@@ -389,7 +401,7 @@
           '<p class="h-board-meta">' + esc(fmt(next.date)) + (next.place ? ', ' + esc(next.place) : '') +
           (next.deadline ? (closed ? '. Přihlášky jsou uzavřené.' : '. Přihlášky do ' + esc(fmt(next.deadline)) + '.') : '') + '</p></div>' +
           '<div class="h-clock" aria-label="Do startu zbývá ' + d + ' ' + unit + '"><strong data-board="' + d + '">' + String(d).padStart(2, "0") + '</strong><span>' + (d === 0 ? "start je dnes" : unit + " do startu") + '</span></div>' +
-          '<div class="h-board-actions">' + (closed ? '' : '<a class="btn btn-amber" href="intranet">Přihlásit plavce</a>') +
+          '<div class="h-board-actions">' + (closed ? '' : '<a class="btn btn-light" href="intranet">Přihlásit plavce</a>') +
           '<a class="btn btn-ghost" href="zavody#' + encodeURIComponent(next.id) + '">Detail závodu</a></div>';
         board.hidden = false;
         if (window.dBoard) window.dBoard(board.querySelector("[data-board]"));
