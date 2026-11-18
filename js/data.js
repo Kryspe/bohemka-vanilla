@@ -148,7 +148,7 @@ window.BohData = {
     {
       "id": "boh-alert-3",
       "title": "V roce 2026 se uskutečnilo setkání při 80. výročí oddílu",
-      "text": "a bylo to velkolepé :-)",
+      "text": "a bylo to velkolepé",
       "type": "upozorneni",
       "date": "2026-11-10"
     }
@@ -1634,7 +1634,7 @@ window.BohData = {
     {
       "id": "zimni-pohar-cr-jedenactiletych-cechy-2026",
       "name": "Zimní pohár ČR jedenáctiletých – Čechy",
-      "place": "možná P-Radlice",
+      "place": "Praha - Radlice (předběžně)",
       "date": "2026-12-05",
       "deadline": "2026-11-25",
       "type": "Pohár",

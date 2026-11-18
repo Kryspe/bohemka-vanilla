@@ -355,3 +355,60 @@ main .rounded-md[class*="bg-"], main .rounded-lg[class*="bg-secondary"] { border
 .s-search input:focus { outline: 3px solid var(--amber); outline-offset: 0; border-color: var(--club); }
 .s-links { list-style: none; margin: 28px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 24px; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+/* ================= přístupnost a telefon ================= */
+
+/* odkaz pro přeskočení menu */
+.skip { position: absolute; left: -9999px; top: 8px; z-index: 200; background: #fff; color: var(--ink); padding: 12px 16px; border: 2px solid var(--ink); border-radius: 4px; font-weight: 600; text-decoration: none; }
+.skip:focus { left: 8px; }
+main:focus { outline: none; }
+
+/* fokus z klávesnice: tmavý kruh na světlém, bílý na zeleném a inkoustovém (kontrast aspoň 3:1) */
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 4px; }
+.d-site-header :focus-visible, .page-hero :focus-visible, .h-intro :focus-visible, .h-board :focus-visible, .d-site-footer :focus-visible, .theme-dark :focus-visible { outline-color: #fff; }
+.s-search input:focus { outline-color: var(--ink); }
+
+/* okraje polí aspoň 3:1 */
+:root { --input: #7a9184; }
+
+/* text nejméně 12 px */
+.text-\[10px\], .text-\[11px\] { font-size: 12px !important; line-height: 16px !important; }
+.mobile-tab-item, .fomo-dock-item { font-size: .75rem; }
+
+/* jedno menu: na telefonu a tabletu se otevírá dolní lištou ("Více"), hamburger v hlavičce zmizí */
+@media (max-width: 1023px) { .d-drawer-btn { display: none !important; } }
+
+/* dotykové cíle aspoň 44 px */
+@media (max-width: 1023px) {
+  .d-icon-btn { width: 44px; height: 44px; }
+  .d-brand { display: flex; align-items: center; min-height: 44px; }
+  main button, main a.btn, main [role="tab"], .btn, .s-link-btn { min-height: 44px; }
+  .s-link-btn { padding: 0 8px; }
+  .d-site-footer li a { display: inline-block; padding: 10px 0; }
+}
+
+/* ================= filtry: jeden řádek s popsanými výběry ================= */
+.f-bar { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: end; margin: 0 0 24px; }
+.f-field { display: grid; gap: 4px; font-size: .88rem; color: var(--d-muted); font-weight: 600; }
+.f-field select { min-height: 44px; min-width: 11rem; padding: 0 36px 0 12px; border: 1px solid var(--input); border-radius: 4px; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%230d1f15' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 12px center; color: var(--ink); font: 500 1rem var(--body); appearance: none; -webkit-appearance: none; cursor: pointer; }
+.f-field select:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+@media (max-width: 640px) { .f-bar { display: grid; grid-template-columns: 1fr 1fr; } .f-bar .f-field:first-child { grid-column: 1 / -1; } .f-field select { min-width: 0; width: 100%; } }
+
+/* statistika: záložky jako jeden řádek (na telefonu se posouvá), bez zalamování textu */
+#stats-tab-btns { display: flex; flex-wrap: nowrap; gap: 4px 24px; overflow-x: auto; border-bottom: 1px solid var(--line); padding-bottom: 0 !important; margin-bottom: 24px !important; scrollbar-width: thin; }
+#stats-tab-btns button { flex: none; white-space: nowrap; border-radius: 0 !important; background: none !important; box-shadow: none !important; color: var(--d-muted) !important; padding: 12px 2px !important; min-height: 44px; border-bottom: 3px solid transparent; font-weight: 600; }
+#stats-tab-btns button:hover { color: var(--ink) !important; }
+#stats-tab-btns button.bg-primary { color: var(--ink) !important; border-bottom-color: var(--club); }
+#stats-tab-btns svg { display: none; }
+
+/* dotykové cíle: samostatné odkazy, odkazy v patičce a pole hledání aspoň 44 px (telefon a tablet) */
+@media (max-width: 1023px) {
+  .d-site-footer li a { display: block; min-width: 44px; }
+  main .text-link, main li > a:only-child, main a[href^="mailto"], main a[href^="tel"] { display: inline-block; padding-block: 10px; }
+  main a[class*="rounded-full"], main a.btn { min-height: 44px; display: inline-flex; align-items: center; }
+  main input[type="text"], main input[type="search"], main input[type="email"], main input[type="password"], main select { min-height: 44px; }
+}
+@media (max-width: 1023px) {
+  main a[class*="hover:text-primary"] { display: inline-block; padding-block: 10px; }
+  .s-links a { display: inline-block; padding: 10px 8px; min-width: 44px; }
+}

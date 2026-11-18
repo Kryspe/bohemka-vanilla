@@ -26,6 +26,7 @@
   <script>document.documentElement.classList.remove('dark','bohemka');document.documentElement.classList.add('d-js');</script>
 </head>
 <body class="bg-background text-foreground font-sans antialiased min-h-screen is-intranet">
+  <a class="skip" href="#intranet-main">Přeskočit na obsah</a>
 
   <div class="flex min-h-screen flex-col">
 
@@ -55,7 +56,7 @@
     </header>
 
     <!-- MAIN CONTENT -->
-    <main class="w-full min-w-0 flex-1 pb-32 sm:pb-36 lg:pb-0" id="intranet-main">
+    <main class="w-full min-w-0 flex-1 pb-32 sm:pb-36 lg:pb-0" id="intranet-main" tabindex="-1">
       <!-- Populated dynamically via JS (LoginScreen or Dashboard) -->
     </main>
 
@@ -100,7 +101,7 @@
     <nav class="mobile-bottom-nav lg:hidden" id="bottom-nav" aria-label="Mobilní navigace">
       <a href="/" class="mobile-tab-item" data-path="/">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        <span>Domů</span>
+        <span>Úvod</span>
       </a>
       <a href="aktuality" class="mobile-tab-item" data-path="aktuality">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
@@ -217,7 +218,7 @@
 
     function renderLogin(container) {
       container.innerHTML = `
-        <section class="relative mx-auto flex min-h-[80vh] max-w-md items-center px-4 py-8 sm:py-16 sm:px-6">
+        <section class="relative mx-auto flex min-h-[60vh] max-w-md items-start px-4 py-6 sm:min-h-[80vh] sm:items-center sm:py-16 sm:px-6">
           <div class="w-full rounded-3xl sm:rounded-[2rem] border border-border/60 bg-card/90 p-6 sm:p-8 shadow-[var(--shadow-elevated)] backdrop-blur-xl">
             <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[var(--intranet-accent)]/15">
               <svg class="h-7 w-7 text-[var(--intranet-accent)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -918,10 +919,10 @@
                 type="button"
                 onclick="window.coachSignupSelf('${event.id}')"
                 class="inline-flex items-center gap-1.5 rounded-xl border border-[var(--intranet-accent)]/40 bg-[var(--intranet-accent)]/10 px-3 py-1.5 text-xs font-semibold text-[var(--intranet-accent)] transition hover:bg-[var(--intranet-accent)]/20 cursor-pointer"
-                title="Přihlásit se na závod osobně"
+                title="Přihlásit sebe na závod"
               >
                 <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                <span>Přihlásit se</span>
+                <span>Přihlásit sebe</span>
               </button>
               <button
                 type="button"
@@ -930,7 +931,7 @@
                 title="Přihlásit plavce oddílu na tento závod"
               >
                 <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14m-7-7h14"/></svg>
-                <span>+ Přihlásit plavce</span>
+                <span>Přihlásit plavce</span>
               </button>
               <button
                 type="button"

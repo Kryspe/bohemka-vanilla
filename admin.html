@@ -26,6 +26,7 @@
   <script>document.documentElement.classList.remove('dark','bohemka');document.documentElement.classList.add('d-js');</script>
 </head>
 <body class="bg-background text-foreground font-sans antialiased overflow-x-hidden min-h-[100dvh]">
+  <a class="skip" href="#admin-main">Přeskočit na obsah</a>
 
   <div class="flex min-h-screen flex-col">
 
@@ -55,7 +56,7 @@
     </header>
 
     <!-- MAIN CONTENT -->
-    <main class="w-full min-w-0 flex-1 pb-32 sm:pb-36 lg:pb-0" id="admin-main">
+    <main class="w-full min-w-0 flex-1 pb-32 sm:pb-36 lg:pb-0" id="admin-main" tabindex="-1">
       <!-- Populated dynamically via JS (AdminLogin or AdminShell) -->
     </main>
 
@@ -100,7 +101,7 @@
     <nav class="mobile-bottom-nav lg:hidden" id="bottom-nav" aria-label="Mobilní navigace">
       <a href="/" class="mobile-tab-item" data-path="/">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        <span>Domů</span>
+        <span>Úvod</span>
       </a>
       <a href="aktuality" class="mobile-tab-item" data-path="aktuality">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
@@ -343,11 +344,11 @@
             <form id="admin-login-form" class="mt-6 space-y-4">
               <div>
                 <label class="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Uživatel / Trenér</label>
-                <input id="adm-user" required autocomplete="username" class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none transition focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 text-foreground" placeholder="admin / trener" value="trener">
+                <input id="adm-user" aria-label="Uživatelské jméno" required autocomplete="username" class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none transition focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 text-foreground" placeholder="admin / trener" value="trener">
               </div>
               <div>
                 <label class="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Heslo</label>
-                <input id="adm-pass" type="password" required autocomplete="current-password" class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none transition focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 text-foreground" placeholder="••••••••" value="bohemka">
+                <input id="adm-pass" aria-label="Heslo" type="password" required autocomplete="current-password" class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none transition focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 text-foreground" placeholder="••••••••" value="bohemka">
               </div>
 
               <div id="adm-error" class="hidden text-sm text-destructive flex items-center gap-2">

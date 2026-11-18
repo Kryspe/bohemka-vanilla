@@ -111,6 +111,16 @@ def sync_news(js, since):
     return replace_section(js, "news", "events", items)
 
 
+def clean_place(place):
+    """boh.cz u nepotvrzených míst píše volný text ("možná P-Radlice"): zkratku P- rozepíšeme a pochybnost řekneme jasně."""
+    p = (place or "").strip()
+    maybe = re.match(r"^(možná|asi|pravděpodobně)\s+", p, re.I)
+    if maybe:
+        p = p[maybe.end():].strip()
+    p = re.sub(r"\bP-(?=[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ])", "Praha - ", p)
+    return p + " (předběžně)" if maybe else p
+
+
 def sync_alerts(js):
     """Zelená oznámení z pravého sloupce úvodní stránky boh.cz (Sobotní trénink v Podolí apod.)."""
     h = get(BASE + "/")
@@ -119,6 +129,7 @@ def sync_alerts(js):
         title = html.unescape(re.sub(r"<[^>]+>", "", m.group(1))).strip()
         text = re.sub(r"<br\s*/?>", " ", m.group(2))
         text = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", "", text))).strip()
+        text = re.sub(r"\s*[:;]-?[)(DP]\s*$", "", text)   # emotikon na konci oznámení
         items.append({"id": "boh-alert-%d" % (len(items) + 1), "title": title, "text": text, "type": "upozorneni",
                       "date": __import__("datetime").date.today().isoformat()})
     print("oznameni:", len(items))
@@ -206,6 +217,7 @@ def sync_events(js, old_events, since):
         t = re.sub(r"\|\s*(\|\s*)+", "|", text_of(b)).split("|")
         val = lambda k: t[t.index(k) + 1].strip() if k in t and t.index(k) + 1 < len(t) else ""
         place, dl, dates, note = val("Místo"), val("Přihlášky do"), val("Datum"), val("Poznámka")
+        place = clean_place(place)
         if note == "Disciplína":
             note = ""
         try:
