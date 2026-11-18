@@ -530,7 +530,7 @@
         <div class="my-1.5 flex items-center gap-2">
           <input type="text" id="block-input-${key}" value="${escapeHtml(value)}" class="flex-1 rounded border border-emerald-500 bg-white dark:bg-zinc-900 px-2.5 py-1 text-sm text-zinc-900 dark:text-zinc-100 shadow-xs">
           <button class="block-save-btn rounded bg-emerald-600 px-2 py-1 text-xs font-bold text-white hover:bg-emerald-700" data-key="${key}">OK</button>
-          <button class="block-cancel-btn rounded border border-zinc-300 px-2 py-1 text-xs text-zinc-600" data-key="${key}">✕</button>
+          <button class="block-cancel-btn rounded border border-zinc-300 px-2 py-1 text-xs text-zinc-600" data-key="${key}" aria-label="Zrušit"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
         </div>
       `;
     }
@@ -539,7 +539,7 @@
       return `
         <${tag} class="${classes} cms-editable-block group inline-flex items-center gap-2 cursor-pointer" data-block-key="${key}" title="Klikněte pro přímou úpravu textu">
           <span>${escapeHtml(value)}</span>
-          <span class="cms-edit-badge text-zinc-400 group-hover:text-emerald-600 text-xs font-normal">✎</span>
+          <span class="cms-edit-badge text-zinc-400 group-hover:text-emerald-600 text-xs font-normal" aria-hidden="true"><svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
         </${tag}>
       `;
     }
@@ -812,7 +812,7 @@
         <div class="w-full max-w-md rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-5 shadow-lg text-xs space-y-3">
           <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
             <h3 class="text-sm font-bold text-zinc-900 dark:text-zinc-100">Vytvořit nové oznámení</h3>
-            <button id="modal-close-btn" class="text-zinc-400 hover:text-zinc-600">✕</button>
+            <button id="modal-close-btn" class="text-zinc-400 hover:text-zinc-600" aria-label="Zavřít"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
           </div>
           <div>
             <label class="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">Nadpis</label>
@@ -877,7 +877,7 @@
         <div class="w-full max-w-md rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-5 shadow-lg text-xs space-y-3">
           <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
             <h3 class="text-sm font-bold text-zinc-900 dark:text-zinc-100">Přidat nový závod / akci</h3>
-            <button id="sch-modal-close" class="text-zinc-400 hover:text-zinc-600">✕</button>
+            <button id="sch-modal-close" class="text-zinc-400 hover:text-zinc-600" aria-label="Zavřít"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
           </div>
           <div>
             <label class="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">Název závodu</label>
@@ -936,7 +936,7 @@
         <div class="w-full max-w-md rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-5 shadow-lg text-xs space-y-3">
           <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
             <h3 class="text-sm font-bold text-zinc-900 dark:text-zinc-100">Přidat interní dokument</h3>
-            <button id="doc-modal-close" class="text-zinc-400 hover:text-zinc-600">✕</button>
+            <button id="doc-modal-close" class="text-zinc-400 hover:text-zinc-600" aria-label="Zavřít"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
           </div>
           <div>
             <label class="block font-medium text-zinc-700 dark:text-zinc-300 mb-1">Název dokumentu</label>

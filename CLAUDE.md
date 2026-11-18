@@ -30,6 +30,7 @@ python3 scripts/sync_boh.py            # oznameni, aktuality (+fotky), ke stazen
 - **Jediné téma.** Přepínač motivů odstraněn; na `<html>` nesmí být `dark` ani `bohemka`. Tokeny (`--background`, `--primary` ...) jsou v `:root` v `css/design.css`, zelené plochy je přepisují (`.theme-dark`, `.d-site-header`, `.page-hero`, `.h-intro`, `.h-board`, `.d-site-footer`).
 - **Kostra:** hlavička `.d-site-header`, patička `.d-site-footer`, stejné menu jako boh.cz na všech stránkách. Úvodní pás podstránky = první `<section class="page-hero ...">` v `<main>`. Úvod (`index.html`) má komponenty `h-` a vykresluje se z `BohStore`.
 - **Podstránky:** obsah se vykresluje jako řádky s linkami, ne karty: `.s-list` + `.s-row` (`.s-race` závody, `.s-doc` dokumenty, `.s-note` vzkazy), aktuality `.h-list` + `.h-row`, fotogalerie jako kontaktní arch podle alb (`.g-album`, `.g-sheet`, `.g-tile`; náhledy malé, plná fotka se načte až ve zvětšení). Tlačítka `.btn .btn-amber / .btn-line / .btn-sm`, textové odkazy `.text-link`.
+- **Kázeň po unslopu (platí celoplošně, včetně intranetu a adminu):** váhy 400 až 600; popisky ve větách (`.uppercase` a široký `tracking-*` jsou v `design.css` vypnuté); žádné záře, sklo (`backdrop-blur`), barevné stíny ani přechody; `transition-all` omezené na barvy a průhlednost; žádné `hover:scale`, `animate-pulse/ping` ani vyjíždění při rolování; štítky a body jako prostý text s tabulkovými číslicemi, ne pilulky; ikony jen čárové SVG (žádné znaky ✕ ✎); titulek stránky pojmenovává kontext (intranet: "Členská sekce"), žádné oslovení ("Vítej zpět"); žádná neověřitelná tvrzení (čísla medailí, stavy náboru) bez potvrzení.
 - **Pozor na globální názvy:** inline skripty stránek nesmí znovu deklarovat `const/let` názvy, které už definují `js/*.js` (např. `escapeJsArg` ze `store.js`), jinak celý skript stránky spadne.
 - Nová HTML stránka: zkopírovat hlavičku, patičku a odkazy na `assets/fonts/fonts.css`, `css/style.css`, `css/design.css`, `js/design.js` z existující stránky.
 
@@ -69,7 +70,7 @@ git push bohemka-vanilla-backup main
 4. **Čisté adresy (Clean URLs):**
    - Na webu se nepoužívají přípony `.html` ani `.php` (např. `/`, `/aktuality`, `/zavody`, `/pro-rodice`, `/oddil`, `/rekordy`, `/statistika`, `/foto`, `/ke-stazeni`, `/kontakt`, `/intranet`, `/admin`).
 5. **Typografie & Designový systém:**
-   - **Nadpisy a display text:** `Sora` (self-hosted v `assets/fonts/`, `font-display`, `font-extrabold`).
+   - **Nadpisy a display text:** `Sora` (self-hosted v `assets/fonts/`, `font-display`). Váhy jen 400 až 600; hierarchii nese velikost, ne tloušťka (`font-bold/extrabold/black` jsou v `css/design.css` omezené na 600).
    - **Text a navigace:** `Manrope` (self-hosted, `font-sans`, `font-body`). Žádné externí fonty.
    - **Klubové barvy:** klubová zelená `#0a6a34`, inkoust `#0d1f15`, bílá `#fbfcfa`, jediný akcent jantarová `#ffb81c` (viz `css/design.css`).
    - **Mobilní odsazení:** Mezi horní lištou a kartami udržovat kompaktní rozestup (cca 8 px na mobilu), nepoužívat obří vertikální mezery (`py-14` bylo nahrazeno za `py-8 sm:py-20` na podstránkách).

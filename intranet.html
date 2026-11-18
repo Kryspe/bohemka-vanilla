@@ -299,17 +299,15 @@
 
       container.innerHTML = `
         <!-- Header band -->
-        <section class="relative overflow-hidden border-b border-border/60 bg-card/30">
-          <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[var(--intranet-accent)]/15 blur-3xl"></div>
-          <div class="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-6 md:py-12">
+        <section class="border-b border-border bg-card">
+          <div class="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-6">
             <div class="flex items-center gap-4">
-              <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[var(--intranet-accent)]/15 text-[var(--intranet-accent)]">
-                <span class="font-display text-2xl font-extrabold">${displayInitial}</span>
+              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-secondary text-foreground" aria-hidden="true">
+                <span class="font-display text-xl font-semibold">${displayInitial}</span>
               </div>
               <div>
-                <p class="mb-1 text-xs font-semibold uppercase tracking-[0.3em] text-[var(--intranet-accent)]">Členská sekce · 80 let Bohemians</p>
-                <h1 class="font-display text-2xl font-extrabold sm:text-3xl md:text-4xl">Vítej zpět, ${displayName}</h1>
-                <p class="mt-1 text-sm text-muted-foreground">Přihlášen jako <span class="font-semibold text-foreground">${username}</span></p>
+                <h1 class="font-display text-2xl font-semibold sm:text-3xl">Členská sekce</h1>
+                <p class="mt-1 text-sm text-muted-foreground">Přihlášen jako <span class="font-semibold text-foreground">${username}</span> (${displayName})</p>
               </div>
             </div>
 
