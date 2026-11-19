@@ -233,7 +233,7 @@ main .rounded-2xl, main .rounded-3xl, main .rounded-\[2rem\] { border-radius: 8p
   .h-hero::after { background: linear-gradient(to top, rgba(8, 31, 21, .94) 0%, rgba(8, 31, 21, .7) 60%, rgba(8, 31, 21, .3) 100%); }
   body { font-size: 16px; }
   .d-wrap { width: min(1160px, 100% - 32px); }
-  .h-hero { min-height: 78vh; }
+  .h-hero { min-height: 78vh; min-height: 78svh; }
   .h-hero-in { padding: 110px 0 40px; }
   .h-sec { padding: 48px 0; }
   .h-row { grid-template-columns: 1fr; gap: 6px; }
@@ -421,7 +421,7 @@ main:focus { outline: none; }
 .sm { font-size: .5em; letter-spacing: .02em; vertical-align: .12em; }
 .h-title { font-size: clamp(3.2rem, 7.6vw, 7.2rem); max-width: 17ch; color: var(--mint); }
 .h-hero-in { padding-bottom: 64px; }
-.h-hero { min-height: min(92vh, 820px); }
+.h-hero { min-height: min(92vh, 820px); min-height: min(92svh, 820px); }
 .page-hero h1, .page-hero .section-title { font-size: clamp(3.2rem, 7.5vw, 6.4rem); color: var(--mint); letter-spacing: .005em; }
 .h-sec h2 { font-size: clamp(2.6rem, 5.2vw, 4.4rem); }
 .h-board h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--mint); }
@@ -506,3 +506,4 @@ main:focus { outline: none; }
   html:not(.bohemka):not(.dark) body:not(.app-chrome) #drawer-content > div:last-child { background: none !important; border-color: rgba(255, 255, 255, .18); padding: 16px 20px; }
   html:not(.bohemka):not(.dark) body:not(.app-chrome) #drawer-content > div:last-child a { color: #fff !important; font-size: .95rem; }
 }
+@media (max-width: 1023px) { .rv { translate: 0 14px; transition-duration: .5s; } }

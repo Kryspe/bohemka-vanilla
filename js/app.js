@@ -309,7 +309,8 @@ function initMobileNav() {
     });
     drawerOverlay.addEventListener("click", closeDrawer);
     if (drawerCloseBtn) drawerCloseBtn.addEventListener("click", closeDrawer);
-    drawerContent.querySelectorAll("a").forEach(a => a.addEventListener("click", closeDrawer));
+    // odkazy v nabídce se musí otevřít: zavřít jen nabídku, přechod na stránku nezastavovat
+    drawerContent.querySelectorAll("a").forEach(a => a.addEventListener("click", () => closeDrawer()));
 
     // Keyboard Tab Trap & Escape handling
     document.addEventListener("keydown", (e) => {

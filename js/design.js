@@ -34,8 +34,8 @@
   if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   var SEL = ".h-sec-head, .h-row, .h-notices li, .h-table, .h-cols > div, .h-path > div, .h-partners, .s-row, .s-list > *, .page-hero h1, .page-hero p, .g-album, .h-hist-text, .h-board-in, .d-foot-grid";
   var io = "IntersectionObserver" in window ? new IntersectionObserver(function (es) {
-    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } });
-  }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 }) : null;
+    es.forEach(function (e) { if (e.isIntersecting || e.boundingClientRect.top < 0) { e.target.classList.add("is-in"); io.unobserve(e.target); } });
+  }, { rootMargin: "0px 0px 120px 0px", threshold: 0 }) : null;
   function mark() {
     if (!io) return;
     document.querySelectorAll(SEL).forEach(function (el) {
