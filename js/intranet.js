@@ -8,7 +8,7 @@
   "use strict";
 
   let activeTab = "overview"; // 'overview' | 'schedule' | 'documents' | 'entries'
-  let currentAuth = { role: "member", editMode: false, userName: "Kryštof Spejchal", userEmail: "krystof.spejchal@boh.cz" };
+  let currentAuth = { role: "member", editMode: false, userName: "Kryštof Spejchal", userEmail: "*****" };
   let editingAnnouncementId = null;
   let editingScheduleId = null;
   let editingDocId = null;

@@ -255,7 +255,7 @@ function initMobileNav() {
   const drawerCloseBtn = document.getElementById("drawer-close-btn");
   let lastFocusedElement = null;
 
-  if (moreBtn && drawerOverlay && drawerContent) {
+  if ((moreBtn || document.querySelector(".mobile-drawer-trigger")) && drawerOverlay && drawerContent) {
     const getFocusable = () => {
       return Array.from(drawerContent.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'))
         .filter(el => !el.hasAttribute('disabled') && el.offsetParent !== null);
@@ -711,6 +711,8 @@ function initSearchModal() {
 
 // 7. Apple-like Notification Center & Real-time Broadcasts
 function initNotificationBell() {
+  // bez zvonku v hlavičce (webový vzhled na telefonu) se oznámení ani vyskakovací bannery nezobrazují
+  if (!document.querySelector(".notification-bell-btn")) return;
   updateNotificationBadges();
 
   document.querySelectorAll(".notification-bell-btn").forEach(btn => {

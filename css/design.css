@@ -374,8 +374,8 @@ main:focus { outline: none; }
 .text-\[10px\], .text-\[11px\] { font-size: 12px !important; line-height: 16px !important; }
 .mobile-tab-item, .fomo-dock-item { font-size: .75rem; }
 
-/* jedno menu: na telefonu a tabletu se otevírá dolní lištou ("Více"), hamburger v hlavičce zmizí */
-@media (max-width: 1023px) { .d-drawer-btn { display: none !important; } }
+/* app-chrome (archive/app-chrome): menu dolní lištou, hamburger zmizí; bez něj je webový vzhled */
+@media (max-width: 1023px) { body.app-chrome .d-drawer-btn { display: none !important; } }
 
 /* dotykové cíle aspoň 44 px */
 @media (max-width: 1023px) {
@@ -480,4 +480,29 @@ main:focus { outline: none; }
   .h-collage { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; }
   .h-hist-text { grid-column: 1 / -1; margin-bottom: 18px; }
   .h-snap { width: 100% !important; box-shadow: none; }
+}
+
+/* ================= telefon a tablet: klasický web (bez dolní lišty a zvonku) ================= */
+@media (max-width: 1023px) {
+  html:not(.bohemka):not(.dark) body:not(.app-chrome) { padding-bottom: 0 !important; }
+  html:not(.bohemka):not(.dark) body:not(.app-chrome) .d-header-tools { gap: 4px; }
+  html:not(.bohemka):not(.dark) body:not(.app-chrome) .d-drawer-btn { display: inline-grid; }
+  html:not(.bohemka):not(.dark) body:not(.app-chrome) #drawer-overlay { display: none !important; }
+  html:not(.bohemka):not(.dark) body:not(.app-chrome) #drawer-content {
+    top: 0 !important; bottom: 0 !important; max-height: none !important; height: 100dvh; border: 0 !important; border-radius: 0 !important; box-shadow: none !important;
+    background: var(--forest) !important; color: #fff;
+  }
+  html:not(.bohemka):not(.dark) body:not(.app-chrome) #drawer-content.translate-y-full { transform: translateY(-100%) !important; }
+  html:not(.bohemka):not(.dark) body:not(.app-chrome) #drawer-content > div:first-child { padding: 16px 20px; min-height: 68px; border-color: rgba(255, 255, 255, .18); }
+  html:not(.bohemka):not(.dark) body:not(.app-chrome) #drawer-content > div:first-child > div > div { display: none; }
+  html:not(.bohemka):not(.dark) body:not(.app-chrome) #drawer-content h2 { font: 500 .75rem/1 var(--body); letter-spacing: .08em; text-transform: uppercase; color: rgba(255, 255, 255, .8); }
+  html:not(.bohemka):not(.dark) body:not(.app-chrome) #drawer-content #drawer-close-btn { width: 44px; height: 44px; color: #fff; }
+  html:not(.bohemka):not(.dark) body:not(.app-chrome) #drawer-content nav { padding: 12px 20px; }
+  html:not(.bohemka):not(.dark) body:not(.app-chrome) .mobile-drawer-row { background: none !important; border: 0 !important; border-bottom: 1px solid rgba(255, 255, 255, .14) !important; border-radius: 0 !important; padding: 14px 0 !important; min-height: 56px; color: #fff !important; box-shadow: none !important; }
+  html:not(.bohemka):not(.dark) body:not(.app-chrome) .mobile-drawer-row .mobile-drawer-icon, body:not(.app-chrome) .mobile-drawer-row > svg { display: none !important; }
+  html:not(.bohemka):not(.dark) body:not(.app-chrome) .mobile-drawer-label { font: 500 2.4rem/1 var(--display) !important; text-transform: uppercase; letter-spacing: .005em; color: #fff !important; }
+  html:not(.bohemka):not(.dark) body:not(.app-chrome) .mobile-drawer-row.active .mobile-drawer-label { color: var(--mint) !important; text-decoration: underline; text-underline-offset: 6px; }
+  html:not(.bohemka):not(.dark) body:not(.app-chrome) .mobile-drawer-row-intranet span.text-primary { background: #fff !important; color: var(--ink) !important; font-size: 12px; padding: 6px 12px; border-radius: 999px; }
+  html:not(.bohemka):not(.dark) body:not(.app-chrome) #drawer-content > div:last-child { background: none !important; border-color: rgba(255, 255, 255, .18); padding: 16px 20px; }
+  html:not(.bohemka):not(.dark) body:not(.app-chrome) #drawer-content > div:last-child a { color: #fff !important; font-size: .95rem; }
 }

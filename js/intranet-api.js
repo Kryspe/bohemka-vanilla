@@ -217,7 +217,7 @@
         role: role === "super_admin" ? "super_admin" : "member",
         editMode: role === "super_admin" ? editMode : false,
         userName: role === "super_admin" ? "Hlavní správce (Super Admin)" : "Kryštof Spejchal (Plavec)",
-        userEmail: role === "super_admin" ? "admin@boh.cz" : "krystof.spejchal@boh.cz"
+        userEmail: role === "super_admin" ? "admin@boh.cz" : "*****"
       };
     },
 
