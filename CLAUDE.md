@@ -134,3 +134,5 @@ git push bohemka-vanilla-backup main
   7. Foto (`foto`)
   8. Ke stažení (`ke-stazeni?page=stahovani`)
   9. Intranet (`intranet?page=login`)
+
+- **Fotky se neořezávají:** žádné `object-fit: cover` na obsahových fotkách (aktuality, galerie, úvod na telefonu); fotky mají přirozený poměr stran. Výjimka: celoplošná úvodní fotka na počítači (šířka 1024 px a víc).

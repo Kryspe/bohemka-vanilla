@@ -177,9 +177,9 @@ main .rounded-2xl, main .rounded-3xl, main .rounded-\[2rem\] { border-radius: 8p
 .h-row h3 a:hover { color: var(--club); text-decoration: underline; text-underline-offset: 4px; }
 .h-row p { margin: 0; color: var(--d-muted); max-width: 70ch; }
 .h-row .h-by { font-size: .88rem; margin-top: 6px; }
-.h-row img { width: 132px; height: 96px; object-fit: cover; border-radius: 4px; background: var(--tile); }
+.h-row img { width: 168px; height: auto; border-radius: 4px; background: var(--tile); display: block; }
 .h-row.is-lead h3 { font-size: clamp(1.45rem, 2.4vw, 1.9rem); line-height: 1.2; }
-.h-row.is-lead img { width: 240px; height: 160px; }
+.h-row.is-lead img { width: 260px; height: auto; }
 
 /* závody jako rozpis */
 .h-table { width: 100%; border-collapse: collapse; border-top: 3px solid var(--club); font-size: 1rem; }
@@ -201,8 +201,8 @@ main .rounded-2xl, main .rounded-3xl, main .rounded-\[2rem\] { border-radius: 8p
 .h-cols li a { color: var(--ink); font-weight: 600; text-decoration: none; }
 .h-cols li a:hover { color: var(--club); text-decoration: underline; }
 .h-cols small { display: block; color: var(--d-muted); font-size: .85rem; margin-top: 2px; }
-.h-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
-.h-photos img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 4px; background: var(--tile); }
+.h-photos { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 8px; margin-bottom: 14px; }
+.h-photos img { width: 100%; height: auto; border-radius: 4px; background: var(--tile); display: block; }
 
 /* cesta oddílem */
 .h-path { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; margin: 0; border-top: 3px solid var(--club); }
@@ -237,7 +237,7 @@ main .rounded-2xl, main .rounded-3xl, main .rounded-\[2rem\] { border-radius: 8p
   .h-hero-in { padding: 110px 0 40px; }
   .h-sec { padding: 48px 0; }
   .h-row { grid-template-columns: 1fr; gap: 6px; }
-  .h-row img, .h-row.is-lead img { width: 100%; height: auto; aspect-ratio: 16 / 9; order: -1; }
+  .h-row img, .h-row.is-lead img { width: 100%; height: auto; order: -1; }
   .h-path { grid-template-columns: 1fr; }
   .h-table thead { display: none; }
   .h-table, .h-table tbody, .h-table tr, .h-table td { display: block; }
@@ -300,10 +300,10 @@ main .backdrop-blur-sm, main .backdrop-blur { backdrop-filter: none; -webkit-bac
 .g-album + .g-album { margin-top: 28px; }
 .g-album-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
 .g-album-head h2 { font: 600 1.3rem/1.3 var(--head); margin: 0; color: var(--ink); }
-.g-sheet { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 16px 12px; }
-.g-tile { margin: 0; }
+.g-sheet { columns: 132px; column-gap: 12px; }
+.g-tile { margin: 0 0 16px; break-inside: avoid; }
 .g-tile button { display: block; width: 100%; padding: 0; border: 0; background: var(--tile); cursor: zoom-in; border-radius: 4px; overflow: hidden; }
-.g-tile img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block; }
+.g-tile img { width: 100%; height: auto; display: block; }
 .g-tile button:hover img { opacity: .88; }
 .g-tile figcaption { font-size: .85rem; line-height: 1.35; color: var(--d-muted); margin-top: 6px; }
 
@@ -507,3 +507,12 @@ main:focus { outline: none; }
   html:not(.bohemka):not(.dark) body:not(.app-chrome) #drawer-content > div:last-child a { color: #fff !important; font-size: .95rem; }
 }
 @media (max-width: 1023px) { .rv { translate: 0 14px; transition-duration: .5s; } }
+
+/* telefon a tablet na výšku: úvodní fotka celá, bez ořezu; text pod ní na zelené ploše */
+@media (max-width: 1023px) {
+  .h-hero { display: block; min-height: 0; padding-top: 68px; background: var(--forest); }
+  .h-hero::after { display: none; }
+  .h-hero-img { position: static; inset: auto; width: 100%; height: auto; object-fit: initial; translate: none !important; animation: none; display: block; }
+  .h-hero-in { padding: 28px 0 44px; }
+  body.is-home .d-site-header { background: var(--forest); }
+}
