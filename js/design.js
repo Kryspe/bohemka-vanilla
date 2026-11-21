@@ -60,7 +60,7 @@
   var ticking = false;
   function frame() {
     ticking = false;
-    var y = window.scrollY, vh = window.innerHeight;
+    var y = Math.max(0, window.scrollY), vh = window.innerHeight;
     if (hero && y < vh * 1.2) hero.style.setProperty("--hp", (y * 0.22).toFixed(1) + "px");
     if (snaps.length && window.innerWidth >= 1024) {
       snaps.forEach(function (el, i) {

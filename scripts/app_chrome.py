@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Zapne nebo vypne "aplikační" prvky webu na telefonu: dolní lištu (tab bar) a zvonek s oznámeními.
 
-  python3 scripts/app_chrome.py off   # webový vzhled (výchozí stav od 19. 11. 2026): hamburger v hlavičce, bez lišty a zvonku
-  python3 scripts/app_chrome.py on    # vrátí dolní lištu, zvonek a dolní výsuvnou nabídku
+  python3 scripts/app_chrome.py bar   # dolní lišta (liquid glass) bez zvonku (výchozí stav od 21. 11. 2026)
+  python3 scripts/app_chrome.py on    # dolní lišta i zvonek s oznámeními
+  python3 scripts/app_chrome.py off   # čistý web: hamburger v hlavičce, bez lišty a zvonku
 
 Zdroj prvků: archive/app-chrome/*.html. Skript upraví všechny kořenové *.html stránky a třídu `app-chrome` na <body>.
 CSS a JS zůstávají v css/style.css a js/app.js; třída `app-chrome` v css/design.css přepíná vzhled.
@@ -26,16 +27,17 @@ def main(mode):
         s = NAV_RE.sub("", s)
         s = BELL_RE.sub("", s)
         s = re.sub(r'(<body class=")app-chrome ', r"\1", s)
-        if mode == "on" and "d-site-header" in s:
+        if mode in ("on", "bar") and "d-site-header" in s:
             s = s.replace("    <!-- MOBILE DRAWER", nav + "    <!-- MOBILE DRAWER", 1)
-            s = s.replace('            <a class="d-header-cta"', bell + '            <a class="d-header-cta"', 1)
+            if mode == "on":
+                s = s.replace('            <a class="d-header-cta"', bell + '            <a class="d-header-cta"', 1)
             s = re.sub(r'<body class="', '<body class="app-chrome ', s, count=1)
         if s != o:
             open(p, "w", encoding="utf-8").write(s)
             changed += 1
     print(mode, "- upraveno stránek:", changed)
 
-if __name__ == "__main__" and len(sys.argv) == 2 and sys.argv[1] in ("on", "off"):
+if __name__ == "__main__" and len(sys.argv) == 2 and sys.argv[1] in ("on", "off", "bar"):
     main(sys.argv[1])
 else:
     print(__doc__)
