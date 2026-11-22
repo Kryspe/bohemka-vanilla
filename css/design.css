@@ -416,7 +416,7 @@ main:focus { outline: none; }
 /* ================= 2.40: jazyk oceněných webů (Delta Cafés, Resn): velká úsporná typografie, fotky, pohyb ================= */
 :root { --display: "Barlow Condensed", "Arial Narrow", Impact, sans-serif; --mint: #dfece4; }
 .h-title, .page-hero h1, .page-hero .section-title, .h-sec h2, .h-history h2, .h-board h2, .h-marquee {
-  font-family: var(--display); font-weight: 500; text-transform: uppercase; letter-spacing: .005em; line-height: .95;
+  font-family: var(--display); font-weight: 500; text-transform: uppercase; letter-spacing: .01em; line-height: 1.1;
 }
 .page-hero h1, .page-hero .section-title { margin-bottom: 18px; }
 .sm { font-size: .5em; letter-spacing: .02em; vertical-align: .12em; }
@@ -636,7 +636,7 @@ body.is-home .d-site-header.d-scrolled, .d-site-header.d-scrolled { background: 
 #history-timeline { border-left: 0 !important; border-top: 3px solid var(--club); margin-top: 24px !important; }
 #history-timeline > li { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 4px 24px; padding: 18px 0 !important; border-bottom: 1px solid var(--line); }
 #history-timeline > li > span:first-child { display: none; }
-#history-timeline .font-display { font-family: var(--display); font-weight: 500; font-size: 2.6rem; line-height: .95; color: var(--club); }
+#history-timeline .font-display { font-family: var(--display); font-weight: 500; font-size: 2.6rem; line-height: 1.1; color: var(--club); }
 #history-timeline p { margin: 0 !important; color: var(--ink); font-size: 1.02rem; }
 @media (max-width: 560px) { #history-timeline > li { grid-template-columns: 1fr; } #history-timeline .font-display { font-size: 2.2rem; } }
 
@@ -686,3 +686,16 @@ body:has(#history-timeline) main .spotlight-card h3 { font-family: var(--display
 body:has(#history-timeline) main .spotlight-card p { font-size: .98rem; }
 body:has(#history-timeline) main .spotlight-card .flex-wrap { gap: 4px 18px; margin-top: 14px !important; }
 body:has(#history-timeline) main .spotlight-card .flex-wrap > span { background: none !important; border: 0 !important; padding: 0 !important; border-radius: 0 !important; font-size: .9rem; font-weight: 600; color: var(--club) !important; }
+
+/* ================= vyhledávání: skleněné okno pod hlavičkou, pozadí se ztlumí a rozmaže ================= */
+#global-search-modal { align-items: flex-start !important; padding: clamp(72px, 12vh, 140px) 16px 16px !important; }
+#global-search-modal .modal-overlay-bg { background: rgba(8, 31, 21, .55) !important; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+#global-search-modal .internal-search-dialog {
+  max-width: 640px; margin-inline: auto; padding: 14px; border-radius: 22px;
+  background: #fbfcfa !important; opacity: 1 !important; border: 1px solid rgba(255, 255, 255, .6); box-shadow: 0 24px 60px rgba(0, 0, 0, .35);
+  -webkit-backdrop-filter: blur(24px) saturate(160%); backdrop-filter: blur(24px) saturate(160%);
+}
+#global-search-modal .spotlight-result-item { padding: 12px 14px; }
+#global-search-modal mark { background: rgba(10, 106, 52, .16); color: inherit; border-radius: 3px; padding: 0 1px; }
+#global-search-results { padding-right: 2px; scrollbar-width: thin; }
+@media (max-width: 1023px) { #global-search-modal { padding-top: 76px !important; } }

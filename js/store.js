@@ -1134,125 +1134,133 @@ window.BohStore = (function () {
   }
 
   // 5. Global Search across the entire website
+  // Vyhledávání na webu: všechna slova dotazu musí sedět (v libovolném pořadí), bez ohledu na diakritiku a velikost písmen,
+  // shoda celého slova > začátku slova > části slova > překlepu (1 až 2 znaky). Výsledky se řadí podle skóre
+  // (název váží víc než popis, přesná fráze v názvu nejvíc) a odkazují přímo na položku, kde to jde.
   function searchSite(query) {
     const raw = (query || "").trim();
     if (!raw) return [];
-    const q = raw.toLowerCase();
-    const qNorm = stripDiacritics(raw);
+    const words = (s) => stripDiacritics(String(s || "")).split(/[^a-z0-9]+/).filter(Boolean);
+    const tokens = words(raw);
+    if (!tokens.length) return [];
+    const phrase = tokens.join(" ");
 
-    const matches = (text) => {
-      if (!text) return false;
-      const t = String(text);
-      return t.toLowerCase().includes(q) || stripDiacritics(t).includes(qNorm);
-    };
+    const dataObj = window.BohData || window.KlokaniData;
+    const items = [];
+    // fields: [text, váha]; boost: pořadí důležitosti typu
+    const add = (title, subtitle, url, category, fields, boost) => items.push({ title, subtitle, url, category, fields, boost: boost || 0 });
 
-    const results = [];
-
-    // Static pages
     const pages = [
       { title: "Úvodní stránka", desc: "Přehled plaveckého oddílu TJ Bohemians Praha, kalendář závodů, aktuality a tréninkové skupiny.", url: "/", cat: "Stránka" },
       { title: "Aktuality", desc: "Zprávy, výsledky z MČR a pohárů, nominace a oznámení trenérů.", url: "aktuality", cat: "Stránka" },
       { title: "O oddílu", desc: "Historie od roku 1946 k 80. výročí, tréninkové skupiny ST, ODA, Výběr, Přípravka.", url: "oddil", cat: "Stránka" },
       { title: "Závody a kalendář", desc: "Termíny závodů, uzávěrky přihlášek, bazén Podolí a Vinohrady.", url: "zavody", cat: "Stránka" },
       { title: "Rekordy oddílu", desc: "Oddílové rekordy na 25m a 50m bazénu, historické tabulky časů.", url: "rekordy", cat: "Stránka" },
-      { title: "Statistika & Žebříčky", desc: "TOP 10 historické výkony, FINA body a profily plavců Bohemians.", url: "statistika", cat: "Stránka" },
+      { title: "Statistika a žebříčky", desc: "TOP 10 historické výkony, FINA body a profily plavců Bohemians.", url: "statistika", cat: "Stránka" },
       { title: "Ke stažení", desc: "Rozdělení do drah 2026/27, rozvrhy tréninků, platby příspěvků, lékařské posudky.", url: "ke-stazeni", cat: "Stránka" },
       { title: "Pro rodiče", desc: "Informace pro rodiče, zápisy dětí, omluvenky a desatero plavce.", url: "pro-rodice", cat: "Stránka" },
       { title: "Fotogalerie", desc: "Fotoalba ze soustředění a závodů, odkaz na Zoneramu oddílu.", url: "foto", cat: "Stránka" },
       { title: "Kontakty", desc: "Trenéři, předseda Mgr. Jan Srb, bazény Podolí a Vinohrady, IČO: 00539121.", url: "kontakt", cat: "Stránka" },
-      { title: "Intranet (Členská sekce)", desc: "Přihlašování na závody pro plavce i trenéry, správa rezervací a administrace.", url: "intranet", cat: "Intranet" }
+      { title: "Intranet (členská sekce)", desc: "Přihlašování na závody pro plavce i trenéry, správa rezervací a administrace.", url: "intranet", cat: "Intranet" }
     ];
+    pages.forEach(pg => add(pg.title, pg.desc, pg.url, pg.cat, [[pg.title, 3], [pg.desc, 1]], 0.6));
 
-    pages.forEach(p => {
-      if (matches(p.title) || matches(p.desc)) {
-        results.push({ title: p.title, subtitle: p.desc, url: p.url, category: p.cat });
-      }
-    });
-
-    // News
-    getNews().forEach(n => {
-      if (matches(n.title) || matches(n.excerpt)) {
-        results.push({ title: n.title, subtitle: `${n.date} · ${n.author}`, url: "aktuality", category: "Aktualita" });
-      }
-    });
-
-    // Events
-    getEvents().forEach(e => {
-      if (matches(e.name) || matches(e.place)) {
-        results.push({ title: e.name, subtitle: `${e.place} · ${e.date}`, url: "zavody", category: "Závod" });
-      }
-    });
-
-    // Downloads
-    getDownloads().forEach(d => {
-      if (matches(d.title) || matches(d.description) || matches(d.fileName)) {
-        results.push({ title: d.title, subtitle: `${d.category} · ${d.fileSize}`, url: "ke-stazeni", category: "Ke stažení" });
-      }
-    });
-
-    // Swimmers
-    getSwimmers().forEach(s => {
-      if (matches(s.name) || matches(s.category) || matches(s.role)) {
-        results.push({ title: s.name, subtitle: `${s.category} · ${s.role || ""}`, url: "statistika", category: "Plavec" });
-      }
-    });
-
-    // Coaches
-    const dataObj = window.BohData || window.KlokaniData;
+    getNews().forEach(n => add(n.title, `${n.date} · ${n.author}`, n.id ? "aktuality?id=" + encodeURIComponent(n.id) : "aktuality", "Aktualita",
+      [[n.title, 3], [n.excerpt, 1], [n.author, 0.5]], 0.3));
+    getEvents().forEach(e => add(e.name, `${e.place} · ${e.date}`, e.id ? "zavody#" + encodeURIComponent(e.id) : "zavody", "Závod",
+      [[e.name, 3], [e.place, 1.5], [e.date, 0.5]], 0.4));
+    getDownloads().forEach(d => add(d.title, `${d.category} · ${d.fileSize}`, "ke-stazeni", "Ke stažení",
+      [[d.title, 3], [d.description, 1], [d.fileName, 1], [d.category, 0.8]], 0.3));
+    getSwimmers().forEach(sw => add(sw.name, `${sw.category} · ${sw.role || ""}`, "statistika", "Plavec",
+      [[sw.name, 3], [sw.category, 1], [sw.role, 1]], 0.2));
     if (dataObj && dataObj.coaches) {
-      dataObj.coaches.forEach(c => {
-        if (matches(c.name) || matches(c.role)) {
-          results.push({ title: c.name, subtitle: c.role, url: "kontakt", category: "Trenér" });
-        }
-      });
+      dataObj.coaches.forEach(c => add(c.name, c.role, "kontakt", "Trenér", [[c.name, 3], [c.role, 1.2]], 0.7));
     }
-
-    // Club Records (396 official records)
     if (dataObj && dataObj.records) {
       dataObj.records.forEach(r => {
-        const sName = r.holder || r.swimmer || "";
-        if (matches(sName) || matches(r.event) || matches(r.category)) {
-          results.push({
-            title: `${r.event} — ${r.time} (${sName})`,
-            subtitle: `Rekord Bohemians • ${r.category} • Bazén ${r.pool} • Rok ${r.year}`,
-            url: "rekordy",
-            category: "Rekord"
-          });
-        }
+        const holder = r.holder || r.swimmer || "";
+        add(`${r.event} — ${r.time} (${holder})`, `Rekord Bohemians • ${r.category} • Bazén ${r.pool} • Rok ${r.year}`, "rekordy", "Rekord",
+          [[holder, 3], [r.event, 2.5], [r.category, 1], [String(r.year || ""), 1], [String(r.pool || ""), 0.5]], 0);
       });
     }
-
-    
-    // Parent notes & Infolístky
     if (dataObj && dataObj.parentsNotes) {
       dataObj.parentsNotes.forEach(note => {
-        const text = typeof note === 'string' ? note : (note.text || note.title || '');
-        if (matches(text)) {
-          results.push({
-            title: text.slice(0, 75) + (text.length > 75 ? '…' : ''),
-            subtitle: 'Vzkaz pro rodiče • ' + (note.date || 'Aktuální'),
-            url: 'pro-rodice',
-            category: 'Pro rodiče'
-          });
-        }
+        const text = typeof note === "string" ? note : (note.text || note.title || "");
+        if (!text) return;
+        add(text.slice(0, 75) + (text.length > 75 ? "…" : ""), "Vzkaz pro rodiče • " + (note.date || "Aktuální"), "pro-rodice", "Pro rodiče", [[text, 2]], 0.1);
       });
     }
-
-    // Subdomains & Oddílové weby
     if (dataObj && dataObj.subdomains) {
-      dataObj.subdomains.forEach(sub => {
-        if (matches(sub.name) || matches(sub.domain) || matches(sub.description)) {
-          results.push({
-            title: sub.name + ' (' + sub.domain + ')',
-            subtitle: sub.description || sub.lead || 'Web oddílu',
-            url: sub.url,
-            category: 'Subdoména'
-          });
-        }
-      });
+      dataObj.subdomains.forEach(sub => add(sub.name + " (" + sub.domain + ")", sub.description || sub.lead || "Web oddílu", sub.url, "Subdoména",
+        [[sub.name, 3], [sub.domain, 2], [sub.description, 1]], 0.1));
     }
 
-    return results.slice(0, 20);
+    // omezená Levenshteinova vzdálenost (překlepy)
+    const lev = (a, b, max) => {
+      if (Math.abs(a.length - b.length) > max) return max + 1;
+      let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+      for (let i = 1; i <= a.length; i++) {
+        const cur = [i];
+        let rowMin = i;
+        for (let j = 1; j <= b.length; j++) {
+          const v = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+          cur[j] = v;
+          if (v < rowMin) rowMin = v;
+        }
+        if (rowMin > max) return max + 1;
+        prev = cur;
+      }
+      return prev[b.length];
+    };
+    const tokenScore = (tok, ws) => {
+      let best = 0;
+      for (let i = 0; i < ws.length; i++) {
+        const w = ws[i];
+        if (w === tok) return 1;
+        if (/^[0-9]+$/.test(tok)) { if (tok.length >= 3 && w.startsWith(tok)) best = Math.max(best, 0.7); continue; }   // čísla jen přesně
+        if (tok.length >= 3 && w.length === tok.length) {                                                          // prohozená sousední písmena
+          let k = 0; while (k < tok.length && tok[k] === w[k]) k++;
+          if (k < tok.length - 1 && tok[k] === w[k + 1] && tok[k + 1] === w[k] && tok.slice(k + 2) === w.slice(k + 2)) best = Math.max(best, 0.6);
+        }
+        if (w.startsWith(tok)) best = Math.max(best, 0.85);
+        else if (tok.length >= 3 && w.includes(tok)) best = Math.max(best, 0.5);
+        else if (tok.length >= 4 && best < 0.4) {
+          const max = tok.length >= 8 ? 2 : 1;
+          if (lev(tok, w, max) <= max || lev(tok, w.slice(0, tok.length), max) <= max) best = Math.max(best, 0.4);
+        }
+      }
+      return best;
+    };
+
+    const scored = [];
+    items.forEach(it => {
+      const fieldWords = it.fields.map(f => [words(f[0]), f[1], stripDiacritics(String(f[0] || ""))]);
+      let total = 0;
+      for (const tok of tokens) {
+        let best = 0;
+        for (const fw of fieldWords) {
+          const sc = tokenScore(tok, fw[0]) * fw[1];
+          if (sc > best) best = sc;
+        }
+        if (best === 0) return;            // každé slovo dotazu musí někde sedět
+        total += best;
+      }
+      const titleNorm = fieldWords[0][2];
+      if (titleNorm.includes(phrase)) total += 3;
+      if (titleNorm.startsWith(phrase)) total += 2;
+      scored.push({ it, score: total + it.boost });
+    });
+    scored.sort((a, b) => b.score - a.score);
+    const seen = new Set();
+    const out = [];
+    for (const s of scored) {
+      const key = s.it.category + "|" + s.it.title;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      out.push({ title: s.it.title, subtitle: s.it.subtitle, url: s.it.url, category: s.it.category });
+      if (out.length >= 20) break;
+    }
+    return out;
   }
 
   // 6. Intranet Auth & Role (Section-scoped: auto logout when leaving intranet)

@@ -10,8 +10,8 @@
 
   var root = document.documentElement;
   var target = window.scrollY, current = target, running = false, last = 0;
-  var EASE = 0.085;        // menší = pomalejší dojezd
-  var SPEED = 0.8;         // násobek posunu kolečka
+  var EASE = 0.14;         // menší = pomalejší dojezd
+  var SPEED = 1;           // násobek posunu kolečka
 
   function max() { return Math.max(0, root.scrollHeight - window.innerHeight); }
   function clamp(v) { return Math.min(max(), Math.max(0, v)); }
