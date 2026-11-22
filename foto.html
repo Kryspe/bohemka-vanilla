@@ -140,20 +140,6 @@
 
     </main>
 
-    <!-- LIGHTBOX MODAL -->
-    <div id="photo-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-md hidden transition-opacity">
-      <div class="relative max-h-[92vh] max-w-5xl overflow-hidden rounded-2xl bg-card border border-border/60">
-        <button id="photo-modal-close" class="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-background/80 text-foreground backdrop-blur-sm transition-transform hover:scale-110">
-          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
-        </button>
-        <img id="photo-modal-img" src="" alt="" class="max-h-[75vh] w-auto object-contain mx-auto">
-        <div class="p-4 bg-card/90 border-t border-border/60">
-          <h3 id="photo-modal-title" class="font-display text-lg font-bold text-foreground"></h3>
-          <p id="photo-modal-caption" class="text-sm text-muted-foreground mt-0.5"></p>
-        </div>
-      </div>
-    </div>
-
     <!-- FOOTER -->
     <footer class="d-site-footer">
       <div class="d-wrap d-foot-grid">
@@ -360,7 +346,9 @@
     function renderPhotos() {
       galleryPhotos = (window.BohStore ? window.BohStore.getPhotos() : null) || (window.BohData && window.BohData.galleries) || defaultPhotos;
       const container = document.getElementById("photos-grid");
-      if (container) {
+      if (container && !galleryPhotos.length) {
+        container.innerHTML = '<p class="s-empty">Fotogalerie je zatím prázdná. Starší reportáže najdete v archivu na boh.cz níže.</p>';
+      } else if (container) {
         // kontaktní arch: fotky seskupené podle alba, náhledy ve skutečné velikosti (nerozmazané)
         const albums = [];
         galleryPhotos.forEach((photo, index) => {
@@ -379,7 +367,7 @@
             <div class="g-sheet">
               ${album.items.map(({ photo, index }) => `
                 <figure class="g-tile">
-                  <button type="button" onclick="openPhotoModal(${index})" aria-label="Zvětšit fotografii: ${escapeHtml(photo.caption || photo.title)}">
+                  <button type="button" data-photo-index="${index}" aria-label="Zvětšit fotografii: ${escapeHtml(photo.caption || photo.title)}">
                     <img src="${escapeHtml(photo.url)}" alt="" loading="lazy">
                   </button>
                   ${photo.caption && photo.caption !== album.title ? `<figcaption>${escapeHtml(photo.caption)}</figcaption>` : ''}
@@ -395,35 +383,11 @@
 
     renderPhotos();
 
-    // Lightbox modal
-    const modal = document.getElementById("photo-modal");
-    const modalImg = document.getElementById("photo-modal-img");
-    const modalTitle = document.getElementById("photo-modal-title");
-    const modalCaption = document.getElementById("photo-modal-caption");
-    const modalClose = document.getElementById("photo-modal-close");
-
+    // Zvětšení fotek řeší js/lightbox.js (delegované události na .g-tile); zpětně kompatibilní volání:
     window.openPhotoModal = function(index) {
-      const p = galleryPhotos[index];
-      if (!p || !modal) return;
-      // náhledy z boh.cz jsou malé (small/NAZEV_small.jpg); ve zvětšení načteme plnou fotku
-      modalImg.src = String(p.url).replace(/\/small\/([^\/]+)_small\.(jpe?g|png)$/i, "/$1.$2");
-      modalImg.alt = p.title;
-      modalTitle.textContent = p.title;
-      modalCaption.textContent = p.caption || '';
-      modal.classList.remove("hidden");
+      const btn = document.querySelector('.g-tile button[data-photo-index="' + index + '"]');
+      if (btn) btn.click();
     };
-
-    if (modalClose) {
-      modalClose.addEventListener("click", () => modal.classList.add("hidden"));
-    }
-    if (modal) {
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) modal.classList.add("hidden");
-      });
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && !modal.classList.contains("hidden")) modal.classList.add("hidden");
-      });
-    }
 
     // Live reactivity on coach changes
     window.addEventListener("boh:data-updated", () => renderPhotos());

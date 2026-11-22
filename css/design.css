@@ -564,3 +564,125 @@ body.is-home .d-site-header.d-scrolled, .d-site-header.d-scrolled { background: 
   html:not(.bohemka):not(.dark) body.app-chrome .mobile-drawer-label { color: #fff !important; }
   html:not(.bohemka):not(.dark) body.app-chrome #drawer-content > div:last-child { background: none !important; border-color: rgba(255, 255, 255, .18); }
 }
+
+/* ================= 2.41: podstránky veřejného webu (hlavička pásu, nadpisy sekcí, patička) ================= */
+.page-hero { margin-bottom: 28px; padding-bottom: 0; }
+.page-hero > div { padding-top: 56px !important; padding-bottom: 44px !important; }
+.page-hero h1, .page-hero .section-title { font-size: clamp(3rem, 8.4vw, 7rem); line-height: .92; margin-bottom: 20px; max-width: 20ch; }
+.page-hero p, .page-hero .section-desc { max-width: 52ch; font-size: 1.1rem; line-height: 1.55; }
+.page-hero { border-bottom: 1px solid rgba(255, 255, 255, .12) !important; }
+.page-hero + section { padding-top: 3rem !important; }
+.page-hero ~ * h2.section-title, .page-hero ~ * h2.text-2xl, .page-hero ~ * h2.text-xl {
+  font-family: var(--display); font-weight: 500; text-transform: uppercase; letter-spacing: .005em; line-height: 1;
+  font-size: clamp(2rem, 4vw, 3rem); color: var(--ink);
+}
+.page-hero ~ * h2.section-title { margin-bottom: 0; padding-top: 8px; }
+.page-hero ~ * .s-row { transition: background-color .2s; }
+@media (hover: hover) { .page-hero ~ * .s-row:hover { background: var(--tile); } }
+.s-row .btn-solid.btn-sm { border-radius: 999px; }
+.d-foot-grid h2 { font-family: var(--display); font-weight: 500; text-transform: uppercase; font-size: 1.5rem; letter-spacing: .02em; }
+@media (max-width: 640px) {
+  .page-hero { margin-bottom: 20px; }
+  .page-hero > div { padding-top: 28px !important; padding-bottom: 28px !important; }
+  .page-hero h1, .page-hero .section-title { font-size: clamp(2.7rem, 15vw, 3.6rem); margin-bottom: 12px; max-width: none; }
+  .page-hero p, .page-hero .section-desc { font-size: 1rem; }
+  .page-hero + section { padding-top: 1.75rem !important; }
+}
+
+/* rekordy na telefonu: řádky s linkami a velkým časem místo karet */
+#records-mobile { gap: 0 !important; border-top: 3px solid var(--club); }
+#records-mobile > div { border: 0 !important; border-bottom: 1px solid var(--line) !important; border-radius: 0 !important; background: none !important; padding: 16px 0 !important; box-shadow: none !important; }
+#records-mobile .font-mono { font-family: var(--display); font-weight: 500; font-size: 2rem !important; line-height: 1; color: var(--club); letter-spacing: .01em; }
+#records-mobile .font-display { font-size: 1.15rem; }
+#records-mobile .rounded { border-radius: 4px; }
+@media (min-width: 640px) { main tbody .font-mono, main td.font-mono { font-weight: 600; } }
+
+/* ================= 2.42: hero s fotkou, číselný pás, rozpis oddílu, úvod na telefonu ================= */
+.hero-photo { margin: 0; }
+.hero-photo img { display: block; width: 100%; height: auto; border-radius: 6px; background: #0a251a; }
+@media (min-width: 900px) {
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); column-gap: 56px; align-items: end; grid-template-rows: 1fr auto; }
+  .hero-grid > h1 { align-self: end; }
+  .hero-grid > * { grid-column: 1; }
+  .hero-grid > .hero-photo { grid-column: 2; grid-row: 1 / span 2; align-self: end; }
+}
+@media (max-width: 899px) { .hero-photo { margin-top: 24px; } }
+
+/* číselný pás z reálných dat oddílu */
+.o-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 3px solid var(--club); margin: 0; }
+.o-facts > div { padding: 22px 24px 22px 0; border-bottom: 1px solid var(--line); }
+.o-facts > div + div { padding-left: 24px; border-left: 1px solid var(--line); }
+.o-facts dt { font: 500 clamp(3.6rem, 8vw, 6.4rem)/.9 var(--display); color: var(--club); letter-spacing: .005em; font-variant-numeric: lining-nums; }
+.o-facts dd { margin: 10px 0 0; color: var(--d-muted); font-size: .98rem; max-width: 30ch; }
+@media (max-width: 700px) {
+  .o-facts { grid-template-columns: 1fr; }
+  .o-facts > div, .o-facts > div + div { padding: 18px 0; border-left: 0; display: grid; grid-template-columns: 7.2rem minmax(0, 1fr); gap: 16px; align-items: center; }
+  .o-facts dt { font-size: 3.4rem; }
+  .o-facts dd { margin: 0; }
+}
+
+/* oddíl: tréninkové skupiny, historie a trenéři jako rozpis, ne karty */
+#groups-grid, #coaches-grid { display: grid; gap: 0 48px; border-top: 3px solid var(--club); margin-top: 24px !important; }
+@media (min-width: 700px) { #groups-grid, #coaches-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { #coaches-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+#groups-grid > div, #coaches-grid > div { border: 0 !important; border-bottom: 1px solid var(--line) !important; border-radius: 0 !important; background: none !important; box-shadow: none !important; padding: 20px 0 22px !important; }
+#groups-grid > div > span { background: none !important; padding: 0 !important; border-radius: 0 !important; font: 500 1.9rem/1 var(--display); color: var(--club); text-transform: uppercase; }
+#groups-grid h3 { margin-top: 6px !important; font-size: 1.15rem; }
+#coaches-grid > div > div:first-child > div:first-child { display: none; }
+#coaches-grid h3 { font-size: 1.2rem; }
+#coaches-grid li > span:first-child { display: none; }
+#coaches-grid ul { border-top: 0 !important; padding-top: 0 !important; margin-top: 10px !important; }
+#coaches-grid li { font-size: .92rem; }
+#history-timeline { border-left: 0 !important; border-top: 3px solid var(--club); margin-top: 24px !important; }
+#history-timeline > li { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 4px 24px; padding: 18px 0 !important; border-bottom: 1px solid var(--line); }
+#history-timeline > li > span:first-child { display: none; }
+#history-timeline .font-display { font-family: var(--display); font-weight: 500; font-size: 2.6rem; line-height: .95; color: var(--club); }
+#history-timeline p { margin: 0 !important; color: var(--ink); font-size: 1.02rem; }
+@media (max-width: 560px) { #history-timeline > li { grid-template-columns: 1fr; } #history-timeline .font-display { font-size: 2.2rem; } }
+
+/* úvod na telefonu: časomíra pod sebou, drobné fotky v aktualitách v přirozeném poměru, ale ne obří */
+@media (max-width: 640px) {
+  .h-board-in { grid-template-columns: 1fr; gap: 14px; }
+  .h-board-in > div:first-child h2 { font-size: 1.9rem; }
+  .h-clock { justify-content: flex-start; }
+  .h-board-actions { grid-column: auto; }
+  .h-row img, .h-row.is-lead img { width: auto; max-width: 100%; max-height: 340px; height: auto; margin-bottom: 6px; }
+}
+
+/* pro rodiče: dva rychlé odkazy jako velké řádky, bez ikon v dlaždicích */
+body:has(#qr-payment-section) main a.group.rounded-2xl { border: 0 !important; border-top: 3px solid var(--club) !important; border-radius: 0 !important; background: none !important; padding: 18px 0 !important; box-shadow: none !important; }
+body:has(#qr-payment-section) main a.group.rounded-2xl > div > div:first-child { display: none; }
+body:has(#qr-payment-section) main a.group.rounded-2xl h2 { font-family: var(--display); font-weight: 500; text-transform: uppercase; font-size: clamp(1.9rem, 4vw, 2.6rem) !important; line-height: 1 !important; }
+body:has(#qr-payment-section) main a.group.rounded-2xl p { font-size: .98rem; margin-top: 6px; }
+body:has(#qr-payment-section) main a.group.rounded-2xl > svg { width: 28px; height: 28px; }
+
+/* ke stažení: upozornění na sezónu jako řádek s linkou, bez ikony v dlaždici */
+body:has(#download-drahy-fast-btn) main .reveal-scale.rounded-3xl { border: 0 !important; border-top: 3px solid var(--club) !important; border-bottom: 1px solid var(--line) !important; border-radius: 0 !important; background: none !important; padding: 22px 0 !important; box-shadow: none !important; }
+body:has(#download-drahy-fast-btn) main .reveal-scale.rounded-3xl .items-start > div:first-child { display: none; }
+body:has(#download-drahy-fast-btn) main .reveal-scale.rounded-3xl span.rounded-full { background: none !important; padding: 0 !important; font-size: .9rem; color: var(--club); }
+body:has(#download-drahy-fast-btn) main .reveal-scale.rounded-3xl h2 { font-family: var(--display); font-weight: 500; text-transform: uppercase; font-size: clamp(1.9rem, 4vw, 2.6rem) !important; line-height: 1 !important; }
+body:has(#download-drahy-fast-btn) main .reveal-scale.rounded-3xl button { box-shadow: none !important; }
+
+/* statistika na telefonu: řádek žebříčku jako blok (pořadí, plavec, čas, disciplína, body, závod) */
+@media (max-width: 700px) {
+  body:has(#stats-tab-btns) main table:has(th:nth-child(7)) { display: block; }
+  body:has(#stats-tab-btns) main table:has(th:nth-child(7)) thead { display: none; }
+  body:has(#stats-tab-btns) main table:has(th:nth-child(7)) tbody { display: block; border-top: 3px solid var(--club); }
+  body:has(#stats-tab-btns) main table:has(th:nth-child(7)) tr { display: grid; grid-template-columns: 2.4rem minmax(0, 1fr) auto; grid-template-areas: "rk nm tm" ". ds tm" ". pb pt" ". dt dt"; gap: 2px 12px; padding: 14px 14px 14px 12px; border-bottom: 1px solid var(--line); align-items: baseline; }
+  body:has(#stats-tab-btns) main table:has(th:nth-child(7)) td { display: block; padding: 0 !important; text-align: left !important; border: 0; }
+  body:has(#stats-tab-btns) main table:has(th:nth-child(7)) td:nth-child(1) { grid-area: rk; font-family: var(--display); font-size: 1.6rem; line-height: 1; }
+  body:has(#stats-tab-btns) main table:has(th:nth-child(7)) td:nth-child(2) { grid-area: nm; }
+  body:has(#stats-tab-btns) main table:has(th:nth-child(7)) td:nth-child(3) { grid-area: ds; font-size: .93rem; }
+  body:has(#stats-tab-btns) main table:has(th:nth-child(7)) td:nth-child(4) { grid-area: pb; font-size: .85rem; color: var(--d-muted); }
+  body:has(#stats-tab-btns) main table:has(th:nth-child(7)) td:nth-child(5) { grid-area: tm; font-family: var(--display); font-size: 1.7rem; line-height: 1; color: var(--club); text-align: right !important; }
+  body:has(#stats-tab-btns) main table:has(th:nth-child(7)) td:nth-child(6) { grid-area: pt; font-size: .85rem; text-align: right !important; }
+  body:has(#stats-tab-btns) main table:has(th:nth-child(7)) td:nth-child(7) { grid-area: dt; font-size: .85rem; }
+}
+
+/* oddíl: domácí bazény jako dva řádky s velkým názvem, bez ikon a štítků */
+body:has(#history-timeline) main .spotlight-card.rounded-3xl { border: 0 !important; border-top: 3px solid var(--club) !important; border-radius: 0 !important; background: none !important; padding: 20px 0 8px !important; box-shadow: none !important; }
+body:has(#history-timeline) main .spotlight-card .items-center > div:first-child { display: none; }
+body:has(#history-timeline) main .spotlight-card h3 { font-family: var(--display); font-weight: 500; text-transform: uppercase; font-size: clamp(1.9rem, 3.4vw, 2.5rem) !important; line-height: 1 !important; }
+body:has(#history-timeline) main .spotlight-card p { font-size: .98rem; }
+body:has(#history-timeline) main .spotlight-card .flex-wrap { gap: 4px 18px; margin-top: 14px !important; }
+body:has(#history-timeline) main .spotlight-card .flex-wrap > span { background: none !important; border: 0 !important; padding: 0 !important; border-radius: 0 !important; font-size: .9rem; font-weight: 600; color: var(--club) !important; }

@@ -1,1 +1,185 @@
-/* Prohlížeč fotek (lightbox): styly. Vlastník: js/lightbox.js */
+/* Prohlížeč fotek (lightbox): styly. Vlastník: js/lightbox.js
+   Liquid glass podle proměnných --glass-* z css/design.css (s vlastním záložním nastavením). */
+
+/* kurzor lupy na fotkách, které se otevírají */
+.g-tile img, .s-article-img img, .h-photos img, .h-strip img, .h-snap, .h-row img, img[data-zoom] { cursor: zoom-in; }
+.h-row a img { cursor: pointer; }
+
+.lb {
+  --lb-p: 1;
+  position: fixed; inset: 0; z-index: 10000;
+  display: flex; flex-direction: column;
+  height: 100vh; height: 100dvh;
+  overflow: hidden; overscroll-behavior: contain;
+  color: #fff; font-family: var(--body, "Manrope", system-ui, sans-serif);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: none; user-select: none; -webkit-user-select: none;
+}
+.lb[hidden] { display: none; }
+
+/* pozadí: rozmazání a průhledná tmavě zelená */
+.lb-bg {
+  position: absolute; inset: 0;
+  background: rgba(8, 31, 21, .94);
+  opacity: 0;
+  transition: opacity .38s cubic-bezier(.2, .8, .2, 1);
+}
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .lb-bg {
+    background: rgba(8, 31, 21, .84);
+    -webkit-backdrop-filter: blur(26px) saturate(150%);
+    backdrop-filter: blur(26px) saturate(150%);
+  }
+}
+.lb.lb-in .lb-bg { opacity: var(--lb-p); }
+.lb.lb-in.is-drag .lb-bg { transition: none; }
+.lb.lb-out .lb-bg { opacity: 0; transition-duration: .3s; }
+
+/* horní lišta */
+.lb-top {
+  position: relative; z-index: 3;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: calc(env(safe-area-inset-top, 0px) + 10px) calc(env(safe-area-inset-right, 0px) + 12px) 6px calc(env(safe-area-inset-left, 0px) + 12px);
+  min-height: calc(env(safe-area-inset-top, 0px) + 66px);
+  opacity: 0; transform: translateY(-6px);
+  transition: opacity .3s ease, transform .38s cubic-bezier(.2, .8, .2, 1);
+}
+.lb-foot {
+  position: relative; z-index: 3;
+  padding: 8px calc(env(safe-area-inset-right, 0px) + 12px) calc(env(safe-area-inset-bottom, 0px) + 12px) calc(env(safe-area-inset-left, 0px) + 12px);
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .3s ease, transform .38s cubic-bezier(.2, .8, .2, 1);
+}
+.lb.lb-in .lb-top, .lb.lb-in .lb-foot { opacity: var(--lb-p); transform: none; }
+.lb.lb-in.is-drag .lb-top, .lb.lb-in.is-drag .lb-foot { transition: none; }
+.lb.lb-out .lb-top, .lb.lb-out .lb-foot { opacity: 0; transition-duration: .2s; }
+
+.lb-actions { display: inline-flex; gap: 8px; }
+
+/* sklenené ovládací prvky */
+.lb-btn, .lb-count {
+  background: var(--glass-bg, linear-gradient(145deg, rgba(40, 92, 68, .8), rgba(8, 31, 21, .74)));
+  border: var(--glass-border, 1px solid rgba(255, 255, 255, .28));
+  box-shadow: var(--glass-shadow, inset 0 1px 0 rgba(255, 255, 255, .45), inset 0 -1px 0 rgba(255, 255, 255, .1), 0 10px 32px rgba(0, 0, 0, .28));
+  -webkit-backdrop-filter: var(--glass-blur, blur(20px) saturate(180%));
+  backdrop-filter: var(--glass-blur, blur(20px) saturate(180%));
+  color: #fff;
+}
+.lb-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; padding: 0; margin: 0;
+  border-radius: 999px; cursor: pointer; text-decoration: none;
+  font: inherit; line-height: 1;
+  transition: background-color .2s, opacity .2s, border-color .2s;
+}
+.lb-btn svg { width: 22px; height: 22px; display: block; }
+.lb-btn:hover { border-color: rgba(255, 255, 255, .5); }
+.lb-btn:focus-visible, .lb-th:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+.lb-btn:disabled { opacity: .35; cursor: default; }
+.lb-count {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px;
+  border-radius: 999px; font: 500 .9rem/1 var(--body, system-ui, sans-serif);
+  font-variant-numeric: tabular-nums; letter-spacing: .02em;
+}
+.lb-count[hidden] { display: none; }
+.lb-count:empty { visibility: hidden; }
+
+/* scéna */
+.lb-mid { position: relative; flex: 1 1 auto; min-height: 0; z-index: 2; }
+.lb-stage { position: absolute; inset: 0; touch-action: none; cursor: default; }
+.lb-track { position: absolute; inset: 0; will-change: transform; }
+.lb-slide { position: absolute; inset: 0; }
+.lb-img {
+  position: absolute; left: 0; top: 0; display: block;
+  max-width: none; max-height: none; margin: 0;
+  transform-origin: 0 0; will-change: transform;
+  object-fit: contain; /* fotka se nikdy neořezává: prvek má přesný poměr stran fotky */
+  border-radius: 2px; background: transparent;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, .4);
+  opacity: 0; -webkit-user-drag: none;
+  cursor: zoom-in;
+}
+.lb-img.is-ready { opacity: 1; }
+.lb.is-zoomed .lb-img { cursor: grab; }
+.lb.is-drag.is-zoomed .lb-img { cursor: grabbing; }
+.lb-fade { animation: lbFade .3s ease both; }
+@keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
+
+/* stav načítání a chyby */
+.lb-spin {
+  position: absolute; left: 50%; top: 50%; width: 34px; height: 34px; margin: -17px 0 0 -17px;
+  border: 1.5px solid rgba(255, 255, 255, .22); border-top-color: rgba(255, 255, 255, .85);
+  border-radius: 50%; opacity: 0; pointer-events: none;
+}
+.lb-slide.is-loading .lb-spin { opacity: 1; animation: lbSpin .8s linear infinite, lbShow .3s .2s both; }
+@keyframes lbSpin { to { transform: rotate(360deg); } }
+@keyframes lbShow { from { opacity: 0; } to { opacity: 1; } }
+.lb-err { display: none; position: absolute; left: 0; right: 0; top: 50%; margin: 0; padding: 0 24px; text-align: center; font-size: 1rem; color: rgba(255, 255, 255, .85); }
+.lb-slide.is-error .lb-err { display: block; }
+
+/* šipky */
+.lb-nav { position: absolute; top: 50%; margin-top: -22px; z-index: 4; }
+.lb-prev { left: calc(env(safe-area-inset-left, 0px) + 16px); }
+.lb-next { right: calc(env(safe-area-inset-right, 0px) + 16px); }
+.lb-nav[hidden] { display: none; }
+.lb-nav { opacity: 0; transition: opacity .3s, background-color .2s, border-color .2s; }
+.lb.lb-in .lb-nav { opacity: var(--lb-p); }
+.lb.lb-in .lb-nav:disabled { opacity: .35; }
+.lb.lb-in.is-zoomed .lb-nav { opacity: 0; pointer-events: none; }
+@media (hover: none) and (pointer: coarse) {
+  .lb-nav { display: none; }
+}
+
+/* popisek */
+.lb-cap {
+  margin: 0 auto; max-width: 62ch; text-align: center;
+  font: 400 .95rem/1.45 var(--body, system-ui, sans-serif); color: rgba(255, 255, 255, .88);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  padding: 2px 8px 6px;
+}
+.lb-cap[hidden] { display: none; }
+
+/* pruh náhledů (jen na počítači) */
+.lb-film {
+  display: none; gap: 8px; overflow-x: auto; overflow-y: hidden;
+  padding: 6px 4px 2px; margin: 0 auto; max-width: min(100%, 980px);
+  scrollbar-width: none; -ms-overflow-style: none;
+}
+.lb-film::-webkit-scrollbar { display: none; }
+@media (min-width: 900px) and (min-height: 560px) and (hover: hover) {
+  .lb-film:not([hidden]) { display: flex; }
+}
+.lb-th {
+  flex: 0 0 auto; width: 72px; height: 52px; padding: 0; margin: 0;
+  border: 1px solid rgba(255, 255, 255, .22); border-radius: 4px; overflow: hidden;
+  background: rgba(8, 31, 21, .6); cursor: pointer; opacity: .6;
+  transition: opacity .2s, border-color .2s;
+}
+.lb-th img { width: 100%; height: 100%; object-fit: contain; display: block; } /* náhled celé fotky, bez ořezu */
+.lb-th:hover { opacity: .9; }
+.lb-th.is-on { opacity: 1; border-color: rgba(255, 255, 255, .9); }
+
+/* telefon */
+@media (max-width: 640px) {
+  .lb-top { min-height: calc(env(safe-area-inset-top, 0px) + 60px); padding-left: calc(env(safe-area-inset-left, 0px) + 10px); padding-right: calc(env(safe-area-inset-right, 0px) + 10px); }
+  .lb-actions { gap: 6px; }
+  .lb-cap { font-size: .9rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lb *, .lb { transition-duration: 0s !important; animation-duration: 0s !important; }
+  .lb-slide.is-loading .lb-spin { animation: lbSpin 1.6s linear infinite; }
+}
+
+/* ===== Foto (galerie) a aktuality: vlastní doladění ===== */
+.g-tile button { position: relative; font: inherit; }
+.g-tile button:focus-visible { outline: 3px solid var(--ink, #0d1f15); outline-offset: 2px; }
+.g-tile img { min-height: 48px; }
+.g-sheet { columns: 150px; column-gap: 14px; }
+.g-tile { margin: 0 0 18px; }
+@media (max-width: 640px) {
+  .g-sheet { columns: 2; column-gap: 10px; }
+  .g-tile { margin-bottom: 12px; }
+}
+.s-article-img { margin: 28px 0; }
+.s-article-img img { cursor: zoom-in; }

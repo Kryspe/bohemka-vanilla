@@ -66,7 +66,7 @@
     </header>
 
     <!-- MAIN CONTENT -->
-    <main class="w-full min-w-0 flex-1 pb-32 sm:pb-36 lg:pb-0" id="admin-main" tabindex="-1">
+    <main class="iu-page iu-admin w-full min-w-0 flex-1" id="admin-main" tabindex="-1">
       <!-- Populated dynamically via JS (AdminLogin or AdminShell) -->
     </main>
 
@@ -343,38 +343,32 @@
     // 4. Admin Login Form
     function renderAdminLogin(container) {
       container.innerHTML = `
-        <section class="mx-auto flex min-h-[80vh] max-w-md items-center px-4 py-8 sm:py-16 sm:px-6">
-          <div class="w-full rounded-3xl border border-border bg-card p-6 sm:p-8 shadow-[var(--shadow-elevated)]">
-            <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-600/15 text-emerald-600 dark:text-emerald-400">
-              <svg class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-            </div>
-            <h1 class="mt-5 text-center font-display text-2xl font-extrabold text-foreground">Administrace oddílu</h1>
-            <p class="mt-1 text-center text-xs text-muted-foreground">Trenérský CMS portál TJ Bohemians Praha</p>
+        <section class="iu-login-wrap">
+          <div class="iu-login">
+            <p class="iu-eyebrow">TJ Bohemians Praha</p>
+            <h1 class="iu-title">Administrace oddílu</h1>
+            <p class="iu-sub">Trenérský CMS portál TJ Bohemians Praha</p>
 
-            <form id="admin-login-form" class="mt-6 space-y-4">
-              <div>
-                <label class="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Uživatel / Trenér</label>
-                <input id="adm-user" aria-label="Uživatelské jméno" required autocomplete="username" class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none transition focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 text-foreground" placeholder="admin / trener" value="trener">
+            <form id="admin-login-form" class="iu-form">
+              <div class="iu-field">
+                <label for="adm-user">Uživatel / Trenér</label>
+                <input id="adm-user" aria-label="Uživatelské jméno" required autocomplete="username" placeholder="admin / trener" value="trener">
               </div>
-              <div>
-                <label class="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Heslo</label>
-                <input id="adm-pass" aria-label="Heslo" type="password" required autocomplete="current-password" class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none transition focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 text-foreground" placeholder="••••••••" value="bohemka">
+              <div class="iu-field">
+                <label for="adm-pass">Heslo</label>
+                <input id="adm-pass" aria-label="Heslo" type="password" required autocomplete="current-password" placeholder="••••••••" value="bohemka">
               </div>
 
-              <div id="adm-error" class="hidden text-sm text-destructive flex items-center gap-2">
-                <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <div id="adm-error" class="hidden iu-error" role="alert">
                 <span>Nesprávné jméno nebo heslo trenéra.</span>
               </div>
 
-              <button type="submit" class="w-full rounded-xl bg-emerald-700 hover:bg-emerald-800 px-4 py-3 font-semibold text-white shadow-md transition-all active:scale-[0.99] cursor-pointer">
-                Vstoupit do administrace
-              </button>
+              <button type="submit" class="iu-btn iu-btn-primary iu-btn-block">Vstoupit do administrace</button>
             </form>
 
-            <div class="mt-6 rounded-xl border border-dashed border-border bg-background/60 p-3.5 text-xs text-muted-foreground leading-relaxed">
-              <span class="font-semibold text-foreground">Přihlašovací údaje trenérů oddílu:</span><br>
-              • <b>trener</b> / <b>bohemka</b> — Trenérský přístup (správa obsahu, závodů, přihlášek)<br>
-              • <b>admin</b> / <b>bohemka</b> — Plná správa a exporty
+            <div class="iu-demo">
+              <p class="iu-label">Přihlašovací údaje trenérů oddílu</p>
+              <p class="iu-note"><b>trener</b> / <b>bohemka</b> — Trenérský přístup (správa obsahu, závodů, přihlášek)<br><b>admin</b> / <b>bohemka</b> — Plná správa a exporty</p>
             </div>
           </div>
         </section>
@@ -441,57 +435,40 @@
       ];
 
       container.innerHTML = `
-        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 space-y-6">
-          <!-- Top Emerald Admin Banner -->
-          <div class="flex flex-col gap-4 rounded-3xl border border-emerald-600/30 bg-emerald-950/40 p-5 sm:p-6 shadow-xl lg:flex-row lg:items-center lg:justify-between">
-            <div class="flex items-center gap-4">
-              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-emerald-600 text-white font-extrabold text-lg shadow-md">
-                BOH
-              </div>
+        <section class="iu-head">
+          <div class="iu-shell iu-head-in">
+            <div class="iu-who">
               <div>
-                <div class="flex flex-wrap items-center gap-2">
-                  <h1 class="font-display text-xl sm:text-2xl font-semibold text-foreground">Správa oddílu</h1>
-                  <span class="inline-flex items-center gap-1 rounded-full bg-emerald-500/20 px-2.5 py-0.5 text-xs font-semibold text-emerald-400 border border-emerald-500/30">
-                    <span class="h-1.5 w-1.5 rounded-full ${isSupabaseLive ? 'bg-emerald-400 animate-pulse' : 'bg-emerald-400'}"></span>
-                    ${isSupabaseLive ? 'Supabase Live Sync' : 'Místní databáze'}
-                  </span>
-                </div>
-                <p class="text-xs text-muted-foreground mt-0.5">
-                  Přihlášen: <b class="text-foreground">${escapeHtml(getAdminUser())}</b> (${escapeHtml(getAdminRole())}) · Živá synchronizace webu
-                </p>
+                <p class="iu-eyebrow">${isSupabaseLive ? 'Supabase Live Sync' : 'Místní databáze'}</p>
+                <h1 class="iu-title">Správa oddílu</h1>
+                <p class="iu-sub">Přihlášen: <strong>${escapeHtml(getAdminUser())}</strong> (${escapeHtml(getAdminRole())}) · Živá synchronizace webu</p>
               </div>
             </div>
-
-            <div class="flex flex-wrap items-center gap-2">
-              <a href="/" target="_blank" class="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-3.5 py-2 text-xs font-semibold text-foreground transition hover:border-emerald-600">
-                <svg class="h-3.5 w-3.5 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                Veřejný web
-              </a>
-              <a href="intranet" class="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-3.5 py-2 text-xs font-semibold text-foreground transition hover:border-emerald-600">
-                <svg class="h-3.5 w-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                Členský Intranet
-              </a>
-              <button type="button" id="admin-logout-btn" class="inline-flex items-center gap-1.5 rounded-xl border border-destructive/40 bg-destructive/10 px-3.5 py-2 text-xs font-semibold text-destructive transition hover:bg-destructive/20 cursor-pointer">
-                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            <div class="iu-head-actions">
+              <a href="/" target="_blank" class="iu-btn iu-btn-line">Veřejný web</a>
+              <a href="intranet" class="iu-btn iu-btn-line">Členský Intranet</a>
+              <button type="button" id="admin-logout-btn" class="iu-btn iu-btn-line">
+                <svg class="iu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                 Odhlásit se
               </button>
             </div>
           </div>
-
+        </section>
+        <div class="iu-shell iu-admin-body">
           <!-- Horizontal Navigation Tab Bar -->
-          <div class="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none border-b border-border">
+          <div class="iu-atabs" role="tablist">
             ${tabs.map(t => {
               const active = adminTab === t.id;
               return `
                 <button
                   type="button"
                   data-tab="${t.id}"
-                  class="admin-tab-btn inline-flex items-center gap-2 whitespace-nowrap rounded-xl px-4 py-2.5 text-xs sm:text-sm font-semibold transition cursor-pointer ${active ? 'bg-emerald-700 text-white shadow-sm' : 'border border-border/60 bg-card text-muted-foreground hover:bg-card/80 hover:text-foreground'}"
+                  class="admin-tab-btn iu-atab${active ? ' is-active' : ''}"
                 >
                   ${t.icon}
                   <span>${t.label}</span>
                   ${t.badge !== undefined ? `
-                    <span class="rounded-full px-1.5 py-0.2 text-[10px] font-bold ${active ? 'bg-white/20 text-white' : 'bg-muted text-foreground'}">
+                    <span class="iu-count">
                       ${t.badge}
                     </span>
                   ` : ''}
@@ -501,7 +478,7 @@
           </div>
 
           <!-- Tab Content Container -->
-          <div id="admin-tab-content" class="min-h-[500px]">
+          <div id="admin-tab-content" class="iu-main">
             <!-- Rendered by tab functions -->
           </div>
         </div>

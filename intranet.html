@@ -66,7 +66,7 @@
     </header>
 
     <!-- MAIN CONTENT -->
-    <main class="w-full min-w-0 flex-1 pb-32 sm:pb-36 lg:pb-0" id="intranet-main" tabindex="-1">
+    <main class="iu-page w-full min-w-0 flex-1" id="intranet-main" tabindex="-1">
       <!-- Populated dynamically via JS (LoginScreen or Dashboard) -->
     </main>
 
@@ -228,54 +228,44 @@
 
     function renderLogin(container) {
       container.innerHTML = `
-        <section class="relative mx-auto flex min-h-[60vh] max-w-md items-start px-4 py-6 sm:min-h-[80vh] sm:items-center sm:py-16 sm:px-6">
-          <div class="w-full rounded-3xl sm:rounded-[2rem] border border-border/60 bg-card/90 p-6 sm:p-8 shadow-[var(--shadow-elevated)] backdrop-blur-xl">
-            <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[var(--intranet-accent)]/15">
-              <svg class="h-7 w-7 text-[var(--intranet-accent)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            </div>
-            <h1 class="mt-6 text-center font-display text-2xl font-extrabold">Intranet</h1>
-            <p class="mt-2 text-center text-sm text-muted-foreground">Členská a trenérská sekce TJ Bohemians Praha.</p>
+        <section class="iu-login-wrap">
+          <div class="iu-login">
+            <p class="iu-eyebrow">TJ Bohemians Praha</p>
+            <h1 class="iu-title">Intranet</h1>
+            <p class="iu-sub">Členská a trenérská sekce oddílu.</p>
 
-            <form id="intranet-login-form" class="mt-8 space-y-4">
-              <div>
-                <label class="mb-1.5 block text-sm font-medium" for="i-user">Uživatelské jméno</label>
-                <input id="i-user" required autocomplete="username" class="w-full rounded-xl border border-input bg-background/60 px-4 py-2.5 text-sm outline-none transition focus:border-[var(--intranet-accent)] focus:ring-2 focus:ring-[var(--intranet-accent)]/30 text-foreground" placeholder="admin nebo user" autofocus>
+            <form id="intranet-login-form" class="iu-form">
+              <div class="iu-field">
+                <label for="i-user">Uživatelské jméno</label>
+                <input id="i-user" required autocomplete="username" placeholder="admin nebo user" autofocus>
               </div>
-              <div>
-                <label class="mb-1.5 block text-sm font-medium" for="i-pass">Heslo</label>
-                <input id="i-pass" type="password" required autocomplete="current-password" class="w-full rounded-xl border border-input bg-background/60 px-4 py-2.5 text-sm outline-none transition focus:border-[var(--intranet-accent)] focus:ring-2 focus:ring-[var(--intranet-accent)]/30 text-foreground" placeholder="heslo (bohemka)">
+              <div class="iu-field">
+                <label for="i-pass">Heslo</label>
+                <input id="i-pass" type="password" required autocomplete="current-password" placeholder="heslo (bohemka)">
               </div>
 
-              <div id="login-error" class="hidden text-sm text-destructive flex items-center gap-2">
-                <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <div id="login-error" class="hidden iu-error" role="alert">
                 <span>Nesprávné jméno nebo heslo. Zadejte jméno např. <b>admin</b> nebo <b>k_spejchal10</b> a heslo <b>bohemka</b>.</span>
               </div>
 
-              <button type="submit" class="w-full rounded-xl bg-[var(--intranet-accent)] px-4 py-3 font-semibold text-[var(--intranet-accent-foreground)] shadow-lg transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_-6px_var(--intranet-accent)] cursor-pointer">
-                Přihlásit se
-              </button>
+              <button type="submit" class="iu-btn iu-btn-primary iu-btn-block">Přihlásit se</button>
             </form>
 
-            <div class="mt-6 rounded-2xl border border-primary/30 bg-primary/10 p-4 text-xs text-foreground shadow-sm">
-              <div class="font-bold text-primary mb-2 flex items-center justify-center gap-1.5 uppercase tracking-wider text-[11px]">
-                <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                Přihlašovací údaje pro ukázku (Demo)
-              </div>
-              <div class="grid grid-cols-2 gap-2 text-center text-xs">
-                <div class="rounded-xl bg-background/80 border border-border/70 p-2.5 shadow-sm">
-                  <strong class="block text-primary font-semibold">Trenér / Správce</strong>
-                  <span class="block font-mono text-[11px] mt-0.5 text-foreground">login: <b>admin</b></span>
-                  <span class="block font-mono text-[11px] text-muted-foreground">heslo: <b>bohemka</b></span>
+            <div class="iu-demo">
+              <p class="iu-label">Přihlašovací údaje pro ukázku (Demo)</p>
+              <div class="iu-demo-grid">
+                <div>
+                  <strong>Trenér / Správce</strong>
+                  <span>login: <b>admin</b></span>
+                  <span>heslo: <b>bohemka</b></span>
                 </div>
-                <div class="rounded-xl bg-background/80 border border-border/70 p-2.5 shadow-sm">
-                  <strong class="block text-primary font-semibold">Plavec / Rodič</strong>
-                  <span class="block font-mono text-[11px] mt-0.5 text-foreground">login: <b>user</b></span>
-                  <span class="block font-mono text-[11px] text-muted-foreground">heslo: <b>bohemka</b></span>
+                <div>
+                  <strong>Plavec / Rodič</strong>
+                  <span>login: <b>user</b></span>
+                  <span>heslo: <b>bohemka</b></span>
                 </div>
               </div>
-              <p class="mt-2.5 text-center text-[10px] text-muted-foreground flex items-center justify-center gap-1">
-                <span>Trenér generuje login pro plavce, heslo si plavec volí sám a trenér k němu nemá přístup.</span>
-              </p>
+              <p class="iu-note">Trenér generuje login pro plavce, heslo si plavec volí sám a trenér k němu nemá přístup.</p>
             </div>
           </div>
         </section>
@@ -310,33 +300,28 @@
 
       container.innerHTML = `
         <!-- Header band -->
-        <section class="border-b border-border bg-card">
-          <div class="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-            <div class="flex items-center gap-4">
-              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-secondary text-foreground" aria-hidden="true">
-                <span class="font-display text-xl font-semibold">${displayInitial}</span>
-              </div>
+        <section class="iu-head">
+          <div class="iu-shell iu-head-in">
+            <div class="iu-who">
+              <span class="iu-avatar" aria-hidden="true">${displayInitial}</span>
               <div>
-                <h1 class="font-display text-2xl font-semibold sm:text-3xl">Členská sekce</h1>
-                <p class="mt-1 text-sm text-muted-foreground">Přihlášen jako <span class="font-semibold text-foreground">${username}</span> (${displayName})</p>
+                <p class="iu-eyebrow">Intranet oddílu</p>
+                <h1 class="iu-title">Členská sekce</h1>
+                <p class="iu-sub">Přihlášen jako <strong>${username}</strong> (${displayName})</p>
               </div>
             </div>
-
-            <div class="flex flex-col gap-3 sm:items-end">
+            <div class="iu-head-actions">
               <!-- Role Switch (Strictly protected: swimmers cannot switch to trainer) -->
               ${(username.toLowerCase() === 'admin' || username.toLowerCase().includes('trener') || username.toLowerCase().includes('srb')) ? `
-                <div class="inline-flex rounded-full border border-border/70 bg-card/70 p-1">
-                  <button id="role-plavec-btn" class="rounded-full px-3.5 py-1.5 text-xs font-semibold transition-colors ${role === 'plavec' ? 'bg-[var(--intranet-accent)] text-[var(--intranet-accent-foreground)]' : 'text-muted-foreground hover:text-foreground'}">Plavec / Rodič</button>
-                  <button id="role-trener-btn" class="rounded-full px-3.5 py-1.5 text-xs font-semibold transition-colors ${role === 'trener' ? 'bg-[var(--intranet-accent)] text-[var(--intranet-accent-foreground)]' : 'text-muted-foreground hover:text-foreground'}">Trenér</button>
+                <div class="iu-seg" role="group" aria-label="Role">
+                  <button id="role-plavec-btn" type="button" class="${role === 'plavec' ? 'is-active' : ''}">Plavec / Rodič</button>
+                  <button id="role-trener-btn" type="button" class="${role === 'trener' ? 'is-active' : ''}">Trenér</button>
                 </div>
               ` : `
-                <div class="inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/70 px-4 py-1.5 text-xs font-semibold text-muted-foreground shadow-xs">
-                  <span class="h-2 w-2 rounded-full bg-[var(--intranet-accent)]"></span>
-                  <span>Plavec / Rodič</span>
-                </div>
+                <span class="iu-role">Plavec / Rodič</span>
               `}
-              <button id="logout-btn" class="inline-flex w-fit items-center gap-2 rounded-full border border-border px-5 py-2 text-sm font-semibold transition-all hover:border-[var(--intranet-accent)] hover:text-[var(--intranet-accent)]">
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+              <button id="logout-btn" type="button" class="iu-btn iu-btn-line">
+                <svg class="iu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
                 Odhlásit
               </button>
             </div>
@@ -344,74 +329,74 @@
         </section>
 
         <!-- Main Workspace -->
-        <div class="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[260px_1fr] lg:py-12">
+        <div class="iu-shell iu-work">
           <!-- Side nav -->
-          <aside class="-mx-4 overflow-x-auto px-4 pb-2 sm:-mx-6 sm:px-6 lg:mx-0 lg:space-y-2 lg:overflow-visible lg:p-0 lg:pb-0">
-            <div class="flex gap-2 lg:flex-col" id="intranet-tab-btns">
+          <aside class="iu-aside" aria-label="Sekce intranetu">
+            <div class="iu-tabs" id="intranet-tab-btns" role="tablist">
               ${role === 'trener' ? `
-                <button data-tab="trener-zavody" class="flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-left text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:px-4 lg:py-3 ${currentTab === 'trener-zavody' ? 'border-[var(--intranet-accent)]/50 bg-[var(--intranet-accent)]/10 text-[var(--intranet-accent)]' : 'border-border/60 text-muted-foreground hover:border-border hover:bg-card/60 hover:text-foreground'}">
-                  <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
-                  <span class="whitespace-nowrap font-semibold">Závody &amp; CSV přihlášky</span>
+                <button data-tab="trener-zavody" class="iu-tab${currentTab === 'trener-zavody' ? ' is-active' : ''}">
+                  <svg class="iu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
+                  <span>Závody &amp; CSV přihlášky</span>
                 </button>
-                <button data-tab="trener-aktuality" class="flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-left text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:px-4 lg:py-3 ${currentTab === 'trener-aktuality' ? 'border-[var(--intranet-accent)]/50 bg-[var(--intranet-accent)]/10 text-[var(--intranet-accent)]' : 'border-border/60 text-muted-foreground hover:border-border hover:bg-card/60 hover:text-foreground'}">
-                  <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
-                  <span class="whitespace-nowrap font-semibold">Aktuality oddílu</span>
+                <button data-tab="trener-aktuality" class="iu-tab${currentTab === 'trener-aktuality' ? ' is-active' : ''}">
+                  <svg class="iu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
+                  <span>Aktuality oddílu</span>
                 </button>
-                <button data-tab="trener-aktivity" class="flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-left text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:px-4 lg:py-3 ${currentTab === 'trener-aktivity' ? 'border-[var(--intranet-accent)]/50 bg-[var(--intranet-accent)]/10 text-[var(--intranet-accent)]' : 'border-border/60 text-muted-foreground hover:border-border hover:bg-card/60 hover:text-foreground'}">
-                  <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-                  <span class="whitespace-nowrap font-semibold">Aktivita &amp; Upozornění</span>
+                <button data-tab="trener-aktivity" class="iu-tab${currentTab === 'trener-aktivity' ? ' is-active' : ''}">
+                  <svg class="iu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                  <span>Aktivita &amp; Upozornění</span>
                 </button>
-                <button data-tab="trener-foto" class="flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-left text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:px-4 lg:py-3 ${currentTab === 'trener-foto' ? 'border-[var(--intranet-accent)]/50 bg-[var(--intranet-accent)]/10 text-[var(--intranet-accent)]' : 'border-border/60 text-muted-foreground hover:border-border hover:bg-card/60 hover:text-foreground'}">
-                  <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
-                  <span class="whitespace-nowrap font-semibold">Fotogalerie</span>
+                <button data-tab="trener-foto" class="iu-tab${currentTab === 'trener-foto' ? ' is-active' : ''}">
+                  <svg class="iu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                  <span>Fotogalerie</span>
                 </button>
-                <button data-tab="trener-dokumenty" class="flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-left text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:px-4 lg:py-3 ${currentTab === 'trener-dokumenty' ? 'border-[var(--intranet-accent)]/50 bg-[var(--intranet-accent)]/10 text-[var(--intranet-accent)]' : 'border-border/60 text-muted-foreground hover:border-border hover:bg-card/60 hover:text-foreground'}">
-                  <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/></svg>
-                  <span class="whitespace-nowrap font-semibold">Ke stažení (PDF)</span>
+                <button data-tab="trener-dokumenty" class="iu-tab${currentTab === 'trener-dokumenty' ? ' is-active' : ''}">
+                  <svg class="iu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/></svg>
+                  <span>Ke stažení (PDF)</span>
                 </button>
-                <button data-tab="trener-profil" class="flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-left text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:px-4 lg:py-3 ${currentTab === 'trener-profil' ? 'border-[var(--intranet-accent)]/50 bg-[var(--intranet-accent)]/10 text-[var(--intranet-accent)]' : 'border-border/60 text-muted-foreground hover:border-border hover:bg-card/60 hover:text-foreground'}">
-                  <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                  <span class="whitespace-nowrap font-semibold">Profil trenéra</span>
+                <button data-tab="trener-profil" class="iu-tab${currentTab === 'trener-profil' ? ' is-active' : ''}">
+                  <svg class="iu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  <span>Profil trenéra</span>
                 </button>
               ` : `
-                <button data-tab="zavody" class="flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-left text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:px-4 lg:py-3 ${currentTab === 'zavody' ? 'border-[var(--intranet-accent)]/50 bg-[var(--intranet-accent)]/10 text-[var(--intranet-accent)]' : 'border-border/60 text-muted-foreground hover:border-border hover:bg-card/60 hover:text-foreground'}">
-                  <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
-                  <span class="whitespace-nowrap font-semibold">Přihlášky na závody</span>
+                <button data-tab="zavody" class="iu-tab${currentTab === 'zavody' ? ' is-active' : ''}">
+                  <svg class="iu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
+                  <span>Přihlášky na závody</span>
                 </button>
-                <button data-tab="rezervace" class="flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-left text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:px-4 lg:py-3 ${currentTab === 'rezervace' ? 'border-[var(--intranet-accent)]/50 bg-[var(--intranet-accent)]/10 text-[var(--intranet-accent)]' : 'border-border/60 text-muted-foreground hover:border-border hover:bg-card/60 hover:text-foreground'}">
-                  <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21 12 10 5 21"/><path d="m12 10 7 11"/><path d="m5 21 7-11"/><circle cx="12" cy="5" r="2"/></svg>
-                  <span class="whitespace-nowrap font-semibold">Rezervace na akce</span>
+                <button data-tab="rezervace" class="iu-tab${currentTab === 'rezervace' ? ' is-active' : ''}">
+                  <svg class="iu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21 12 10 5 21"/><path d="m12 10 7 11"/><path d="m5 21 7-11"/><circle cx="12" cy="5" r="2"/></svg>
+                  <span>Rezervace na akce</span>
                 </button>
-                <button data-tab="vysledky" class="flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-left text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:px-4 lg:py-3 ${currentTab === 'vysledky' ? 'border-[var(--intranet-accent)]/50 bg-[var(--intranet-accent)]/10 text-[var(--intranet-accent)]' : 'border-border/60 text-muted-foreground hover:border-border hover:bg-card/60 hover:text-foreground'}">
-                  <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
-                  <span class="whitespace-nowrap font-semibold">Moje výsledky</span>
+                <button data-tab="vysledky" class="iu-tab${currentTab === 'vysledky' ? ' is-active' : ''}">
+                  <svg class="iu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                  <span>Moje výsledky</span>
                 </button>
-                <button data-tab="platby" class="flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-left text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:px-4 lg:py-3 ${currentTab === 'platby' ? 'border-[var(--intranet-accent)]/50 bg-[var(--intranet-accent)]/10 text-[var(--intranet-accent)]' : 'border-border/60 text-muted-foreground hover:border-border hover:bg-card/60 hover:text-foreground'}">
-                  <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-                  <span class="whitespace-nowrap font-semibold">Platby příspěvků</span>
+                <button data-tab="platby" class="iu-tab${currentTab === 'platby' ? ' is-active' : ''}">
+                  <svg class="iu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                  <span>Platby příspěvků</span>
                 </button>
-                <button data-tab="ucet" class="flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-left text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:px-4 lg:py-3 ${currentTab === 'ucet' ? 'border-[var(--intranet-accent)]/50 bg-[var(--intranet-accent)]/10 text-[var(--intranet-accent)]' : 'border-border/60 text-muted-foreground hover:border-border hover:bg-card/60 hover:text-foreground'}">
-                  <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                  <span class="whitespace-nowrap font-semibold">Nastavení účtu</span>
+                <button data-tab="ucet" class="iu-tab${currentTab === 'ucet' ? ' is-active' : ''}">
+                  <svg class="iu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  <span>Nastavení účtu</span>
                 </button>
               `}
             </div>
           </aside>
 
           <!-- Tab Content -->
-          <div class="min-w-0" id="tab-container">
+          <div class="iu-main" id="tab-container">
             <!-- Dynamic Content -->
           </div>
         </div>
 
         <!-- Official alerts directly from boh.cz -->
-        <div class="mx-auto max-w-7xl px-4 pb-12 sm:px-6">
-          <h3 class="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Aktuální upozornění oddílu</h3>
-          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" id="intranet-alerts-grid">
+        <div class="iu-shell iu-alerts">
+          <h2 class="iu-label">Aktuální upozornění oddílu</h2>
+          <div class="iu-alert-grid" id="intranet-alerts-grid">
             ${(window.BohStore ? window.BohStore.getAlerts() : []).slice(0, 3).map(a => `
-              <div class="rounded-2xl border ${a.type === 'dulezite' ? 'border-coral/30 bg-coral/10' : a.type === 'info' ? 'border-emerald-500/30 bg-emerald-500/10' : 'border-amber-500/30 bg-amber-500/10'} p-5 text-sm leading-relaxed text-foreground">
-                <span class="block font-bold ${a.type === 'dulezite' ? 'text-coral' : a.type === 'info' ? 'text-emerald-500' : 'text-amber-500'}">${escapeHtml(a.title)}</span>
-                <p class="mt-1 text-muted-foreground">${escapeHtml(a.text)}</p>
+              <div class="iu-alert ${a.type === 'dulezite' ? 'is-warn' : ''}">
+                <span class="iu-alert-t">${escapeHtml(a.title)}</span>
+                <p>${escapeHtml(a.text)}</p>
               </div>
             `).join("")}
           </div>
@@ -443,9 +428,7 @@
         btn.addEventListener("click", () => {
           currentTab = btn.getAttribute("data-tab");
           document.querySelectorAll("#intranet-tab-btns button").forEach(b => {
-            b.className = b === btn
-              ? "flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-left text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:px-4 lg:py-3 border-[var(--intranet-accent)]/50 bg-[var(--intranet-accent)]/10 text-[var(--intranet-accent)]"
-              : "flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-left text-sm font-medium transition-all lg:w-full lg:rounded-xl lg:px-4 lg:py-3 border-border/60 text-muted-foreground hover:border-border hover:bg-card/60 hover:text-foreground";
+            b.classList.toggle("is-active", b === btn);
           });
           renderActiveTab();
         });
@@ -489,7 +472,7 @@
       const allEvents = (window.BohStore ? window.BohStore.getEvents() : (window.BohData.events || []));
       const races = allEvents.filter(e => e.kind === "zavod" && !isEventClosed(e));
       container.innerHTML = `
-        <div class="rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
+        <div class="iu-panel">
           <div class="flex items-center justify-between mb-5">
             <h2 class="font-display text-xl font-bold">Přihlášky na závody</h2>
             <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[var(--intranet-accent)]/15 text-[var(--intranet-accent)]">
@@ -514,7 +497,7 @@
       const allEvents = (window.BohStore ? window.BohStore.getEvents() : (window.BohData.events || []));
       const camps = allEvents.filter(e => e.kind === "soustredeni" && !isEventClosed(e));
       container.innerHTML = `
-        <div class="rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
+        <div class="iu-panel">
           <div class="flex items-center justify-between mb-5">
             <h2 class="font-display text-xl font-bold">Rezervace na akce (tábory, soustředění)</h2>
             <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[var(--intranet-accent)]/15 text-[var(--intranet-accent)]">
@@ -539,57 +522,50 @@
       const closed = isClosed(event);
       const statusState = closed ? "uzavreno" : signed ? "prihlaseno" : "otevreno";
       const statusMap = {
-        otevreno: { label: "Otevřeno", cls: "bg-[var(--intranet-accent)]/12 text-[var(--intranet-accent)]" },
-        prihlaseno: { label: "Přihlášeno", cls: "bg-emerald-500/15 text-emerald-500" },
-        uzavreno: { label: "Uzavřeno", cls: "bg-muted text-muted-foreground" }
+        otevreno: { label: "Otevřeno", cls: "iu-status" },
+        prihlaseno: { label: "Přihlášeno", cls: "iu-status is-ok" },
+        uzavreno: { label: "Uzavřeno", cls: "iu-status is-off" }
       };
       const st = statusMap[statusState];
 
       let discHtml = "";
       if (event.disciplines && event.disciplines.length > 0) {
-        discHtml = `<div class="flex flex-wrap gap-2">` +
-          event.disciplines.slice(0, 8).map(d => `<span class="rounded-md bg-primary/10 px-2 py-1 text-xs font-medium text-primary">${escapeHtml(d)}</span>`).join("") +
+        discHtml = `<div class="iu-chips">` +
+          event.disciplines.slice(0, 8).map(d => `<span class="iu-chip">${escapeHtml(d)}</span>`).join("") +
           `</div>`;
       }
 
-      const btnClass = closed
-        ? "cursor-not-allowed bg-muted text-muted-foreground"
-        : signed
-          ? "bg-[var(--intranet-accent)]/15 text-[var(--intranet-accent)] hover:bg-[var(--intranet-accent)]/25"
-          : "bg-[var(--intranet-accent)] text-[var(--intranet-accent-foreground)] hover:scale-[1.03] hover:shadow-[0_0_30px_-8px_var(--intranet-accent)]";
+      const btnClass = closed ? "iu-btn iu-btn-line" : signed ? "iu-btn iu-btn-line" : "iu-btn iu-btn-primary";
 
       const btnText = signed ? "Upravit přihlášku" : closed ? "Uzavřeno" : "Přihlásit se";
 
       return `
-        <div class="reveal hover-float flex flex-col gap-4 rounded-2xl border border-border/60 bg-card/50 p-5 shadow-[var(--shadow-elevated)] backdrop-blur-sm transition-all duration-300 hover:border-[var(--intranet-accent)]/40">
-          <div class="flex items-start justify-between gap-3">
+        <article class="iu-event reveal">
+          <div class="iu-event-top">
             <div>
-              <h3 class="font-display text-lg font-bold">${escapeHtml(event.name)}</h3>
-              <div class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
-                <span class="flex items-center gap-1">
-                  <svg class="h-3.5 w-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                  ${escapeHtml(event.place)}
-                </span>
+              <h3 class="iu-event-name">${escapeHtml(event.name)}</h3>
+              <p class="iu-event-meta">
+                <span>${escapeHtml(event.place)}</span>
                 <span>${formatCzDate(event.date)}</span>
-              </div>
+              </p>
             </div>
-            <span class="shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold ${st.cls}">${st.label}</span>
+            <span class="${st.cls}">${st.label}</span>
           </div>
 
           ${discHtml}
 
-          <div class="mt-auto flex items-center justify-between border-t border-border/60 pt-4">
-            <span class="text-xs text-muted-foreground">Přihlášky do ${formatCzDate(event.deadline)}</span>
+          <div class="iu-event-foot">
+            <span>Přihlášky do ${formatCzDate(event.deadline)}</span>
             <button
               type="button"
               ${closed ? 'disabled' : ''}
               onclick="openSignUpDialog('${event.id}', 'intranet')"
-              class="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold transition-all active:scale-95 ${btnClass}"
+              class="${btnClass}"
             >
               ${btnText}
             </button>
           </div>
-        </div>
+        </article>
       `;
     }
 
@@ -1734,7 +1710,7 @@
       const curProg = progressionData[progressionDisc];
 
       container.innerHTML = `
-        <div class="rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
+        <div class="iu-panel">
           <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6">
             <div>
               <h2 class="font-display text-xl font-bold sm:text-2xl">Moje výsledky</h2>
@@ -1994,7 +1970,7 @@
             </div>
           </div>
 
-          <div class="rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
+          <div class="iu-panel">
             <h2 class="mb-5 font-display text-xl font-bold">Změna hesla</h2>
             <div class="grid gap-4 sm:max-w-md">
               <div>
@@ -2015,7 +1991,7 @@
             </div>
           </div>
 
-          <div class="rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
+          <div class="iu-panel">
             <h2 class="mb-5 font-display text-xl font-bold">Editace údajů</h2>
             <div class="grid gap-4 sm:grid-cols-2">
               ${fields.map(([label, value]) => `

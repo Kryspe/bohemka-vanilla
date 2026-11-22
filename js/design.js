@@ -71,6 +71,16 @@
       });
     }
   }
+  // pojistka: rychlé rolování nikdy nenechá obsah skrytý
+  var sf;
+  function sweep() {
+    var vh = window.innerHeight;
+    document.querySelectorAll(".rv:not(.is-in)").forEach(function (el) {
+      if (el.getBoundingClientRect().top < vh + 60) { el.classList.add("is-in"); if (io) io.unobserve(el); }
+    });
+  }
+  window.addEventListener("scroll", function () { clearTimeout(sf); sf = setTimeout(sweep, 120); }, { passive: true });
+  setTimeout(sweep, 1200);
   window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }, { passive: true });
   frame();
 })();
