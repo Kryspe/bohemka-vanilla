@@ -195,3 +195,18 @@
   .iu-main > div > * + * { margin-top: 28px; }
   .iu-main .iu-panel, .iu-main [class*="rounded-2xl"][class*="border"], .iu-main [class*="rounded-xl"][class*="border"][class*="p-"] { padding: 20px 18px; }
 }
+
+/* ---------- čitelnost: nejmenší písmo v intranetu a adminu ---------- */
+.iu-page { font-size: 16px; }
+.iu-main .text-xs, .iu-page .text-xs { font-size: .875rem !important; line-height: 1.5 !important; }
+.iu-page [class*="text-[11px]"], .iu-page [class*="text-[10px]"], .iu-page [class*="text-[0.68rem]"], .iu-page [class*="text-[0.7rem]"], .iu-page [class*="text-[0.72rem]"] { font-size: .8125rem !important; line-height: 1.45 !important; }
+.iu-page .text-sm { font-size: 1rem !important; line-height: 1.55 !important; }
+.iu-page th { font-size: .875rem !important; }
+.iu-page td, .iu-page li { font-size: 1rem; }
+.iu-page input, .iu-page select, .iu-page textarea { font-size: 16px !important; }   /* iOS nepřibližuje pole */
+.iu-page button { font-size: max(.9375rem, 1em); }
+.iu-tab { font-size: 1rem; }
+@media (max-width: 640px) {
+  .iu-page .text-xs { font-size: .9375rem !important; }
+  .iu-page [class*="text-[11px]"], .iu-page [class*="text-[10px]"], .iu-page [class*="text-[0.68rem]"] { font-size: .875rem !important; }
+}

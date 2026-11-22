@@ -699,3 +699,9 @@ body:has(#history-timeline) main .spotlight-card .flex-wrap > span { background:
 #global-search-modal mark { background: rgba(10, 106, 52, .16); color: inherit; border-radius: 3px; padding: 0 1px; }
 #global-search-results { padding-right: 2px; scrollbar-width: thin; }
 @media (max-width: 1023px) { #global-search-modal { padding-top: 76px !important; } }
+
+/* hledání: vstup bez vlastního obrysu (rámeček pole se zvýrazní přes :focus-within), žádná "bublina" v bublině */
+#global-search-input, #global-search-input:focus, #global-search-input:focus-visible { outline: none !important; box-shadow: none !important; border-radius: 0; }
+#global-search-modal .internal-search-dialog > div:first-child { border: 1px solid var(--input); border-radius: 14px; background: #fff; }
+#global-search-modal .internal-search-dialog > div:first-child:focus-within { border-color: var(--club); box-shadow: 0 0 0 3px rgba(10, 106, 52, .18); }
+#global-search-modal .internal-search-dialog > div:first-child * { outline: none; }
