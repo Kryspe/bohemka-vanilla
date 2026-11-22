@@ -1038,6 +1038,8 @@
 
     // 2. Coach News Management
     let coachShowAddNews = false;
+    let coachNewsShown = 10;
+    let coachDocsShown = 15;
 
     function renderCoachNewsTab(container) {
       const allNews = (window.BohStore ? window.BohStore.getNews() : (window.BohData.news || []));
@@ -1144,7 +1146,7 @@
           <div class="space-y-4">
             <h3 class="font-display text-lg font-bold text-foreground">Publikované aktuality (${allNews.length})</h3>
             <div class="space-y-4">
-              ${allNews.map((n, idx) => `
+              ${allNews.slice(0, coachNewsShown).map((n, idx) => `
                 <div class="relative overflow-hidden rounded-2xl border ${idx === 0 ? 'border-[var(--intranet-accent)] bg-card/70 ring-2 ring-[var(--intranet-accent)]/20' : 'border-border/60 bg-card/50'} p-5 shadow-[var(--shadow-elevated)] backdrop-blur-sm transition-all">
                   ${idx === 0 ? `
                     <div class="mb-3 inline-flex items-center gap-1.5 rounded-full bg-[var(--intranet-accent)]/15 px-3 py-1 text-xs font-bold text-[var(--intranet-accent)]">
@@ -1157,7 +1159,7 @@
                     <div class="flex gap-4">
                       ${n.image ? `
                         <div class="h-20 w-24 shrink-0 overflow-hidden rounded-xl border border-border/50 bg-background/80">
-                          <img src="${n.image}" alt="${n.title}" class="h-full w-full object-cover">
+                          <img src="${n.image}" alt="${escapeHtml(n.title)}" class="h-full w-full object-contain">
                         </div>
                       ` : ''}
                       <div>
@@ -1187,9 +1189,21 @@
                 </div>
               `).join("")}
             </div>
+            ${allNews.length > coachNewsShown ? `
+              <div class="flex justify-center pt-2">
+                <button type="button" id="coach-news-more" class="iu-btn iu-btn-line">Zobrazit dalších ${Math.min(10, allNews.length - coachNewsShown)} (zbývá ${allNews.length - coachNewsShown})</button>
+              </div>` : ''}
           </div>
         </div>
       `;
+
+      const moreNewsBtn = document.getElementById("coach-news-more");
+      if (moreNewsBtn) {
+        moreNewsBtn.addEventListener("click", () => {
+          coachNewsShown += 10;
+          renderCoachNewsTab(container);
+        });
+      }
 
       // Event Handlers for News
       const toggleNewsBtn = document.getElementById("toggle-add-news-btn");
@@ -1502,7 +1516,7 @@
           <div class="space-y-4">
             <h3 class="font-display text-lg font-bold text-foreground">Dostupné dokumenty (${downloads.length})</h3>
             <div class="space-y-3">
-              ${downloads.map(d => `
+              ${downloads.slice(0, coachDocsShown).map(d => `
                 <div class="flex flex-col gap-2 rounded-2xl border border-border/60 bg-card/50 p-4 sm:flex-row sm:items-center sm:justify-between backdrop-blur-sm">
                   <div class="flex items-center gap-3">
                     <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-coral/15 text-coral font-bold text-xs">
@@ -1528,9 +1542,21 @@
                 </div>
               `).join("")}
             </div>
+            ${downloads.length > coachDocsShown ? `
+              <div class="flex justify-center pt-2">
+                <button type="button" id="coach-docs-more" class="iu-btn iu-btn-line">Zobrazit dalších ${Math.min(15, downloads.length - coachDocsShown)} (zbývá ${downloads.length - coachDocsShown})</button>
+              </div>` : ''}
           </div>
         </div>
       `;
+
+      const moreDocsBtn = document.getElementById("coach-docs-more");
+      if (moreDocsBtn) {
+        moreDocsBtn.addEventListener("click", () => {
+          coachDocsShown += 15;
+          renderCoachDownloadsTab(container);
+        });
+      }
 
       const docForm = document.getElementById("coach-add-doc-form");
       if (docForm) {
