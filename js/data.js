@@ -15,7 +15,7 @@ window.BohData = {
     email: "jan.srb@czechswimming.cz",
     officialWeb: "https://www.boh.cz",
     coursesWeb: "https://kurzy.boh.cz",
-    pools: ["Plavecký stadion Podolí (Podolské nábřeží 3/1184, Praha 4)", "Sokol Vinohrady (Polská 2400/1a, Praha 2)"],
+    pools: ["Plavecký stadion Podolí (Podolská 74, 147 00 Praha 4)", "Sokol Vinohrady (Polská 2400/1a, Praha 2)"],
     bankAccount: "123456789/0300 (ČSOB)",
     ico: "00539121"
   },

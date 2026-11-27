@@ -150,7 +150,7 @@
         <div>
           <h2>Bazény</h2>
           <address class="d-foot-pools">
-            <p><strong>Plavecký stadion Podolí</strong>Podolské nábřeží 3/1184, Praha 4</p>
+            <p><strong>Plavecký stadion Podolí</strong>Podolská 74, 147 00 Praha 4</p>
             <p><strong>Sokol Vinohrady</strong>Polská 2400/1a, Praha 2</p>
           </address>
         </div>
@@ -579,7 +579,6 @@
                 <div>
                   <div class="flex items-center justify-between mb-1.5">
                     <label class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Čas (MM:SS,ss nebo SS,ss)</label>
-                    <span class="text-[0.7rem] text-primary cursor-pointer hover:underline" id="calc-preset-krystof">Zadat čas Kryštofa (01:02,09)</span>
                   </div>
                   <input id="calc-time" type="text" class="w-full rounded-2xl border border-input bg-background/80 px-4 py-3 text-lg font-mono font-bold outline-none focus:border-primary text-foreground" placeholder="01:02,09" value="01:02,09">
                 </div>
@@ -749,17 +748,6 @@
 
       document.getElementById("calc-disc").addEventListener("change", updateCalc);
       document.getElementById("calc-time").addEventListener("input", updateCalc);
-
-      const kPreset = document.getElementById("calc-preset-krystof");
-      if (kPreset) {
-        kPreset.addEventListener("click", () => {
-          document.getElementById("calc-disc").value = "100 VZ";
-          document.getElementById("calc-time").value = "01:02,09";
-          document.querySelector(".calc-btn-gender[data-val=M]").click();
-          document.querySelector(".calc-btn-pool[data-val=50m]").click();
-          updateCalc();
-        });
-      }
 
       document.querySelectorAll(".calc-chip").forEach(chip => {
         chip.addEventListener("click", () => {
