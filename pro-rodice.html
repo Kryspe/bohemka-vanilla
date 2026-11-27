@@ -68,125 +68,47 @@
     <!-- MAIN CONTENT -->
     <main class="w-full min-w-0 flex-1 pb-32 sm:pb-36 lg:pb-0" id="obsah" tabindex="-1">
 
-      <!-- PAGE HEADER -->
-      <section class="page-hero relative overflow-hidden">
-        <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-primary/10 blur-3xl"></div>
-        <div class="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-20">
-          <div class="hero-grid">
-            <span class="section-eyebrow">Informace pro členy a rodiče</span>
-            <h1 class="max-w-3xl section-title md:text-5xl">Pro rodiče</h1>
-            <div class="section-divider">
-              <span class="wave wave--md"></span>
-            </div>
-            <p class="section-desc max-w-2xl text-lg">Vše podstatné pro rodiče našich plavců — organizace tréninků, zdravotní formuláře a aktuální vzkazy od trenérů.</p>
-            <figure class="hero-photo"><img src="assets/aktuality/2211.jpg" width="1400" height="876" alt="Členové oddílu TJ Bohemians Praha" decoding="async"></figure>
+      <section class="page-hero">
+        <div class="p-wrap p-hero p-hero--photo">
+          <div class="p-hero-text">
+            <h1>Pro rodiče</h1>
+            <p>Vše podstatné pro rodiče našich plavců — organizace tréninků, zdravotní formuláře a aktuální vzkazy od trenérů.</p>
           </div>
+          <figure class="hero-photo"><img src="assets/aktuality/2211.jpg" width="1400" height="876" alt="Členové oddílu TJ Bohemians Praha" decoding="async"></figure>
         </div>
       </section>
 
-      <!-- CONTENT SECTION -->
-      <section class="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-20">
-        <!-- Quick actions -->
-        <div class="grid gap-4 sm:grid-cols-2">
-          <a href="ke-stazeni" class="reveal hover-float group flex items-center justify-between rounded-2xl border border-border bg-card p-5 shadow-sm transition-all">
-            <div class="flex items-center gap-3">
-              <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-              </div>
-              <div>
-                <h2 class="font-display text-sm font-bold text-foreground group-hover:text-primary transition-colors">Formuláře a dokumenty</h2>
-                <p class="text-xs text-muted-foreground">Zdravotní prohlídky, přihlášky, rozpis drah</p>
-              </div>
-            </div>
-            <svg class="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-          </a>
-
-          <a href="intranet" class="reveal hover-float group flex items-center justify-between rounded-2xl border border-border bg-card p-5 shadow-sm transition-all">
-            <div class="flex items-center gap-3">
-              <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              </div>
-              <div>
-                <h2 class="font-display text-sm font-bold text-foreground group-hover:text-primary transition-colors">Členský Intranet</h2>
-                <p class="text-xs text-muted-foreground">Přihlášky na závody a výsledky plavců</p>
-              </div>
-            </div>
-            <svg class="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-          </a>
-        </div>
-
-        <!-- DEDICATED QR PAYMENT CARD (ČSOB & VS 214) -->
-        <div class="reveal-scale mt-10 rounded-2xl border border-primary/30 bg-card p-6 sm:p-8 shadow-[var(--shadow-elevated)] backdrop-blur-sm" id="qr-payment-section">
-          <div class="flex flex-col md:flex-row items-center gap-8 justify-between">
-            <div class="flex-1 space-y-4">
-              <div class="flex items-center gap-2">
-                <span class="inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-3 py-0.5 text-xs font-semibold text-primary">
-                  ČSOB · SPAYD Platba
-                </span>
-                <span class="rounded-md bg-muted px-2 py-0.5 font-mono text-xs font-bold text-foreground">
-                  VS 214
-                </span>
-              </div>
-              <h2 class="font-display text-2xl font-extrabold text-foreground">
-                Platba oddílových příspěvků
-              </h2>
-              <p class="text-sm leading-relaxed text-muted-foreground">
-                Oddílové příspěvky se hradí pololetně: na podzimní pololetí do <strong>15. října</strong>, na jarní pololetí do <strong>15. února</strong>. Pro rychlou úhradu využijte QR kód nebo níže uvedené platební údaje.
-              </p>
-
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
-                <div class="rounded-xl border border-border/70 bg-background/60 p-3">
-                  <span class="text-muted-foreground block text-[11px]">Číslo bankovního účtu:</span>
-                  <strong class="font-mono text-sm text-foreground">351416278/0300</strong>
-                  <span class="text-[11px] text-muted-foreground block">Československá obchodní banka (ČSOB)</span>
-                </div>
-                <div class="rounded-xl border border-border/70 bg-background/60 p-3">
-                  <span class="text-muted-foreground block text-[11px]">Mezinárodní IBAN:</span>
-                  <strong class="font-mono text-xs text-foreground select-all">CZ3603000000000351416278</strong>
-                  <span class="text-[11px] text-muted-foreground block">BIC / SWIFT: CEKOCZPP</span>
-                </div>
-                <div class="rounded-xl border border-border/70 bg-background/60 p-3">
-                  <span class="text-muted-foreground block text-[11px]">Variabilní symbol (VS):</span>
-                  <span class="font-mono font-bold text-sm text-primary">214</span>
-                  <span class="text-[11px] text-muted-foreground block">Oddílový identifikátor plavání Bohemians</span>
-                </div>
-                <div class="rounded-xl border border-border/70 bg-background/60 p-3">
-                  <span class="text-muted-foreground block text-[11px]">Zpráva pro příjemce:</span>
-                  <strong class="font-mono text-xs text-foreground">Plavání [Jméno plavce]</strong>
-                  <span class="text-[11px] text-muted-foreground block">Uveďte jméno dítěte pro spárování</span>
-                </div>
-              </div>
-
-              <div class="rounded-xl border border-primary/20 bg-primary/5 p-3.5 text-xs text-muted-foreground leading-relaxed">
-                Potvrzení o zaplacení pro zdravotní pojišťovny na příspěvek na sportovní činnost dětí vystavuje hospodářka oddílu na vyžádání.
-              </div>
-            </div>
-
-            <!-- QR Code Box -->
-            <div class="shrink-0 flex flex-col items-center rounded-2xl border border-border/70 bg-background/80 p-5 text-center shadow-inner">
-              <span class="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">QR platba ČSOB</span>
-              <div class="overflow-hidden rounded-xl border border-border bg-white p-2.5 shadow-sm">
-                <img src="assets/QR_plavani214.jpg" alt="QR kód pro platbu příspěvků TJ Bohemians Praha VS 214" width="180" height="180" class="h-44 w-44 object-contain">
-              </div>
-              <p class="mt-2.5 font-mono text-xs font-bold text-foreground">VS 214</p>
-              <p class="mt-0.5 text-[0.7rem] text-muted-foreground">Naskenujte v mobilním bankovnictví</p>
-            </div>
+      <section class="p-wrap p-sec p-split" aria-labelledby="notes-title">
+        <div>
+          <h2 class="p-h2" id="notes-title">Aktuální vzkazy pro rodiče</h2>
+          <div id="parents-notes" class="p-notes">
+            <p class="p-state" role="status">Načítám vzkazy&hellip;</p>
           </div>
         </div>
+        <nav class="p-links" aria-label="Rychlé odkazy pro rodiče">
+          <a href="ke-stazeni"><strong>Formuláře a dokumenty</strong><span>Zdravotní prohlídky, přihlášky, rozpis drah</span></a>
+          <a href="intranet"><strong>Členský intranet</strong><span>Přihlášky na závody a výsledky plavců</span></a>
+          <a href="kontakt"><strong>Kontakty na trenéry</strong><span>Máte dotaz k tréninkům nebo závodům? Neváhejte se obrátit na trenéry jednotlivých skupin.</span></a>
+        </nav>
+      </section>
 
-        <h2 class="reveal-fade mt-12 font-display text-2xl font-extrabold">Aktuální vzkazy pro rodiče</h2>
-        <div id="parents-notes" class="s-list mt-6">
-          <!-- Populated by JS -->
-        </div>
-
-        <div class="reveal-scale mt-12 rounded-2xl border border-border bg-card p-7 shadow-[var(--shadow-elevated)]">
-          <h2 class="font-display text-xl font-bold">Máte dotaz k tréninkům nebo závodům?</h2>
-          <p class="mt-3 leading-relaxed text-muted-foreground">
-            Neváhejte se obrátit na trenéry jednotlivých skupin. Kontakty na trenéry a vedení oddílu najdete na stránce kontaktů.
-          </p>
-          <a href="kontakt" class="mt-5 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground shadow-[var(--glow-aqua)] transition-transform hover:scale-[1.03]">
-            Kontakty na trenéry <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
-          </a>
+      <section class="p-band" id="qr-payment-section" aria-labelledby="pay-title">
+        <div class="p-wrap p-sec p-pay">
+          <div>
+            <h2 class="p-h2" id="pay-title">Platba oddílových příspěvků</h2>
+            <p class="p-lead">Oddílové příspěvky se hradí pololetně: na podzimní pololetí do <strong>15. října</strong>, na jarní pololetí do <strong>15. února</strong>. Pro rychlou úhradu využijte QR kód nebo níže uvedené platební údaje.</p>
+            <dl class="p-dl">
+              <div><dt>Číslo účtu</dt><dd><strong>351416278/0300</strong><span>Československá obchodní banka (ČSOB)</span></dd></div>
+              <div><dt>Variabilní symbol</dt><dd><strong>214</strong><span>Oddílový identifikátor plavání Bohemians</span></dd></div>
+              <div><dt>Zpráva pro příjemce</dt><dd><strong>Plavání [Jméno plavce]</strong><span>Uveďte jméno dítěte pro spárování</span></dd></div>
+              <div><dt>IBAN</dt><dd><strong class="p-iban">CZ3603000000000351416278</strong><span>BIC / SWIFT: CEKOCZPP</span></dd></div>
+            </dl>
+            <p class="p-fine">Potvrzení o zaplacení pro zdravotní pojišťovny na příspěvek na sportovní činnost dětí vystavuje hospodářka oddílu na vyžádání.</p>
+          </div>
+          <figure class="p-qr">
+            <img src="assets/QR_plavani214.jpg" alt="QR kód pro platbu příspěvků TJ Bohemians Praha VS 214" width="180" height="180">
+            <figcaption><strong>QR platba ČSOB, VS 214</strong>Naskenujte v mobilním bankovnictví</figcaption>
+          </figure>
         </div>
       </section>
 
@@ -194,12 +116,16 @@
 
     <!-- FOOTER -->
     <footer class="d-site-footer">
+      <div class="d-wrap d-foot-top">
+        <p class="d-foot-name">TJ Bohemians Praha <span class="sm">oddíl plavání od roku 1946</span></p>
+        <a class="btn btn-light btn-go" href="kontakt">Kontakty a bazény</a>
+      </div>
       <div class="d-wrap d-foot-grid">
-        <div>
+        <div class="d-foot-club">
           <img src="assets/logo8.png" alt="TJ Bohemians Praha, oddíl plavání" width="178" height="50" loading="lazy">
           <p class="d-foot-note">Plavecký oddíl TJ Bohemians Praha. Závodní plavání, přípravka a kurzy plavání v Praze od roku 1946.</p>
         </div>
-        <div>
+        <nav class="d-foot-menu" aria-label="Menu v patičce">
           <h2>Menu</h2>
           <ul>
             <li><a href="aktuality">Aktuality</a></li>
@@ -212,21 +138,28 @@
             <li><a href="ke-stazeni">Ke stažení</a></li>
             <li><a href="intranet">Intranet</a></li>
           </ul>
+        </nav>
+        <div>
+          <h2>Bazény</h2>
+          <address class="d-foot-pools">
+            <p><strong>Plavecký stadion Podolí</strong>Podolské nábřeží 3/1184, Praha 4</p>
+            <p><strong>Sokol Vinohrady</strong>Polská 2400/1a, Praha 2</p>
+          </address>
         </div>
         <div>
           <h2>Kontakt</h2>
           <ul>
             <li><a href="mailto:jan.srb@czechswimming.cz">jan.srb@czechswimming.cz</a></li>
-            <li><a href="kontakt">Kontakty a bazény</a></li>
             <li><a href="https://www.facebook.com/bohplavani" target="_blank" rel="noopener noreferrer">Facebook</a></li>
             <li><a href="https://www.instagram.com/bohemka_plavani" target="_blank" rel="noopener noreferrer">Instagram</a></li>
             <li><a href="https://www.boh.cz" target="_blank" rel="noopener noreferrer">Původní web boh.cz</a></li>
-            <li class="d-foot-small">IČO: 00539121 &middot; ČSOB: 351416278/0300</li>
           </ul>
         </div>
       </div>
       <div class="d-wrap d-foot-bottom">
-        <span>&copy; 1946&ndash;2026 TJ Bohemians Praha, oddíl plavání. 80 let zelenobílé tradice.</span>
+        <span>&copy; 1946&ndash;2026 TJ Bohemians Praha, oddíl plavání</span>
+        <span>IČO 00539121 &middot; ČSOB 351416278/0300</span>
+        <a href="#" class="d-foot-top-link">Nahoru</a>
       </div>
     </footer>
     <!-- MOBILE BOTTOM NAVIGATION (Anchored Edge-to-Edge Tab Bar) -->
@@ -365,7 +298,7 @@
             </span>
             <span class="mobile-drawer-label font-bold">Intranet</span>
           </div>
-          <span class="text-[11px] font-semibold text-primary px-2 py-0.5 rounded-full bg-primary/15 shrink-0">Přihlášení &rarr;</span>
+          <span class="text-[11px] font-semibold text-primary px-2 py-0.5 rounded-full bg-primary/15 shrink-0">Přihlášení</span>
         </a>
       </nav>
 
@@ -389,6 +322,10 @@
       const notesContainer = document.getElementById("parents-notes");
       if (!notesContainer) return;
       const notes = (window.BohStore ? window.BohStore.getParentsNotes() : (window.BohData.parentsNotes || []));
+      if (!notes.length) {
+        notesContainer.innerHTML = `<p class="p-state">Momentálně nejsou žádné vzkazy. Nové informace sem trenéři přidávají před závody a soustředěními.</p>`;
+        return;
+      }
       notesContainer.innerHTML = notes.map(note => {
         const text = typeof note === 'object' ? (note.text || note.title) : note;
         const title = typeof note === 'object' && note.title && note.title !== text ? note.title : '';
@@ -398,14 +335,16 @@
         // text často začíná stejně jako titulek ("Infolístek ...: Kladno ..."): titulek se neopakuje
         let body = String(text || "");
         if (title && body.indexOf(title) === 0) body = body.slice(title.length).replace(/^[:\s]+/, "");
+        // vzkaz bez titulku: první věta (do dvojtečky) nese nadpis, zbytek je text
+        let head = title;
+        if (!head) { const m = body.match(/^([^:]{6,120}):\s+([\s\S]+)$/); if (m) { head = m[1]; body = m[2]; } }
         return `
-          <div class="s-row s-note${isImportant ? ' is-important' : ''}">
-            <div class="s-date">${isoDate && typeof formatCzDate === "function" ? escapeHtml(formatCzDate(date)) : ''}</div>
-            <div>
-              ${title ? `<h3>${escapeHtml(title)}</h3>` : ''}
-              ${body ? `<p class="s-meta">${escapeHtml(body)}</p>` : ''}
-            </div>
-          </div>
+          <article class="p-note${isImportant ? ' is-important' : ''}">
+            ${isoDate && typeof formatCzDate === "function" ? `<time datetime="${escapeHtml(date)}">${escapeHtml(formatCzDate(date))}</time>` : ''}
+            ${head ? `<h3>${escapeHtml(head)}</h3>` : ''}
+            ${body ? `<p>${escapeHtml(body)}</p>` : ''}
+            ${isImportant ? `<p class="p-note-flag">Důležité</p>` : ''}
+          </article>
         `;
       }).join("");
 

@@ -63,36 +63,45 @@
 
     <!-- MAIN CONTENT -->
     <main class="flex-1 pb-24 lg:pb-0" id="obsah" tabindex="-1">
-      <section class="h-sec">
-        <div class="d-wrap" style="max-width:42rem">
-          <h1 class="font-display" style="font-size:clamp(2rem,4vw,3rem);line-height:1.1;margin:0 0 16px">Tuto stránku nenajdeme</h1>
-          <p style="color:var(--d-muted);margin:0 0 28px;max-width:52ch">Adresa nejspíš neplatí nebo se stránka přesunula. Zkus ji najít vyhledáváním, nebo otevři jednu z hlavních částí webu.</p>
-
-          <form class="s-search" onsubmit="trigger404Search();return false" role="search">
+      <section class="page-hero p-404">
+        <div class="p-wrap p-hero">
+          <p class="p-404-code" aria-hidden="true">404</p>
+          <div class="p-hero-text">
+            <h1>Tuto stránku nenajdeme</h1>
+            <p>Adresa nejspíš neplatí nebo se stránka přesunula. Zkus ji najít vyhledáváním, nebo otevři jednu z hlavních částí webu.</p>
+          </div>
+          <form class="p-404-search" onsubmit="trigger404Search();return false" role="search">
             <label class="sr-only" for="inline-404-search">Hledat na webu</label>
             <input type="search" id="inline-404-search" placeholder="Závod, plavec, rekord" autocomplete="off">
-            <button type="submit" class="btn btn-solid">Hledat</button>
+            <button type="submit" class="btn btn-light p-pill">Hledat</button>
           </form>
-
-          <ul class="s-links">
-            <li><a class="text-link" href="/">Úvod</a></li>
-            <li><a class="text-link" href="zavody">Kalendář závodů</a></li>
-            <li><a class="text-link" href="aktuality">Aktuality</a></li>
-            <li><a class="text-link" href="rekordy">Rekordy</a></li>
-            <li><a class="text-link" href="kontakt">Kontakty</a></li>
-          </ul>
         </div>
+      </section>
+      <section class="p-wrap p-sec" aria-labelledby="where-title">
+        <h2 class="sr-only" id="where-title">Hlavní části webu</h2>
+        <ul class="p-where">
+          <li><a href="/">Úvod</a></li>
+          <li><a href="zavody">Kalendář závodů</a></li>
+          <li><a href="aktuality">Aktuality</a></li>
+          <li><a href="pro-rodice">Pro rodiče</a></li>
+          <li><a href="rekordy">Rekordy</a></li>
+          <li><a href="kontakt">Kontakty</a></li>
+        </ul>
       </section>
     </main>
 
     <!-- FOOTER -->
     <footer class="d-site-footer">
+      <div class="d-wrap d-foot-top">
+        <p class="d-foot-name">TJ Bohemians Praha <span class="sm">oddíl plavání od roku 1946</span></p>
+        <a class="btn btn-light btn-go" href="kontakt">Kontakty a bazény</a>
+      </div>
       <div class="d-wrap d-foot-grid">
-        <div>
+        <div class="d-foot-club">
           <img src="assets/logo8.png" alt="TJ Bohemians Praha, oddíl plavání" width="178" height="50" loading="lazy">
           <p class="d-foot-note">Plavecký oddíl TJ Bohemians Praha. Závodní plavání, přípravka a kurzy plavání v Praze od roku 1946.</p>
         </div>
-        <div>
+        <nav class="d-foot-menu" aria-label="Menu v patičce">
           <h2>Menu</h2>
           <ul>
             <li><a href="aktuality">Aktuality</a></li>
@@ -105,21 +114,28 @@
             <li><a href="ke-stazeni">Ke stažení</a></li>
             <li><a href="intranet">Intranet</a></li>
           </ul>
+        </nav>
+        <div>
+          <h2>Bazény</h2>
+          <address class="d-foot-pools">
+            <p><strong>Plavecký stadion Podolí</strong>Podolské nábřeží 3/1184, Praha 4</p>
+            <p><strong>Sokol Vinohrady</strong>Polská 2400/1a, Praha 2</p>
+          </address>
         </div>
         <div>
           <h2>Kontakt</h2>
           <ul>
             <li><a href="mailto:jan.srb@czechswimming.cz">jan.srb@czechswimming.cz</a></li>
-            <li><a href="kontakt">Kontakty a bazény</a></li>
             <li><a href="https://www.facebook.com/bohplavani" target="_blank" rel="noopener noreferrer">Facebook</a></li>
             <li><a href="https://www.instagram.com/bohemka_plavani" target="_blank" rel="noopener noreferrer">Instagram</a></li>
             <li><a href="https://www.boh.cz" target="_blank" rel="noopener noreferrer">Původní web boh.cz</a></li>
-            <li class="d-foot-small">IČO: 00539121 &middot; ČSOB: 351416278/0300</li>
           </ul>
         </div>
       </div>
       <div class="d-wrap d-foot-bottom">
-        <span>&copy; 1946&ndash;2026 TJ Bohemians Praha, oddíl plavání. 80 let zelenobílé tradice.</span>
+        <span>&copy; 1946&ndash;2026 TJ Bohemians Praha, oddíl plavání</span>
+        <span>IČO 00539121 &middot; ČSOB 351416278/0300</span>
+        <a href="#" class="d-foot-top-link">Nahoru</a>
       </div>
     </footer>
     <!-- MOBILE BOTTOM NAVIGATION (Anchored Edge-to-Edge Tab Bar) -->
@@ -258,7 +274,7 @@
             </span>
             <span class="mobile-drawer-label font-bold">Intranet</span>
           </div>
-          <span class="text-[11px] font-semibold text-primary px-2 py-0.5 rounded-full bg-primary/15 shrink-0">Přihlášení &rarr;</span>
+          <span class="text-[11px] font-semibold text-primary px-2 py-0.5 rounded-full bg-primary/15 shrink-0">Přihlášení</span>
         </a>
       </nav>
 

@@ -68,50 +68,53 @@
     <!-- MAIN CONTENT -->
     <main class="w-full min-w-0 flex-1 pb-32 sm:pb-36 lg:pb-0" id="obsah" tabindex="-1">
 
-      <!-- PAGE HEADER -->
-      <section class="page-hero relative overflow-hidden">
-        <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-primary/10 blur-3xl"></div>
-        <div class="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-20">
-          <div class="hero-grid">
-            <span class="section-eyebrow">Spojte se s námi · TJ Bohemians Praha</span>
-            <h1 class="max-w-3xl section-title md:text-5xl">Kontakt</h1>
-            <div class="section-divider">
-              <span class="wave wave--md"></span>
-            </div>
-            <p class="section-desc max-w-2xl text-lg">Hlavní trenéři, vedení oddílu a tréninkové bazény v Podolí a na Vinohradech.</p>
-            <figure class="hero-photo"><img src="assets/aktuality/2242.jpg" width="1400" height="821" alt="Členové oddílu TJ Bohemians Praha" decoding="async"></figure>
+      <section class="page-hero">
+        <div class="p-wrap p-hero p-hero--photo">
+          <div class="p-hero-text">
+            <h1>Kontakt</h1>
+            <p>Hlavní trenéři, vedení oddílu a tréninkové bazény v Podolí a na Vinohradech.</p>
           </div>
+          <figure class="hero-photo"><img src="assets/aktuality/2242.jpg" width="1400" height="821" alt="Členové oddílu TJ Bohemians Praha" decoding="async"></figure>
         </div>
       </section>
 
-      <!-- CONTACT SECTION -->
-      <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-20">
-        <div class="grid gap-6 md:grid-cols-2" id="coaches-grid">
-          <!-- Populated by JS -->
-        </div>
+      <section class="p-wrap p-sec" aria-label="Oddíl">
+        <dl class="p-dl p-dl--3">
+          <div><dt>E-mail oddílu</dt><dd><a class="p-big-link" href="mailto:jan.srb@czechswimming.cz">jan.srb@czechswimming.cz</a></dd></div>
+          <div><dt>Bankovní účet (ČSOB)</dt><dd><strong>351416278/0300</strong></dd></div>
+          <div><dt>IČO</dt><dd><strong>00539121</strong></dd></div>
+        </dl>
+      </section>
 
-        <div class="reveal-scale mt-10 rounded-2xl border border-border/60 bg-card/50 p-7 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
-          <h2 class="font-display text-lg font-bold">Další trenéři závodních družstev</h2>
-          <div class="mt-4 flex flex-wrap gap-2" id="other-coaches">
-            <!-- Populated by JS -->
-          </div>
-        </div>
+      <section class="p-wrap p-sec" aria-labelledby="coaches-title">
+        <div class="p-head"><h2 class="p-h2" id="coaches-title">Trenéři a vedení oddílu</h2></div>
+        <div class="p-people" id="coaches-grid"></div>
+      </section>
 
-        <div class="mt-10 grid gap-4 sm:grid-cols-2" id="pools-grid">
-          <!-- Populated by JS -->
-        </div>
+      <section class="p-wrap p-sec" aria-labelledby="other-title">
+        <div class="p-head"><h2 class="p-h2" id="other-title">Další trenéři závodních družstev</h2></div>
+        <ul class="p-names" id="other-coaches"></ul>
+      </section>
+
+      <section class="p-wrap p-sec" aria-labelledby="pools-title">
+        <div class="p-head"><h2 class="p-h2" id="pools-title">Bazény</h2></div>
+        <div class="p-pools" id="pools-grid"></div>
       </section>
 
     </main>
 
     <!-- FOOTER -->
     <footer class="d-site-footer">
+      <div class="d-wrap d-foot-top">
+        <p class="d-foot-name">TJ Bohemians Praha <span class="sm">oddíl plavání od roku 1946</span></p>
+        <a class="btn btn-light btn-go" href="kontakt">Kontakty a bazény</a>
+      </div>
       <div class="d-wrap d-foot-grid">
-        <div>
+        <div class="d-foot-club">
           <img src="assets/logo8.png" alt="TJ Bohemians Praha, oddíl plavání" width="178" height="50" loading="lazy">
           <p class="d-foot-note">Plavecký oddíl TJ Bohemians Praha. Závodní plavání, přípravka a kurzy plavání v Praze od roku 1946.</p>
         </div>
-        <div>
+        <nav class="d-foot-menu" aria-label="Menu v patičce">
           <h2>Menu</h2>
           <ul>
             <li><a href="aktuality">Aktuality</a></li>
@@ -124,21 +127,28 @@
             <li><a href="ke-stazeni">Ke stažení</a></li>
             <li><a href="intranet">Intranet</a></li>
           </ul>
+        </nav>
+        <div>
+          <h2>Bazény</h2>
+          <address class="d-foot-pools">
+            <p><strong>Plavecký stadion Podolí</strong>Podolské nábřeží 3/1184, Praha 4</p>
+            <p><strong>Sokol Vinohrady</strong>Polská 2400/1a, Praha 2</p>
+          </address>
         </div>
         <div>
           <h2>Kontakt</h2>
           <ul>
             <li><a href="mailto:jan.srb@czechswimming.cz">jan.srb@czechswimming.cz</a></li>
-            <li><a href="kontakt">Kontakty a bazény</a></li>
             <li><a href="https://www.facebook.com/bohplavani" target="_blank" rel="noopener noreferrer">Facebook</a></li>
             <li><a href="https://www.instagram.com/bohemka_plavani" target="_blank" rel="noopener noreferrer">Instagram</a></li>
             <li><a href="https://www.boh.cz" target="_blank" rel="noopener noreferrer">Původní web boh.cz</a></li>
-            <li class="d-foot-small">IČO: 00539121 &middot; ČSOB: 351416278/0300</li>
           </ul>
         </div>
       </div>
       <div class="d-wrap d-foot-bottom">
-        <span>&copy; 1946&ndash;2026 TJ Bohemians Praha, oddíl plavání. 80 let zelenobílé tradice.</span>
+        <span>&copy; 1946&ndash;2026 TJ Bohemians Praha, oddíl plavání</span>
+        <span>IČO 00539121 &middot; ČSOB 351416278/0300</span>
+        <a href="#" class="d-foot-top-link">Nahoru</a>
       </div>
     </footer>
     <!-- MOBILE BOTTOM NAVIGATION (Anchored Edge-to-Edge Tab Bar) -->
@@ -277,7 +287,7 @@
             </span>
             <span class="mobile-drawer-label font-bold">Intranet</span>
           </div>
-          <span class="text-[11px] font-semibold text-primary px-2 py-0.5 rounded-full bg-primary/15 shrink-0">Přihlášení &rarr;</span>
+          <span class="text-[11px] font-semibold text-primary px-2 py-0.5 rounded-full bg-primary/15 shrink-0">Přihlášení</span>
         </a>
       </nav>
 
@@ -296,66 +306,47 @@
   <script src="js/animations.js"></script>
   <script src="js/app.js"></script>
   <script>
-    // Coaches
-    const coachesContainer = document.getElementById("coaches-grid");
-    if (coachesContainer) {
-      coachesContainer.innerHTML = (window.BohData.coaches || []).map(c => {
-        const detailsHtml = (c.details || []).map(d => {
-          const isPhone = d.startsWith("+") || /^\d/.test(d);
-          const isMail = d.includes("@");
-          const isWeb = d.includes("cz") || d.includes("http");
-
-          let icon = `<svg class="h-4 w-4 text-muted-foreground shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>`;
-          let linkHtml = `<span>${d}</span>`;
-
-          if (isPhone) {
-            icon = `<svg class="h-4 w-4 text-muted-foreground shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`;
-            linkHtml = `<a href="tel:${d.replace(/\s+/g, '')}" class="hover:text-primary transition-colors">${d}</a>`;
-          } else if (isMail) {
-            icon = `<svg class="h-4 w-4 text-muted-foreground shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`;
-            linkHtml = `<a href="mailto:${d}" class="hover:text-primary transition-colors">${d}</a>`;
-          } else if (isWeb) {
-            linkHtml = `<a href="https://${d.replace(/^https?:\/\//, '')}" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors">${d}</a>`;
-          }
-
-          return `
-            <li class="flex items-center gap-2">
-              ${icon}
-              ${linkHtml}
-            </li>
-          `;
+    // Trenéři, další trenéři a bazény z BohData; telefon, e-mail a web jako odkazy
+    (function () {
+      const D = window.BohData || {};
+      const detail = d => {
+        const t = escapeHtml(d);
+        const phone = String(d).match(/(\+?\d[\d ]{7,}\d)/);
+        if (String(d).includes("@")) return `<a href="mailto:${encodeURI(String(d).trim())}">${t}</a>`;
+        if (phone) return t.replace(escapeHtml(phone[1]), `<a href="tel:${phone[1].replace(/\s+/g, "")}">${escapeHtml(phone[1])}</a>`);
+        if (/^[\w.-]+\.cz(\/\S*)?$/.test(String(d).trim()) || /^https?:/.test(d)) return `<a href="https://${encodeURI(String(d).trim().replace(/^https?:\/\//, ""))}" target="_blank" rel="noopener noreferrer">${t}</a>`;
+        return t;
+      };
+      const coachesEl = document.getElementById("coaches-grid");
+      if (coachesEl) {
+        coachesEl.innerHTML = (D.coaches || []).map(c => `
+          <article>
+            <h3>${escapeHtml(c.name)}</h3>
+            <p class="p-role">${escapeHtml(c.role)}</p>
+            ${c.details && c.details.length ? `<ul>${c.details.map(d => `<li>${detail(d)}</li>`).join("")}</ul>` : ""}
+          </article>`).join("");
+      }
+      const othersEl = document.getElementById("other-coaches");
+      if (othersEl) {
+        othersEl.innerHTML = (D.otherCoaches || []).map(n => {
+          const m = String(n).match(/^(.*?)\s*\((.+)\)$/);
+          return m ? `<li>${escapeHtml(m[1])} <span>${escapeHtml(m[2])}</span></li>` : `<li>${escapeHtml(n)}</li>`;
         }).join("");
-
-        return `
-          <div class="reveal hover-float h-full rounded-2xl border border-border/60 bg-card/50 p-7 shadow-[var(--shadow-elevated)] backdrop-blur-sm transition-all duration-300">
-            <h2 class="font-display text-xl font-bold">${c.name}</h2>
-            <p class="mt-1 text-sm text-primary font-semibold">${c.role}</p>
-            <ul class="mt-4 space-y-2 text-sm text-muted-foreground">
-              ${detailsHtml}
-            </ul>
-          </div>
-        `;
-      }).join("");
-    }
-
-    // Other coaches
-    const otherCoachesContainer = document.getElementById("other-coaches");
-    if (otherCoachesContainer) {
-      otherCoachesContainer.innerHTML = (window.BohData.otherCoaches || []).map(name => `
-        <span class="rounded-full bg-secondary px-3.5 py-1.5 text-xs font-semibold text-secondary-foreground border border-border/50">${name}</span>
-      `).join("");
-    }
-
-    // Pools
-    const poolsContainer = document.getElementById("pools-grid");
-    if (poolsContainer) {
-      poolsContainer.innerHTML = (window.BohData.club.pools || []).map(p => `
-        <div class="reveal hover-float flex items-start gap-3 rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[var(--shadow-elevated)] backdrop-blur-sm transition-all duration-300">
-          <svg class="mt-0.5 h-5 w-5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-          <span class="text-foreground font-medium">${p}</span>
-        </div>
-      `).join("");
-    }
+      }
+      const poolsEl = document.getElementById("pools-grid");
+      if (poolsEl) {
+        poolsEl.innerHTML = ((D.club && D.club.pools) || []).map(p => {
+          const m = String(p).match(/^(.*?)\s*\((.+)\)$/);
+          const name = m ? m[1] : p, addr = m ? m[2] : "";
+          return `
+            <article>
+              <h3>${escapeHtml(name)}</h3>
+              ${addr ? `<p class="p-addr">${escapeHtml(addr)}</p>` : ""}
+              <a class="text-link" href="https://mapy.cz/zakladni?q=${encodeURIComponent(addr || name)}" target="_blank" rel="noopener noreferrer">Otevřít v Mapy.cz</a>
+            </article>`;
+        }).join("");
+      }
+    })();
 
     if (window.initScrollReveal) setTimeout(window.initScrollReveal, 40);
   </script>

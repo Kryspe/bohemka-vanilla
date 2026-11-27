@@ -68,92 +68,46 @@
     <!-- MAIN CONTENT -->
     <main class="w-full min-w-0 flex-1 pb-32 sm:pb-36 lg:pb-0" id="obsah" tabindex="-1">
 
-      <!-- PAGE HEADER -->
-      <section class="page-hero relative overflow-hidden">
-        <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-primary/10 blur-3xl"></div>
-        <div class="pointer-events-none absolute -left-24 bottom-0 h-64 w-64 rounded-full bg-primary/5 blur-3xl"></div>
-        <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-20">
-          <div>
-            <span class="section-eyebrow">Oficiální dokumenty</span>
-            <h1 class="max-w-3xl section-title md:text-5xl">Ke stažení</h1>
-            <div class="section-divider">
-              <span class="wave wave--md"></span>
-            </div>
-            <p class="section-desc max-w-2xl text-lg">
-              Rozdělení do drah na sezónu 2026/2027, harmonogramy tréninků, platby příspěvků, lékařské posudky a oddílové směrnice.
-            </p>
+      <section class="page-hero">
+        <div class="p-wrap p-hero">
+          <div class="p-hero-text">
+            <h1>Ke stažení</h1>
+            <p>Rozdělení do drah na sezónu 2026/2027, harmonogramy tréninků, platby příspěvků, lékařské posudky a oddílové směrnice.</p>
           </div>
         </div>
       </section>
 
-      <!-- CONTENT SECTION -->
-      <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-20">
-
-        <!-- URGENT SEASON BANNER -->
-        <div class="reveal-scale mb-10 overflow-hidden rounded-3xl border border-primary/30 bg-primary/5 p-6 shadow-sm sm:p-8">
-          <div class="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-            <div class="flex items-start gap-4">
-              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/15 text-primary">
-                <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg>
-              </div>
-              <div>
-                <span class="inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-3 py-0.5 text-xs font-semibold text-primary">
-                  Důležité pro sezónu 2026/2027
-                </span>
-                <h2 class="mt-2 text-lg font-bold text-foreground sm:text-xl">
-                  Rozdělení do drah &amp; Lékařské prohlídky
-                </h2>
-                <p class="mt-1 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-                  Nezapomeňte odevzdat platný posudek o zdravotní způsobilosti od sportovního lékaře před prvním startem na podzimních závodech. Rozdělení drah v Podolí a na Vinohradech je platné od 1. září.
-                </p>
-              </div>
-            </div>
-            <button
-              type="button"
-              id="download-drahy-fast-btn"
-              class="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-md transition-all hover:scale-105 active:scale-95"
-            >
-              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-              Stáhnout dráhy (PDF)
-            </button>
+      <section class="p-wrap p-sec" aria-labelledby="season-title">
+        <div class="p-season">
+          <div>
+            <h2 class="p-h2" id="season-title">Rozdělení do drah a lékařské prohlídky</h2>
+            <p class="p-lead">Nezapomeňte odevzdat platný posudek o zdravotní způsobilosti od sportovního lékaře před prvním startem na podzimních závodech. Rozdělení drah v Podolí a na Vinohradech je platné od 1. září.</p>
           </div>
+          <button type="button" id="download-drahy-fast-btn" class="btn btn-solid btn-go">Stáhnout dráhy (PDF)</button>
+        </div>
+      </section>
+
+      <section class="p-wrap p-sec" aria-labelledby="docs-title">
+        <div class="p-head"><h2 class="p-h2" id="docs-title">Dokumenty oddílu</h2></div>
+        <div class="f-bar" id="downloads-cat-filters">
+          <label class="f-field">Kategorie
+            <select id="downloads-cat-select"><option value="Vše">Všechny kategorie</option><option value="Rozvrhy a dráhy">Rozvrhy a dráhy</option><option value="Termínovky a docházka">Termínovky a docházka</option><option value="Statistiky a rekordy">Statistiky a rekordy</option><option value="Soustředění a akce">Soustředění a akce</option><option value="Řády a metodika">Řády a metodika</option><option value="Zdraví a formuláře">Zdraví a formuláře</option><option value="Závody a pravidla">Závody a pravidla</option></select>
+          </label>
+          <label class="f-field p-search">Hledat
+            <input type="search" id="downloads-search-input" placeholder="Název dokumentu" autocomplete="off">
+          </label>
+          <p class="p-count" id="downloads-count" aria-live="polite"></p>
         </div>
 
-        <!-- FILTERS & SEARCH -->
-        <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <!-- Categories Filter -->
-          <div class="flex flex-wrap gap-2" id="downloads-cat-filters">
-            <button type="button" data-cat="Vše" class="rounded-full px-4 py-2 text-xs font-semibold transition-all sm:text-sm bg-primary text-primary-foreground shadow-[var(--glow-aqua)]">Vše</button>
-            <button type="button" data-cat="Rozvrhy a dráhy" class="rounded-full border border-border/70 bg-card/60 px-4 py-2 text-xs font-semibold text-muted-foreground transition-all hover:border-primary/50 hover:text-foreground sm:text-sm">Rozvrhy a dráhy</button>
-            <button type="button" data-cat="Termínovky a docházka" class="rounded-full border border-border/70 bg-card/60 px-4 py-2 text-xs font-semibold text-muted-foreground transition-all hover:border-primary/50 hover:text-foreground sm:text-sm">Termínovky a docházka</button>
-            <button type="button" data-cat="Statistiky a rekordy" class="rounded-full border border-border/70 bg-card/60 px-4 py-2 text-xs font-semibold text-muted-foreground transition-all hover:border-primary/50 hover:text-foreground sm:text-sm">Statistiky a rekordy</button>
-            <button type="button" data-cat="Soustředění a akce" class="rounded-full border border-border/70 bg-card/60 px-4 py-2 text-xs font-semibold text-muted-foreground transition-all hover:border-primary/50 hover:text-foreground sm:text-sm">Soustředění a akce</button>
-            <button type="button" data-cat="Řády a metodika" class="rounded-full border border-border/70 bg-card/60 px-4 py-2 text-xs font-semibold text-muted-foreground transition-all hover:border-primary/50 hover:text-foreground sm:text-sm">Řády a metodika</button>
-            <button type="button" data-cat="Zdraví a formuláře" class="rounded-full border border-border/70 bg-card/60 px-4 py-2 text-xs font-semibold text-muted-foreground transition-all hover:border-primary/50 hover:text-foreground sm:text-sm">Zdraví a formuláře</button>
-            <button type="button" data-cat="Závody a pravidla" class="rounded-full border border-border/70 bg-card/60 px-4 py-2 text-xs font-semibold text-muted-foreground transition-all hover:border-primary/50 hover:text-foreground sm:text-sm">Závody a pravidla</button>
-          </div>
-
-          <!-- Search Box -->
-          <div class="relative w-full md:w-72">
-            <svg class="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input
-              type="text"
-              id="downloads-search-input" aria-label="Hledat dokument"
-              placeholder="Hledat v dokumentech…"
-              class="w-full rounded-full border border-border/70 bg-card/60 py-2 pl-10 pr-4 text-sm outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 text-foreground"
-            />
-          </div>
+        <div id="downloads-grid" class="p-docs">
+          <p class="p-state" role="status">Načítám dokumenty&hellip;</p>
         </div>
 
-        <!-- DOWNLOADS GRID -->
-        <div id="downloads-grid" class="s-list">
-          <!-- Populated dynamically -->
-        </div>
+        <div id="downloads-more" class="p-more hidden"><button type="button" onclick="showMoreDownloads()" class="btn btn-line p-pill">Zobrazit další dokumenty</button></div>
 
-        <div id="downloads-more" class="mt-10 text-center hidden"><button type="button" onclick="showMoreDownloads()" class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-6 py-3 text-sm font-bold text-foreground hover:border-primary/60 transition-colors">Zobrazit další dokumenty</button></div>
-
-        <div id="downloads-empty" class="hidden rounded-3xl border border-dashed border-border/70 bg-card/30 p-12 text-center text-sm text-muted-foreground">
-          Nebyly nalezeny žádné dokumenty odpovídající zadaným kritériím.
+        <div id="downloads-empty" class="p-state hidden">
+          <p>Nebyly nalezeny žádné dokumenty odpovídající zadaným kritériím.</p>
+          <button type="button" class="btn btn-line btn-sm p-pill" onclick="resetDownloadsFilter()">Zrušit filtr</button>
         </div>
       </section>
 
@@ -161,12 +115,16 @@
 
     <!-- FOOTER -->
     <footer class="d-site-footer">
+      <div class="d-wrap d-foot-top">
+        <p class="d-foot-name">TJ Bohemians Praha <span class="sm">oddíl plavání od roku 1946</span></p>
+        <a class="btn btn-light btn-go" href="kontakt">Kontakty a bazény</a>
+      </div>
       <div class="d-wrap d-foot-grid">
-        <div>
+        <div class="d-foot-club">
           <img src="assets/logo8.png" alt="TJ Bohemians Praha, oddíl plavání" width="178" height="50" loading="lazy">
           <p class="d-foot-note">Plavecký oddíl TJ Bohemians Praha. Závodní plavání, přípravka a kurzy plavání v Praze od roku 1946.</p>
         </div>
-        <div>
+        <nav class="d-foot-menu" aria-label="Menu v patičce">
           <h2>Menu</h2>
           <ul>
             <li><a href="aktuality">Aktuality</a></li>
@@ -179,21 +137,28 @@
             <li><a href="ke-stazeni">Ke stažení</a></li>
             <li><a href="intranet">Intranet</a></li>
           </ul>
+        </nav>
+        <div>
+          <h2>Bazény</h2>
+          <address class="d-foot-pools">
+            <p><strong>Plavecký stadion Podolí</strong>Podolské nábřeží 3/1184, Praha 4</p>
+            <p><strong>Sokol Vinohrady</strong>Polská 2400/1a, Praha 2</p>
+          </address>
         </div>
         <div>
           <h2>Kontakt</h2>
           <ul>
             <li><a href="mailto:jan.srb@czechswimming.cz">jan.srb@czechswimming.cz</a></li>
-            <li><a href="kontakt">Kontakty a bazény</a></li>
             <li><a href="https://www.facebook.com/bohplavani" target="_blank" rel="noopener noreferrer">Facebook</a></li>
             <li><a href="https://www.instagram.com/bohemka_plavani" target="_blank" rel="noopener noreferrer">Instagram</a></li>
             <li><a href="https://www.boh.cz" target="_blank" rel="noopener noreferrer">Původní web boh.cz</a></li>
-            <li class="d-foot-small">IČO: 00539121 &middot; ČSOB: 351416278/0300</li>
           </ul>
         </div>
       </div>
       <div class="d-wrap d-foot-bottom">
-        <span>&copy; 1946&ndash;2026 TJ Bohemians Praha, oddíl plavání. 80 let zelenobílé tradice.</span>
+        <span>&copy; 1946&ndash;2026 TJ Bohemians Praha, oddíl plavání</span>
+        <span>IČO 00539121 &middot; ČSOB 351416278/0300</span>
+        <a href="#" class="d-foot-top-link">Nahoru</a>
       </div>
     </footer>
     <!-- MOBILE BOTTOM NAVIGATION (Anchored Edge-to-Edge Tab Bar) -->
@@ -332,7 +297,7 @@
             </span>
             <span class="mobile-drawer-label font-bold">Intranet</span>
           </div>
-          <span class="text-[11px] font-semibold text-primary px-2 py-0.5 rounded-full bg-primary/15 shrink-0">Přihlášení &rarr;</span>
+          <span class="text-[11px] font-semibold text-primary px-2 py-0.5 rounded-full bg-primary/15 shrink-0">Přihlášení</span>
         </a>
       </nav>
 
@@ -371,38 +336,60 @@
           item.fileName.toLowerCase().includes(q);
         return matchCat && matchQ;
       });
+      filtered.sort((a, b) => String(b.updatedAt || "").localeCompare(String(a.updatedAt || "")));
 
       if (filtered.length === 0) {
         grid.innerHTML = "";
         empty.classList.remove("hidden");
+        const more0 = document.getElementById("downloads-more"); if (more0) more0.classList.add("hidden");
+        const count0 = document.getElementById("downloads-count"); if (count0) count0.textContent = `Nalezeno 0 z ${allItems.length}`;
         return;
       }
 
       empty.classList.add("hidden");
       const shown = filtered.slice(0, visibleCount);
       const czDate = (iso) => (typeof formatCzDate === "function" ? formatCzDate(iso) : iso);
-      grid.innerHTML = shown.map(item => `
-        <div class="s-row s-doc${item.important ? ' is-important' : ''}">
-          <div>
-            <h3>${escapeHtml(item.title)}</h3>
-            ${item.description && item.description !== "Oficiální dokument z webu boh.cz" ? `<p class="s-meta">${escapeHtml(item.description)}</p>` : ""}
+      const countEl = document.getElementById("downloads-count");
+      if (countEl) countEl.textContent = filtered.length === allItems.length ? `${allItems.length} ${allItems.length === 1 ? "dokument" : allItems.length < 5 ? "dokumenty" : "dokumentů"}` : `Nalezeno ${filtered.length} z ${allItems.length}`;
+      const row = item => `
+        <div class="p-doc">
+          <div class="p-doc-main">
+            <h4>${escapeHtml(item.title)}</h4>
+            ${item.description && item.description !== "Oficiální dokument z webu boh.cz" ? `<p>${escapeHtml(item.description)}</p>` : ""}
+            ${item.important ? `<p class="p-note-flag">Důležité</p>` : ""}
           </div>
-          <div class="s-meta s-first">${escapeHtml(item.category)}</div>
-          <div class="s-num">${escapeHtml(item.fileSize)}</div>
-          <div class="s-num">${escapeHtml(czDate(item.updatedAt))}</div>
-          <div class="s-actions">
-            <button type="button" onclick="openPreview('${item.id}')" class="s-link-btn">Náhled</button>
-            <button type="button" onclick="triggerDownload('${item.id}')" class="btn btn-line btn-sm">Stáhnout</button>
+          <p class="p-doc-cat">${escapeHtml(item.category)}</p>
+          <p class="p-doc-meta"><span>${escapeHtml(String(item.fileType || "pdf").toUpperCase())}, ${escapeHtml(item.fileSize)}</span><time datetime="${escapeHtml(item.updatedAt)}">${escapeHtml(czDate(item.updatedAt))}</time></p>
+          <div class="p-doc-act">
+            <button type="button" onclick="triggerDownload('${escapeJsArg(item.id)}')" class="btn btn-line btn-sm p-pill" aria-label="Stáhnout: ${escapeHtml(item.title)}">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Stáhnout
+            </button>
           </div>
-        </div>
-      `).join("");
+        </div>`;
+      const groups = [];
+      shown.forEach(item => {
+        const y = String(item.updatedAt || "").slice(0, 4) || "Bez data";
+        if (!groups.length || groups[groups.length - 1].y !== y) groups.push({ y, items: [] });
+        groups[groups.length - 1].items.push(item);
+      });
+      grid.innerHTML = groups.map(g => `
+        <section class="p-month" aria-label="Rok ${escapeHtml(g.y)}">
+          <h3 class="p-month-h">${escapeHtml(g.y)}</h3>
+          ${g.items.map(row).join("")}
+        </section>`).join("");
       const more = document.getElementById("downloads-more");
       if (more) {
         more.classList.toggle("hidden", filtered.length <= visibleCount);
         const btn = more.querySelector("button");
         if (btn) btn.textContent = "Zobrazit další dokumenty (" + (filtered.length - visibleCount) + ")";
       }
-      if (window.initScrollReveal) setTimeout(window.initScrollReveal, 40);
+    }
+
+    function resetDownloadsFilter() {
+      currentCat = "Vše"; searchQuery = ""; visibleCount = 24;
+      const sel = document.getElementById("downloads-cat-select"); if (sel) sel.value = "Vše";
+      const inp = document.getElementById("downloads-search-input"); if (inp) inp.value = "";
+      renderDownloads();
     }
 
     function showMoreDownloads() { visibleCount += 24; renderDownloads(); }
@@ -433,6 +420,7 @@
       if (!item) return;
 
       activePreview = item;
+      if (!document.getElementById("preview-modal")) { triggerDownload(item.id); return; }
       document.getElementById("preview-cat-badge").textContent = item.category;
       document.getElementById("preview-title").textContent = item.title;
       document.getElementById("preview-desc").textContent = item.description;
@@ -449,20 +437,14 @@
     }
 
     // Event Bindings
-    document.querySelectorAll("#downloads-cat-filters button").forEach(btn => {
-      btn.addEventListener("click", () => {
+    const catSelect = document.getElementById("downloads-cat-select");
+    if (catSelect) {
+      catSelect.addEventListener("change", () => {
         visibleCount = 24;
-        currentCat = btn.getAttribute("data-cat");
-        document.querySelectorAll("#downloads-cat-filters button").forEach(b => {
-          if (b === btn) {
-            b.className = "rounded-full px-4 py-2 text-xs font-semibold transition-all sm:text-sm bg-primary text-primary-foreground shadow-[var(--glow-aqua)]";
-          } else {
-            b.className = "rounded-full border border-border/70 bg-card/60 px-4 py-2 text-xs font-semibold text-muted-foreground transition-all hover:border-primary/50 hover:text-foreground sm:text-sm";
-          }
-        });
+        currentCat = catSelect.value || "Vše";
         renderDownloads();
       });
-    });
+    }
 
     const searchInput = document.getElementById("downloads-search-input");
     if (searchInput) {
@@ -475,7 +457,13 @@
 
     const fastBtn = document.getElementById("download-drahy-fast-btn");
     if (fastBtn) {
-      fastBtn.addEventListener("click", () => triggerDownload("drahy-2026-2027"));
+      // nejnovější rozpis drah: pevné id, jinak první dokument kategorie "Rozvrhy a dráhy" (data jsou od nejnovějších)
+      fastBtn.addEventListener("click", () => {
+        const all = window.BohStore ? window.BohStore.getDownloads() : (window.BohData.downloads || []);
+        const doc = all.find(i => i.id === "drahy-2026-2027") || all.filter(i => i.category === "Rozvrhy a dráhy").sort((a, b) => String(b.updatedAt).localeCompare(String(a.updatedAt)))[0];
+        if (doc) triggerDownload(doc);
+        else if (typeof showToast === "function") showToast("Rozpis drah zatím není k dispozici.", "error");
+      });
     }
 
     renderDownloads();

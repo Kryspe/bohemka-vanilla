@@ -10,7 +10,7 @@
 
   var root = document.documentElement;
   var target = window.scrollY, current = target, running = false, last = 0;
-  var EASE = 0.14;         // menší = pomalejší dojezd
+  var EASE = 0.24;         // podíl zbývající vzdálenosti za snímek; větší = kratší dojezd (0.24 = jen lehce znatelné)
   var SPEED = 1;           // násobek posunu kolečka
 
   function max() { return Math.max(0, root.scrollHeight - window.innerHeight); }
@@ -68,16 +68,15 @@
     var a = e.target.closest && e.target.closest('a[href^="#"]');
     if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey) return;
     var id = a.getAttribute("href").slice(1);
-    if (!id) return;
-    var el = document.getElementById(id);
-    if (!el) return;
+    var el = id ? document.getElementById(id) : null;
+    if (id ? !el : !a.classList.contains("d-foot-top-link")) return;   // jiné href="#" patří skriptům stránek
     e.preventDefault();
     var header = document.getElementById("site-header");
     var off = header ? header.getBoundingClientRect().height + 12 : 0;
-    target = clamp(el.getBoundingClientRect().top + window.scrollY - off);
+    target = el ? clamp(el.getBoundingClientRect().top + window.scrollY - off) : 0;   // "#" = nahoru
     current = window.scrollY;
     start();
-    if (history.pushState) history.pushState(null, "", "#" + id);
+    if (id && history.pushState) history.pushState(null, "", "#" + id);
   });
 
   root.classList.add("has-smooth");

@@ -72,12 +72,16 @@
 
     <!-- FOOTER -->
     <footer class="d-site-footer">
+      <div class="d-wrap d-foot-top">
+        <p class="d-foot-name">TJ Bohemians Praha <span class="sm">oddíl plavání od roku 1946</span></p>
+        <a class="btn btn-light btn-go" href="kontakt">Kontakty a bazény</a>
+      </div>
       <div class="d-wrap d-foot-grid">
-        <div>
+        <div class="d-foot-club">
           <img src="assets/logo8.png" alt="TJ Bohemians Praha, oddíl plavání" width="178" height="50" loading="lazy">
           <p class="d-foot-note">Plavecký oddíl TJ Bohemians Praha. Závodní plavání, přípravka a kurzy plavání v Praze od roku 1946.</p>
         </div>
-        <div>
+        <nav class="d-foot-menu" aria-label="Menu v patičce">
           <h2>Menu</h2>
           <ul>
             <li><a href="aktuality">Aktuality</a></li>
@@ -90,21 +94,28 @@
             <li><a href="ke-stazeni">Ke stažení</a></li>
             <li><a href="intranet">Intranet</a></li>
           </ul>
+        </nav>
+        <div>
+          <h2>Bazény</h2>
+          <address class="d-foot-pools">
+            <p><strong>Plavecký stadion Podolí</strong>Podolské nábřeží 3/1184, Praha 4</p>
+            <p><strong>Sokol Vinohrady</strong>Polská 2400/1a, Praha 2</p>
+          </address>
         </div>
         <div>
           <h2>Kontakt</h2>
           <ul>
             <li><a href="mailto:jan.srb@czechswimming.cz">jan.srb@czechswimming.cz</a></li>
-            <li><a href="kontakt">Kontakty a bazény</a></li>
             <li><a href="https://www.facebook.com/bohplavani" target="_blank" rel="noopener noreferrer">Facebook</a></li>
             <li><a href="https://www.instagram.com/bohemka_plavani" target="_blank" rel="noopener noreferrer">Instagram</a></li>
             <li><a href="https://www.boh.cz" target="_blank" rel="noopener noreferrer">Původní web boh.cz</a></li>
-            <li class="d-foot-small">IČO: 00539121 &middot; ČSOB: 351416278/0300</li>
           </ul>
         </div>
       </div>
       <div class="d-wrap d-foot-bottom">
-        <span>&copy; 1946&ndash;2026 TJ Bohemians Praha, oddíl plavání. 80 let zelenobílé tradice.</span>
+        <span>&copy; 1946&ndash;2026 TJ Bohemians Praha, oddíl plavání</span>
+        <span>IČO 00539121 &middot; ČSOB 351416278/0300</span>
+        <a href="#" class="d-foot-top-link">Nahoru</a>
       </div>
     </footer>
     <!-- MOBILE BOTTOM NAVIGATION (Anchored Edge-to-Edge Tab Bar) -->
@@ -292,6 +303,11 @@
     }
 
     // 2. Main Dispatcher
+    // ISO datum (2026-10-03) jako 3. 10. 2026; jiný text (např. rozsah termínu) beze změny
+    function admDate(d) {
+      return /^\d{4}-\d{2}-\d{2}$/.test(d || "") ? formatCzDate(d) : escapeHtml(d || "");
+    }
+
     function renderAdmin() {
       const container = document.getElementById("admin-main");
       if (!container) return;
@@ -311,24 +327,16 @@
     // 3. Swimmer Guard Screen
     function renderSwimmerForbidden(container) {
       container.innerHTML = `
-        <section class="mx-auto flex min-h-[70vh] max-w-lg items-center px-4 py-12 sm:px-6">
-          <div class="w-full rounded-3xl border border-destructive/40 bg-card p-6 sm:p-8 shadow-xl text-center">
-            <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-destructive/15 text-destructive mb-4">
-              <svg class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            </div>
-            <h1 class="font-display text-2xl font-extrabold text-foreground">Přístup odepřen</h1>
-            <p class="mt-2 text-sm text-muted-foreground leading-relaxed">
-              Jste přihlášen(a) jako <b>Plavec / Rodič</b> (<span class="text-foreground">${escapeHtml(window.BohStore.getUser())}</span>).
+        <section class="iu-login-wrap">
+          <div class="iu-login">
+            <h1 class="iu-title">Přístup odepřen</h1>
+            <p class="iu-sub">
+              Jste přihlášen(a) jako <strong>Plavec / Rodič</strong> (${escapeHtml(window.BohStore.getUser())}).
               Administrace a trenérský CMS systém jsou vyhrazeny výhradně pro trenéry a vedení oddílu TJ Bohemians.
             </p>
-            <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
-              <a href="intranet" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground transition hover:opacity-95">
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-                Zpět do Intranetu
-              </a>
-              <button type="button" id="btn-swimmer-switch-login" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-background px-5 py-2.5 text-sm font-semibold text-foreground transition hover:bg-card">
-                Přihlásit se jako trenér
-              </button>
+            <div class="iu-form">
+              <a href="intranet" class="iu-btn iu-btn-primary iu-btn-block">Zpět do Intranetu</a>
+              <button type="button" id="btn-swimmer-switch-login" class="iu-btn iu-btn-line iu-btn-block">Přihlásit se jako trenér</button>
             </div>
           </div>
         </section>
@@ -345,7 +353,6 @@
       container.innerHTML = `
         <section class="iu-login-wrap">
           <div class="iu-login">
-            <p class="iu-eyebrow">TJ Bohemians Praha</p>
             <h1 class="iu-title">Administrace oddílu</h1>
             <p class="iu-sub">Trenérský CMS portál TJ Bohemians Praha</p>
 
@@ -439,9 +446,8 @@
           <div class="iu-shell iu-head-in">
             <div class="iu-who">
               <div>
-                <p class="iu-eyebrow">${isSupabaseLive ? 'Supabase Live Sync' : 'Místní databáze'}</p>
                 <h1 class="iu-title">Správa oddílu</h1>
-                <p class="iu-sub">Přihlášen: <strong>${escapeHtml(getAdminUser())}</strong> (${escapeHtml(getAdminRole())}) · Živá synchronizace webu</p>
+                <p class="iu-sub">Přihlášen: <strong>${escapeHtml(getAdminUser())}</strong> (${escapeHtml(getAdminRole())}) · ${isSupabaseLive ? 'Supabase, živá synchronizace' : 'Místní databáze'}</p>
               </div>
             </div>
             <div class="iu-head-actions">
@@ -468,9 +474,7 @@
                   ${t.icon}
                   <span>${t.label}</span>
                   ${t.badge !== undefined ? `
-                    <span class="iu-count">
-                      ${t.badge}
-                    </span>
+                    <span class="iu-count">${t.badge}</span>
                   ` : ''}
                 </button>
               `;
@@ -484,8 +488,15 @@
         </div>
 
         <!-- Swimmer Signup Modal Container -->
-        <div id="swimmer-modal-root" class="hidden"></div>
+        <div id="swimmer-modal-root" class="hidden iu-page"></div>
       `;
+
+      // Dialogy musí ležet přímo v body: uvnitř <main> (z-index 1 ze style.css) by je překryla hlavička a dolní lišta.
+      const freshModalRoot = container.querySelector("#swimmer-modal-root");
+      if (freshModalRoot) {
+        document.querySelectorAll("body > #swimmer-modal-root").forEach(n => n.remove());
+        document.body.appendChild(freshModalRoot);
+      }
 
       // Bind Tab Buttons
       container.querySelectorAll(".admin-tab-btn").forEach(btn => {
@@ -521,161 +532,98 @@
     // =========================================================================
     function renderOverviewTab(container, stats) {
       container.innerHTML = `
-        <div class="space-y-8">
-          <!-- 4 Main KPI Cards -->
-          <div class="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
-            <div class="rounded-2xl border border-border bg-card p-4 sm:p-5 shadow-sm">
-              <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Aktuality webu</span>
-              <div class="mt-2 flex items-baseline justify-between">
-                <span class="font-display text-2xl sm:text-3xl font-extrabold text-foreground">${stats.allNews.length}</span>
-                <span class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">Publikováno</span>
-              </div>
-            </div>
-            <div class="rounded-2xl border border-border bg-card p-4 sm:p-5 shadow-sm">
-              <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Závody & Kempy</span>
-              <div class="mt-2 flex items-baseline justify-between">
-                <span class="font-display text-2xl sm:text-3xl font-extrabold text-foreground">${stats.allEvents.length}</span>
-                <span class="text-xs text-primary font-semibold">${stats.totalSignupsCount} přihlášek</span>
-              </div>
-            </div>
-            <div class="rounded-2xl border border-border bg-card p-4 sm:p-5 shadow-sm">
-              <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Ke stažení (PDF)</span>
-              <div class="mt-2 flex items-baseline justify-between">
-                <span class="font-display text-2xl sm:text-3xl font-extrabold text-foreground">${stats.allDownloads.length}</span>
-                <span class="text-xs text-muted-foreground font-semibold">Dokumentů</span>
-              </div>
-            </div>
-            <div class="rounded-2xl border border-border bg-card p-4 sm:p-5 shadow-sm">
-              <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Vzkazy pro rodiče</span>
-              <div class="mt-2 flex items-baseline justify-between">
-                <span class="font-display text-2xl sm:text-3xl font-extrabold text-foreground">${stats.allNotes.length}</span>
-                <span class="text-xs text-coral font-semibold">Aktivní</span>
-              </div>
-            </div>
+        <div class="iu-ph">
+          <div>
+            <h2>Přehled</h2>
+            <p>Přímé nástroje pro okamžitou správu obsahu, přihlášek a exportů.</p>
           </div>
-
-          <!-- 6 Direct Action Cards (Emerald styled) -->
-          <div class="rounded-3xl border border-border bg-card p-6 shadow-md">
-            <div class="mb-5">
-              <h2 class="font-display text-xl font-bold text-foreground">Rychlé akce administrátora / trenéra</h2>
-              <p class="text-xs text-muted-foreground">Přímé nástroje pro okamžitou správu obsahu, přihlášek a exportů</p>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-              <!-- Action 1: Add News -->
-              <button type="button" id="act-add-news" class="flex items-start gap-3.5 rounded-2xl border border-border/80 bg-background p-4 text-left transition hover:border-emerald-600 hover:shadow-md cursor-pointer group">
-                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-600/15 text-emerald-600 transition group-hover:bg-emerald-600 group-hover:text-white">
-                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14m-7-7h14"/></svg>
-                </div>
-                <div>
-                  <div class="text-sm font-bold text-foreground group-hover:text-emerald-600 transition">+ Přidat novou aktualitu</div>
-                  <div class="text-xs text-muted-foreground mt-0.5">Zveřejnit článek na hlavní stránce v Hero bublině</div>
-                </div>
-              </button>
-
-              <!-- Action 2: Add Download -->
-              <button type="button" id="act-add-download" class="flex items-start gap-3.5 rounded-2xl border border-border/80 bg-background p-4 text-left transition hover:border-emerald-600 hover:shadow-md cursor-pointer group">
-                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-600/15 text-emerald-600 transition group-hover:bg-emerald-600 group-hover:text-white">
-                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
-                </div>
-                <div>
-                  <div class="text-sm font-bold text-foreground group-hover:text-emerald-600 transition">+ Přidat dokument ke stažení</div>
-                  <div class="text-xs text-muted-foreground mt-0.5">Nahrát rozpis tréninků, směrnici nebo formulář PDF</div>
-                </div>
-              </button>
-
-              <!-- Action 3: Create Race -->
-              <button type="button" id="act-add-event" class="flex items-start gap-3.5 rounded-2xl border border-border/80 bg-background p-4 text-left transition hover:border-emerald-600 hover:shadow-md cursor-pointer group">
-                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-600/15 text-emerald-600 transition group-hover:bg-emerald-600 group-hover:text-white">
-                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-                </div>
-                <div>
-                  <div class="text-sm font-bold text-foreground group-hover:text-emerald-600 transition">+ Vytvořit nový závod / kemp</div>
-                  <div class="text-xs text-muted-foreground mt-0.5">Zadat termín, disciplíny a otevřít přihlašování</div>
-                </div>
-              </button>
-
-              <!-- Action 4: Swimmer Signup -->
-              <button type="button" id="act-signup-swimmers" class="flex items-start gap-3.5 rounded-2xl border border-border/80 bg-background p-4 text-left transition hover:border-emerald-600 hover:shadow-md cursor-pointer group">
-                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-600/15 text-emerald-600 transition group-hover:bg-emerald-600 group-hover:text-white">
-                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
-                </div>
-                <div>
-                  <div class="text-sm font-bold text-foreground group-hover:text-emerald-600 transition">Přihlásit se / plavce na závody</div>
-                  <div class="text-xs text-muted-foreground mt-0.5">Přímé přihlášení závodníků na soupisky a správa startů</div>
-                </div>
-              </button>
-
-              <!-- Action 5: Parent Note -->
-              <button type="button" id="act-add-note" class="flex items-start gap-3.5 rounded-2xl border border-border/80 bg-background p-4 text-left transition hover:border-emerald-600 hover:shadow-md cursor-pointer group">
-                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-600/15 text-emerald-600 transition group-hover:bg-emerald-600 group-hover:text-white">
-                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-                </div>
-                <div>
-                  <div class="text-sm font-bold text-foreground group-hover:text-emerald-600 transition">+ Zveřejnit vzkaz pro rodiče</div>
-                  <div class="text-xs text-muted-foreground mt-0.5">Upozornění na prohlídky, platby a provoz bazénu</div>
-                </div>
-              </button>
-
-              <!-- Action 6: CSPS CSV Export -->
-              <button type="button" id="act-export-csps" class="flex items-start gap-3.5 rounded-2xl border border-emerald-600/40 bg-emerald-950/20 p-4 text-left transition hover:border-emerald-500 hover:shadow-md cursor-pointer group">
-                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white transition group-hover:scale-105">
-                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                </div>
-                <div>
-                  <div class="text-sm font-bold text-foreground group-hover:text-emerald-500 transition">Export přihlášek ČSPS (CSV)</div>
-                  <div class="text-xs text-muted-foreground mt-0.5">Okamžité stažení kompletní soupisky všech závodů pro svaz</div>
-                </div>
-              </button>
-            </div>
-          </div>
-
-          <!-- Recent Events & Activity Overview -->
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- Latest Events & Deadlines -->
-            <div class="rounded-3xl border border-border bg-card p-6 shadow-sm">
-              <div class="flex items-center justify-between mb-4">
-                <h3 class="font-display text-base font-bold text-foreground">Nejbližší závody & přihlášky</h3>
-                <button type="button" class="text-xs text-emerald-600 font-semibold hover:underline" onclick="adminTab='zavody'; renderAdmin();">Zobrazit vše &rarr;</button>
-              </div>
-              <div class="space-y-3">
-                ${stats.allEvents.slice(0, 4).map(ev => {
-                  const roster = window.BohStore.getRosterForEvent(ev.id);
-                  return `
-                    <div class="flex items-center justify-between rounded-xl border border-border/60 bg-background/60 p-3 text-xs">
-                      <div class="min-w-0 pr-3">
-                        <div class="font-bold text-foreground truncate">${escapeHtml(ev.name)}</div>
-                        <div class="text-muted-foreground text-[11px]">${escapeHtml(ev.date)} · ${escapeHtml(ev.place)}</div>
-                      </div>
-                      <div class="flex items-center gap-2 shrink-0">
-                        <span class="rounded-full bg-primary/15 px-2 py-0.5 text-[11px] font-bold text-primary">${roster.length} plavců</span>
-                        <button type="button" onclick="adminTab='zavody'; renderAdmin();" class="rounded-lg bg-card border border-border px-2.5 py-1 text-[11px] font-semibold text-foreground hover:border-emerald-600">Soupiska</button>
-                      </div>
-                    </div>
-                  `;
-                }).join("")}
-              </div>
-            </div>
-
-            <!-- Latest News Snippets -->
-            <div class="rounded-3xl border border-border bg-card p-6 shadow-sm">
-              <div class="flex items-center justify-between mb-4">
-                <h3 class="font-display text-base font-bold text-foreground">Poslední publikované aktuality</h3>
-                <button type="button" class="text-xs text-emerald-600 font-semibold hover:underline" onclick="adminTab='aktuality'; renderAdmin();">Správa aktualit &rarr;</button>
-              </div>
-              <div class="space-y-3">
-                ${stats.allNews.slice(0, 4).map(n => `
-                  <div class="flex items-center justify-between rounded-xl border border-border/60 bg-background/60 p-3 text-xs">
-                    <div class="min-w-0 pr-3">
-                      <div class="font-bold text-foreground truncate">${escapeHtml(n.title)}</div>
-                      <div class="text-muted-foreground text-[11px]">${escapeHtml(n.date || '')} · ${escapeHtml(n.category || 'Aktualita')}</div>
-                    </div>
-                    <button type="button" onclick="adminTab='aktuality'; editingNewsId='${n.id}'; renderAdmin();" class="rounded-lg bg-card border border-border px-2.5 py-1 text-[11px] font-semibold text-foreground hover:border-emerald-600 shrink-0">Upravit</button>
-                  </div>
-                `).join("")}
-              </div>
-            </div>
+          <div class="iu-ph-actions">
+            <button type="button" id="act-export-csps" class="iu-btn iu-btn-primary">
+              <svg class="iu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export přihlášek ČSPS (CSV)
+            </button>
           </div>
         </div>
+
+        <section class="iu-sec">
+        <dl class="iu-stats">
+          <div class="iu-stat"><dt>Aktuality webu</dt><dd>${stats.allNews.length}<small>Publikováno</small></dd></div>
+          <div class="iu-stat"><dt>Závody a kempy</dt><dd>${stats.allEvents.length}<small>${stats.totalSignupsCount} přihlášek</small></dd></div>
+          <div class="iu-stat"><dt>Ke stažení (PDF)</dt><dd>${stats.allDownloads.length}<small>Dokumentů</small></dd></div>
+          <div class="iu-stat"><dt>Vzkazy pro rodiče</dt><dd>${stats.allNotes.length}<small>Aktivní</small></dd></div>
+        </dl>
+        </section>
+
+        <section class="iu-sec">
+          <div class="iu-sec-head"><h3>Rychlé akce</h3></div>
+          <ul class="iu-list">
+            <li class="iu-row">
+              <div class="iu-row-main"><p class="iu-row-title">Přidat novou aktualitu</p><p class="iu-row-text">Zveřejnit článek na hlavní stránce v Hero bublině</p></div>
+              <div class="iu-row-actions"><button type="button" id="act-add-news" class="iu-btn iu-btn-line iu-btn-sm">Přidat aktualitu</button></div>
+            </li>
+            <li class="iu-row">
+              <div class="iu-row-main"><p class="iu-row-title">Přidat dokument ke stažení</p><p class="iu-row-text">Nahrát rozpis tréninků, směrnici nebo formulář PDF</p></div>
+              <div class="iu-row-actions"><button type="button" id="act-add-download" class="iu-btn iu-btn-line iu-btn-sm">Přidat dokument</button></div>
+            </li>
+            <li class="iu-row">
+              <div class="iu-row-main"><p class="iu-row-title">Vytvořit nový závod nebo kemp</p><p class="iu-row-text">Zadat termín, disciplíny a otevřít přihlašování</p></div>
+              <div class="iu-row-actions"><button type="button" id="act-add-event" class="iu-btn iu-btn-line iu-btn-sm">Vytvořit závod</button></div>
+            </li>
+            <li class="iu-row">
+              <div class="iu-row-main"><p class="iu-row-title">Přihlásit se nebo plavce na závody</p><p class="iu-row-text">Přímé přihlášení závodníků na soupisky a správa startů</p></div>
+              <div class="iu-row-actions"><button type="button" id="act-signup-swimmers" class="iu-btn iu-btn-line iu-btn-sm">Soupisky</button></div>
+            </li>
+            <li class="iu-row">
+              <div class="iu-row-main"><p class="iu-row-title">Zveřejnit vzkaz pro rodiče</p><p class="iu-row-text">Upozornění na prohlídky, platby a provoz bazénu</p></div>
+              <div class="iu-row-actions"><button type="button" id="act-add-note" class="iu-btn iu-btn-line iu-btn-sm">Přidat vzkaz</button></div>
+            </li>
+          </ul>
+        </section>
+
+        <section class="iu-sec">
+          <div class="iu-sec-head">
+            <h3>Nejbližší závody a přihlášky</h3>
+            <button type="button" class="iu-link" onclick="adminTab='zavody'; renderAdmin();">Zobrazit vše</button>
+          </div>
+          ${stats.allEvents.length === 0 ? `<div class="iu-empty">Zatím nejsou vypsané žádné závody.</div>` : `
+          <ul class="iu-list">
+            ${stats.allEvents.slice(0, 4).map(ev => {
+              const roster = window.BohStore.getRosterForEvent(ev.id);
+              return `
+                <li class="iu-row">
+                  <div class="iu-row-main">
+                    <p class="iu-row-title">${escapeHtml(ev.name)}</p>
+                    <p class="iu-meta"><span>${admDate(ev.date)}</span><span>${escapeHtml(ev.place)}</span><span class="iu-num">${roster.length} plavců</span></p>
+                  </div>
+                  <div class="iu-row-actions">
+                    <button type="button" onclick="adminTab='zavody'; renderAdmin();" class="iu-btn iu-btn-line iu-btn-sm">Soupiska</button>
+                  </div>
+                </li>
+              `;
+            }).join("")}
+          </ul>`}
+        </section>
+
+        <section class="iu-sec">
+          <div class="iu-sec-head">
+            <h3>Poslední publikované aktuality</h3>
+            <button type="button" class="iu-link" onclick="adminTab='aktuality'; renderAdmin();">Správa aktualit</button>
+          </div>
+          ${stats.allNews.length === 0 ? `<div class="iu-empty">Zatím nejsou publikované žádné aktuality.</div>` : `
+          <ul class="iu-list">
+            ${stats.allNews.slice(0, 4).map(n => `
+              <li class="iu-row">
+                <div class="iu-row-main">
+                  <p class="iu-row-title">${escapeHtml(n.title)}</p>
+                  <p class="iu-meta"><span>${admDate(n.date)}</span><span>${escapeHtml(n.category || 'Aktualita')}</span></p>
+                </div>
+                <div class="iu-row-actions">
+                  <button type="button" onclick="adminTab='aktuality'; editingNewsId='${n.id}'; renderAdmin();" class="iu-btn iu-btn-line iu-btn-sm">Upravit</button>
+                </div>
+              </li>
+            `).join("")}
+          </ul>`}
+        </section>
       `;
 
       // Bind Action Triggers
@@ -716,109 +664,91 @@
       const editItem = editingNewsId ? allNews.find(n => n.id === editingNewsId) : null;
 
       container.innerHTML = `
-        <div class="space-y-8">
-          <!-- News Form Card (Add / Edit) -->
-          <div class="rounded-3xl border border-border bg-card p-6 shadow-md">
-            <div class="flex items-center justify-between border-b border-border pb-4 mb-5">
-              <div class="flex items-center gap-3">
-                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600/15 text-emerald-600">
-                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
-                </div>
-                <div>
-                  <h2 class="font-display text-lg font-bold text-foreground">
-                    ${editItem ? 'Upravit aktualitu' : 'Publikovat novou aktualitu'}
-                  </h2>
-                  <p class="text-xs text-muted-foreground">Aktualita se okamžitě zobrazí na hlavní stránce v Hero bublině a v archivu</p>
-                </div>
-              </div>
-              ${editItem ? `
-                <button type="button" id="cancel-edit-news-btn" class="rounded-xl border border-border px-3 py-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground">
-                  Zrušit úpravy
-                </button>
-              ` : ''}
-            </div>
-
-            <form id="admin-news-form" class="space-y-4">
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="md:col-span-2">
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Název aktuality *</label>
-                  <input id="nw-title" required class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="Např. Skvělé výkony na Jarní ceně Prahy 2026" value="${editItem ? escapeHtml(editItem.title || '') : ''}">
-                </div>
-                <div>
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Kategorie</label>
-                  <select id="nw-category" class="w-full rounded-xl border border-input bg-background px-3 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground">
-                    <option value="Závody" ${editItem && editItem.category === 'Závody' ? 'selected' : ''}>Závody</option>
-                    <option value="Oddíl" ${editItem && editItem.category === 'Oddíl' ? 'selected' : ''}>Oddíl</option>
-                    <option value="Soustředění" ${editItem && editItem.category === 'Soustředění' ? 'selected' : ''}>Soustředění</option>
-                    <option value="Oznámení" ${editItem && editItem.category === 'Oznámení' ? 'selected' : ''}>Oznámení</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Datum</label>
-                  <input id="nw-date" class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground" value="${editItem ? escapeHtml(editItem.date || '') : new Date().toLocaleDateString('cs-CZ')}">
-                </div>
-                <div>
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Autor</label>
-                  <input id="nw-author" class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground" value="${editItem ? escapeHtml(editItem.author || '') : escapeHtml(getAdminUser())}">
-                </div>
-                <div>
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">URL fotografie / ilustrace</label>
-                  <input id="nw-image" class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="assets/logo-80-let.png" value="${editItem ? escapeHtml(editItem.image || '') : ''}">
-                </div>
-              </div>
-
-              <div>
-                <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Perex / Krátký úvodník (zobrazí se na kartě) *</label>
-                <textarea id="nw-perex" required rows="2" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="Stručné shrnutí aktuality pro návštěvníky...">${editItem ? escapeHtml(editItem.perex || editItem.summary || '') : ''}</textarea>
-              </div>
-
-              <div>
-                <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Celý text článku</label>
-                <textarea id="nw-content" rows="4" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="Kompletní znění článku...">${editItem ? escapeHtml(editItem.content || editItem.body || editItem.perex || '') : ''}</textarea>
-              </div>
-
-              <div class="flex items-center justify-end gap-3 pt-2">
-                <button type="submit" class="inline-flex items-center gap-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 px-6 py-2.5 text-sm font-bold text-white shadow-md transition active:scale-95 cursor-pointer">
-                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span>${editItem ? 'Uložit změny' : 'Publikovat aktualitu'}</span>
-                </button>
-              </div>
-            </form>
-          </div>
-
-          <!-- Existing News List -->
-          <div class="rounded-3xl border border-border bg-card p-6 shadow-md">
-            <h3 class="font-display text-base font-bold text-foreground mb-4">Všechny publikované aktuality (${allNews.length})</h3>
-            <div class="divide-y divide-border">
-              ${allNews.map(n => `
-                <div class="py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                  <div class="min-w-0 flex-1">
-                    <div class="flex items-center gap-2 mb-1">
-                      <span class="rounded bg-emerald-600/15 px-2 py-0.5 text-[11px] font-bold text-emerald-600">${escapeHtml(n.category || 'Aktualita')}</span>
-                      <span class="text-xs text-muted-foreground">${escapeHtml(n.date || '')}</span>
-                      ${n.author ? `<span class="text-xs text-muted-foreground">· ${escapeHtml(n.author)}</span>` : ''}
-                    </div>
-                    <h4 class="font-bold text-sm sm:text-base text-foreground">${escapeHtml(n.title)}</h4>
-                    <p class="text-xs text-muted-foreground line-clamp-2 mt-0.5">${escapeHtml(n.perex || n.summary || '')}</p>
-                  </div>
-                  <div class="flex items-center gap-2 shrink-0">
-                    <button type="button" onclick="editingNewsId='${n.id}'; renderAdmin(); window.scrollTo({top:0, behavior:'smooth'});" class="rounded-xl border border-border px-3 py-1.5 text-xs font-semibold text-foreground hover:border-emerald-600">
-                      Upravit
-                    </button>
-                    <button type="button" onclick="if(confirm('Opravdu chcete smazat aktualitu &quot;${escapeJsArg(n.title)}&quot;?')){ window.BohStore.deleteNews('${escapeJsArg(n.id)}'); showToast('Aktualita byla smazána.'); renderAdmin(); }" class="rounded-xl border border-destructive/30 bg-destructive/10 px-3 py-1.5 text-xs font-semibold text-destructive hover:bg-destructive/20">
-                      Smazat
-                    </button>
-                  </div>
-                </div>
-              `).join("")}
-            </div>
+        <div class="iu-ph">
+          <div>
+            <h2>Aktuality</h2>
+            <p>Aktualita se okamžitě zobrazí na hlavní stránce v Hero bublině a v archivu.</p>
           </div>
         </div>
-      `;
 
+        <div class="iu-sheet">
+          <div class="iu-sheet-head">
+            <div>
+              <h3>${editItem ? 'Upravit aktualitu' : 'Publikovat novou aktualitu'}</h3>
+            </div>
+            ${editItem ? `
+              <button type="button" id="cancel-edit-news-btn" class="iu-btn iu-btn-line iu-btn-sm">Zrušit úpravy</button>
+            ` : ''}
+          </div>
+
+          <form id="admin-news-form">
+            <div class="iu-grid is-3">
+              <div class="iu-field iu-span-2">
+                <label for="nw-title">Název aktuality <span class="iu-req">(povinné)</span></label>
+                <input id="nw-title" required placeholder="Např. Skvělé výkony na Jarní ceně Prahy 2026" value="${editItem ? escapeHtml(editItem.title || '') : ''}">
+              </div>
+              <div class="iu-field">
+                <label for="nw-category">Kategorie</label>
+                <select id="nw-category">
+                  <option value="Závody" ${editItem && editItem.category === 'Závody' ? 'selected' : ''}>Závody</option>
+                  <option value="Oddíl" ${editItem && editItem.category === 'Oddíl' ? 'selected' : ''}>Oddíl</option>
+                  <option value="Soustředění" ${editItem && editItem.category === 'Soustředění' ? 'selected' : ''}>Soustředění</option>
+                  <option value="Oznámení" ${editItem && editItem.category === 'Oznámení' ? 'selected' : ''}>Oznámení</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="iu-grid is-3">
+              <div class="iu-field">
+                <label for="nw-date">Datum</label>
+                <input id="nw-date" value="${editItem ? escapeHtml(editItem.date || '') : new Date().toLocaleDateString('cs-CZ')}">
+              </div>
+              <div class="iu-field">
+                <label for="nw-author">Autor</label>
+                <input id="nw-author" value="${editItem ? escapeHtml(editItem.author || '') : escapeHtml(getAdminUser())}">
+              </div>
+              <div class="iu-field">
+                <label for="nw-image">URL fotografie nebo ilustrace</label>
+                <input id="nw-image" placeholder="assets/logo-80-let.png" value="${editItem ? escapeHtml(editItem.image || '') : ''}">
+              </div>
+            </div>
+
+            <div class="iu-field">
+              <label for="nw-perex">Perex, krátký úvodník (zobrazí se na kartě) <span class="iu-req">(povinné)</span></label>
+              <textarea id="nw-perex" required rows="2" placeholder="Stručné shrnutí aktuality pro návštěvníky...">${editItem ? escapeHtml(editItem.perex || editItem.summary || '') : ''}</textarea>
+            </div>
+
+            <div class="iu-field">
+              <label for="nw-content">Celý text článku</label>
+              <textarea id="nw-content" rows="4" placeholder="Kompletní znění článku...">${editItem ? escapeHtml(editItem.content || editItem.body || editItem.perex || '') : ''}</textarea>
+            </div>
+
+            <div class="iu-form-foot">
+              <button type="submit" class="iu-btn iu-btn-primary">${editItem ? 'Uložit změny' : 'Publikovat aktualitu'}</button>
+            </div>
+          </form>
+        </div>
+
+        <section class="iu-sec">
+          <div class="iu-sec-head"><h3>Všechny publikované aktuality</h3><p class="iu-num">${allNews.length}</p></div>
+          ${allNews.length === 0 ? `<div class="iu-empty">Zatím nejsou publikované žádné aktuality.</div>` : `
+          <ul class="iu-list">
+            ${allNews.map(n => `
+              <li class="iu-row">
+                <div class="iu-row-main">
+                  <p class="iu-meta"><span>${escapeHtml(n.category || 'Aktualita')}</span><span>${admDate(n.date)}</span>${n.author ? `<span>${escapeHtml(n.author)}</span>` : ''}</p>
+                  <h4 class="iu-row-title">${escapeHtml(n.title)}</h4>
+                  <p class="iu-row-text is-clamp">${escapeHtml(n.perex || n.summary || '')}</p>
+                </div>
+                <div class="iu-row-actions">
+                  <button type="button" onclick="editingNewsId='${n.id}'; renderAdmin(); window.scrollTo({top:0, behavior:'smooth'});" class="iu-btn iu-btn-line iu-btn-sm">Upravit</button>
+                  <button type="button" onclick="if(confirm('Opravdu chcete smazat aktualitu &quot;${escapeJsArg(n.title)}&quot;?')){ window.BohStore.deleteNews('${escapeJsArg(n.id)}'); showToast('Aktualita byla smazána.'); renderAdmin(); }" class="iu-btn iu-btn-danger iu-btn-sm">Smazat</button>
+                </div>
+              </li>
+            `).join("")}
+          </ul>`}
+        </section>
+      `;
       // Cancel button
       const cancelBtn = document.getElementById("cancel-edit-news-btn");
       if (cancelBtn) {
@@ -863,110 +793,88 @@
       const editDoc = editingDownloadId ? allDownloads.find(d => d.id === editingDownloadId) : null;
 
       container.innerHTML = `
-        <div class="space-y-8">
-          <!-- Add / Edit Download Form Card -->
-          <div class="rounded-3xl border border-border bg-card p-6 shadow-md">
-            <div class="flex items-center justify-between border-b border-border pb-4 mb-5">
-              <div class="flex items-center gap-3">
-                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600/15 text-emerald-600">
-                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
-                </div>
-                <div>
-                  <h2 class="font-display text-lg font-bold text-foreground">
-                    ${editDoc ? 'Upravit dokument ke stažení' : 'Přidat nový dokument ke stažení'}
-                  </h2>
-                  <p class="text-xs text-muted-foreground">Dokument bude okamžitě dostupný v sekci Ke stažení (ke-stazeni)</p>
-                </div>
-              </div>
-              ${editDoc ? `
-                <button type="button" id="cancel-edit-doc-btn" class="rounded-xl border border-border px-3 py-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground">
-                  Zrušit úpravy
-                </button>
-              ` : ''}
-            </div>
-
-            <form id="admin-doc-form" class="space-y-4">
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="md:col-span-2">
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Název dokumentu *</label>
-                  <input id="dc-title" required class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="Např. Rozpis drah Podolí a Vinohrady 2026/2027" value="${editDoc ? escapeHtml(editDoc.title || '') : ''}">
-                </div>
-                <div>
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Kategorie</label>
-                  <select id="dc-category" class="w-full rounded-xl border border-input bg-background px-3 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground">
-                    <option value="Směrnice a řády" ${editDoc && editDoc.category === 'Směrnice a řády' ? 'selected' : ''}>Směrnice a řády</option>
-                    <option value="Rozpisy a tréninky" ${editDoc && editDoc.category === 'Rozpisy a tréninky' ? 'selected' : ''}>Rozpisy a tréninky</option>
-                    <option value="Přihlášky a formuláře" ${editDoc && editDoc.category === 'Přihlášky a formuláře' ? 'selected' : ''}>Přihlášky a formuláře</option>
-                    <option value="Lékařské prohlídky" ${editDoc && editDoc.category === 'Lékařské prohlídky' ? 'selected' : ''}>Lékařské prohlídky</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Soubor / URL odkaz *</label>
-                  <input id="dc-file" required class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="assets/downloads/rozpis.pdf" value="${editDoc ? escapeHtml(editDoc.file || editDoc.filename || '') : ''}">
-                </div>
-                <div>
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Velikost a typ</label>
-                  <input id="dc-size" class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="185 kB PDF" value="${editDoc ? escapeHtml(editDoc.size || '') : '220 kB PDF'}">
-                </div>
-                <div class="flex items-center pt-6">
-                  <label class="flex items-center gap-2 cursor-pointer text-xs font-semibold text-foreground">
-                    <input id="dc-important" type="checkbox" class="rounded border-input text-emerald-600 focus:ring-emerald-500 h-4 w-4" ${editDoc && editDoc.important ? 'checked' : ''}>
-                    <span>Označit jako důležité (zvýrazněno)</span>
-                  </label>
-                </div>
-              </div>
-
-              <div>
-                <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Popis dokumentu</label>
-                <textarea id="dc-desc" rows="2" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="Krátký popis obsahu a instrukcí k dokumentu...">${editDoc ? escapeHtml(editDoc.description || '') : ''}</textarea>
-              </div>
-
-              <div class="flex items-center justify-end gap-3 pt-2">
-                <button type="submit" class="inline-flex items-center gap-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 px-6 py-2.5 text-sm font-bold text-white shadow-md transition active:scale-95 cursor-pointer">
-                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span>${editDoc ? 'Uložit změny' : 'Přidat dokument'}</span>
-                </button>
-              </div>
-            </form>
-          </div>
-
-          <!-- Existing Downloads List -->
-          <div class="rounded-3xl border border-border bg-card p-6 shadow-md">
-            <h3 class="font-display text-base font-bold text-foreground mb-4">Publikované dokumenty (${allDownloads.length})</h3>
-            <div class="divide-y divide-border">
-              ${allDownloads.map(d => `
-                <div class="py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                  <div class="min-w-0 flex-1">
-                    <div class="flex items-center gap-2 mb-1">
-                      <span class="rounded bg-primary/15 px-2 py-0.5 text-[11px] font-bold text-primary">${escapeHtml(d.category || 'Dokument')}</span>
-                      ${d.important ? '<span class="rounded bg-coral/15 px-2 py-0.5 text-[11px] font-bold text-coral">Důležité</span>' : ''}
-                      <span class="text-xs text-muted-foreground">${escapeHtml(d.size || 'PDF')}</span>
-                    </div>
-                    <h4 class="font-bold text-sm sm:text-base text-foreground">${escapeHtml(d.title)}</h4>
-                    ${d.description ? `<p class="text-xs text-muted-foreground line-clamp-2 mt-0.5">${escapeHtml(d.description)}</p>` : ''}
-                    <span class="text-[11px] text-muted-foreground/70">${escapeHtml(d.file || d.filename || '')}</span>
-                  </div>
-                  <div class="flex items-center gap-2 shrink-0">
-                    <a href="${escapeHtml(d.file || d.filename || '#')}" target="_blank" class="rounded-xl border border-border px-3 py-1.5 text-xs font-semibold text-foreground hover:border-emerald-600">
-                      Stáhnout
-                    </a>
-                    <button type="button" onclick="editingDownloadId='${d.id}'; renderAdmin(); window.scrollTo({top:0, behavior:'smooth'});" class="rounded-xl border border-border px-3 py-1.5 text-xs font-semibold text-foreground hover:border-emerald-600">
-                      Upravit
-                    </button>
-                    <button type="button" onclick="if(confirm('Smazat dokument &quot;${escapeJsArg(d.title)}&quot;?')){ window.BohStore.deleteDownload('${escapeJsArg(d.id)}'); showToast('Dokument byl smazán.'); renderAdmin(); }" class="rounded-xl border border-destructive/30 bg-destructive/10 px-3 py-1.5 text-xs font-semibold text-destructive hover:bg-destructive/20">
-                      Smazat
-                    </button>
-                  </div>
-                </div>
-              `).join("")}
-            </div>
+        <div class="iu-ph">
+          <div>
+            <h2>Ke stažení</h2>
+            <p>Dokument bude okamžitě dostupný v sekci Ke stažení.</p>
           </div>
         </div>
-      `;
 
+        <div class="iu-sheet">
+          <div class="iu-sheet-head">
+            <div>
+              <h3>${editDoc ? 'Upravit dokument ke stažení' : 'Přidat nový dokument ke stažení'}</h3>
+            </div>
+            ${editDoc ? `
+              <button type="button" id="cancel-edit-doc-btn" class="iu-btn iu-btn-line iu-btn-sm">Zrušit úpravy</button>
+            ` : ''}
+          </div>
+
+          <form id="admin-doc-form">
+            <div class="iu-grid is-3">
+              <div class="iu-field iu-span-2">
+                <label for="dc-title">Název dokumentu <span class="iu-req">(povinné)</span></label>
+                <input id="dc-title" required placeholder="Např. Rozpis drah Podolí a Vinohrady 2026/2027" value="${editDoc ? escapeHtml(editDoc.title || '') : ''}">
+              </div>
+              <div class="iu-field">
+                <label for="dc-category">Kategorie</label>
+                <select id="dc-category">
+                  <option value="Směrnice a řády" ${editDoc && editDoc.category === 'Směrnice a řády' ? 'selected' : ''}>Směrnice a řády</option>
+                  <option value="Rozpisy a tréninky" ${editDoc && editDoc.category === 'Rozpisy a tréninky' ? 'selected' : ''}>Rozpisy a tréninky</option>
+                  <option value="Přihlášky a formuláře" ${editDoc && editDoc.category === 'Přihlášky a formuláře' ? 'selected' : ''}>Přihlášky a formuláře</option>
+                  <option value="Lékařské prohlídky" ${editDoc && editDoc.category === 'Lékařské prohlídky' ? 'selected' : ''}>Lékařské prohlídky</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="iu-grid">
+              <div class="iu-field">
+                <label for="dc-file">Soubor nebo URL odkaz <span class="iu-req">(povinné)</span></label>
+                <input id="dc-file" required placeholder="assets/downloads/rozpis.pdf" value="${editDoc ? escapeHtml(editDoc.file || editDoc.filename || '') : ''}">
+              </div>
+              <div class="iu-field">
+                <label for="dc-size">Velikost a typ</label>
+                <input id="dc-size" placeholder="185 kB PDF" value="${editDoc ? escapeHtml(editDoc.size || '') : '220 kB PDF'}">
+              </div>
+            </div>
+
+            <div class="iu-field">
+              <label for="dc-desc">Popis dokumentu</label>
+              <textarea id="dc-desc" rows="2" placeholder="Krátký popis obsahu a instrukcí k dokumentu...">${editDoc ? escapeHtml(editDoc.description || '') : ''}</textarea>
+            </div>
+
+            <div class="iu-form-foot">
+              <label class="iu-checkline">
+                <input id="dc-important" type="checkbox" ${editDoc && editDoc.important ? 'checked' : ''}>
+                <span>Označit jako důležité (zvýrazněno)</span>
+              </label>
+              <button type="submit" class="iu-btn iu-btn-primary">${editDoc ? 'Uložit změny' : 'Přidat dokument'}</button>
+            </div>
+          </form>
+        </div>
+
+        <section class="iu-sec">
+          <div class="iu-sec-head"><h3>Publikované dokumenty</h3><p class="iu-num">${allDownloads.length}</p></div>
+          ${allDownloads.length === 0 ? `<div class="iu-empty">Zatím nejsou nahrané žádné dokumenty.</div>` : `
+          <ul class="iu-list">
+            ${allDownloads.map(d => `
+              <li class="iu-row">
+                <div class="iu-row-main">
+                  <p class="iu-meta"><span>${escapeHtml(d.category || 'Dokument')}</span><span>${escapeHtml(d.size || 'PDF')}</span>${d.important ? '<span class="iu-status">Důležité</span>' : ''}</p>
+                  <h4 class="iu-row-title">${escapeHtml(d.title)}</h4>
+                  ${d.description ? `<p class="iu-row-text is-clamp">${escapeHtml(d.description)}</p>` : ''}
+                  <p class="iu-row-text">${escapeHtml(d.file || d.filename || '')}</p>
+                </div>
+                <div class="iu-row-actions">
+                  <a href="${escapeHtml(d.file || d.filename || '#')}" target="_blank" class="iu-btn iu-btn-line iu-btn-sm">Stáhnout</a>
+                  <button type="button" onclick="editingDownloadId='${d.id}'; renderAdmin(); window.scrollTo({top:0, behavior:'smooth'});" class="iu-btn iu-btn-line iu-btn-sm">Upravit</button>
+                  <button type="button" onclick="if(confirm('Smazat dokument &quot;${escapeJsArg(d.title)}&quot;?')){ window.BohStore.deleteDownload('${escapeJsArg(d.id)}'); showToast('Dokument byl smazán.'); renderAdmin(); }" class="iu-btn iu-btn-danger iu-btn-sm">Smazat</button>
+                </div>
+              </li>
+            `).join("")}
+          </ul>`}
+        </section>
+      `;
       // Cancel button
       const cancelBtn = document.getElementById("cancel-edit-doc-btn");
       if (cancelBtn) {
@@ -1010,190 +918,141 @@
       const editEv = editingEventId ? allEvents.find(e => e.id === editingEventId) : null;
 
       container.innerHTML = `
-        <div class="space-y-8">
-          <!-- Add / Edit Race Card -->
-          <div class="rounded-3xl border border-border bg-card p-6 shadow-md">
-            <div class="flex items-center justify-between border-b border-border pb-4 mb-5">
-              <div class="flex items-center gap-3">
-                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600/15 text-emerald-600">
-                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-                </div>
-                <div>
-                  <h2 class="font-display text-lg font-bold text-foreground">
-                    ${editEv ? 'Upravit závod / soustředění' : 'Vytvořit nový závod či soustředění'}
-                  </h2>
-                  <p class="text-xs text-muted-foreground">Nastavte termíny, skupiny a disciplíny pro přihlašování plavců</p>
-                </div>
-              </div>
-              ${editEv ? `
-                <button type="button" id="cancel-edit-event-btn" class="rounded-xl border border-border px-3 py-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground">
-                  Zrušit úpravy
-                </button>
-              ` : ''}
+        <div class="iu-ph">
+          <div>
+            <h2>Závody a soustředění</h2>
+            <p>Přihlašujte přímo závodníky oddílu nebo sebe, spravujte starty a exportujte CSV pro ČSPS.</p>
+          </div>
+        </div>
+
+        <div class="iu-sheet">
+          <div class="iu-sheet-head">
+            <div>
+              <h3>${editEv ? 'Upravit závod nebo soustředění' : 'Vytvořit nový závod či soustředění'}</h3>
+              <p>Nastavte termíny, skupiny a disciplíny pro přihlašování plavců.</p>
             </div>
-
-            <form id="admin-race-form" class="space-y-4">
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="md:col-span-2">
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Název závodu či kempu *</label>
-                  <input id="ev-name" required class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="Např. Zimní mistrovství ČR 2026" value="${editEv ? escapeHtml(editEv.name || '') : ''}">
-                </div>
-                <div>
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Typ akce</label>
-                  <select id="ev-type" class="w-full rounded-xl border border-input bg-background px-3 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground">
-                    <option value="Mistrovství" ${editEv && editEv.type === 'Mistrovství' ? 'selected' : ''}>Mistrovství</option>
-                    <option value="Pohár" ${editEv && editEv.type === 'Pohár' ? 'selected' : ''}>Pohár</option>
-                    <option value="Memoriál" ${editEv && editEv.type === 'Memoriál' ? 'selected' : ''}>Memoriál</option>
-                    <option value="Velká cena" ${editEv && editEv.type === 'Velká cena' ? 'selected' : ''}>Velká cena</option>
-                    <option value="Oddílový závod" ${editEv && editEv.type === 'Oddílový závod' ? 'selected' : ''}>Oddílový závod</option>
-                    <option value="Soustředění" ${editEv && editEv.type === 'Soustředění' ? 'selected' : ''}>Soustředění / Kemp</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Termín konání *</label>
-                  <input id="ev-date" required class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="14. – 15. 11. 2026" value="${editEv ? escapeHtml(editEv.date || '') : ''}">
-                </div>
-                <div>
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Uzávěrka přihlášek</label>
-                  <input id="ev-deadline" class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="05. 11. 2026" value="${editEv ? escapeHtml(editEv.deadline || '') : ''}">
-                </div>
-                <div>
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Místo konání *</label>
-                  <input id="ev-place" required class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="Podolí, Praha (50m)" value="${editEv ? escapeHtml(editEv.place || '') : ''}">
-                </div>
-              </div>
-
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Určeno pro skupiny (oddělené čárkou)</label>
-                  <input id="ev-groups" class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="ST, JUN, DOR, ŽAC, ODA" value="${editEv ? escapeHtml((editEv.groups || []).join(', ')) : 'ST, JUN, DOR, ŽAC'}">
-                </div>
-                <div>
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Vypsané disciplíny (oddělené čárkou)</label>
-                  <input id="ev-disciplines" class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="50 VZ, 100 VZ, 200 VZ, 100 M, 200 PZ" value="${editEv ? escapeHtml((editEv.disciplines || []).join(', ')) : '50 VZ, 100 VZ, 200 VZ, 50 Z, 100 Z, 50 P, 100 P, 50 M, 100 M, 200 PZ'}">
-                </div>
-              </div>
-
-              <div>
-                <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Pokyny a instrukce trenéra</label>
-                <textarea id="ev-note" rows="2" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="Informace k dopravě, srazu, startovnému...">${editEv ? escapeHtml(editEv.note || '') : ''}</textarea>
-              </div>
-
-              <div class="flex items-center justify-end gap-3 pt-2">
-                <button type="submit" class="inline-flex items-center gap-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 px-6 py-2.5 text-sm font-bold text-white shadow-md transition active:scale-95 cursor-pointer">
-                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span>${editEv ? 'Uložit změny v závodě' : 'Uložit závod'}</span>
-                </button>
-              </div>
-            </form>
+            ${editEv ? `
+              <button type="button" id="cancel-edit-event-btn" class="iu-btn iu-btn-line iu-btn-sm">Zrušit úpravy</button>
+            ` : ''}
           </div>
 
-          <!-- Races List with Live Rosters & Direct Swimmer Signups -->
-          <div class="space-y-6">
-            <div class="flex items-center justify-between">
-              <div>
-                <h3 class="font-display text-xl font-bold text-foreground">Aktuální závody & soupisky přihlášených</h3>
-                <p class="text-xs text-muted-foreground">Přihlašujte přímo závodníky oddílu nebo sebe, spravujte starty a exportujte CSV pro ČSPS</p>
+          <form id="admin-race-form">
+            <div class="iu-grid is-3">
+              <div class="iu-field iu-span-2">
+                <label for="ev-name">Název závodu či kempu <span class="iu-req">(povinné)</span></label>
+                <input id="ev-name" required placeholder="Např. Zimní mistrovství ČR 2026" value="${editEv ? escapeHtml(editEv.name || '') : ''}">
+              </div>
+              <div class="iu-field">
+                <label for="ev-type">Typ akce</label>
+                <select id="ev-type">
+                  <option value="Mistrovství" ${editEv && editEv.type === 'Mistrovství' ? 'selected' : ''}>Mistrovství</option>
+                  <option value="Pohár" ${editEv && editEv.type === 'Pohár' ? 'selected' : ''}>Pohár</option>
+                  <option value="Memoriál" ${editEv && editEv.type === 'Memoriál' ? 'selected' : ''}>Memoriál</option>
+                  <option value="Velká cena" ${editEv && editEv.type === 'Velká cena' ? 'selected' : ''}>Velká cena</option>
+                  <option value="Oddílový závod" ${editEv && editEv.type === 'Oddílový závod' ? 'selected' : ''}>Oddílový závod</option>
+                  <option value="Soustředění" ${editEv && editEv.type === 'Soustředění' ? 'selected' : ''}>Soustředění / Kemp</option>
+                </select>
               </div>
             </div>
 
-            ${allEvents.map(ev => {
-              const roster = window.BohStore.getRosterForEvent(ev.id);
-              return `
-                <div class="rounded-3xl border border-border bg-card p-6 shadow-md space-y-4">
-                  <!-- Race Header -->
-                  <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 border-b border-border pb-4">
-                    <div>
-                      <div class="flex flex-wrap items-center gap-2 mb-1.5">
-                        <span class="rounded-full bg-emerald-600/15 px-3 py-0.5 text-xs font-bold text-emerald-600">${escapeHtml(ev.type || 'Závod')}</span>
-                        <span class="text-xs text-muted-foreground">Termín: <b class="text-foreground">${escapeHtml(ev.date)}</b></span>
-                        ${ev.deadline ? `<span class="text-xs text-coral font-medium">· Přihlášky do: <b>${escapeHtml(ev.deadline)}</b></span>` : ''}
-                      </div>
-                      <h4 class="font-display text-xl font-bold text-foreground">${escapeHtml(ev.name)}</h4>
-                      <p class="text-xs text-muted-foreground mt-1">Místo: <b class="text-foreground">${escapeHtml(ev.place)}</b> · Skupiny: <b>${escapeHtml((ev.groups || []).join(', ') || 'Všechny')}</b></p>
-                    </div>
+            <div class="iu-grid is-3">
+              <div class="iu-field">
+                <label for="ev-date">Termín konání <span class="iu-req">(povinné)</span></label>
+                <input id="ev-date" required placeholder="14. – 15. 11. 2026" value="${editEv ? escapeHtml(editEv.date || '') : ''}">
+              </div>
+              <div class="iu-field">
+                <label for="ev-deadline">Uzávěrka přihlášek</label>
+                <input id="ev-deadline" placeholder="05. 11. 2026" value="${editEv ? escapeHtml(editEv.deadline || '') : ''}">
+              </div>
+              <div class="iu-field">
+                <label for="ev-place">Místo konání <span class="iu-req">(povinné)</span></label>
+                <input id="ev-place" required placeholder="Podolí, Praha (50m)" value="${editEv ? escapeHtml(editEv.place || '') : ''}">
+              </div>
+            </div>
 
-                    <!-- Action Bar for this Race -->
-                    <div class="flex flex-wrap items-center gap-2">
-                      <button type="button" onclick="openCoachSelfSignupModal('${ev.id}')" class="inline-flex items-center gap-1.5 rounded-xl border border-emerald-600/40 bg-emerald-950/20 px-3 py-1.5 text-xs font-bold text-emerald-400 hover:bg-emerald-950/40 transition cursor-pointer" title="Přihlásit se osobně">
-                        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                        <span>Přihlásit se</span>
-                      </button>
+            <div class="iu-grid">
+              <div class="iu-field">
+                <label for="ev-groups">Určeno pro skupiny</label>
+                <input id="ev-groups" placeholder="ST, JUN, DOR, ŽAC, ODA" value="${editEv ? escapeHtml((editEv.groups || []).join(', ')) : 'ST, JUN, DOR, ŽAC'}">
+                <p class="iu-hint">Oddělte čárkou.</p>
+              </div>
+              <div class="iu-field">
+                <label for="ev-disciplines">Vypsané disciplíny</label>
+                <input id="ev-disciplines" placeholder="50 VZ, 100 VZ, 200 VZ, 100 M, 200 PZ" value="${editEv ? escapeHtml((editEv.disciplines || []).join(', ')) : '50 VZ, 100 VZ, 200 VZ, 50 Z, 100 Z, 50 P, 100 P, 50 M, 100 M, 200 PZ'}">
+                <p class="iu-hint">Oddělte čárkou.</p>
+              </div>
+            </div>
 
-                      <button type="button" onclick="openCoachSwimmerModal('${ev.id}')" class="inline-flex items-center gap-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 px-3.5 py-1.5 text-xs font-bold text-white shadow-sm transition active:scale-95 cursor-pointer" title="Přihlásit libovolného plavce oddílu">
-                        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14m-7-7h14"/></svg>
-                        <span>+ Přihlásit plavce</span>
-                      </button>
+            <div class="iu-field">
+              <label for="ev-note">Pokyny a instrukce trenéra</label>
+              <textarea id="ev-note" rows="2" placeholder="Informace k dopravě, srazu, startovnému...">${editEv ? escapeHtml(editEv.note || '') : ''}</textarea>
+            </div>
 
-                      <button type="button" onclick="window.BohStore.exportSignupsCsv('${escapeJsArg(ev.id)}'); showToast('Soupiska pro závod &quot;${escapeJsArg(ev.name)}&quot; byla stažena v CSV.');" class="inline-flex items-center gap-1.5 rounded-xl border border-border bg-background px-3 py-1.5 text-xs font-semibold text-foreground hover:border-emerald-600 transition cursor-pointer" title="Stáhnout soupisku ČSPS (CSV)">
-                        <svg class="h-3.5 w-3.5 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                        <span>CSV</span>
-                      </button>
+            <div class="iu-form-foot">
+              <button type="submit" class="iu-btn iu-btn-primary">${editEv ? 'Uložit změny v závodě' : 'Uložit závod'}</button>
+            </div>
+          </form>
+        </div>
 
-                      <button type="button" onclick="editingEventId='${escapeJsArg(ev.id)}'; renderAdmin(); window.scrollTo({top:0, behavior:'smooth'});" class="rounded-xl border border-border bg-background px-2.5 py-1.5 text-xs font-semibold text-foreground hover:border-emerald-600 transition" title="Upravit závod">
-                        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-                      </button>
+        <section class="iu-sec">
+          <div class="iu-sec-head"><h3>Aktuální závody a soupisky přihlášených</h3><p class="iu-num">${allEvents.length}</p></div>
+          ${allEvents.length === 0 ? `<div class="iu-empty">Zatím nejsou vypsané žádné závody. Vytvořte první ve formuláři výše.</div>` : `
+          <ul class="iu-list">
+          ${allEvents.map(ev => {
+            const roster = window.BohStore.getRosterForEvent(ev.id);
+            return `
+              <li class="iu-row">
+                <div class="iu-row-main">
+                  <p class="iu-meta"><span>${escapeHtml(ev.type || 'Závod')}</span><span>Termín <strong>${admDate(ev.date)}</strong></span>${ev.deadline ? `<span>Přihlášky do <strong>${admDate(ev.deadline)}</strong></span>` : ''}</p>
+                  <h4 class="iu-row-title">${escapeHtml(ev.name)}</h4>
+                  <p class="iu-meta"><span>${escapeHtml(ev.place)}</span><span>Skupiny: ${escapeHtml((ev.groups || []).join(', ') || 'Všechny')}</span></p>
 
-                      <button type="button" onclick="if(confirm('Opravdu chcete smazat závod &quot;${escapeJsArg(ev.name)}&quot;?')){ window.BohStore.deleteEvent('${escapeJsArg(ev.id)}'); showToast('Závod byl smazán.'); renderAdmin(); }" class="rounded-xl border border-destructive/30 bg-destructive/10 px-2.5 py-1.5 text-xs font-semibold text-destructive hover:bg-destructive/20 transition" title="Smazat závod">
-                        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18m-2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-                      </button>
-                    </div>
-                  </div>
-
-                  <!-- Live Swimmer Roster for this race -->
-                  <div class="space-y-2">
-                    <div class="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                      <span>Soupiska přihlášených závodníků (${roster.length})</span>
-                      <span class="text-emerald-600 font-semibold">${roster.length} závodníků</span>
-                    </div>
-
+                  <div class="iu-roster">
+                    <div class="iu-roster-head"><span>Soupiska přihlášených závodníků</span><strong class="iu-num">${roster.length}</strong></div>
                     ${roster.length === 0 ? `
-                      <div class="rounded-2xl border border-dashed border-border/80 p-4 text-center text-xs text-muted-foreground">
-                        Na tento závod zatím není nikdo přihlášen. Můžete přidat plavce kliknutím na tlačítko <b>+ Přihlásit plavce</b> výše.
-                      </div>
+                      <p class="iu-roster-empty">Na tento závod zatím není nikdo přihlášen. Plavce přidáte tlačítkem Přihlásit plavce.</p>
                     ` : `
-                      <div class="divide-y divide-border/60 rounded-2xl border border-border bg-background/50 overflow-hidden">
+                      <ul>
                         ${roster.map(r => `
-                          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 gap-2 text-xs">
-                            <div class="min-w-0">
-                              <div class="flex items-center gap-2">
-                                <span class="font-bold text-foreground text-sm">${escapeHtml(r.swimmer)}</span>
-                                <span class="rounded bg-muted px-2 py-0.5 text-[11px] font-semibold text-muted-foreground">${escapeHtml(r.group || 'ST')}</span>
-                                ${r.year ? `<span class="text-[11px] text-muted-foreground">${escapeHtml(String(r.year))}</span>` : ''}
-                                ${r.gender ? `<span class="text-[11px] text-muted-foreground">(${escapeHtml(r.gender)})</span>` : ''}
-                              </div>
-                              ${r.note ? `<div class="text-[11px] text-coral mt-0.5 font-medium">Poznámka: ${escapeHtml(r.note)}</div>` : ''}
+                          <li>
+                            <div class="who">
+                              <b>${escapeHtml(r.swimmer)}</b><span>${escapeHtml(r.group || 'ST')}${r.year ? ` · ${escapeHtml(String(r.year))}` : ''}${r.gender ? ` · ${escapeHtml(r.gender)}` : ''}</span>
+                              ${r.note ? `<em>Poznámka: ${escapeHtml(r.note)}</em>` : ''}
                             </div>
-
-                            <div class="flex items-center gap-3 shrink-0">
-                              <div class="flex flex-wrap gap-1">
-                                ${(Array.isArray(r.disciplines) ? r.disciplines : [r.disciplines]).filter(Boolean).map(d => `
-                                  <span class="rounded bg-emerald-600/15 px-2 py-0.5 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">${escapeHtml(d)}</span>
-                                `).join("")}
-                              </div>
-
-                              <button
-                                type="button"
-                                onclick="if(confirm('Odhlásit závodníka ${escapeJsArg(r.swimmer)} z tohoto závodu?')){ window.BohStore.removeSwimmerEntry('${escapeJsArg(ev.id)}', '${escapeJsArg(r.swimmer)}'); showToast('Plavec ${escapeJsArg(r.swimmer)} byl odhlášen.'); renderAdmin(); }"
-                                class="rounded-lg p-1 text-muted-foreground hover:bg-destructive/15 hover:text-destructive transition cursor-pointer"
-                                title="Odhlásit závodníka"
-                              >
-                                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
-                              </button>
+                            <div class="iu-chips">
+                              ${(Array.isArray(r.disciplines) ? r.disciplines : [r.disciplines]).filter(Boolean).map(d => `<span class="iu-chip">${escapeHtml(d)}</span>`).join("")}
                             </div>
-                          </div>
+                            <button
+                              type="button"
+                              onclick="if(confirm('Odhlásit závodníka ${escapeJsArg(r.swimmer)} z tohoto závodu?')){ window.BohStore.removeSwimmerEntry('${escapeJsArg(ev.id)}', '${escapeJsArg(r.swimmer)}'); showToast('Plavec ${escapeJsArg(r.swimmer)} byl odhlášen.'); renderAdmin(); }"
+                              class="iu-icon-btn is-danger"
+                              title="Odhlásit závodníka" aria-label="Odhlásit závodníka ${escapeHtml(r.swimmer)}"
+                            >
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                            </button>
+                          </li>
                         `).join("")}
-                      </div>
+                      </ul>
                     `}
                   </div>
                 </div>
-              `;
-            }).join("")}
-          </div>
-        </div>
+
+                <div class="iu-row-actions">
+                  <button type="button" onclick="openCoachSwimmerModal('${ev.id}')" class="iu-btn iu-btn-primary iu-btn-sm" title="Přihlásit libovolného plavce oddílu">Přihlásit plavce</button>
+                  <button type="button" onclick="openCoachSelfSignupModal('${ev.id}')" class="iu-btn iu-btn-line iu-btn-sm" title="Přihlásit se osobně">Přihlásit se</button>
+                  <button type="button" onclick="window.BohStore.exportSignupsCsv('${escapeJsArg(ev.id)}'); showToast('Soupiska pro závod &quot;${escapeJsArg(ev.name)}&quot; byla stažena v CSV.');" class="iu-btn iu-btn-line iu-btn-sm" title="Stáhnout soupisku ČSPS (CSV)">CSV</button>
+                  <button type="button" onclick="editingEventId='${escapeJsArg(ev.id)}'; renderAdmin(); window.scrollTo({top:0, behavior:'smooth'});" class="iu-icon-btn" title="Upravit závod" aria-label="Upravit závod">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                  </button>
+                  <button type="button" onclick="if(confirm('Opravdu chcete smazat závod &quot;${escapeJsArg(ev.name)}&quot;?')){ window.BohStore.deleteEvent('${escapeJsArg(ev.id)}'); showToast('Závod byl smazán.'); renderAdmin(); }" class="iu-icon-btn is-danger" title="Smazat závod" aria-label="Smazat závod">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18m-2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                  </button>
+                </div>
+              </li>
+            `;
+          }).join("")}
+          </ul>`}
+        </section>
       `;
 
       // Cancel button
@@ -1255,42 +1114,40 @@
       ];
 
       modalRoot.innerHTML = `
-        <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
-          <div class="w-full max-w-lg rounded-3xl border border-border bg-card p-6 shadow-2xl">
-            <div class="flex items-center justify-between border-b border-border pb-3 mb-4">
+        <div class="iu-dialog-back">
+          <div class="iu-dialog" role="dialog" aria-modal="true" aria-labelledby="sw-modal-title">
+            <div class="iu-sheet-head">
               <div>
-                <h3 class="font-display text-lg font-bold text-foreground">Přihlásit plavce na závod</h3>
-                <p class="text-xs text-muted-foreground truncate max-w-sm">${escapeHtml(ev.name)}</p>
+                <h3 id="sw-modal-title">Přihlásit plavce na závod</h3>
+                <p>${escapeHtml(ev.name)}</p>
               </div>
-              <button type="button" id="close-swimmer-modal-btn" class="rounded-lg p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground">
-                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
-              </button>
+              <button type="button" id="close-swimmer-modal-btn" class="iu-icon-btn" aria-label="Zavřít"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
             </div>
 
-            <form id="coach-swimmer-form" class="space-y-4">
-              <div>
-                <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Jméno a příjmení závodníka *</label>
-                <input id="sw-name" required list="swimmers-list" class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="Např. Kryštof Spejchal">
+            <form id="coach-swimmer-form">
+              <div class="iu-field">
+                <label for="sw-name">Jméno a příjmení závodníka <span class="iu-req">(povinné)</span></label>
+                <input id="sw-name" required list="swimmers-list" placeholder="Např. Kryštof Spejchal">
                 <datalist id="swimmers-list">
                   ${commonSwimmers.map(s => `<option value="${escapeHtml(s)}">`).join("")}
                 </datalist>
               </div>
 
-              <div class="grid grid-cols-3 gap-3">
-                <div>
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Ročník</label>
-                  <input id="sw-year" type="number" min="1950" max="2022" class="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm outline-none focus:border-emerald-600 text-foreground" value="2010">
+              <div class="iu-grid is-3">
+                <div class="iu-field">
+                  <label for="sw-year">Ročník</label>
+                  <input id="sw-year" type="number" min="1950" max="2022" inputmode="numeric" value="2010">
                 </div>
-                <div>
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Pohlaví</label>
-                  <select id="sw-gender" class="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm outline-none focus:border-emerald-600 text-foreground">
+                <div class="iu-field">
+                  <label for="sw-gender">Pohlaví</label>
+                  <select id="sw-gender">
                     <option value="M">Muž (M)</option>
                     <option value="Z">Žena (Z)</option>
                   </select>
                 </div>
-                <div>
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Skupina</label>
-                  <select id="sw-group" class="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm outline-none focus:border-emerald-600 text-foreground">
+                <div class="iu-field">
+                  <label for="sw-group">Skupina</label>
+                  <select id="sw-group">
                     <option value="ST">ST</option>
                     <option value="JUN">JUN</option>
                     <option value="DOR">DOR</option>
@@ -1301,29 +1158,25 @@
                 </div>
               </div>
 
-              <div>
-                <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Disciplíny k přihlášení (čárkou) *</label>
-                <input id="sw-disciplines" required class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="100 VZ, 200 VZ" value="${ev.disciplines && ev.disciplines.length > 0 ? escapeHtml(ev.disciplines.slice(0, 2).join(', ')) : '100 VZ'}">
+              <div class="iu-field">
+                <label for="sw-disciplines">Disciplíny k přihlášení <span class="iu-req">(povinné)</span></label>
+                <input id="sw-disciplines" required placeholder="100 VZ, 200 VZ" value="${ev.disciplines && ev.disciplines.length > 0 ? escapeHtml(ev.disciplines.slice(0, 2).join(', ')) : '100 VZ'}">
+                <p class="iu-hint">Oddělte čárkou.</p>
               </div>
 
-              <div>
-                <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Poznámka trenéra / plavce</label>
-                <input id="sw-note" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="Např. Pouze dopolední rozplavby, štafeta">
+              <div class="iu-field">
+                <label for="sw-note">Poznámka trenéra nebo plavce</label>
+                <input id="sw-note" placeholder="Např. Pouze dopolední rozplavby, štafeta">
               </div>
 
-              <div class="flex items-center justify-end gap-2 pt-3 border-t border-border">
-                <button type="button" id="cancel-swimmer-modal-btn" class="rounded-xl border border-border px-4 py-2 text-xs font-semibold text-muted-foreground hover:text-foreground">
-                  Zrušit
-                </button>
-                <button type="submit" class="rounded-xl bg-emerald-700 hover:bg-emerald-800 px-5 py-2 text-xs font-bold text-white shadow-md transition active:scale-95 cursor-pointer">
-                  Zapsat plavce na soupisku
-                </button>
+              <div class="iu-form-foot">
+                <button type="button" id="cancel-swimmer-modal-btn" class="iu-btn iu-btn-line">Zrušit</button>
+                <button type="submit" class="iu-btn iu-btn-primary">Zapsat plavce na soupisku</button>
               </div>
             </form>
           </div>
         </div>
       `;
-
       modalRoot.classList.remove("hidden");
 
       const closeHandler = () => {
@@ -1370,47 +1223,41 @@
       const coachName = getAdminUser();
 
       modalRoot.innerHTML = `
-        <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
-          <div class="w-full max-w-md rounded-3xl border border-border bg-card p-6 shadow-2xl">
-            <div class="flex items-center justify-between border-b border-border pb-3 mb-4">
+        <div class="iu-dialog-back">
+          <div class="iu-dialog" role="dialog" aria-modal="true" aria-labelledby="self-modal-title">
+            <div class="iu-sheet-head">
               <div>
-                <h3 class="font-display text-lg font-bold text-foreground">Přihlásit se na závod</h3>
-                <p class="text-xs text-muted-foreground truncate max-w-sm">${escapeHtml(ev.name)}</p>
+                <h3 id="self-modal-title">Přihlásit se na závod</h3>
+                <p>${escapeHtml(ev.name)}</p>
               </div>
-              <button type="button" id="close-self-modal-btn" class="rounded-lg p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground">
-                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
-              </button>
+              <button type="button" id="close-self-modal-btn" class="iu-icon-btn" aria-label="Zavřít"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
             </div>
 
-            <form id="coach-self-form" class="space-y-4">
-              <div>
-                <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Přihlašovaný účastník</label>
-                <input readonly class="w-full rounded-xl border border-input bg-muted/60 px-4 py-2.5 text-sm font-semibold text-foreground" value="${escapeHtml(coachName)}">
+            <form id="coach-self-form">
+              <div class="iu-field">
+                <label for="self-who">Přihlašovaný účastník</label>
+                <input id="self-who" readonly value="${escapeHtml(coachName)}">
               </div>
 
-              <div>
-                <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Disciplíny (čárkou) *</label>
-                <input id="self-disciplines" required class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="50 VZ, 100 VZ" value="${ev.disciplines && ev.disciplines.length > 0 ? escapeHtml(ev.disciplines.slice(0, 2).join(', ')) : '50 VZ'}">
+              <div class="iu-field">
+                <label for="self-disciplines">Disciplíny <span class="iu-req">(povinné)</span></label>
+                <input id="self-disciplines" required placeholder="50 VZ, 100 VZ" value="${ev.disciplines && ev.disciplines.length > 0 ? escapeHtml(ev.disciplines.slice(0, 2).join(', ')) : '50 VZ'}">
+                <p class="iu-hint">Oddělte čárkou.</p>
               </div>
 
-              <div>
-                <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Poznámka</label>
-                <input id="self-note" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="Např. Trenérský doprovod / Masters">
+              <div class="iu-field">
+                <label for="self-note">Poznámka</label>
+                <input id="self-note" placeholder="Např. Trenérský doprovod / Masters">
               </div>
 
-              <div class="flex items-center justify-end gap-2 pt-3 border-t border-border">
-                <button type="button" id="cancel-self-modal-btn" class="rounded-xl border border-border px-4 py-2 text-xs font-semibold text-muted-foreground hover:text-foreground">
-                  Zrušit
-                </button>
-                <button type="submit" class="rounded-xl bg-emerald-700 hover:bg-emerald-800 px-5 py-2 text-xs font-bold text-white shadow-md transition active:scale-95 cursor-pointer">
-                  Potvrdit přihlášku
-                </button>
+              <div class="iu-form-foot">
+                <button type="button" id="cancel-self-modal-btn" class="iu-btn iu-btn-line">Zrušit</button>
+                <button type="submit" class="iu-btn iu-btn-primary">Potvrdit přihlášku</button>
               </div>
             </form>
           </div>
         </div>
       `;
-
       modalRoot.classList.remove("hidden");
 
       const closeHandler = () => {
@@ -1447,87 +1294,74 @@
     function renderParentNotesTab(container, allNotes) {
       const editNote = editingNoteId ? allNotes.find(n => (n.id === editingNoteId || n.title === editingNoteId)) : null;
 
+      const noteTypeLabels = { info: "Běžná informace", dulezite: "Důležité upozornění", lekarske: "Lékařská prohlídka", platby: "Členské příspěvky" };
       container.innerHTML = `
-        <div class="space-y-8">
-          <!-- Add / Edit Parent Note Form -->
-          <div class="rounded-3xl border border-border bg-card p-6 shadow-md">
-            <div class="flex items-center justify-between border-b border-border pb-4 mb-5">
-              <div class="flex items-center gap-3">
-                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600/15 text-emerald-600">
-                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-                </div>
-                <div>
-                  <h2 class="font-display text-lg font-bold text-foreground">
-                    ${editNote ? 'Upravit vzkaz pro rodiče' : 'Zveřejnit vzkaz pro rodiče'}
-                  </h2>
-                  <p class="text-xs text-muted-foreground">Vzkaz se okamžitě zobrazí na stránce Pro rodiče (pro-rodice)</p>
-                </div>
-              </div>
-              ${editNote ? `
-                <button type="button" id="cancel-edit-note-btn" class="rounded-xl border border-border px-3 py-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground">
-                  Zrušit úpravy
-                </button>
-              ` : ''}
-            </div>
-
-            <form id="admin-note-form" class="space-y-4">
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="md:col-span-2">
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Předmět vzkazu *</label>
-                  <input id="nt-title" required class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="Např. Termíny sportovních lékařských prohlídek na podzim" value="${editNote ? escapeHtml(editNote.title || '') : ''}">
-                </div>
-                <div>
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Druh vzkazu</label>
-                  <select id="nt-type" class="w-full rounded-xl border border-input bg-background px-3 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground">
-                    <option value="info" ${editNote && editNote.type === 'info' ? 'selected' : ''}>Běžná informace</option>
-                    <option value="dulezite" ${editNote && editNote.type === 'dulezite' ? 'selected' : ''}>Důležité upozornění</option>
-                    <option value="lekarske" ${editNote && editNote.type === 'lekarske' ? 'selected' : ''}>Lékařská prohlídka</option>
-                    <option value="platby" ${editNote && editNote.type === 'platby' ? 'selected' : ''}>Členské příspěvky</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Text sdělení pro rodiče *</label>
-                <textarea id="nt-text" required rows="3" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="Napište zprávu pro rodiče...">${editNote ? escapeHtml(editNote.text || (typeof editNote === 'string' ? editNote : '')) : ''}</textarea>
-              </div>
-
-              <div class="flex items-center justify-end gap-3 pt-2">
-                <button type="submit" class="inline-flex items-center gap-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 px-6 py-2.5 text-sm font-bold text-white shadow-md transition active:scale-95 cursor-pointer">
-                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span>${editNote ? 'Uložit změny' : 'Zveřejnit vzkaz'}</span>
-                </button>
-              </div>
-            </form>
-          </div>
-
-          <!-- Existing Notes List -->
-          <div class="rounded-3xl border border-border bg-card p-6 shadow-md">
-            <h3 class="font-display text-base font-bold text-foreground mb-4">Aktivní vzkazy pro rodiče (${allNotes.length})</h3>
-            <div class="divide-y divide-border">
-              ${allNotes.map((n, idx) => {
-                const noteObj = typeof n === "object" ? n : { id: "legacy-" + idx, title: "Oznámení pro rodiče", text: n, date: "" };
-                return `
-                  <div class="py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                    <div class="min-w-0 flex-1">
-                      <div class="flex items-center gap-2 mb-1">
-                        <span class="rounded bg-primary/15 px-2 py-0.5 text-[11px] font-bold text-primary">${escapeHtml(noteObj.type || 'Vzkaz')}</span>
-                        ${noteObj.date ? `<span class="text-xs text-muted-foreground">${escapeHtml(noteObj.date)}</span>` : ''}
-                      </div>
-                      ${noteObj.title ? `<h4 class="font-bold text-sm sm:text-base text-foreground">${escapeHtml(noteObj.title)}</h4>` : ''}
-                      <p class="text-xs text-muted-foreground line-clamp-2 mt-0.5">${escapeHtml(noteObj.text || '')}</p>
-                    </div>
-                    <div class="flex items-center gap-2 shrink-0">
-                      <button type="button" onclick="if(confirm('Smazat tento vzkaz pro rodiče?')){ window.BohStore.deleteAlert('${noteObj.id}'); showToast('Vzkaz byl smazán.'); renderAdmin(); }" class="rounded-xl border border-destructive/30 bg-destructive/10 px-3 py-1.5 text-xs font-semibold text-destructive hover:bg-destructive/20">
-                        Smazat
-                      </button>
-                    </div>
-                  </div>
-                `;
-              }).join("")}
-            </div>
+        <div class="iu-ph">
+          <div>
+            <h2>Vzkazy rodičům</h2>
+            <p>Vzkaz se okamžitě zobrazí na stránce Pro rodiče.</p>
           </div>
         </div>
+
+        <div class="iu-sheet">
+          <div class="iu-sheet-head">
+            <div>
+              <h3>${editNote ? 'Upravit vzkaz pro rodiče' : 'Zveřejnit vzkaz pro rodiče'}</h3>
+            </div>
+            ${editNote ? `
+              <button type="button" id="cancel-edit-note-btn" class="iu-btn iu-btn-line iu-btn-sm">Zrušit úpravy</button>
+            ` : ''}
+          </div>
+
+          <form id="admin-note-form">
+            <div class="iu-grid is-3">
+              <div class="iu-field iu-span-2">
+                <label for="nt-title">Předmět vzkazu <span class="iu-req">(povinné)</span></label>
+                <input id="nt-title" required placeholder="Např. Termíny sportovních lékařských prohlídek na podzim" value="${editNote ? escapeHtml(editNote.title || '') : ''}">
+              </div>
+              <div class="iu-field">
+                <label for="nt-type">Druh vzkazu</label>
+                <select id="nt-type">
+                  <option value="info" ${editNote && editNote.type === 'info' ? 'selected' : ''}>Běžná informace</option>
+                  <option value="dulezite" ${editNote && editNote.type === 'dulezite' ? 'selected' : ''}>Důležité upozornění</option>
+                  <option value="lekarske" ${editNote && editNote.type === 'lekarske' ? 'selected' : ''}>Lékařská prohlídka</option>
+                  <option value="platby" ${editNote && editNote.type === 'platby' ? 'selected' : ''}>Členské příspěvky</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="iu-field">
+              <label for="nt-text">Text sdělení pro rodiče <span class="iu-req">(povinné)</span></label>
+              <textarea id="nt-text" required rows="3" placeholder="Napište zprávu pro rodiče...">${editNote ? escapeHtml(editNote.text || (typeof editNote === 'string' ? editNote : '')) : ''}</textarea>
+            </div>
+
+            <div class="iu-form-foot">
+              <button type="submit" class="iu-btn iu-btn-primary">${editNote ? 'Uložit změny' : 'Zveřejnit vzkaz'}</button>
+            </div>
+          </form>
+        </div>
+
+        <section class="iu-sec">
+          <div class="iu-sec-head"><h3>Aktivní vzkazy pro rodiče</h3><p class="iu-num">${allNotes.length}</p></div>
+          ${allNotes.length === 0 ? `<div class="iu-empty">Zatím nejsou zveřejněné žádné vzkazy.</div>` : `
+          <ul class="iu-list">
+            ${allNotes.map((n, idx) => {
+              const noteObj = typeof n === "object" ? n : { id: "legacy-" + idx, title: "Oznámení pro rodiče", text: n, date: "" };
+              return `
+                <li class="iu-row">
+                  <div class="iu-row-main">
+                    <p class="iu-meta"><span class="${noteObj.type === 'dulezite' ? 'iu-status is-warn' : ''}">${escapeHtml(noteTypeLabels[noteObj.type] || noteObj.type || 'Vzkaz')}</span>${noteObj.date ? `<span>${escapeHtml(noteObj.date)}</span>` : ''}</p>
+                    ${noteObj.title ? `<h4 class="iu-row-title">${escapeHtml(noteObj.title)}</h4>` : ''}
+                    <p class="iu-row-text is-clamp">${escapeHtml(noteObj.text || '')}</p>
+                  </div>
+                  <div class="iu-row-actions">
+                    <button type="button" onclick="if(confirm('Smazat tento vzkaz pro rodiče?')){ window.BohStore.deleteAlert('${noteObj.id}'); showToast('Vzkaz byl smazán.'); renderAdmin(); }" class="iu-btn iu-btn-danger iu-btn-sm">Smazat</button>
+                  </div>
+                </li>
+              `;
+            }).join("")}
+          </ul>`}
+        </section>
       `;
 
       // Cancel
@@ -1567,79 +1401,67 @@
       const photos = window.BohStore ? window.BohStore.getPhotos() : [];
 
       container.innerHTML = `
-        <div class="space-y-8">
-          <!-- Add Photo Form -->
-          <div class="rounded-3xl border border-border bg-card p-6 shadow-md">
-            <div class="flex items-center gap-3 border-b border-border pb-4 mb-5">
-              <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600/15 text-emerald-600">
-                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+        <div class="iu-ph">
+          <div>
+            <h2>Fotogalerie</h2>
+            <p>Fotografie se zobrazí ve fotogalerii webu.</p>
+          </div>
+        </div>
+
+        <div class="iu-sheet">
+          <div class="iu-sheet-head"><div><h3>Přidat fotografii do galerie</h3></div></div>
+          <form id="admin-photo-form">
+            <div class="iu-grid is-3">
+              <div class="iu-field iu-span-2">
+                <label for="ph-title">Popisek fotografie <span class="iu-req">(povinné)</span></label>
+                <input id="ph-title" required placeholder="Např. Vyhlášení vítězů Jarní ceny Prahy 2026">
               </div>
-              <div>
-                <h2 class="font-display text-lg font-bold text-foreground">Přidat fotografii do galerie</h2>
-                <p class="text-xs text-muted-foreground">Fotografie se zobrazí ve fotogalerii (foto)</p>
+              <div class="iu-field">
+                <label for="ph-album">Album nebo kategorie</label>
+                <select id="ph-album">
+                  <option value="80 let Bohemians">80 let Bohemians</option>
+                  <option value="Závody a poháry">Závody a poháry</option>
+                  <option value="Soustředění">Soustředění</option>
+                  <option value="Tréninky a oddíl">Tréninky a oddíl</option>
+                </select>
               </div>
             </div>
 
-            <form id="admin-photo-form" class="space-y-4">
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="md:col-span-2">
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Popisek fotografie *</label>
-                  <input id="ph-title" required class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="Např. Vyhlášení vítězů Jarní ceny Prahy 2026">
-                </div>
-                <div>
-                  <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Album / Kategorie</label>
-                  <select id="ph-album" class="w-full rounded-xl border border-input bg-background px-3 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground">
-                    <option value="80 let Bohemians">80 let Bohemians</option>
-                    <option value="Závody a poháry">Závody a poháry</option>
-                    <option value="Soustředění">Soustředění</option>
-                    <option value="Tréninky a oddíl">Tréninky a oddíl</option>
-                  </select>
-                </div>
-              </div>
+            <div class="iu-field">
+              <label for="ph-url">URL adresa fotografie <span class="iu-req">(povinné)</span></label>
+              <input id="ph-url" required placeholder="assets/logo-80-let.png nebo https://...">
+            </div>
 
-              <div>
-                <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">URL adresa fotografie *</label>
-                <input id="ph-url" required class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="assets/logo-80-let.png nebo https://...">
-              </div>
-
-              <div class="flex items-center justify-end pt-2">
-                <button type="submit" class="inline-flex items-center gap-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 px-6 py-2.5 text-sm font-bold text-white shadow-md transition active:scale-95 cursor-pointer">
-                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span>Přidat fotografii</span>
-                </button>
-              </div>
-            </form>
-          </div>
-
-          <!-- Existing Photos Grid -->
-          <div class="rounded-3xl border border-border bg-card p-6 shadow-md">
-            <h3 class="font-display text-base font-bold text-foreground mb-4">Fotografie v oddílové galerii (${photos.length})</h3>
-            ${photos.length === 0 ? `
-              <p class="text-xs text-muted-foreground italic">V galerii zatím nejsou žádné přidané fotografie.</p>
-            ` : `
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                ${photos.map(p => `
-                  <div class="rounded-2xl border border-border bg-background/60 overflow-hidden flex flex-col justify-between p-3">
-                    <div class="aspect-video w-full rounded-xl bg-muted/60 overflow-hidden mb-2.5 relative">
-                      <img src="${escapeHtml(p.url)}" alt="${escapeHtml(p.title || '')}" class="h-full w-full object-cover" onerror="this.src='assets/logo-80-let.png'">
-                    </div>
-                    <div>
-                      <div class="text-[11px] font-bold text-emerald-600 uppercase tracking-wider">${escapeHtml(p.album || 'Galerie')}</div>
-                      <div class="text-xs font-bold text-foreground line-clamp-1">${escapeHtml(p.title || 'Foto')}</div>
-                    </div>
-                    <div class="mt-3 flex items-center justify-end">
-                      <button type="button" onclick="if(confirm('Smazat tuto fotografii?')){ window.BohStore.deletePhoto('${p.id}'); showToast('Fotografie byla smazána.'); renderAdmin(); }" class="text-xs text-destructive hover:underline font-semibold">
-                        Smazat
-                      </button>
-                    </div>
-                  </div>
-                `).join("")}
-              </div>
-            `}
-          </div>
+            <div class="iu-form-foot">
+              <button type="submit" class="iu-btn iu-btn-primary">Přidat fotografii</button>
+            </div>
+          </form>
         </div>
-      `;
 
+        <section class="iu-sec">
+          <div class="iu-sec-head"><h3>Fotografie v oddílové galerii</h3><p class="iu-num">${photos.length}</p></div>
+          ${photos.length === 0 ? `
+            <div class="iu-empty">V galerii zatím nejsou žádné přidané fotografie.</div>
+          ` : `
+            <div class="iu-photos">
+              ${photos.map(p => `
+                <figure class="iu-photo">
+                  <div class="iu-photo-frame">
+                    <img src="${escapeHtml(p.url)}" alt="${escapeHtml(p.title || '')}" loading="lazy" onerror="this.src='assets/logo-80-let.png'">
+                  </div>
+                  <figcaption>
+                    <h4>${escapeHtml(p.title || 'Foto')}</h4>
+                    <div class="iu-photo-foot">
+                      <span>${escapeHtml(p.album || 'Galerie')}</span>
+                      <button type="button" onclick="if(confirm('Smazat tuto fotografii?')){ window.BohStore.deletePhoto('${p.id}'); showToast('Fotografie byla smazána.'); renderAdmin(); }" class="iu-btn iu-btn-danger iu-btn-sm">Smazat</button>
+                    </div>
+                  </figcaption>
+                </figure>
+              `).join("")}
+            </div>
+          `}
+        </section>
+      `;
       // Submit
       document.getElementById("admin-photo-form").addEventListener("submit", (e) => {
         e.preventDefault();
@@ -1664,75 +1486,62 @@
     // =========================================================================
     function renderExportTab(container, allEvents) {
       container.innerHTML = `
-        <div class="space-y-8">
-          <div class="rounded-3xl border border-border bg-card p-6 shadow-md space-y-6">
-            <div>
-              <h2 class="font-display text-xl font-bold text-foreground">Export soupisek pro ČSPS a LENEX</h2>
-              <p class="text-xs text-muted-foreground">Generování oficiálních formátů přihlášek pro Český svaz plaveckých sportů a mezinárodní soutěže</p>
-            </div>
-
-            <!-- Race Selector -->
-            <div>
-              <label class="mb-2 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Vyberte závod pro export:</label>
-              <select id="export-event-select" class="w-full max-w-md rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground">
-                <option value="">-- Všechny závody souhrnně --</option>
-                ${allEvents.map(e => `
-                  <option value="${e.id}">${escapeHtml(e.name)} (${escapeHtml(e.date)})</option>
-                `).join("")}
-              </select>
-            </div>
-
-            <!-- Export Buttons Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-              <!-- CSPS CSV -->
-              <div class="rounded-2xl border border-emerald-600/30 bg-emerald-950/20 p-5 flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center gap-2 mb-2">
-                    <span class="rounded bg-emerald-600 text-white px-2 py-0.5 text-xs font-bold">CSV</span>
-                    <h3 class="font-bold text-sm text-foreground">Soupiska ČSPS (Excel / CSV)</h3>
-                  </div>
-                  <p class="text-xs text-muted-foreground">Oficiální formát s diakritikou UTF-8 BOM, oddělovačem středník, disciplínami a ročníky závodníků.</p>
-                </div>
-                <button type="button" id="btn-export-csv" class="mt-4 inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 px-4 py-2.5 text-xs font-bold text-white transition cursor-pointer">
-                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  <span>Stáhnout ČSPS CSV</span>
-                </button>
-              </div>
-
-              <!-- LENEX 3.0 -->
-              <div class="rounded-2xl border border-border bg-background/70 p-5 flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center gap-2 mb-2">
-                    <span class="rounded bg-primary text-primary-foreground px-2 py-0.5 text-xs font-bold">LXF / XML</span>
-                    <h3 class="font-bold text-sm text-foreground">LENEX 3.0 Standard</h3>
-                  </div>
-                  <p class="text-xs text-muted-foreground">Standardní XML struktura European Aquatics pro automatický import do pořadatelských systémů závodů.</p>
-                </div>
-                <button type="button" id="btn-export-lenex" class="mt-4 inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-4 py-2.5 text-xs font-bold text-foreground hover:border-emerald-600 transition cursor-pointer">
-                  <svg class="h-4 w-4 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  <span>Stáhnout Lenex (.lxf / XML)</span>
-                </button>
-              </div>
-
-              <!-- Printable Roster -->
-              <div class="rounded-2xl border border-border bg-background/70 p-5 flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center gap-2 mb-2">
-                    <span class="rounded bg-muted px-2 py-0.5 text-xs font-bold text-foreground">PRINT</span>
-                    <h3 class="font-bold text-sm text-foreground">Tisková sestava soupisky</h3>
-                  </div>
-                  <p class="text-xs text-muted-foreground">Vygeneruje čistou přehledovou sestavu pro trenéry na bazén s hlavičkou oddílu Bohemians připravenou pro tisk.</p>
-                </div>
-                <button type="button" id="btn-export-print" class="mt-4 inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-4 py-2.5 text-xs font-bold text-foreground hover:border-emerald-600 transition cursor-pointer">
-                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
-                  <span>Zobrazit tiskovou verzi</span>
-                </button>
-              </div>
-            </div>
+        <div class="iu-ph">
+          <div>
+            <h2>Export ČSPS a Lenex</h2>
+            <p>Generování oficiálních formátů přihlášek pro Český svaz plaveckých sportů a mezinárodní soutěže.</p>
           </div>
         </div>
-      `;
 
+        <section class="iu-sec">
+        <div class="iu-grid">
+        <div class="iu-field">
+          <label for="export-event-select">Vyberte závod pro export</label>
+          <select id="export-event-select">
+            <option value="">Všechny závody souhrnně</option>
+            ${allEvents.map(e => `
+              <option value="${e.id}">${escapeHtml(e.name)} (${escapeHtml(e.date)})</option>
+            `).join("")}
+          </select>
+        </div>
+        </div>
+        </section>
+
+        <section class="iu-sec">
+          <ul class="iu-list">
+            <li class="iu-row">
+              <div class="iu-row-main">
+                <h3 class="iu-row-title">Soupiska ČSPS (Excel / CSV)</h3>
+                <p class="iu-row-text">Oficiální formát s diakritikou UTF-8 BOM, oddělovačem středník, disciplínami a ročníky závodníků.</p>
+              </div>
+              <div class="iu-row-actions">
+                <button type="button" id="btn-export-csv" class="iu-btn iu-btn-primary"><svg class="iu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Stáhnout ČSPS CSV</button>
+              </div>
+            </li>
+            <li class="iu-row">
+              <div class="iu-row-main">
+                <h3 class="iu-row-title">LENEX 3.0 (LXF / XML)</h3>
+                <p class="iu-row-text">Standardní XML struktura European Aquatics pro automatický import do pořadatelských systémů závodů.</p>
+              </div>
+              <div class="iu-row-actions">
+                <button type="button" id="btn-export-lenex" class="iu-btn iu-btn-line"><svg class="iu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Stáhnout Lenex (XML)</button>
+              </div>
+            </li>
+            <li class="iu-row">
+              <div class="iu-row-main">
+                <h3 class="iu-row-title">Tisková sestava soupisky</h3>
+                <p class="iu-row-text">Vygeneruje čistou přehledovou sestavu pro trenéry na bazén s hlavičkou oddílu Bohemians připravenou pro tisk.</p>
+              </div>
+              <div class="iu-row-actions">
+                <button type="button" id="btn-export-print" class="iu-btn iu-btn-line">
+                  <svg class="iu-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+                  Zobrazit tiskovou verzi
+                </button>
+              </div>
+            </li>
+          </ul>
+        </section>
+      `;
       // Export CSV handler
       document.getElementById("btn-export-csv").addEventListener("click", () => {
         const evId = document.getElementById("export-event-select").value;
@@ -1820,12 +1629,12 @@
             <title>Soupiska přihlášek TJ Bohemians Praha</title>
             <style>
               body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 24px; color: #111; }
-              h1 { margin: 0 0 4px; font-size: 20px; color: #007a3d; }
+              h1 { margin: 0 0 4px; font-size: 20px; font-weight: 600; color: #0a6a34; }
               .sub { color: #666; font-size: 13px; margin-bottom: 20px; }
               table { width: 100%; border-collapse: collapse; margin-bottom: 30px; font-size: 13px; }
               th, td { border: 1px solid #ddd; padding: 8px 10px; text-align: left; }
               th { background: #f4f6f8; font-weight: 600; }
-              .header-box { border-bottom: 2px solid #007a3d; padding-bottom: 12px; margin-bottom: 20px; }
+              .header-box { border-bottom: 2px solid #0a6a34; padding-bottom: 12px; margin-bottom: 20px; }
               @media print { button { display: none; } }
             </style>
           </head>
@@ -1833,14 +1642,14 @@
             <div class="header-box">
               <h1>TJ Bohemians Praha — oddíl plavání</h1>
               <div class="sub">Oficiální soupiska přihlášek na závody · Vygenerováno: ${new Date().toLocaleString('cs-CZ')}</div>
-              <button onclick="window.print()" style="padding: 8px 16px; background: #007a3d; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">Vytisknout soupisku</button>
+              <button onclick="window.print()" style="padding: 8px 16px; background: #0a6a34; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">Vytisknout soupisku</button>
             </div>
         `;
 
         targetEvents.forEach(ev => {
           const roster = window.BohStore.getRosterForEvent(ev.id);
           html += `
-            <h2>${escapeHtml(ev.name)} (${escapeHtml(ev.date)})</h2>
+            <h2>${escapeHtml(ev.name)} (${admDate(ev.date)})</h2>
             <p><b>Místo:</b> ${escapeHtml(ev.place)} | <b>Počet přihlášených:</b> ${roster.length}</p>
             <table>
               <thead>
@@ -1882,57 +1691,48 @@
       const alerts = window.BohStore ? window.BohStore.getAlerts() : [];
 
       container.innerHTML = `
-        <div class="space-y-8">
-          <div class="rounded-3xl border border-border bg-card p-6 shadow-md">
-            <div class="flex items-center gap-3 border-b border-border pb-4 mb-5">
-              <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600/15 text-emerald-600">
-                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-              </div>
-              <div>
-                <h2 class="font-display text-lg font-bold text-foreground">Hromadné oddílové upozornění</h2>
-                <p class="text-xs text-muted-foreground">Odešle oznámení do oznamovacího zvonečku pro všechny plavce a trenéry</p>
-              </div>
-            </div>
-
-            <form id="admin-notify-form" class="space-y-4">
-              <div>
-                <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Titulek oznámení *</label>
-                <input id="notif-title" required class="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="Např. Změna rozvrhu tréninků na Podolí tento pátek">
-              </div>
-
-              <div>
-                <label class="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Zpráva *</label>
-                <textarea id="notif-msg" required rows="3" class="w-full rounded-xl border border-input bg-background px-4 py-2 text-sm outline-none focus:border-emerald-600 text-foreground" placeholder="Podrobnosti oznámení..."></textarea>
-              </div>
-
-              <div class="flex items-center justify-end pt-2">
-                <button type="submit" class="inline-flex items-center gap-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 px-6 py-2.5 text-sm font-bold text-white shadow-md transition active:scale-95 cursor-pointer">
-                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span>Odeslat oznámení</span>
-                </button>
-              </div>
-            </form>
-          </div>
-
-          <div class="rounded-3xl border border-border bg-card p-6 shadow-md">
-            <h3 class="font-display text-base font-bold text-foreground mb-4">Aktivní systémová oznámení (${alerts.length})</h3>
-            <div class="divide-y divide-border">
-              ${alerts.map(a => `
-                <div class="py-3 flex items-center justify-between gap-4">
-                  <div>
-                    <div class="font-bold text-sm text-foreground">${escapeHtml(a.title || a.text || 'Oznámení')}</div>
-                    ${a.text ? `<div class="text-xs text-muted-foreground line-clamp-1">${escapeHtml(a.text)}</div>` : ''}
-                  </div>
-                  <button type="button" onclick="if(confirm('Smazat toto oznámení?')){ window.BohStore.deleteAlert('${a.id}'); showToast('Oznámení bylo smazáno.'); renderAdmin(); }" class="text-xs text-destructive hover:underline font-semibold shrink-0">
-                    Smazat
-                  </button>
-                </div>
-              `).join("")}
-            </div>
+        <div class="iu-ph">
+          <div>
+            <h2>Upozornění</h2>
+            <p>Odešle oznámení do oznamovacího zvonečku pro všechny plavce a trenéry.</p>
           </div>
         </div>
-      `;
 
+        <div class="iu-sheet">
+          <div class="iu-sheet-head"><div><h3>Hromadné oddílové upozornění</h3></div></div>
+          <form id="admin-notify-form">
+            <div class="iu-field">
+              <label for="notif-title">Titulek oznámení <span class="iu-req">(povinné)</span></label>
+              <input id="notif-title" required placeholder="Např. Změna rozvrhu tréninků na Podolí tento pátek">
+            </div>
+            <div class="iu-field">
+              <label for="notif-msg">Zpráva <span class="iu-req">(povinné)</span></label>
+              <textarea id="notif-msg" required rows="3" placeholder="Podrobnosti oznámení..."></textarea>
+            </div>
+            <div class="iu-form-foot">
+              <button type="submit" class="iu-btn iu-btn-primary">Odeslat oznámení</button>
+            </div>
+          </form>
+        </div>
+
+        <section class="iu-sec">
+          <div class="iu-sec-head"><h3>Aktivní systémová oznámení</h3><p class="iu-num">${alerts.length}</p></div>
+          ${alerts.length === 0 ? `<div class="iu-empty">Žádná aktivní oznámení.</div>` : `
+          <ul class="iu-list">
+            ${alerts.map(a => `
+              <li class="iu-row">
+                <div class="iu-row-main">
+                  <h4 class="iu-row-title">${escapeHtml(a.title || a.text || 'Oznámení')}</h4>
+                  ${a.text ? `<p class="iu-row-text is-clamp">${escapeHtml(a.text)}</p>` : ''}
+                </div>
+                <div class="iu-row-actions">
+                  <button type="button" onclick="if(confirm('Smazat toto oznámení?')){ window.BohStore.deleteAlert('${a.id}'); showToast('Oznámení bylo smazáno.'); renderAdmin(); }" class="iu-btn iu-btn-danger iu-btn-sm">Smazat</button>
+                </div>
+              </li>
+            `).join("")}
+          </ul>`}
+        </section>
+      `;
       document.getElementById("admin-notify-form").addEventListener("submit", (e) => {
         e.preventDefault();
         const title = document.getElementById("notif-title").value.trim();
@@ -1960,51 +1760,39 @@
       const rejectedItems = allItems.filter(i => i.status === "rejected");
 
       container.innerHTML = `
-        <div class="space-y-6">
-          <div class="rounded-3xl border border-border bg-card p-6 shadow-md">
-            <div class="flex items-center justify-between border-b border-border pb-4 mb-4">
-              <div>
-                <h2 class="font-display text-lg font-bold text-foreground">Importy z historických subdomén ke kontrole</h2>
-                <p class="text-xs text-muted-foreground">Schvalování dat agregovaných ze subdomén (kurzy.boh.cz, vysledky.boh.cz, jcp.boh.cz)</p>
-              </div>
-              <span class="rounded-full bg-emerald-600/15 px-3 py-1 text-xs font-bold text-emerald-600">
-                ${pendingItems.length} ke schválení
-              </span>
-            </div>
-
-            ${pendingItems.length === 0 ? `
-              <div class="rounded-2xl border border-dashed border-border p-6 text-center text-xs text-muted-foreground">
-                Všechny importované položky jsou již zpracovány. Žádná nečeká na schválení.
-              </div>
-            ` : `
-              <div class="space-y-3">
-                ${pendingItems.map(item => `
-                  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-2xl border border-border bg-background/50 p-4 gap-4">
-                    <div class="min-w-0">
-                      <div class="flex items-center gap-2 mb-1">
-                        <span class="rounded bg-primary/15 px-2 py-0.5 text-[11px] font-bold text-primary">${escapeHtml(item.type)}</span>
-                        <span class="text-xs text-muted-foreground">${escapeHtml(item.sourceSubdomain || 'subdoména')}</span>
-                      </div>
-                      <h4 class="font-bold text-sm text-foreground">${escapeHtml(item.title || item.sourceId || 'Položka')}</h4>
-                      <p class="text-xs text-muted-foreground mt-0.5">${escapeHtml(JSON.stringify(item.fields || {}))}</p>
-                    </div>
-                    <div class="flex items-center gap-2 shrink-0">
-                      <button type="button" onclick="window.BohStore.setAdminItemStatus('${item.id}', 'approved'); showToast('Položka schválena.'); renderAdmin();" class="rounded-xl bg-emerald-700 px-3 py-1.5 text-xs font-bold text-white hover:bg-emerald-800 transition">
-                        Schválit
-                      </button>
-                      <button type="button" onclick="window.BohStore.setAdminItemStatus('${item.id}', 'rejected'); showToast('Položka zamítnuta.'); renderAdmin();" class="rounded-xl border border-border px-3 py-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground transition">
-                        Zamítnout
-                      </button>
-                      <button type="button" onclick="if(confirm('Smazat položku?')){ window.BohStore.removeAdminItem('${item.id}'); showToast('Položka smazána.'); renderAdmin(); }" class="rounded-xl border border-destructive/30 p-1.5 text-destructive hover:bg-destructive/10 transition">
-                        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18m-2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-                      </button>
-                    </div>
-                  </div>
-                `).join("")}
-              </div>
-            `}
+        <div class="iu-ph">
+          <div>
+            <h2>Importy</h2>
+            <p>Schvalování dat agregovaných ze subdomén (kurzy.boh.cz, vysledky.boh.cz, jcp.boh.cz).</p>
           </div>
+          <div class="iu-ph-actions"><span class="iu-status">${pendingItems.length} ke schválení</span></div>
         </div>
+
+        <section class="iu-sec">
+          <div class="iu-sec-head"><h3>Importy z historických subdomén ke kontrole</h3></div>
+          ${pendingItems.length === 0 ? `
+            <div class="iu-empty">Všechny importované položky jsou již zpracovány. Žádná nečeká na schválení.</div>
+          ` : `
+            <ul class="iu-list">
+              ${pendingItems.map(item => `
+                <li class="iu-row">
+                  <div class="iu-row-main">
+                    <p class="iu-meta"><span>${escapeHtml(item.type)}</span><span>${escapeHtml(item.sourceSubdomain || 'subdoména')}</span></p>
+                    <h4 class="iu-row-title">${escapeHtml(item.title || item.sourceId || 'Položka')}</h4>
+                    <p class="iu-row-text">${escapeHtml(JSON.stringify(item.fields || {}))}</p>
+                  </div>
+                  <div class="iu-row-actions">
+                    <button type="button" onclick="window.BohStore.setAdminItemStatus('${item.id}', 'approved'); showToast('Položka schválena.'); renderAdmin();" class="iu-btn iu-btn-primary iu-btn-sm">Schválit</button>
+                    <button type="button" onclick="window.BohStore.setAdminItemStatus('${item.id}', 'rejected'); showToast('Položka zamítnuta.'); renderAdmin();" class="iu-btn iu-btn-line iu-btn-sm">Zamítnout</button>
+                    <button type="button" onclick="if(confirm('Smazat položku?')){ window.BohStore.removeAdminItem('${item.id}'); showToast('Položka smazána.'); renderAdmin(); }" class="iu-icon-btn is-danger" aria-label="Smazat položku" title="Smazat položku">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18m-2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                    </button>
+                  </div>
+                </li>
+              `).join("")}
+            </ul>
+          `}
+        </section>
       `;
     }
 

@@ -68,88 +68,55 @@
     <!-- MAIN CONTENT -->
     <main class="w-full min-w-0 flex-1 pb-32 sm:pb-36 lg:pb-0" id="obsah" tabindex="-1">
 
-      <!-- PAGE HEADER -->
-      <section class="page-hero relative overflow-hidden">
-        <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-primary/10 blur-3xl"></div>
-        <div class="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-20">
-          <div>
-            <span class="section-eyebrow">Momentky z historie oddílu · 80 let tradice</span>
-            <h1 class="max-w-3xl section-title md:text-5xl">Fotogalerie</h1>
-            <div class="section-divider">
-              <span class="wave wave--md"></span>
-            </div>
-            <p class="section-desc max-w-2xl text-lg">Reportáže a momentky ze závodů, soustředění a oddílového života TJ Bohemians Praha.</p>
+      <section class="page-hero">
+        <div class="p-wrap p-hero">
+          <div class="p-hero-text">
+            <h1>Fotogalerie</h1>
+            <p>Reportáže a momentky ze závodů, soustředění a oddílového života TJ Bohemians Praha.</p>
           </div>
         </div>
       </section>
 
-      <!-- PHOTOS GRID -->
-      <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-20">
-        <div id="photos-grid">
-          <!-- Populated by JS -->
+      <section class="p-wrap p-sec">
+        <div id="photos-grid" class="p-albums">
+          <p class="p-state" role="status">Načítám fotogalerii&hellip;</p>
         </div>
+        <noscript><p class="p-state">Fotogalerie potřebuje zapnutý JavaScript. Reportáže najdete také v archivu níže.</p></noscript>
+      </section>
 
-        <div class="mt-14 rounded-2xl border border-border/60 bg-card/50 p-6 sm:p-8 shadow-[var(--shadow-elevated)] backdrop-blur-sm">
-          <h2 class="font-display text-xl font-bold sm:text-2xl">Archiv fotogalerií na boh.cz</h2>
-          <p class="mt-2 text-sm text-muted-foreground">Kompletní fotoreportáže z proběhlých závodů a akcí jsou k dispozici v archivu na oficiálním webu oddílu:</p>
-          <div class="mt-6 grid gap-3 sm:grid-cols-2">
-            <a href="https://eu.zonerama.com/Vajicko/1168532" target="_blank" rel="noopener noreferrer" class="sm:col-span-2 flex items-center justify-between rounded-xl border border-primary/40 bg-primary/10 p-4 text-sm transition-all duration-200 hover:border-primary hover:bg-primary/15 hover:shadow-[var(--glow-aqua)] group">
-              <div class="flex items-center gap-3">
-                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
-                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                </div>
-                <div>
-                  <div class="flex flex-wrap items-center gap-2">
-                    <span class="font-bold text-foreground group-hover:text-primary transition-colors">Petr Nosek — Záznam večerního videa z oslavy 80 let Bohemky</span>
-                    <span class="rounded-full bg-primary/20 px-2 py-0.5 text-[10px] font-semibold text-primary">Video archiv na Zonerama</span>
-                  </div>
-                  <p class="text-xs text-muted-foreground mt-0.5">Kompletní videozáznam promítaný na slavnostním večeru 80 let oddílu na Hagiboru</p>
-                </div>
-              </div>
-              <svg class="h-4 w-4 shrink-0 text-muted-foreground group-hover:text-primary transition-colors ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
-            </a>
-            <a href="https://www.boh.cz/galerie/938/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between rounded-xl border border-border/50 bg-background/50 p-3.5 text-sm transition-colors hover:border-primary/50 hover:text-primary">
-              <span class="font-medium">Fotografie z prezentace na LED obrazovce (80 let)</span>
-              <svg class="h-4 w-4 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
-            </a>
-            <a href="https://www.boh.cz/galerie/940/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between rounded-xl border border-border/50 bg-background/50 p-3.5 text-sm transition-colors hover:border-primary/50 hover:text-primary">
-              <span class="font-medium">Oslava 80 let oddílu (foto David Děták)</span>
-              <svg class="h-4 w-4 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
-            </a>
-            <a href="https://www.boh.cz/galerie/939/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between rounded-xl border border-border/50 bg-background/50 p-3.5 text-sm transition-colors hover:border-primary/50 hover:text-primary">
-              <span class="font-medium">Oslava 80 let oddílu (foto Petr Dvořák)</span>
-              <svg class="h-4 w-4 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
-            </a>
-            <a href="https://www.boh.cz/galerie/943/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between rounded-xl border border-border/50 bg-background/50 p-3.5 text-sm transition-colors hover:border-primary/50 hover:text-primary">
-              <span class="font-medium">Pohár Lídy Jelínkové a Podzimní rožeň DP</span>
-              <svg class="h-4 w-4 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
-            </a>
-            <a href="https://www.boh.cz/galerie/941/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between rounded-xl border border-border/50 bg-background/50 p-3.5 text-sm transition-colors hover:border-primary/50 hover:text-primary">
-              <span class="font-medium">Malá cena plavajícího klokana (Vinohrady)</span>
-              <svg class="h-4 w-4 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
-            </a>
-            <a href="https://www.boh.cz/galerie/942/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between rounded-xl border border-border/50 bg-background/50 p-3.5 text-sm transition-colors hover:border-primary/50 hover:text-primary">
-              <span class="font-medium">Mistrovství ČR DP v Račicích (5 km, 20 km, štafety)</span>
-              <svg class="h-4 w-4 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
-            </a>
-            <a href="https://www.boh.cz/galerie/935/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between rounded-xl border border-border/50 bg-background/50 p-3.5 text-sm transition-colors hover:border-primary/50 hover:text-primary">
-              <span class="font-medium">Mistrovství Evropy masters v Šamoríně</span>
-              <svg class="h-4 w-4 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
-            </a>
+      <section class="p-wrap p-sec" aria-labelledby="archive-title">
+        <div class="p-head">
+          <div>
+            <h2 class="p-h2" id="archive-title">Archiv fotogalerií na boh.cz</h2>
+            <p class="p-lead">Kompletní fotoreportáže z proběhlých závodů a akcí jsou k dispozici v archivu na oficiálním webu oddílu.</p>
           </div>
         </div>
+        <ul class="p-archive">
+          <li class="is-video"><a href="https://eu.zonerama.com/Vajicko/1168532" target="_blank" rel="noopener noreferrer"><strong>Petr Nosek — Záznam večerního videa z oslavy 80 let Bohemky</strong><span>Video archiv na Zonerama. Kompletní videozáznam promítaný na slavnostním večeru 80 let oddílu na Hagiboru</span></a></li>
+          <li><a href="https://www.boh.cz/galerie/938/" target="_blank" rel="noopener noreferrer"><strong>Fotografie z prezentace na LED obrazovce (80 let)</strong><span>boh.cz</span></a></li>
+          <li><a href="https://www.boh.cz/galerie/940/" target="_blank" rel="noopener noreferrer"><strong>Oslava 80 let oddílu (foto David Děták)</strong><span>boh.cz</span></a></li>
+          <li><a href="https://www.boh.cz/galerie/939/" target="_blank" rel="noopener noreferrer"><strong>Oslava 80 let oddílu (foto Petr Dvořák)</strong><span>boh.cz</span></a></li>
+          <li><a href="https://www.boh.cz/galerie/943/" target="_blank" rel="noopener noreferrer"><strong>Pohár Lídy Jelínkové a Podzimní rožeň DP</strong><span>boh.cz</span></a></li>
+          <li><a href="https://www.boh.cz/galerie/941/" target="_blank" rel="noopener noreferrer"><strong>Malá cena plavajícího klokana (Vinohrady)</strong><span>boh.cz</span></a></li>
+          <li><a href="https://www.boh.cz/galerie/942/" target="_blank" rel="noopener noreferrer"><strong>Mistrovství ČR DP v Račicích (5 km, 20 km, štafety)</strong><span>boh.cz</span></a></li>
+          <li><a href="https://www.boh.cz/galerie/935/" target="_blank" rel="noopener noreferrer"><strong>Mistrovství Evropy masters v Šamoríně</strong><span>boh.cz</span></a></li>
+        </ul>
       </section>
 
     </main>
 
     <!-- FOOTER -->
     <footer class="d-site-footer">
+      <div class="d-wrap d-foot-top">
+        <p class="d-foot-name">TJ Bohemians Praha <span class="sm">oddíl plavání od roku 1946</span></p>
+        <a class="btn btn-light btn-go" href="kontakt">Kontakty a bazény</a>
+      </div>
       <div class="d-wrap d-foot-grid">
-        <div>
+        <div class="d-foot-club">
           <img src="assets/logo8.png" alt="TJ Bohemians Praha, oddíl plavání" width="178" height="50" loading="lazy">
           <p class="d-foot-note">Plavecký oddíl TJ Bohemians Praha. Závodní plavání, přípravka a kurzy plavání v Praze od roku 1946.</p>
         </div>
-        <div>
+        <nav class="d-foot-menu" aria-label="Menu v patičce">
           <h2>Menu</h2>
           <ul>
             <li><a href="aktuality">Aktuality</a></li>
@@ -162,21 +129,28 @@
             <li><a href="ke-stazeni">Ke stažení</a></li>
             <li><a href="intranet">Intranet</a></li>
           </ul>
+        </nav>
+        <div>
+          <h2>Bazény</h2>
+          <address class="d-foot-pools">
+            <p><strong>Plavecký stadion Podolí</strong>Podolské nábřeží 3/1184, Praha 4</p>
+            <p><strong>Sokol Vinohrady</strong>Polská 2400/1a, Praha 2</p>
+          </address>
         </div>
         <div>
           <h2>Kontakt</h2>
           <ul>
             <li><a href="mailto:jan.srb@czechswimming.cz">jan.srb@czechswimming.cz</a></li>
-            <li><a href="kontakt">Kontakty a bazény</a></li>
             <li><a href="https://www.facebook.com/bohplavani" target="_blank" rel="noopener noreferrer">Facebook</a></li>
             <li><a href="https://www.instagram.com/bohemka_plavani" target="_blank" rel="noopener noreferrer">Instagram</a></li>
             <li><a href="https://www.boh.cz" target="_blank" rel="noopener noreferrer">Původní web boh.cz</a></li>
-            <li class="d-foot-small">IČO: 00539121 &middot; ČSOB: 351416278/0300</li>
           </ul>
         </div>
       </div>
       <div class="d-wrap d-foot-bottom">
-        <span>&copy; 1946&ndash;2026 TJ Bohemians Praha, oddíl plavání. 80 let zelenobílé tradice.</span>
+        <span>&copy; 1946&ndash;2026 TJ Bohemians Praha, oddíl plavání</span>
+        <span>IČO 00539121 &middot; ČSOB 351416278/0300</span>
+        <a href="#" class="d-foot-top-link">Nahoru</a>
       </div>
     </footer>
     <!-- MOBILE BOTTOM NAVIGATION (Anchored Edge-to-Edge Tab Bar) -->
@@ -315,7 +289,7 @@
             </span>
             <span class="mobile-drawer-label font-bold">Intranet</span>
           </div>
-          <span class="text-[11px] font-semibold text-primary px-2 py-0.5 rounded-full bg-primary/15 shrink-0">Přihlášení &rarr;</span>
+          <span class="text-[11px] font-semibold text-primary px-2 py-0.5 rounded-full bg-primary/15 shrink-0">Přihlášení</span>
         </a>
       </nav>
 
@@ -349,7 +323,7 @@
       galleryPhotos = (window.BohStore ? window.BohStore.getPhotos() : null) || (window.BohData && window.BohData.galleries) || defaultPhotos;
       const container = document.getElementById("photos-grid");
       if (container && !galleryPhotos.length) {
-        container.innerHTML = '<p class="s-empty">Fotogalerie je zatím prázdná. Starší reportáže najdete v archivu na boh.cz níže.</p>';
+        container.innerHTML = '<p class="p-state">Fotogalerie je zatím prázdná. Starší reportáže najdete v archivu na boh.cz níže.</p>';
       } else if (container) {
         // kontaktní arch: fotky seskupené podle alba, náhledy ve skutečné velikosti (nerozmazané)
         const albums = [];
@@ -358,19 +332,21 @@
           if (last && last.title === photo.title) last.items.push({ photo, index });
           else albums.push({ title: photo.title, items: [{ photo, index }] });
         });
+        const word = n => n === 1 ? "fotografie" : n < 5 ? "fotografie" : "fotografií";
         container.innerHTML = albums.map(album => {
           const m = /\/fotky\/(\d+)\//.exec(album.items[0].photo.url || "");
+          const n = album.items.length;
           return `
-          <section class="g-album">
+          <section class="g-album${n >= 4 ? " is-wide" : ""}" aria-label="${escapeHtml(album.title)}">
             <div class="g-album-head">
               <h2>${escapeHtml(album.title)}</h2>
-              ${m ? `<a class="text-link" href="https://www.boh.cz/galerie/${m[1]}/" target="_blank" rel="noopener noreferrer">Celá galerie na boh.cz</a>` : ''}
+              <p>${n} ${word(n)}${m ? `<span aria-hidden="true"> · </span><a class="text-link" href="https://www.boh.cz/galerie/${m[1]}/" target="_blank" rel="noopener noreferrer">Celá galerie na boh.cz</a>` : ""}</p>
             </div>
             <div class="g-sheet">
               ${album.items.map(({ photo, index }) => `
                 <figure class="g-tile">
                   <button type="button" data-photo-index="${index}" aria-label="Zvětšit fotografii: ${escapeHtml(photo.caption || photo.title)}">
-                    <img src="${escapeHtml(photo.url)}" alt="" loading="lazy">
+                    <img src="${escapeHtml(photo.url)}" alt="" loading="lazy" decoding="async">
                   </button>
                   ${photo.caption && photo.caption !== album.title ? `<figcaption>${escapeHtml(photo.caption)}</figcaption>` : ''}
                 </figure>

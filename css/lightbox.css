@@ -26,7 +26,7 @@
 }
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
   .lb-bg {
-    background: rgba(8, 31, 21, .84);
+    background: rgba(8, 31, 21, .9);
     -webkit-backdrop-filter: blur(26px) saturate(150%);
     backdrop-filter: blur(26px) saturate(150%);
   }

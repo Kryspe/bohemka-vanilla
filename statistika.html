@@ -68,50 +68,33 @@
     <!-- MAIN CONTENT -->
     <main class="w-full min-w-0 flex-1 pb-32 sm:pb-36 lg:pb-0" id="obsah" tabindex="-1">
 
-      <!-- PAGE HEADER -->
-      <section class="page-hero relative overflow-hidden">
-        <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-primary/10 blur-3xl"></div>
-        <div class="pointer-events-none absolute -left-24 bottom-0 h-64 w-64 rounded-full bg-primary/5 blur-3xl"></div>
-        <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-20">
-          <div>
-            <span class="section-eyebrow">Výkonnostní archív</span>
-            <h1 class="max-w-3xl section-title md:text-5xl">Statistika &amp; Žebříčky</h1>
-            <div class="section-divider">
-              <span class="wave wave--md"></span>
-            </div>
-            <p class="section-desc max-w-2xl text-lg">
-              Nejhodnotnější výkony v osmdesátileté historii oddílu, bodové žebříčky AQUA/FINA a profily reprezentantů oddílu.
-            </p>
+      <section class="page-hero">
+        <div class="p-wrap p-hero">
+          <div class="p-hero-text">
+            <h1>Statistika &amp; žebříčky</h1>
+            <p>Nejhodnotnější výkony v osmdesátileté historii oddílu, bodové žebříčky AQUA/FINA a profily reprezentantů oddílu.</p>
           </div>
         </div>
       </section>
 
-      <!-- CONTENT SECTION -->
-      <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-20">
-
-        <!-- NAVIGATION TABS -->
-        <div class="mb-8 flex flex-wrap gap-2 border-b border-border/60 pb-4" id="stats-tab-btns">
-          <button type="button" data-tab="zebricek" class="flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all bg-primary text-primary-foreground shadow-md">
-            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+      <section class="p-wrap p-sec">
+        <div id="stats-tab-btns" role="group" aria-label="Pohled na statistiku">
+          <button type="button" data-tab="zebricek" aria-pressed="true" class="flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all bg-primary text-primary-foreground shadow-md">
             Oddílové žebříčky
           </button>
-          <button type="button" data-tab="fina" class="flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all text-muted-foreground hover:bg-card hover:text-foreground">
-            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          <button type="button" data-tab="fina" aria-pressed="false" class="flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all text-muted-foreground hover:bg-card hover:text-foreground">
             Nejhodnotnější výkony (FINA)
           </button>
-          <button type="button" data-tab="plavci" class="flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all text-muted-foreground hover:bg-card hover:text-foreground">
-            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <button type="button" data-tab="plavci" aria-pressed="false" class="flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all text-muted-foreground hover:bg-card hover:text-foreground">
             Vyhledávač plavců &amp; osobní rekordy
           </button>
-          <button type="button" data-tab="kalkulacka" class="flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all text-muted-foreground hover:bg-card hover:text-foreground">
-            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
+          <button type="button" data-tab="kalkulacka" aria-pressed="false" class="flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all text-muted-foreground hover:bg-card hover:text-foreground">
             AQUA kalkulačka &amp; Převodník 25/50m
           </button>
         </div>
 
-        <!-- FILTERS -->
-        <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div class="f-bar" id="stats-filters-bar" role="group" aria-label="Filtr žebříčků">
+        <div class="f-bar p-statbar">
+          <div class="p-subbar" id="stats-filters-bar" role="group" aria-label="Filtr žebříčků">
             <label class="f-field"><span>Bazén</span>
               <select id="stats-pool">
                 <option value="all">Oba</option>
@@ -127,36 +110,30 @@
               </select>
             </label>
           </div>
-
-          <!-- Search Box -->
-          <div class="relative w-full sm:w-72">
-            <svg class="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input
-              type="text"
-              id="stats-search-input" aria-label="Hledat plavce nebo disciplínu"
-              placeholder="Hledat plavce nebo disciplínu…"
-              class="w-full rounded-full border border-border/70 bg-card/60 py-2 pl-10 pr-4 text-sm outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 text-foreground"
-            />
-          </div>
+          <label class="f-field p-search">Hledat
+            <input type="search" id="stats-search-input" placeholder="Plavec, disciplína nebo závod" autocomplete="off">
+          </label>
         </div>
 
-        <!-- STATS CONTAINER -->
         <div id="stats-content-area">
-          <!-- Populated dynamically via JS -->
+          <p class="p-state" role="status">Načítám žebříčky&hellip;</p>
         </div>
-
       </section>
 
     </main>
 
     <!-- FOOTER -->
     <footer class="d-site-footer">
+      <div class="d-wrap d-foot-top">
+        <p class="d-foot-name">TJ Bohemians Praha <span class="sm">oddíl plavání od roku 1946</span></p>
+        <a class="btn btn-light btn-go" href="kontakt">Kontakty a bazény</a>
+      </div>
       <div class="d-wrap d-foot-grid">
-        <div>
+        <div class="d-foot-club">
           <img src="assets/logo8.png" alt="TJ Bohemians Praha, oddíl plavání" width="178" height="50" loading="lazy">
           <p class="d-foot-note">Plavecký oddíl TJ Bohemians Praha. Závodní plavání, přípravka a kurzy plavání v Praze od roku 1946.</p>
         </div>
-        <div>
+        <nav class="d-foot-menu" aria-label="Menu v patičce">
           <h2>Menu</h2>
           <ul>
             <li><a href="aktuality">Aktuality</a></li>
@@ -169,21 +146,28 @@
             <li><a href="ke-stazeni">Ke stažení</a></li>
             <li><a href="intranet">Intranet</a></li>
           </ul>
+        </nav>
+        <div>
+          <h2>Bazény</h2>
+          <address class="d-foot-pools">
+            <p><strong>Plavecký stadion Podolí</strong>Podolské nábřeží 3/1184, Praha 4</p>
+            <p><strong>Sokol Vinohrady</strong>Polská 2400/1a, Praha 2</p>
+          </address>
         </div>
         <div>
           <h2>Kontakt</h2>
           <ul>
             <li><a href="mailto:jan.srb@czechswimming.cz">jan.srb@czechswimming.cz</a></li>
-            <li><a href="kontakt">Kontakty a bazény</a></li>
             <li><a href="https://www.facebook.com/bohplavani" target="_blank" rel="noopener noreferrer">Facebook</a></li>
             <li><a href="https://www.instagram.com/bohemka_plavani" target="_blank" rel="noopener noreferrer">Instagram</a></li>
             <li><a href="https://www.boh.cz" target="_blank" rel="noopener noreferrer">Původní web boh.cz</a></li>
-            <li class="d-foot-small">IČO: 00539121 &middot; ČSOB: 351416278/0300</li>
           </ul>
         </div>
       </div>
       <div class="d-wrap d-foot-bottom">
-        <span>&copy; 1946&ndash;2026 TJ Bohemians Praha, oddíl plavání. 80 let zelenobílé tradice.</span>
+        <span>&copy; 1946&ndash;2026 TJ Bohemians Praha, oddíl plavání</span>
+        <span>IČO 00539121 &middot; ČSOB 351416278/0300</span>
+        <a href="#" class="d-foot-top-link">Nahoru</a>
       </div>
     </footer>
     <!-- MOBILE BOTTOM NAVIGATION (Anchored Edge-to-Edge Tab Bar) -->
@@ -322,7 +306,7 @@
             </span>
             <span class="mobile-drawer-label font-bold">Intranet</span>
           </div>
-          <span class="text-[11px] font-semibold text-primary px-2 py-0.5 rounded-full bg-primary/15 shrink-0">Přihlášení &rarr;</span>
+          <span class="text-[11px] font-semibold text-primary px-2 py-0.5 rounded-full bg-primary/15 shrink-0">Přihlášení</span>
         </a>
       </nav>
 
@@ -380,57 +364,35 @@
       }
 
       if (filtered.length === 0) {
-        area.innerHTML = `
-          <div class="rounded-3xl border border-dashed border-border/70 bg-card/30 p-12 text-center text-sm text-muted-foreground">
-            Nebyly nalezeny žádné výkony odpovídající zadaným kritériím.
-          </div>
-        `;
+        area.innerHTML = `<div class="p-state"><p>Nebyly nalezeny žádné výkony odpovídající zadaným kritériím.</p></div>`;
         return;
       }
 
+      const e = v => escapeHtml(v == null ? "" : v);
       area.innerHTML = `
-        <div class="overflow-x-auto rounded-3xl border border-border/60 bg-card/50 shadow-sm backdrop-blur-sm">
-          <table class="w-full text-left text-sm">
-            <thead class="border-b border-border/60 bg-background/80 text-xs uppercase tracking-wider text-muted-foreground">
+        <div class="p-board">
+          <table>
+            <thead>
               <tr>
-                <th class="p-4 text-center">Poř.</th>
-                <th class="p-4">Plavec</th>
-                <th class="p-4">Disciplína</th>
-                <th class="p-4 text-center">Bazén</th>
-                <th class="p-4 font-mono font-bold">Čas</th>
-                <th class="p-4 font-mono font-bold">AQUA body</th>
-                <th class="p-4">Datum &amp; Závod</th>
+                <th scope="col" class="p-rank">Poř.</th>
+                <th scope="col">Plavec</th>
+                <th scope="col">Disciplína</th>
+                <th scope="col">Bazén</th>
+                <th scope="col" class="p-num">Čas</th>
+                <th scope="col" class="p-num">AQUA body</th>
+                <th scope="col">Datum a závod</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-border/40">
+            <tbody>
               ${filtered.map((item, idx) => `
-                <tr class="transition-colors hover:bg-primary/5">
-                  <td class="p-4 text-center font-bold ${idx < 3 ? 'text-primary' : 'text-muted-foreground'}">
-                    ${idx + 1}.
-                  </td>
-                  <td class="p-4">
-                    <div class="font-bold text-foreground">${item.swimmer}</div>
-                    <div class="text-xs text-muted-foreground">nar. ${item.birthYear} · ${item.gender}</div>
-                  </td>
-                  <td class="p-4 font-medium text-foreground">
-                    ${item.discipline}
-                    ${item.isClubRecord ? `
-                      <span class="s-record">Rekord oddílu</span>
-                    ` : ''}
-                  </td>
-                  <td class="p-4 text-center">
-                    ${item.pool}
-                  </td>
-                  <td class="p-4 font-mono font-bold text-primary">
-                    ${item.time}
-                  </td>
-                  <td class="p-4 font-mono font-semibold text-foreground">
-                    ${item.finaPoints} b.
-                  </td>
-                  <td class="p-4 text-xs text-muted-foreground">
-                    <div>${item.date}</div>
-                    <div class="text-foreground/80">${item.meet}</div>
-                  </td>
+                <tr${idx < 3 ? ' class="is-top"' : ''}>
+                  <td class="p-rank">${idx + 1}.</td>
+                  <td><strong>${e(item.swimmer)}</strong><small>nar. ${e(item.birthYear)}, ${e(item.gender)}</small></td>
+                  <td>${e(item.discipline)}${item.isClubRecord ? ` <span class="s-record">Rekord oddílu</span>` : ""}</td>
+                  <td class="p-pool">${e(String(item.pool).replace("m", " m"))}</td>
+                  <td class="p-num p-time">${e(item.time)}</td>
+                  <td class="p-num p-pts">${e(item.finaPoints)} b.</td>
+                  <td class="p-meet"><time>${e(item.date)}</time><span>${e(item.meet)}</span></td>
                 </tr>
               `).join("")}
             </tbody>
@@ -451,62 +413,34 @@
           s.achievements.some(a => a.toLowerCase().includes(q));
       });
 
+      const e = v => escapeHtml(v == null ? "" : v);
       if (filtered.length === 0) {
-        area.innerHTML = `
-          <div class="rounded-3xl border border-dashed border-border/70 bg-card/30 p-12 text-center text-sm text-muted-foreground">
-            Žádný plavec neodpovídá hledanému výrazu „${searchQuery}“.
-          </div>
-        `;
+        area.innerHTML = `<div class="p-state"><p>Žádný plavec neodpovídá hledanému výrazu „${e(searchQuery)}“.</p></div>`;
         return;
       }
 
+      // profil plavce se rozbalí přímo v seznamu (stránka nemá samostatné okno profilu)
       area.innerHTML = `
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="p-swimmers">
           ${filtered.map(s => `
-            <div class="group flex flex-col justify-between rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:shadow-md hover:-translate-y-1">
-              <div>
-                <div class="flex items-start justify-between gap-3">
-                  <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/15 text-primary font-display font-extrabold text-lg">
-                    ${s.name.charAt(0)}
-                  </div>
-                  <span class="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-secondary-foreground">
-                    ${s.category}
-                  </span>
-                </div>
-
-                <h3 class="mt-4 font-display text-xl font-bold text-foreground group-hover:text-primary transition-colors">
-                  ${s.name}
-                </h3>
-                <p class="text-xs text-muted-foreground mt-0.5">nar. ${s.birthYear} · ${s.role || 'Plavec oddílu'}</p>
-
-                <p class="mt-3 text-xs leading-relaxed text-muted-foreground line-clamp-2">
-                  ${s.bio || ''}
-                </p>
-
-                <div class="mt-4 border-t border-border/50 pt-3">
-                  <p class="text-[0.7rem] font-bold uppercase tracking-wider text-muted-foreground mb-1.5">Úspěchy:</p>
-                  <ul class="space-y-1 text-xs text-foreground/90">
-                    ${s.achievements.slice(0, 2).map(a => `
-                      <li class="flex items-start gap-1.5">
-                        <svg class="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                        <span class="line-clamp-1">${a}</span>
-                      </li>
-                    `).join("")}
-                  </ul>
-                </div>
+            <details class="p-swimmer" id="plavec-${e(s.id)}">
+              <summary>
+                <span class="p-sw-name">${e(s.name)}</span>
+                <span class="p-sw-meta">nar. ${e(s.birthYear)}, ${e(s.category)}</span>
+                <span class="p-sw-role">${e(s.role || "Plavec oddílu")}</span>
+                <span class="p-sw-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="p-sw-body">
+                ${s.bio ? `<p class="p-sw-bio">${e(s.bio)}</p>` : ""}
+                ${s.achievements && s.achievements.length ? `<h4>Úspěchy</h4><ul>${s.achievements.map(a => `<li>${e(a)}</li>`).join("")}</ul>` : ""}
+                <h4>Osobní rekordy</h4>
+                ${s.bestTimes && s.bestTimes.length ? `
+                  <table>
+                    <thead><tr><th scope="col">Disciplína</th><th scope="col">Bazén</th><th scope="col" class="p-num">Čas</th><th scope="col">Rok</th><th scope="col" class="p-num">Body</th></tr></thead>
+                    <tbody>${s.bestTimes.map(bt => `<tr><th scope="row">${e(bt.discipline)}</th><td>${e(String(bt.pool).replace("m", " m"))}</td><td class="p-num p-time">${e(bt.time)}</td><td>${e(bt.year)}</td><td class="p-num">${e(bt.fina)} b.</td></tr>`).join("")}</tbody>
+                  </table>` : `<p class="p-sw-bio">Osobní rekordy budou doplněny z databáze ČSPS.</p>`}
               </div>
-
-              <div class="mt-6 pt-4 border-t border-border/50">
-                <button
-                  type="button"
-                  onclick="openSwimmerModal('${s.id}')"
-                  class="w-full inline-flex items-center justify-center gap-1.5 rounded-full bg-primary/10 border border-primary/25 px-4 py-2 text-xs font-semibold text-primary transition-all hover:bg-primary hover:text-primary-foreground"
-                >
-                  Zobrazit osobní rekordy
-                  <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-                </button>
-              </div>
-            </div>
+            </details>
           `).join("")}
         </div>
       `;
@@ -516,6 +450,11 @@
       const allSwimmers = window.BohStore ? window.BohStore.getSwimmers() : (window.BohData.stats.swimmers || []);
       const s = allSwimmers.find(sw => sw.id === id);
       if (!s) return;
+      if (!document.getElementById("swimmer-modal")) {
+        const d = document.getElementById("plavec-" + id);
+        if (d) { d.open = true; d.scrollIntoView({ block: "start" }); }
+        return;
+      }
 
       document.getElementById("modal-swimmer-initial").textContent = s.name.charAt(0);
       document.getElementById("modal-swimmer-name").textContent = s.name;
@@ -683,7 +622,7 @@
               <div class="mt-6 rounded-2xl border border-border/60 bg-background/60 p-5">
                 <div class="flex items-center gap-2 mb-2">
                   <svg class="h-4 w-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>
-                  <h3 class="text-xs font-bold uppercase tracking-wider text-foreground">Převod 25 m ⟷ 50 m bazén</h3>
+                  <h3 class="text-xs font-bold uppercase tracking-wider text-foreground">Převod časů mezi 25m a 50m bazénem</h3>
                 </div>
                 <div class="grid grid-cols-2 gap-4 pt-1">
                   <div>
@@ -840,6 +779,7 @@
       btn.addEventListener("click", () => {
         currentTab = btn.getAttribute("data-tab");
         document.querySelectorAll("#stats-tab-btns button").forEach(b => {
+          b.setAttribute("aria-pressed", b === btn ? "true" : "false");
           if (b === btn) {
             b.className = "flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all bg-primary text-primary-foreground shadow-md";
           } else {

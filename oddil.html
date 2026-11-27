@@ -68,24 +68,17 @@
     <!-- MAIN CONTENT -->
     <main class="w-full min-w-0 flex-1 pb-32 sm:pb-36 lg:pb-0" id="obsah" tabindex="-1">
 
-      <!-- PAGE HEADER -->
-      <section class="page-hero relative overflow-hidden">
-        <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-primary/10 blur-3xl"></div>
-        <div class="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-20">
-          <div class="hero-grid">
-            <span class="section-eyebrow">Tradice od roku 1946 · Už to spolu táhnem 80 let</span>
-            <h1 class="max-w-3xl section-title md:text-5xl">O oddílu</h1>
-            <div class="section-divider">
-              <span class="wave wave--md"></span>
-            </div>
-            <p class="section-desc max-w-2xl text-lg">Plavecký oddíl TJ Bohemians Praha slaví 80 let existence (1946–2026). Vychoval mnoho špičkových sportovců — účastníků olympijských her, mistrovství světa i Evropy. A děti učí plavat dodnes.</p>
-            <figure class="hero-photo"><img src="assets/aktuality/2191.jpg" width="1400" height="1087" alt="Členové oddílu TJ Bohemians Praha" decoding="async"></figure>
+      <section class="page-hero">
+        <div class="p-wrap p-hero p-hero--photo">
+          <div class="p-hero-text">
+            <h1>O oddílu</h1>
+            <p>Plavecký oddíl TJ Bohemians Praha slaví 80 let existence (1946–2026). Vychoval mnoho špičkových sportovců — účastníků olympijských her, mistrovství světa i Evropy. A děti učí plavat dodnes.</p>
           </div>
+          <figure class="hero-photo"><img src="assets/aktuality/2191.jpg" width="1400" height="1087" alt="Členové oddílu TJ Bohemians Praha" decoding="async"></figure>
         </div>
       </section>
 
-      <!-- V ČÍSLECH (z historie oddílu) -->
-      <section class="mx-auto max-w-7xl px-4 pt-2 sm:px-6" aria-label="Oddíl v číslech">
+      <section class="p-wrap p-sec p-facts-sec" aria-label="Oddíl v číslech">
         <dl class="o-facts">
           <div><dt>1946</dt><dd>Jaroslav Šíma zakládá plavecký oddíl.</dd></div>
           <div><dt>1959</dt><dd>Lída Kottková je v Turíně akademickou mistryní světa na 400 m volný způsob.</dd></div>
@@ -93,116 +86,56 @@
         </dl>
       </section>
 
-      <!-- STRUKTURA -->
-      <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
-        <div class="section-head">
-          <span class="section-eyebrow">Oddílová hierarchie</span>
-          <h2 class="section-title">Struktura a tréninkové skupiny</h2>
-          <div class="section-divider">
-            <span class="wave wave--sm"></span>
+      <section class="p-wrap p-sec" aria-labelledby="groups-title">
+        <div class="p-head">
+          <div>
+            <h2 class="p-h2" id="groups-title">Struktura a tréninkové skupiny</h2>
+            <p class="p-lead">Výkonnostně nejlepší družstva vedou trenéři s nejvyšším trenérským vzděláním v ČR. Trenéři Jan Srb a Kateřina Holubová jsou absolventy FTVS UK v Praze, Martin Břenda absolventem FTK v Olomouci — všichni držitelé trenérské licence I. třídy.</p>
           </div>
         </div>
-        <div id="groups-grid" class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <!-- Populated by JS -->
-        </div>
-        <p class="mt-8 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-          Výkonnostně nejlepší družstva vedou trenéři s nejvyšším trenérským vzděláním v ČR. Trenéři Jan Srb a
-          Kateřina Holubová jsou absolventy FTVS UK v Praze, Martin Břenda absolventem FTK v Olomouci — všichni
-          držitelé trenérské licence I. třídy.
-        </p>
+        <div id="groups-grid" class="p-groups"></div>
       </section>
 
-      <!-- HISTORIE -->
-      <section class="border-y border-border/60 bg-card/30 py-14 sm:py-20">
-        <div class="mx-auto max-w-4xl px-4 sm:px-6">
-          <div class="section-head">
-            <span class="section-eyebrow">Milníky klubu</span>
-            <h2 class="section-title">Historie v letech (1946–2026)</h2>
-            <div class="section-divider">
-              <span class="wave wave--sm"></span>
-            </div>
-          </div>
-          <ol id="history-timeline" class="mt-10 space-y-0 border-l border-border">
-            <!-- Populated by JS -->
-          </ol>
+      <section class="p-band">
+        <div class="p-wrap p-sec p-split p-split--rev" aria-labelledby="history-title">
+          <h2 class="p-h2 p-sticky" id="history-title">Historie v letech <span class="p-h2-sub">1946–2026</span></h2>
+          <ol id="history-timeline" class="p-years"></ol>
         </div>
       </section>
 
-      <!-- TRENÉŘI A VEDENÍ ODDÍLU -->
-      <section class="border-b border-border/60 bg-card/20 py-14 sm:py-20">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6">
-          <div class="section-head">
-            <span class="section-eyebrow">Kvalifikace &amp; Zkušenosti</span>
-            <h2 class="section-title">Trenérský tým a vedení oddílu</h2>
-            <div class="section-divider">
-              <span class="wave wave--sm"></span>
-            </div>
-            <p class="section-desc max-w-2xl">
-              Výkonnostní družstva vedou trenéři s licencí I. třídy, absolventi FTVS UK v Praze a FTK UP v Olomouci.
-            </p>
+      <section class="p-wrap p-sec" aria-labelledby="coaches-title">
+        <div class="p-head">
+          <div>
+            <h2 class="p-h2" id="coaches-title">Trenérský tým a vedení oddílu</h2>
+            <p class="p-lead">Výkonnostní družstva vedou trenéři s licencí I. třídy, absolventi FTVS UK v Praze a FTK UP v Olomouci.</p>
           </div>
-          <div id="coaches-grid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <!-- Populated by JS -->
-          </div>
+          <a class="text-link" href="kontakt">Všechny kontakty</a>
         </div>
+        <div id="coaches-grid" class="p-people"></div>
       </section>
 
-      <!-- DOMÁCÍ BAZÉNY -->
-      <section class="py-14 sm:py-20">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6">
-          <div class="section-head">
-            <span class="section-eyebrow">Kde trénujeme</span>
-            <h2 class="section-title">Domácí bazény oddílu</h2>
-            <div class="section-divider">
-              <span class="wave wave--sm"></span>
-            </div>
-            <p class="section-desc max-w-2xl">
-              Tréninky a výuka plavání probíhají na dvou tradičních pražských plaveckých stadionech.
-            </p>
+      <section class="p-wrap p-sec" aria-labelledby="pools-title">
+        <div class="p-head">
+          <div>
+            <h2 class="p-h2" id="pools-title">Domácí bazény oddílu</h2>
+            <p class="p-lead">Tréninky a výuka plavání probíhají na dvou tradičních pražských plaveckých stadionech.</p>
           </div>
-          <div class="grid gap-6 md:grid-cols-2">
-            <!-- Bazén 1: Podolí -->
-            <div class="spotlight-card rounded-3xl border border-border/60 bg-card/60 p-7 shadow-sm transition-all hover:border-primary/40">
-              <div class="flex items-center gap-3">
-                <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/15 text-primary">
-                  <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>
-                </div>
-                <div>
-                  <h3 class="font-display text-xl font-bold text-foreground">Plavecký stadion Podolí</h3>
-                  <p class="text-xs text-muted-foreground">Podolská 74, 147 00 Praha 4 – Podolí</p>
-                </div>
-              </div>
-              <p class="mt-4 text-sm leading-relaxed text-muted-foreground">
-                Domovský bazén závodních družstev Bohemians. K dispozici máme vyhrazené dráhy v krytém 50m bazénu a venkovním 50m vyhřívaném bazénu včetně suché přípravy v areálové posilovně a tělocvičně.
-              </p>
-              <div class="mt-6 flex flex-wrap gap-2 text-xs font-semibold">
-                <span class="rounded-full bg-primary/10 border border-primary/20 px-3 py-1 text-primary">50m olympijský bazén</span>
-                <span class="rounded-full bg-background border border-border px-3 py-1 text-foreground">ST, ODA, Výběr</span>
-                <span class="rounded-full bg-background border border-border px-3 py-1 text-foreground">Posilovna &amp; regenerace</span>
-              </div>
-            </div>
-
-            <!-- Bazén 2: Vinohrady -->
-            <div class="spotlight-card rounded-3xl border border-border/60 bg-card/60 p-7 shadow-sm transition-all hover:border-primary/40">
-              <div class="flex items-center gap-3">
-                <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/15 text-primary">
-                  <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-                </div>
-                <div>
-                  <h3 class="font-display text-xl font-bold text-foreground">Sokol Královské Vinohrady</h3>
-                  <p class="text-xs text-muted-foreground">Polská 2400/1a, 120 00 Praha 2 – Vinohrady</p>
-                </div>
-              </div>
-              <p class="mt-4 text-sm leading-relaxed text-muted-foreground">
-                Historická kolébka plaveckého oddílu Bohemians od roku 1946. Tradiční 25m bazén slouží především pro plaveckou přípravku, ranní tréninky sportovních tříd a výuku základního plavání dětí.
-              </p>
-              <div class="mt-6 flex flex-wrap gap-2 text-xs font-semibold">
-                <span class="rounded-full bg-primary/10 border border-primary/20 px-3 py-1 text-primary">25m krytý bazén</span>
-                <span class="rounded-full bg-background border border-border px-3 py-1 text-foreground">Přípravka &amp; Kurzy</span>
-                <span class="rounded-full bg-background border border-border px-3 py-1 text-foreground">Ranní fáze ST</span>
-              </div>
-            </div>
-          </div>
+        </div>
+        <div class="p-pools">
+          <article>
+            <h3>Plavecký stadion Podolí</h3>
+            <p class="p-addr">Podolská 74, 147 00 Praha 4 – Podolí</p>
+            <p>Domovský bazén závodních družstev Bohemians. K dispozici máme vyhrazené dráhy v krytém 50m bazénu a venkovním 50m vyhřívaném bazénu včetně suché přípravy v areálové posilovně a tělocvičně.</p>
+            <p class="p-tags">50m olympijský bazén<span aria-hidden="true"> · </span>ST, ODA, Výběr<span aria-hidden="true"> · </span>Posilovna &amp; regenerace</p>
+            <a class="text-link" href="https://mapy.cz/zakladni?q=Podolsk%C3%A1%2074%2C%20Praha%204" target="_blank" rel="noopener noreferrer">Otevřít v Mapy.cz</a>
+          </article>
+          <article>
+            <h3>Sokol Královské Vinohrady</h3>
+            <p class="p-addr">Polská 2400/1a, 120 00 Praha 2 – Vinohrady</p>
+            <p>Historická kolébka plaveckého oddílu Bohemians od roku 1946. Tradiční 25m bazén slouží především pro plaveckou přípravku, ranní tréninky sportovních tříd a výuku základního plavání dětí.</p>
+            <p class="p-tags">25m krytý bazén<span aria-hidden="true"> · </span>Přípravka &amp; Kurzy<span aria-hidden="true"> · </span>Ranní fáze ST</p>
+            <a class="text-link" href="https://mapy.cz/zakladni?q=Polsk%C3%A1%202400%2F1a%2C%20Praha%202" target="_blank" rel="noopener noreferrer">Otevřít v Mapy.cz</a>
+          </article>
         </div>
       </section>
 
@@ -210,12 +143,16 @@
 
     <!-- FOOTER -->
     <footer class="d-site-footer">
+      <div class="d-wrap d-foot-top">
+        <p class="d-foot-name">TJ Bohemians Praha <span class="sm">oddíl plavání od roku 1946</span></p>
+        <a class="btn btn-light btn-go" href="kontakt">Kontakty a bazény</a>
+      </div>
       <div class="d-wrap d-foot-grid">
-        <div>
+        <div class="d-foot-club">
           <img src="assets/logo8.png" alt="TJ Bohemians Praha, oddíl plavání" width="178" height="50" loading="lazy">
           <p class="d-foot-note">Plavecký oddíl TJ Bohemians Praha. Závodní plavání, přípravka a kurzy plavání v Praze od roku 1946.</p>
         </div>
-        <div>
+        <nav class="d-foot-menu" aria-label="Menu v patičce">
           <h2>Menu</h2>
           <ul>
             <li><a href="aktuality">Aktuality</a></li>
@@ -228,21 +165,28 @@
             <li><a href="ke-stazeni">Ke stažení</a></li>
             <li><a href="intranet">Intranet</a></li>
           </ul>
+        </nav>
+        <div>
+          <h2>Bazény</h2>
+          <address class="d-foot-pools">
+            <p><strong>Plavecký stadion Podolí</strong>Podolské nábřeží 3/1184, Praha 4</p>
+            <p><strong>Sokol Vinohrady</strong>Polská 2400/1a, Praha 2</p>
+          </address>
         </div>
         <div>
           <h2>Kontakt</h2>
           <ul>
             <li><a href="mailto:jan.srb@czechswimming.cz">jan.srb@czechswimming.cz</a></li>
-            <li><a href="kontakt">Kontakty a bazény</a></li>
             <li><a href="https://www.facebook.com/bohplavani" target="_blank" rel="noopener noreferrer">Facebook</a></li>
             <li><a href="https://www.instagram.com/bohemka_plavani" target="_blank" rel="noopener noreferrer">Instagram</a></li>
             <li><a href="https://www.boh.cz" target="_blank" rel="noopener noreferrer">Původní web boh.cz</a></li>
-            <li class="d-foot-small">IČO: 00539121 &middot; ČSOB: 351416278/0300</li>
           </ul>
         </div>
       </div>
       <div class="d-wrap d-foot-bottom">
-        <span>&copy; 1946&ndash;2026 TJ Bohemians Praha, oddíl plavání. 80 let zelenobílé tradice.</span>
+        <span>&copy; 1946&ndash;2026 TJ Bohemians Praha, oddíl plavání</span>
+        <span>IČO 00539121 &middot; ČSOB 351416278/0300</span>
+        <a href="#" class="d-foot-top-link">Nahoru</a>
       </div>
     </footer>
     <!-- MOBILE BOTTOM NAVIGATION (Anchored Edge-to-Edge Tab Bar) -->
@@ -381,7 +325,7 @@
             </span>
             <span class="mobile-drawer-label font-bold">Intranet</span>
           </div>
-          <span class="text-[11px] font-semibold text-primary px-2 py-0.5 rounded-full bg-primary/15 shrink-0">Přihlášení &rarr;</span>
+          <span class="text-[11px] font-semibold text-primary px-2 py-0.5 rounded-full bg-primary/15 shrink-0">Přihlášení</span>
         </a>
       </nav>
 
@@ -400,59 +344,32 @@
   <script src="js/animations.js"></script>
   <script src="js/app.js"></script>
   <script>
-    // Groups
-    const groupsContainer = document.getElementById("groups-grid");
-    if (groupsContainer) {
-      groupsContainer.innerHTML = (window.BohData.groups || []).map(g => `
-        <div class="reveal hover-float group h-full rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[var(--shadow-elevated)] backdrop-blur-sm transition-all duration-300">
-          <span class="inline-block rounded-full bg-primary/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
-            ${g.code}
-          </span>
-          <h3 class="mt-4 font-display text-lg font-bold">${g.name}</h3>
-          <p class="mt-2 text-sm leading-relaxed text-muted-foreground">${g.description}</p>
-        </div>
-      `).join("");
-    }
-
-    // History Timeline
-    const historyContainer = document.getElementById("history-timeline");
-    if (historyContainer) {
-      historyContainer.innerHTML = (window.BohData.history || []).map(h => `
-        <li class="reveal relative pb-9 pl-8 last:pb-0">
-          <span class="absolute -left-[7px] top-1.5 h-3.5 w-3.5 rounded-full bg-gradient-aqua"></span>
-          <span class="font-display text-xl font-extrabold text-primary">${h.year}</span>
-          <p class="mt-1 leading-relaxed text-muted-foreground">${h.text}</p>
-        </li>
-      `).join("");
-    }
-
-    // Coaches
-    const coachesContainer = document.getElementById("coaches-grid");
-    if (coachesContainer) {
-      coachesContainer.innerHTML = (window.BohData.coaches || []).map(c => `
-        <div class="reveal hover-float group h-full rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[var(--shadow-elevated)] backdrop-blur-sm transition-all duration-300">
-          <div class="flex items-center gap-3">
-            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/15 text-primary shrink-0">
-              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            </div>
-            <div>
-              <h3 class="font-display text-lg font-bold text-foreground">${escapeHtml(c.name)}</h3>
-              <p class="text-xs text-primary font-medium">${escapeHtml(c.role)}</p>
-            </div>
-          </div>
-          ${c.details && c.details.length > 0 ? `
-            <ul class="mt-4 space-y-1.5 border-t border-border/40 pt-3 text-xs text-muted-foreground">
-              ${c.details.map(d => `
-                <li class="flex items-center gap-2">
-                  <span class="h-1.5 w-1.5 rounded-full bg-primary/60 shrink-0"></span>
-                  <span>${escapeHtml(d)}</span>
-                </li>
-              `).join("")}
-            </ul>
-          ` : ''}
-        </div>
-      `).join("");
-    }
+    // Skupiny, historie a trenéři z BohData (texty jsou z dat oddílu, escapují se)
+    (function () {
+      const D = window.BohData || {};
+      const groupsEl = document.getElementById("groups-grid");
+      if (groupsEl) {
+        groupsEl.innerHTML = (D.groups || []).map(g => `
+          <article>
+            <h3>${escapeHtml(g.name)}${g.code && !String(g.name).toLowerCase().includes(String(g.code).toLowerCase()) ? ` <abbr title="Zkratka skupiny">${escapeHtml(g.code)}</abbr>` : ""}</h3>
+            <p>${escapeHtml(g.description)}</p>
+          </article>`).join("") || `<p class="p-state">Přehled skupin se nepodařilo načíst.</p>`;
+      }
+      const historyEl = document.getElementById("history-timeline");
+      if (historyEl) {
+        historyEl.innerHTML = (D.history || []).map(h => `
+          <li><time>${escapeHtml(h.year)}</time><p>${escapeHtml(h.text)}</p></li>`).join("");
+      }
+      const coachesEl = document.getElementById("coaches-grid");
+      if (coachesEl) {
+        coachesEl.innerHTML = (D.coaches || []).map(c => `
+          <article>
+            <h3>${escapeHtml(c.name)}</h3>
+            <p class="p-role">${escapeHtml(c.role)}</p>
+            ${c.details && c.details.length ? `<ul>${c.details.map(d => `<li>${escapeHtml(d)}</li>`).join("")}</ul>` : ""}
+          </article>`).join("");
+      }
+    })();
 
     if (window.initScrollReveal) setTimeout(window.initScrollReveal, 40);
   </script>

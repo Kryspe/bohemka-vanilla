@@ -67,17 +67,31 @@
 
     <!-- MAIN CONTENT -->
     <main class="w-full min-w-0 flex-1 pb-32 sm:pb-36 lg:pb-0" id="main-content" tabindex="-1">
-      <!-- Injected via renderNews() -->
+      <section class="page-hero" id="news-hero">
+        <div class="p-wrap p-hero">
+          <div class="p-hero-text">
+            <h1>Aktuality</h1>
+            <p>Hodnocení závodů, termíny soustředění, organizační informace a úspěchy našich plavců.</p>
+          </div>
+        </div>
+      </section>
+      <div id="news-root">
+        <div class="p-wrap p-sec"><p class="p-state" role="status">Načítám aktuality&hellip;</p></div>
+      </div>
     </main>
 
     <!-- FOOTER -->
     <footer class="d-site-footer">
+      <div class="d-wrap d-foot-top">
+        <p class="d-foot-name">TJ Bohemians Praha <span class="sm">oddíl plavání od roku 1946</span></p>
+        <a class="btn btn-light btn-go" href="kontakt">Kontakty a bazény</a>
+      </div>
       <div class="d-wrap d-foot-grid">
-        <div>
+        <div class="d-foot-club">
           <img src="assets/logo8.png" alt="TJ Bohemians Praha, oddíl plavání" width="178" height="50" loading="lazy">
           <p class="d-foot-note">Plavecký oddíl TJ Bohemians Praha. Závodní plavání, přípravka a kurzy plavání v Praze od roku 1946.</p>
         </div>
-        <div>
+        <nav class="d-foot-menu" aria-label="Menu v patičce">
           <h2>Menu</h2>
           <ul>
             <li><a href="aktuality">Aktuality</a></li>
@@ -90,21 +104,28 @@
             <li><a href="ke-stazeni">Ke stažení</a></li>
             <li><a href="intranet">Intranet</a></li>
           </ul>
+        </nav>
+        <div>
+          <h2>Bazény</h2>
+          <address class="d-foot-pools">
+            <p><strong>Plavecký stadion Podolí</strong>Podolské nábřeží 3/1184, Praha 4</p>
+            <p><strong>Sokol Vinohrady</strong>Polská 2400/1a, Praha 2</p>
+          </address>
         </div>
         <div>
           <h2>Kontakt</h2>
           <ul>
             <li><a href="mailto:jan.srb@czechswimming.cz">jan.srb@czechswimming.cz</a></li>
-            <li><a href="kontakt">Kontakty a bazény</a></li>
             <li><a href="https://www.facebook.com/bohplavani" target="_blank" rel="noopener noreferrer">Facebook</a></li>
             <li><a href="https://www.instagram.com/bohemka_plavani" target="_blank" rel="noopener noreferrer">Instagram</a></li>
             <li><a href="https://www.boh.cz" target="_blank" rel="noopener noreferrer">Původní web boh.cz</a></li>
-            <li class="d-foot-small">IČO: 00539121 &middot; ČSOB: 351416278/0300</li>
           </ul>
         </div>
       </div>
       <div class="d-wrap d-foot-bottom">
-        <span>&copy; 1946&ndash;2026 TJ Bohemians Praha, oddíl plavání. 80 let zelenobílé tradice.</span>
+        <span>&copy; 1946&ndash;2026 TJ Bohemians Praha, oddíl plavání</span>
+        <span>IČO 00539121 &middot; ČSOB 351416278/0300</span>
+        <a href="#" class="d-foot-top-link">Nahoru</a>
       </div>
     </footer>
     <!-- MOBILE BOTTOM NAVIGATION (Anchored Edge-to-Edge Tab Bar) -->
@@ -243,7 +264,7 @@
             </span>
             <span class="mobile-drawer-label font-bold">Intranet</span>
           </div>
-          <span class="text-[11px] font-semibold text-primary px-2 py-0.5 rounded-full bg-primary/15 shrink-0">Přihlášení &rarr;</span>
+          <span class="text-[11px] font-semibold text-primary px-2 py-0.5 rounded-full bg-primary/15 shrink-0">Přihlášení</span>
         </a>
       </nav>
 
@@ -267,90 +288,100 @@
     function showMoreNews() { newsVisible += 12; renderNews(); }
 
     function renderNews() {
-      const main = document.getElementById("main-content");
-      if (!main) return;
+      const hero = document.getElementById("news-hero");
+      const root = document.getElementById("news-root");
+      if (!hero || !root) return;
 
       const params = new URLSearchParams(window.location.search);
       const articleId = params.get("id");
       const newsList = (window.BohStore ? window.BohStore.getNews() : (window.BohData.news || []));
+      const czDate = d => new Date(d).toLocaleDateString("cs-CZ");
+      const listHero = `
+        <div class="p-wrap p-hero">
+          <div class="p-hero-text">
+            <h1>Aktuality</h1>
+            <p>Hodnocení závodů, termíny soustředění, organizační informace a úspěchy našich plavců.</p>
+          </div>
+        </div>`;
 
       if (articleId) {
-        const item = newsList.find(n => String(n.id) === String(articleId));
+        const idx = newsList.findIndex(n => String(n.id) === String(articleId));
+        const item = newsList[idx];
         if (!item) {
-          main.innerHTML = `
-            <div class="mx-auto max-w-3xl px-4 py-24 text-center">
-              <h1 class="font-display text-3xl font-bold">Aktualita nenalezena</h1>
-              <p class="mt-3 text-muted-foreground">Článek s tímto ID neexistuje nebo byl přesunut.</p>
-              <a href="aktuality" class="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 font-semibold text-primary-foreground hover:opacity-90 transition-opacity">
-                Zpět na přehled aktualit
-              </a>
-            </div>
-          `;
+          hero.innerHTML = `
+            <div class="p-wrap p-hero p-hero--article">
+              <a class="p-back" href="aktuality"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Všechny aktuality</a>
+              <div class="p-hero-text"><h1>Aktualita nenalezena</h1><p>Článek s tímto odkazem neexistuje nebo byl přesunut. Zkuste přehled aktualit.</p></div>
+            </div>`;
+          root.innerHTML = `<div class="p-wrap p-sec"><a href="aktuality" class="btn btn-solid btn-go">Přehled aktualit</a></div>`;
+          document.title = "Aktualita nenalezena | TJ Bohemians Praha";
           return;
         }
 
-        const bodyHtml = Array.isArray(item.body)
-          ? item.body.map(p => `<p class="leading-relaxed">${escapeHtml(p)}</p>`).join("")
-          : (item.body ? item.body.split("\n\n").map(p => `<p class="leading-relaxed">${escapeHtml(p).replace(/\n/g, '<br>')}</p>`).join("") : `<p class="leading-relaxed">${escapeHtml(item.excerpt || '')}</p>`);
+        // odstavce začínající pomlčkou jsou v původních textech výčty: spojí se do seznamu
+        const paras = Array.isArray(item.body) ? item.body
+          : (item.body ? String(item.body).split("\n\n") : [item.excerpt || ""]);
+        let bodyHtml = "", list = [];
+        const flush = () => { if (list.length) { bodyHtml += `<ul>${list.join("")}</ul>`; list = []; } };
+        paras.forEach(p => {
+          const t = String(p).trim();
+          if (!t) return;
+          const m = t.match(/^[-–—•]\s+([\s\S]+)$/);
+          if (m) list.push(`<li>${escapeHtml(m[1]).replace(/\n/g, "<br>")}</li>`);
+          else { flush(); bodyHtml += `<p>${escapeHtml(t).replace(/\n/g, "<br>")}</p>`; }
+        });
+        flush();
 
-        main.innerHTML = `
-          <div class="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-            <a href="aktuality" class="inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-transform hover:-translate-x-1 mb-6">
-              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg> Zpět na aktuality
-            </a>
-            <article class="s-article">
-              <div class="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-primary">
-                <time>${new Date(item.date).toLocaleDateString("cs-CZ")}</time>
-                <span class="text-muted-foreground">· ${escapeHtml(item.author || 'TJ Bohemians Praha')}</span>
-              </div>
-              <h1 class="mt-3 font-display text-3xl font-extrabold leading-tight sm:text-4xl md:text-5xl text-foreground">${escapeHtml(item.title)}</h1>
-              ${item.image ? `
-                <div class="s-article-img">
-                  <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}">
-                </div>
-              ` : ''}
-              <div class="mt-8 space-y-5 text-base leading-relaxed text-foreground/90 sm:text-lg">
-                ${bodyHtml}
-              </div>
-            </article>
-          </div>
-        `;
+        const newer = newsList[idx - 1], older = newsList[idx + 1];
+        const navLink = (n, label, cls) => n ? `
+          <a class="p-artnav-link ${cls}" href="aktuality?id=${encodeURIComponent(n.id)}">
+            <span>${label}</span><strong>${escapeHtml(n.title)}</strong>
+          </a>` : `<span class="${cls}"></span>`;
+
+        hero.innerHTML = `
+          <div class="p-wrap p-hero p-hero--article">
+            <a class="p-back" href="aktuality"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Všechny aktuality</a>
+            <div class="p-hero-text">
+              <h1>${escapeHtml(item.title)}</h1>
+              <p class="p-byline"><time datetime="${escapeHtml(item.date)}">${czDate(item.date)}</time><span aria-hidden="true">&middot;</span>${escapeHtml(item.author || "TJ Bohemians Praha")}</p>
+            </div>
+          </div>`;
+        root.innerHTML = `
+          <article class="p-wrap p-sec p-article">
+            ${item.image ? `<figure class="s-article-img p-article-img"><img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" decoding="async"></figure>` : ""}
+            <div class="p-prose">${bodyHtml}</div>
+            <nav class="p-artnav" aria-label="Další aktuality">
+              ${navLink(newer, "Novější", "is-prev")}
+              ${navLink(older, "Starší", "is-next")}
+            </nav>
+          </article>`;
+        document.title = item.title + " | TJ Bohemians Praha";
         window.scrollTo(0, 0);
       } else {
-        main.innerHTML = `
-          <section class="page-hero relative overflow-hidden">
-            <div class="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-20">
-              <div>
-                <span class="section-eyebrow">Novinky ze života oddílu · 80 let Bohemians</span>
-                <h1 class="max-w-3xl section-title md:text-5xl">Aktuality</h1>
-                <div class="section-divider"><span class="wave wave--md"></span></div>
-                <p class="section-desc max-w-2xl text-lg">Hodnocení závodů, termíny soustředění, organizační informace a úspěchy našich plavců.</p>
-              </div>
-            </div>
-          </section>
-
-          <div class="mx-auto max-w-4xl px-4 py-6 sm:px-6 sm:py-20">
-            ${newsList.length === 0 ? `<p class="s-empty">Zatím nebyly publikovány žádné aktuality.</p>` : `
+        if (!hero.querySelector("h1") || hero.querySelector(".p-hero--article")) hero.innerHTML = listHero;
+        root.innerHTML = `
+          <div class="p-wrap p-sec p-news">
+            ${newsList.length === 0 ? `<p class="p-state">Zatím nebyly publikovány žádné aktuality.</p>` : `
             <ol class="h-list">
-              ${newsList.slice(0, newsVisible).map(n => `
-                <li class="h-row">
-                  <time datetime="${escapeHtml(n.date)}">${new Date(n.date).toLocaleDateString("cs-CZ")}</time>
+              ${newsList.slice(0, newsVisible).map((n, i) => `
+                <li class="h-row${i === 0 ? " is-lead" : ""}">
+                  <time datetime="${escapeHtml(n.date)}">${czDate(n.date)}</time>
                   <div>
                     <h2><a href="aktuality?id=${encodeURIComponent(n.id)}">${escapeHtml(n.title)}</a></h2>
-                    <p>${escapeHtml(n.excerpt || '')}</p>
-                    <p class="h-by">${escapeHtml(n.author || 'TJ Bohemians Praha')}</p>
+                    <p>${escapeHtml(n.excerpt || "")}</p>
+                    <p class="h-by">${escapeHtml(n.author || "TJ Bohemians Praha")}</p>
                   </div>
-                  ${n.image ? `<a href="aktuality?id=${encodeURIComponent(n.id)}" tabindex="-1" aria-hidden="true"><img src="${escapeHtml(n.image)}" alt="" loading="lazy"></a>` : '<span></span>'}
+                  ${n.image ? `<a href="aktuality?id=${encodeURIComponent(n.id)}" tabindex="-1" aria-hidden="true"><img src="${escapeHtml(n.image)}" alt="" loading="lazy"></a>` : "<span></span>"}
                 </li>
               `).join("")}
             </ol>`}
             ${newsList.length > newsVisible ? `
-              <div class="mt-10 text-center">
-                <button type="button" onclick="showMoreNews()" class="btn btn-line">
+              <div class="p-more">
+                <button type="button" onclick="showMoreNews()" class="btn btn-line p-pill">
                   Zobrazit starší aktuality (${newsList.length - newsVisible})
                 </button>
               </div>
-            ` : ''}
+            ` : ""}
           </div>
         `;
       }
